@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "208045360497",
+    "project_id": "up-invest-app",
+    "storage_bucket": "up-invest-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208045360497:android:cc36abeece34d1a53b62d0",
+        "android_client_info": {
+          "package_name": "com.example.up_invest_front"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208045360497-c56k1j99itrb3ehf8on33d5supd298os.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ7GhCZJzqRxeJSPrtO7IpROD--SApwgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208045360497-c56k1j99itrb3ehf8on33d5supd298os.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "208045360497-09cgdpjvrg3qeuco2jiu5n8v001jt5eu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.upInvestFront"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -21,4 +21,15 @@ Up Invest is a study project that combines two passions: Flutter and Investments
 [Figma](https://www.figma.com/file/08ZVkGn3hlLds8UAslFEyb/Up-Invest?node-id=0%3A1&t=RjiezRBzMjBJl3fh-0)
 
 
+# 3. Patterns and Packages
+
+1. Bloc Pattern -> state managment (using flutter_bloc)
+2. Modular -> Modularized routes and Modularized Dependecy Injection
+3. Firebase -> Authentication Process
+4. Responsive Framework -> Helps with the resized of Texts Widgets in different devices and sizes.
+5. Google Fonts -> Use it to get the Poppins font family.
+6. Mocktail -> Use it to create mocks for tests.
+7. Bloc Test -> Use it to create bloc tests.
+8. Modular Tests -> Use it to create tests with the modular package.
+
 
