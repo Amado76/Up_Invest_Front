@@ -40,8 +40,8 @@ class UserMock extends Mock implements User {
   @override
   String get uid => 'uidTeste';
   @override
-  Future<void> updatePhotoURL(String? newAvatarPicture) async {
-    photoURL = newAvatarPicture ?? photoURL;
+  Future<void> updatePhotoURL(String? newAvatar) async {
+    photoURL = newAvatar ?? photoURL;
   }
 
   @override
@@ -59,19 +59,19 @@ class CredentialDTOMock extends Mock implements CredentialDTO {}
 
 Future<void> main() async {
   group('AuthGateway', () {
-    final mockFirebaseAuth = FirebaseAuthMock();
+    final firebaseAuthMock = FirebaseAuthMock();
     final userCredential = UserCredentialMock();
-    final firebaseGateway = FireBaseGateway(auth: mockFirebaseAuth);
-    test('Should return a AuthUserModel after create a new account', () async {
+    final firebaseGateway = FireBaseGateway(auth: firebaseAuthMock);
+    test('Should return a AuthUserModel when creating a new account', () async {
       //Arrage
       // Configure the FirebaseAuth mock to return the UserCredential mock
-      when(() => mockFirebaseAuth.createUserWithEmailAndPassword(
+      when(() => firebaseAuthMock.createUserWithEmailAndPassword(
           email: 'email',
           password: 'password')).thenAnswer((_) async => userCredential);
 
       //Act
       AuthUserModel newAccount = await firebaseGateway.createAccount(
-          'email', 'password', 'displayName', 'avatarPicture');
+          'email', 'password', 'displayName', 'avatar');
 
       //Assert
       expect(newAccount, const TypeMatcher<AuthUserModel>());
@@ -82,7 +82,7 @@ Future<void> main() async {
         () async {
       //Arrage
       // Configure the FirebaseAuth mock to return the UserCredential mock
-      when(() => mockFirebaseAuth.signInWithEmailAndPassword(
+      when(() => firebaseAuthMock.signInWithEmailAndPassword(
           email: 'email',
           password: 'password')).thenAnswer((_) async => userCredential);
 
@@ -132,7 +132,7 @@ Future<void> main() async {
 
     test('Should return false when there is no logged-in user', () async {
       //Arrage
-      when(() => mockFirebaseAuth.authStateChanges())
+      when(() => firebaseAuthMock.authStateChanges())
           .thenAnswer((_) => Stream.fromIterable([null]));
       //Act
       bool isSignedIn = await firebaseGateway.isUserSignedIn();
@@ -143,7 +143,7 @@ Future<void> main() async {
     test('Should return false when the user logs out', () async {
       //Arrage
       bool isSignedIn = true;
-      when(() => mockFirebaseAuth.authStateChanges())
+      when(() => firebaseAuthMock.authStateChanges())
           .thenAnswer((_) => Stream.fromIterable([null]));
 
       //Act
@@ -154,7 +154,7 @@ Future<void> main() async {
 
     test('Should return true when the user is logged', () async {
       //Arrage
-      when(() => mockFirebaseAuth.authStateChanges())
+      when(() => firebaseAuthMock.authStateChanges())
           .thenAnswer((_) => Stream.fromIterable([UserMock()]));
 
       //Act

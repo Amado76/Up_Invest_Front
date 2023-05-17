@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:up_invest_front/app/modules/auth/credential_dto.dart';
 
@@ -15,12 +14,12 @@ class FireBaseGateway implements IAuthGateway {
   @override
 
   /// Create a new account using e-mail and password
-  Future<AuthUserModel> createAccount(String email, String password,
-      String displayName, String avatarPicture) async {
+  Future<AuthUserModel> createAccount(
+      String email, String password, String displayName, String avatar) async {
     UserCredential userCredential;
     userCredential = await auth.createUserWithEmailAndPassword(
         email: email, password: password);
-    await updatePhoto(avatarPicture);
+    await updatePhoto(avatar);
     await updateDisplayName(displayName);
     AuthUserModel authUser =
         await getUserModelFromUserCredential(userCredential);
@@ -88,8 +87,8 @@ class FireBaseGateway implements IAuthGateway {
 
   /// Update the Avatar Picture, if it doesn't return any exception, it was successful.
   @override
-  Future<void> updatePhoto(String newAvatarPicture) async {
-    await auth.currentUser!.updatePhotoURL(newAvatarPicture);
+  Future<void> updatePhoto(String newAvatar) async {
+    await auth.currentUser!.updatePhotoURL(newAvatar);
   }
 
   /// Delete and logout the user, this method requires a recent login for security.
