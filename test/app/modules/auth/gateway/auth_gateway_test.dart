@@ -1,14 +1,19 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/firebase_gateway.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
+import 'package:up_invest_front/app/modules/auth/credential_dto.dart';
 
 class FirebaseAuthMock extends Mock implements FirebaseAuth {
   @override
   User? get currentUser => UserMock();
+  @override
+  Future<UserCredential> signInWithCredential(AuthCredential credential) async {
+    UserCredentialMock userCredentialMock = UserCredentialMock();
+    return userCredentialMock;
+  }
 }
 
 class UserCredentialMock extends Mock implements UserCredential {
@@ -50,70 +55,112 @@ class UserMock extends Mock implements User {
   }
 }
 
+class CredentialDTOMock extends Mock implements CredentialDTO {}
+
 Future<void> main() async {
-  final mockFirebaseAuth = FirebaseAuthMock();
-  final userCredential = UserCredentialMock();
-  final firebaseGateway = FireBaseGateway(auth: mockFirebaseAuth);
-  test('Should return a AuthUserModel after create a new account', () async {
-    //Arrage
-    // Configure the FirebaseAuth mock to return the UserCredential mock
-    when(() => mockFirebaseAuth.createUserWithEmailAndPassword(
-        email: 'email',
-        password: 'password')).thenAnswer((_) async => userCredential);
+  group('AuthGateway', () {
+    final mockFirebaseAuth = FirebaseAuthMock();
+    final userCredential = UserCredentialMock();
+    final firebaseGateway = FireBaseGateway(auth: mockFirebaseAuth);
+    test('Should return a AuthUserModel after create a new account', () async {
+      //Arrage
+      // Configure the FirebaseAuth mock to return the UserCredential mock
+      when(() => mockFirebaseAuth.createUserWithEmailAndPassword(
+          email: 'email',
+          password: 'password')).thenAnswer((_) async => userCredential);
 
-    //Act
-    AuthUserModel newAccount = await firebaseGateway.createAccount(
-        'email', 'password', 'displayName', 'avatarPicture');
+      //Act
+      AuthUserModel newAccount = await firebaseGateway.createAccount(
+          'email', 'password', 'displayName', 'avatarPicture');
 
-    //Assert
-    expect(newAccount, const TypeMatcher<AuthUserModel>());
-  });
+      //Assert
+      expect(newAccount, const TypeMatcher<AuthUserModel>());
+    });
 
-  test('Should return a AuthUserModel after sucesseful sing in', () async {
-    //Arrage
-    // Configure the FirebaseAuth mock to return the UserCredential mock
-    when(() => mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'email',
-        password: 'password')).thenAnswer((_) async => userCredential);
+    test(
+        'Should return a AuthUserModel after sucesseful sign in with email and password',
+        () async {
+      //Arrage
+      // Configure the FirebaseAuth mock to return the UserCredential mock
+      when(() => mockFirebaseAuth.signInWithEmailAndPassword(
+          email: 'email',
+          password: 'password')).thenAnswer((_) async => userCredential);
 
-    //Act
-    AuthUserModel newAccount =
-        await firebaseGateway.singInWithEmailAndPassword('email', 'password');
+      //Act
+      AuthUserModel signInWithEmailAndPassword =
+          await firebaseGateway.signInWithEmailAndPassword('email', 'password');
 
-    //Assert
-    expect(newAccount, const TypeMatcher<AuthUserModel>());
-  });
+      //Assert
+      expect(signInWithEmailAndPassword, const TypeMatcher<AuthUserModel>());
+    });
 
-  test('Should return false when there is no logged-in user', () async {
-    //Arrage
-    when(() => mockFirebaseAuth.authStateChanges())
-        .thenAnswer((_) => Stream.fromIterable([null]));
-    //Act
-    bool isSignedIn = await firebaseGateway.isUserSignedIn();
-    //Assert
-    expect(isSignedIn, false);
-  });
+    test(
+        'Should return a AuthUserModel after sucesseful sign in with Google account',
+        () async {
+      //Act
+      AuthUserModel signInWithGoogle =
+          await firebaseGateway.signInWithSocialNetwork(
+              'google', CredentialDTO(acessToken: 'acessToken', idToken: ''));
 
-  test('Should return false when the user logs out', () async {
-    //Arrage
-    bool isSignedIn = true;
-    when(() => mockFirebaseAuth.authStateChanges())
-        .thenAnswer((_) => Stream.fromIterable([null]));
+      //Assert
 
-    //Act
-    isSignedIn = await firebaseGateway.isUserSignedIn();
-    //Assert
-    expect(isSignedIn, false);
-  });
+      expect(signInWithGoogle, const TypeMatcher<AuthUserModel>());
+    });
+    test(
+        'Should return a AuthUserModel after sucesseful sign in with Facebook account',
+        () async {
+      //Act
+      AuthUserModel signInWithGoogle =
+          await firebaseGateway.signInWithSocialNetwork(
+              'facebook', CredentialDTO(acessToken: 'acessToken'));
 
-  test('Should return true when the user is logged', () async {
-    //Arrage
-    when(() => mockFirebaseAuth.authStateChanges())
-        .thenAnswer((_) => Stream.fromIterable([UserMock()]));
+      //Assert
 
-    //Act
-    bool isSignedIn = await firebaseGateway.isUserSignedIn();
-    //Assert
-    expect(isSignedIn, true);
+      expect(signInWithGoogle, const TypeMatcher<AuthUserModel>());
+    });
+    test('Should throw an exception if an invalid sign-in option is received',
+        () async {
+      //Act
+      try {
+        await firebaseGateway.signInWithSocialNetwork(
+            'orkut', CredentialDTO(acessToken: 'acessToken'));
+      } catch (e) {
+        //Assert
+        expect(e, 'Invalid Social Network');
+      }
+    });
+
+    test('Should return false when there is no logged-in user', () async {
+      //Arrage
+      when(() => mockFirebaseAuth.authStateChanges())
+          .thenAnswer((_) => Stream.fromIterable([null]));
+      //Act
+      bool isSignedIn = await firebaseGateway.isUserSignedIn();
+      //Assert
+      expect(isSignedIn, false);
+    });
+
+    test('Should return false when the user logs out', () async {
+      //Arrage
+      bool isSignedIn = true;
+      when(() => mockFirebaseAuth.authStateChanges())
+          .thenAnswer((_) => Stream.fromIterable([null]));
+
+      //Act
+      isSignedIn = await firebaseGateway.isUserSignedIn();
+      //Assert
+      expect(isSignedIn, false);
+    });
+
+    test('Should return true when the user is logged', () async {
+      //Arrage
+      when(() => mockFirebaseAuth.authStateChanges())
+          .thenAnswer((_) => Stream.fromIterable([UserMock()]));
+
+      //Act
+      bool isSignedIn = await firebaseGateway.isUserSignedIn();
+      //Assert
+      expect(isSignedIn, true);
+    });
   });
 }

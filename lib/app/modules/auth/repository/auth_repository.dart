@@ -21,7 +21,7 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<bool> isUserLoggedIn() {
+  Future<bool> isUserSignedIn() {
     // TODO: implement isUserLoggedIn
     throw UnimplementedError();
   }
@@ -32,23 +32,23 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<AuthUserModel> singInWithEmailAndPassword(
+  Future<AuthUserModel> signInWithEmailAndPassword(
       String email, String password) async {
     AuthUserModel user =
-        await authGateway.singInWithEmailAndPassword(email, password);
+        await authGateway.signInWithEmailAndPassword(email, password);
     return user;
   }
 
   @override
-  Future<AuthUserModel> singInWithSocialNetwork(
+  Future<AuthUserModel> signInWithSocialNetwork(
       String email, String socialNetwork) {
     // TODO: implement singInWithSocialNetwork
     throw UnimplementedError();
   }
 
   @override
-  Future<void> singOut() async {
-    authGateway.singOut();
+  Future<void> signOut() async {
+    authGateway.signOut();
   }
 
   @override

@@ -3,5 +3,5 @@ class CredentialDTO {
   String? idToken;
   String? secret;
 
-  CredentialDTO(this.idToken, this.secret, {required this.acessToken});
+  CredentialDTO({this.idToken, this.secret, required this.acessToken});
 }

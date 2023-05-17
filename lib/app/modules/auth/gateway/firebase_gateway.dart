@@ -31,7 +31,7 @@ class FireBaseGateway implements IAuthGateway {
   @override
 
   /// Sing In usigin the e-mail and password method
-  Future<AuthUserModel> singInWithEmailAndPassword(
+  Future<AuthUserModel> signInWithEmailAndPassword(
       String email, String password) async {
     UserCredential userCredential =
         await auth.signInWithEmailAndPassword(email: email, password: password);
@@ -40,8 +40,6 @@ class FireBaseGateway implements IAuthGateway {
     return authUserModel;
   }
 
-  @override
-
   /// Sign in using a social network method. The gateway will select the right social network to use.
   ///
   /// Parameters:
@@ -49,16 +47,21 @@ class FireBaseGateway implements IAuthGateway {
   /// - credentialDTO: The credential data required for the sign-in process.
   ///
   /// Returns: A Future that resolves to an AuthUserModel representing the signed-in user.
-  Future<AuthUserModel> singInWithSocialNetwork(
+  @override
+  Future<AuthUserModel> signInWithSocialNetwork(
       String socialNetwork, CredentialDTO credentialDTO) async {
-    if (socialNetwork == 'facebook') {
-      return await singInWithFacebook(credentialDTO);
+    switch (socialNetwork) {
+      case 'google':
+        return await signInWithGoogle(credentialDTO);
+      case 'facebook':
+        return await signInWithFacebook(credentialDTO);
+      default:
+        throw 'Invalid Social Network';
     }
-    return await singInWithGoogle(credentialDTO);
   }
 
   /// Specific rules to sing in with Facebook
-  Future<AuthUserModel> singInWithFacebook(CredentialDTO credentialDTO) async {
+  Future<AuthUserModel> signInWithFacebook(CredentialDTO credentialDTO) async {
     final OAuthCredential facebookAuthCredential;
     facebookAuthCredential =
         FacebookAuthProvider.credential(credentialDTO.acessToken);
@@ -68,7 +71,7 @@ class FireBaseGateway implements IAuthGateway {
   }
 
   /// Specific rules to sing in with Google
-  Future<AuthUserModel> singInWithGoogle(CredentialDTO credentialDTO) async {
+  Future<AuthUserModel> signInWithGoogle(CredentialDTO credentialDTO) async {
     final OAuthCredential googleAuthCredential;
     googleAuthCredential = GoogleAuthProvider.credential(
         accessToken: credentialDTO.acessToken, idToken: credentialDTO.idToken);
@@ -117,7 +120,7 @@ class FireBaseGateway implements IAuthGateway {
   }
 
   @override
-  Future<void> singOut() async {
+  Future<void> signOut() async {
     await auth.signOut();
   }
 
