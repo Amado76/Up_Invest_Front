@@ -23,11 +23,6 @@ class AuthStateLoggedOut extends AuthState {
   const AuthStateLoggedOut({required super.isLoading, AuthError? authError});
 }
 
-@immutable
-class AuthStateRegistration extends AuthState {
-  const AuthStateRegistration({required super.isLoading, AuthError? authError});
-}
-
 extension GetUser on AuthState {
   AuthUserModel? get user {
     final cls = this;

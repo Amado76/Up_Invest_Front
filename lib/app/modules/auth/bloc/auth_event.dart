@@ -87,23 +87,3 @@ class AuthEventPasswordReset implements AuthEvent {
     required this.email,
   });
 }
-
-@immutable
-class AuthEventGoToRegistrationPage implements AuthEvent {
-  const AuthEventGoToRegistrationPage();
-}
-
-@immutable
-class AuthEventGoToSignInPage implements AuthEvent {
-  const AuthEventGoToSignInPage();
-}
-
-@immutable
-class AuthEventGoToRecoverPasswordPage implements AuthEvent {
-  const AuthEventGoToRecoverPasswordPage();
-}
-
-@immutable
-class AuthEventGoToHomePage implements AuthEvent {
-  const AuthEventGoToHomePage();
-}

@@ -21,9 +21,8 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<bool> isUserSignedIn() {
-    // TODO: implement isUserLoggedIn
-    throw UnimplementedError();
+  Future<bool> isUserSignedIn() async {
+    return await authGateway.isUserSignedIn();
   }
 
   @override
