@@ -9,7 +9,7 @@ class LoginFormValidator {
     return null;
   }
 
-  String? passwordValidator(String? password) {
+  String? signUpPasswordValidator(String? password) {
     if (password == null || password.isEmpty) {
       return 'Please enter your password.';
     }
@@ -20,6 +20,17 @@ class LoginFormValidator {
         !RegExp(_specialCharRegExp).hasMatch(password)) {
       return 'Password requires at least one special character and at least one uppercase letter.';
     }
+    return null;
+  }
+
+  String? signInPasswordValidator(String? password) {
+    if (password == null || password.isEmpty) {
+      return 'Please enter your password.';
+    }
+    if (password.length < 6) {
+      return 'Your password have less than 6 characters!';
+    }
+
     return null;
   }
 

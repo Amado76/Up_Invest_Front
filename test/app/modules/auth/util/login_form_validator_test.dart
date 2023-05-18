@@ -47,13 +47,13 @@ void main() {
     });
   });
 
-  group('Password Validator', () {
+  group('Sign Up Password Validator', () {
     LoginFormValidator validator = LoginFormValidator();
     test('Should return null if the password is valid', () {
       //Arrange
       String password = 'Abc12\$';
       //Act
-      String? isValid = validator.passwordValidator(password);
+      String? isValid = validator.signUpPasswordValidator(password);
       //Assert
       expect(isValid, null);
     });
@@ -65,21 +65,21 @@ void main() {
       String emptyPassword = '';
       Null nullPassword;
       //Act
-      String? isEmpty = validator.passwordValidator(emptyPassword);
-      String? isNull = validator.passwordValidator(nullPassword);
+      String? isEmpty = validator.signUpPasswordValidator(emptyPassword);
+      String? isNull = validator.signUpPasswordValidator(nullPassword);
       //Assert
       expect(isEmpty, expectResult);
       expect(isNull, expectResult);
     });
     test(
-        'Should return "Your password have less than 6 characters!" if the password has lass then 6 characters',
+        'Should return "Your password have less than 6 characters!" if the password have lass then 6 characters',
         () {
       //Arrange
       String expectResult = 'Your password have less than 6 characters!';
       String password = '12345';
 
       //Act
-      String? weakPassword = validator.passwordValidator(password);
+      String? weakPassword = validator.signUpPasswordValidator(password);
 
       //Assert
       expect(weakPassword, expectResult);
@@ -93,7 +93,7 @@ void main() {
       String password = 'Abc123';
 
       //Act
-      String? weakPassword = validator.passwordValidator(password);
+      String? weakPassword = validator.signUpPasswordValidator(password);
 
       //Assert
       expect(weakPassword, expectResult);
@@ -107,7 +107,7 @@ void main() {
       String password = 'abc123!';
 
       //Act
-      String? weakPassword = validator.passwordValidator(password);
+      String? weakPassword = validator.signUpPasswordValidator(password);
 
       //Assert
       expect(weakPassword, expectResult);
@@ -121,10 +121,50 @@ void main() {
       String password = 'abc123';
 
       //Act
-      String? weakPassword = validator.passwordValidator(password);
+      String? weakPassword = validator.signUpPasswordValidator(password);
 
       //Assert
       expect(weakPassword, expectResult);
+    });
+
+    group('Sign In Password Validator', () {
+      LoginFormValidator validator = LoginFormValidator();
+
+      test('Should return null if the password have at lest 6 characters', () {
+        //Arrange
+        String password = 'Abc12\$';
+        //Act
+        String? isValid = validator.signInPasswordValidator(password);
+        //Assert
+        expect(isValid, null);
+      });
+      test(
+          'Should return "Please enter your password." if the password is null or empty',
+          () {
+        //Arrange
+        String expectResult = 'Please enter your password.';
+        String emptyPassword = '';
+        Null nullPassword;
+        //Act
+        String? isEmpty = validator.signInPasswordValidator(emptyPassword);
+        String? isNull = validator.signInPasswordValidator(nullPassword);
+        //Assert
+        expect(isEmpty, expectResult);
+        expect(isNull, expectResult);
+      });
+      test(
+          'Should return "Your password have less than 6 characters!" if the password have lass then 6 characters',
+          () {
+        //Arrange
+        String expectResult = 'Your password have less than 6 characters!';
+        String password = '12345';
+
+        //Act
+        String? weakPassword = validator.signInPasswordValidator(password);
+
+        //Assert
+        expect(weakPassword, expectResult);
+      });
     });
   });
 }
