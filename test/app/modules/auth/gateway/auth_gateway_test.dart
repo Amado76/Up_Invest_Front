@@ -1,72 +1,12 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/firebase_gateway.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/credential_dto.dart';
-
-class FirebaseAuthMock extends Mock implements FirebaseAuth {
-  @override
-  User? get currentUser => UserMock();
-  @override
-  Future<UserCredential> signInWithCredential(AuthCredential credential) async {
-    UserCredentialMock userCredentialMock = UserCredentialMock();
-    return userCredentialMock;
-  }
-}
-
-class UserCredentialMock extends Mock implements UserCredential {
-  @override
-  User? get user => UserMock();
-  @override
-  AuthCredential? get credential => AuthCredentialMock();
-}
-
-class AuthCredentialMock extends Mock implements AuthCredential {
-  @override
-  String get signInMethod => 'Facebook';
-}
-
-class UserMock extends Mock implements User {
-  @override
-  String displayName = 'Walter White';
-  @override
-  String email = 'walter.white@gmail.com';
-  @override
-  String photoURL = 'Kabum';
-  @override
-  bool emailVerified = true;
-  @override
-  String get uid => 'uidTeste';
-  @override
-  Future<void> updatePhotoURL(String? newAvatar) async {
-    photoURL = newAvatar ?? photoURL;
-  }
-
-  @override
-  List<UserInfo> get providerData {
-    List<UserInfo> userInfoList = [UserInfoMock()];
-    return userInfoList;
-  }
-
-  @override
-  Future<void> updateDisplayName(String? newDisplayName) async {
-    displayName = newDisplayName ?? displayName;
-  }
-
-  @override
-  Future<String> getIdToken([bool forceRefresh = false]) async {
-    return 'foo';
-  }
-}
-
-class UserInfoMock extends Mock implements UserInfo {
-  @override
-  get providerId {
-    return 'email';
-  }
-}
+import '../../../../mocks/firebase/firebase_auth_mock.dart';
+import '../../../../mocks/firebase/user_credential_mock.dart';
+import '../../../../mocks/firebase/user_mock.dart';
 
 class CredentialDTOMock extends Mock implements CredentialDTO {}
 
@@ -175,8 +115,9 @@ Future<void> main() async {
 
     test('Should return true when the user is logged', () async {
       //Arrage
+      UserMock userMock = UserMock();
       when(() => firebaseAuthMock.authStateChanges())
-          .thenAnswer((_) => Stream.fromIterable([UserMock()]));
+          .thenAnswer((_) => Stream.fromIterable([userMock]));
 
       //Act
       bool isSignedIn = await firebaseGateway.isUserSignedIn();
