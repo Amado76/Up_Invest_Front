@@ -29,4 +29,6 @@ abstract class IAuthGateway {
   Future<void> signOut();
 
   Future<bool> isUserSignedIn();
+
+  Future<AuthUserModel> getLoggedUser();
 }

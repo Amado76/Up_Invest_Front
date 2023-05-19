@@ -16,6 +16,7 @@ abstract class IAuthRepository {
   Future<void> sendPasswordResetEmail(String email);
   Future<void> signOut();
   Future<bool> isUserSignedIn();
+  Future<AuthUserModel> getLoggedUser();
 
   IAuthRepository({required this.authGateway});
 }

@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/firebase_gateway.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
 import 'package:up_invest_front/app/modules/auth/pages/login_page.dart';
+
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository_interface.dart';
 
@@ -10,9 +13,14 @@ class AuthModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.singleton<IAuthRepository>(
-        (i) => AuthRepository(i.get<IAuthGateway>())),
+        (i) => AuthRepository(i.get<IAuthGateway>()),
+        export: true),
     Bind.singleton<IAuthGateway>(
-        (i) => FireBaseGateway(auth: i.get<FirebaseAuth>()))
+        (i) => FireBaseGateway(auth: i.get<FirebaseAuth>()),
+        export: true),
+    BlocBind.singleton(
+        (i) => AuthBloc(authRepository: i.get<IAuthRepository>()),
+        export: true)
   ];
 
   @override

@@ -22,7 +22,7 @@ class FireBaseGateway implements IAuthGateway {
     await updatePhoto(avatar);
     await updateDisplayName(displayName);
     AuthUserModel authUser =
-        await getUserModelFromUserCredential(userCredential);
+        await geAuthtUserModelFromUserCredential(userCredential);
 
     return authUser;
   }
@@ -35,7 +35,7 @@ class FireBaseGateway implements IAuthGateway {
     UserCredential userCredential =
         await auth.signInWithEmailAndPassword(email: email, password: password);
     AuthUserModel authUserModel =
-        await getUserModelFromUserCredential(userCredential);
+        await geAuthtUserModelFromUserCredential(userCredential);
     return authUserModel;
   }
 
@@ -66,7 +66,7 @@ class FireBaseGateway implements IAuthGateway {
         FacebookAuthProvider.credential(credentialDTO.acessToken);
     UserCredential userCredential =
         await auth.signInWithCredential(facebookAuthCredential);
-    return getUserModelFromUserCredential(userCredential);
+    return await geAuthtUserModelFromUserCredential(userCredential);
   }
 
   /// Specific rules to sing in with Google
@@ -76,7 +76,7 @@ class FireBaseGateway implements IAuthGateway {
         accessToken: credentialDTO.acessToken, idToken: credentialDTO.idToken);
     UserCredential userCredential =
         await auth.signInWithCredential(googleAuthCredential);
-    return getUserModelFromUserCredential(userCredential);
+    return await geAuthtUserModelFromUserCredential(userCredential);
   }
 
   /// Update the username, if it doesn't return any exception, it was successful.
@@ -138,14 +138,37 @@ class FireBaseGateway implements IAuthGateway {
     await auth.currentUser?.reauthenticateWithCredential(credential);
   }
 
+  @override
+  Future<AuthUserModel> getLoggedUser() async {
+    AuthUserModel authUserModel;
+    User? firebaseUser = auth.currentUser;
+    authUserModel = await getAuthUserModelFromUser(firebaseUser);
+    return authUserModel;
+  }
+
   /// Convert the UserCredential (Firebase Object) to AuthUserModel
-  Future<AuthUserModel> getUserModelFromUserCredential(
-          UserCredential userCredential) async =>
-      AuthUserModel(
-          userId: userCredential.user!.uid,
-          token: await userCredential.user!.getIdToken(),
-          displayName: userCredential.user!.displayName ?? '',
-          avatarPicture: userCredential.user!.photoURL ?? 'default',
-          signInMethod: userCredential.credential!.signInMethod,
-          isEmailVerified: userCredential.user!.emailVerified);
+  Future<AuthUserModel> geAuthtUserModelFromUserCredential(
+      UserCredential userCredential) async {
+    AuthUserModel authUser = AuthUserModel(
+        userId: userCredential.user?.uid ?? '',
+        email: userCredential.user?.email ?? '',
+        token: await userCredential.user?.getIdToken() ?? '',
+        displayName: userCredential.user?.displayName ?? '',
+        avatarPicture: userCredential.user?.photoURL ?? 'default',
+        signInMethod: userCredential.credential?.signInMethod ?? '',
+        isEmailVerified: userCredential.user?.emailVerified ?? false);
+    return authUser;
+  }
+
+  Future<AuthUserModel> getAuthUserModelFromUser(User? user) async {
+    AuthUserModel authUser = AuthUserModel(
+        userId: user?.uid ?? '',
+        email: user?.email ?? '',
+        token: await user?.getIdToken() ?? '',
+        displayName: user?.displayName ?? '',
+        avatarPicture: user?.photoURL ?? 'default',
+        signInMethod: user?.providerData[0].providerId ?? '',
+        isEmailVerified: user?.emailVerified ?? false);
+    return authUser;
+  }
 }

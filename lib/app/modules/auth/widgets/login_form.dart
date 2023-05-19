@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 import 'package:up_invest_front/app/modules/auth/util/login_form_validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_elevated_button.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
@@ -16,15 +18,18 @@ class LoginFormState extends State<LoginForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _validator = LoginFormValidator();
+
   @override
   Widget build(BuildContext context) {
+    final authBloc = Modular.get<AuthBloc>();
     return Form(
         key: _formKey,
         child: Column(
           children: [
             CustomTextFormField(
+                hintText: 'Email  ',
+                keyBoardType: TextInputType.emailAddress,
                 controller: _emailController,
-                label: 'Enter your email',
                 validator: (email) {
                   return _validator.emailValidator(email);
                 }),
@@ -32,10 +37,10 @@ class LoginFormState extends State<LoginForm> {
               height: 11,
             ),
             CustomTextFormField(
+              hintText: 'Password',
               controller: _passwordController,
-              label: 'Enter your password',
               validator: (password) {
-                return _validator.passwordValidator(password);
+                return _validator.signInPasswordValidator(password);
               },
               obscureText: true,
             ),
@@ -47,9 +52,13 @@ class LoginFormState extends State<LoginForm> {
               height: 10,
             ),
             CustomElevatedButton(
-              text: 'Login',
+              text: 'Sign In',
               onPressed: () {
-                if (_formKey.currentState!.validate()) {}
+                if (_formKey.currentState!.validate()) {
+                  authBloc.add(AuthEventSignInWithEmailAndPassword(
+                      email: _emailController.text,
+                      password: _passwordController.text));
+                }
               },
             ),
             const SizedBox(height: 10),
@@ -69,7 +78,7 @@ class _ForgotPassword extends StatelessWidget {
       onPressed: () => Modular.to.navigate('/auth/recover_password'),
       child: Text(
         'Forgot Password?',
-        style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+        style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
       ),
     );
   }

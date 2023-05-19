@@ -63,8 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '208045360497',
     projectId: 'up-invest-app',
     storageBucket: 'up-invest-app.appspot.com',
-    iosClientId:
-        '208045360497-09cgdpjvrg3qeuco2jiu5n8v001jt5eu.apps.googleusercontent.com',
+    androidClientId: '208045360497-v4kvk1nh4a97q1i3o9l2jqrib466oqgq.apps.googleusercontent.com',
+    iosClientId: '208045360497-09cgdpjvrg3qeuco2jiu5n8v001jt5eu.apps.googleusercontent.com',
     iosBundleId: 'com.example.upInvestFront',
   );
 }

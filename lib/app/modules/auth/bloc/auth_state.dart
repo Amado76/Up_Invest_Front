@@ -20,16 +20,5 @@ class AuthStateLoggedIn extends AuthState {
 
 @immutable
 class AuthStateLoggedOut extends AuthState {
-  const AuthStateLoggedOut({required super.isLoading, AuthError? authError});
-}
-
-extension GetUser on AuthState {
-  AuthUserModel? get user {
-    final cls = this;
-    if (cls is AuthStateLoggedIn) {
-      return cls.user;
-    } else {
-      return null;
-    }
-  }
+  const AuthStateLoggedOut({required super.isLoading, super.authError});
 }

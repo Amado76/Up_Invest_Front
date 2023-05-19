@@ -55,4 +55,9 @@ class AuthRepository implements IAuthRepository {
       String oldPassword, String newPassword, String email) async {
     authGateway.updatePassword(oldPassword, newPassword, email);
   }
+
+  @override
+  Future<AuthUserModel> getLoggedUser() {
+    return authGateway.getLoggedUser();
+  }
 }

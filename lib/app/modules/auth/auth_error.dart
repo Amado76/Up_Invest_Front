@@ -3,16 +3,16 @@ import 'package:flutter/foundation.dart' show immutable;
 
 /// The [AuthError] class represents authentication errors.
 const Map<String, AuthError> authErrorMapping = {
-  'auth/email-already-exists': AuthErrorEmailAlreadyExists(),
-  'auth/id-token-expired': AuthErrorTokenExpired(),
-  'auth/id-token-revoked': AuthErrorTokenRevoked(),
-  'auth/invalid-email': AuthErrorInvalidEmail(),
-  'auth/operation-not-allowed': AuthErrorOperationNotAllowed(),
-  'auth/user-not-found': AuthErrorUserNotFound(),
-  'auth/requires-recent-login': AuthErrorRequiresRecentLogin(),
-  'auth/weak-password': AuthErrorWeakPassword(),
-  'auth/user-mismatch': AuthErrorUserMismatch(),
-  'auth/wrong-password': AuthErrorWrongPassword(),
+  'email-already-exists': AuthErrorEmailAlreadyExists(),
+  'id-token-expired': AuthErrorTokenExpired(),
+  'id-token-revoked': AuthErrorTokenRevoked(),
+  'invalid-email': AuthErrorInvalidEmail(),
+  'operation-not-allowed': AuthErrorOperationNotAllowed(),
+  'user-not-found': AuthErrorUserNotFound(),
+  'requires-recent-login': AuthErrorRequiresRecentLogin(),
+  'weak-password': AuthErrorWeakPassword(),
+  'user-mismatch': AuthErrorUserMismatch(),
+  'wrong-password': AuthErrorWrongPassword(),
 };
 
 @immutable

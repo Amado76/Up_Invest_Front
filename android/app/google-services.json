@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "208045360497-c56k1j99itrb3ehf8on33d5supd298os.apps.googleusercontent.com",
+          "client_id": "208045360497-v4kvk1nh4a97q1i3o9l2jqrib466oqgq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.up_invest_front",
+            "certificate_hash": "93a1842aeb486b43be0ba8f4690ed4036280ef43"
+          }
+        },
+        {
+          "client_id": "208045360497-t3vm4qi9jc5oip2vo9vfposhg0k5us8r.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

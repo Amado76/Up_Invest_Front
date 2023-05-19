@@ -22,7 +22,7 @@ void main() {
         () {
       // Arrange
       final firebaseAuthException =
-          FirebaseAuthException(code: 'auth/email-already-exists');
+          FirebaseAuthException(code: 'email-already-exists');
 
       // Act
       final authError = AuthError.from(firebaseAuthException);
@@ -31,11 +31,11 @@ void main() {
       expect(authError, isA<AuthErrorEmailAlreadyExists>());
     });
     test(
-        'Should return an instance of AuthErrorTokenExpired if the error from FirebaseAuthException is auth/id-token-expired',
+        'Should return an instance of AuthErrorTokenExpired if the error from FirebaseAuthException is id-token-expired',
         () {
       // Arrange
       final firebaseAuthException =
-          FirebaseAuthException(code: 'auth/id-token-expired');
+          FirebaseAuthException(code: 'id-token-expired');
 
       // Act
       final authError = AuthError.from(firebaseAuthException);
@@ -45,11 +45,11 @@ void main() {
     });
 
     test(
-        'Should return an instance of AuthErrorTokenRevoked if the error from FirebaseAuthException is auth/id-token-revoked',
+        'Should return an instance of AuthErrorTokenRevoked if the error from FirebaseAuthException is id-token-revoked',
         () {
       // Arrange
       final firebaseAuthException =
-          FirebaseAuthException(code: 'auth/id-token-revoked');
+          FirebaseAuthException(code: 'id-token-revoked');
 
       // Act
       final authError = AuthError.from(firebaseAuthException);
@@ -59,11 +59,11 @@ void main() {
     });
 
     test(
-        'Should return an instance of AuthErrorInvalidEmail if the error from FirebaseAuthException is auth/invalid-email',
+        'Should return an instance of AuthErrorInvalidEmail if the error from FirebaseAuthException is invalid-email',
         () {
       // Arrange
       final firebaseAuthException =
-          FirebaseAuthException(code: 'auth/invalid-email');
+          FirebaseAuthException(code: 'invalid-email');
 
       // Act
       final authError = AuthError.from(firebaseAuthException);
@@ -73,11 +73,11 @@ void main() {
     });
 
     test(
-        'Should return an instance of AuthErrorOperationNotAllowed if the error from FirebaseAuthException is auth/operation-not-allowed',
+        'Should return an instance of AuthErrorOperationNotAllowed if the error from FirebaseAuthException is operation-not-allowed',
         () {
       // Arrange
       final firebaseAuthException =
-          FirebaseAuthException(code: 'auth/operation-not-allowed');
+          FirebaseAuthException(code: 'operation-not-allowed');
 
       // Act
       final authError = AuthError.from(firebaseAuthException);
@@ -87,11 +87,11 @@ void main() {
     });
 
     test(
-        'Should return an instance of AuthErrorUserNotFound if the error from FirebaseAuthException is auth/user-not-found',
+        'Should return an instance of AuthErrorUserNotFound if the error from FirebaseAuthException is user-not-found',
         () {
       // Arrange
       final firebaseAuthException =
-          FirebaseAuthException(code: 'auth/user-not-found');
+          FirebaseAuthException(code: 'user-not-found');
 
       // Act
       final authError = AuthError.from(firebaseAuthException);
@@ -101,11 +101,11 @@ void main() {
     });
 
     test(
-        'Should return an instance of AuthErrorRequiresRecentLogin if the error from FirebaseAuthException is auth/requires-recent-login',
+        'Should return an instance of AuthErrorRequiresRecentLogin if the error from FirebaseAuthException is requires-recent-login',
         () {
       // Arrange
       final firebaseAuthException =
-          FirebaseAuthException(code: 'auth/requires-recent-login');
+          FirebaseAuthException(code: 'requires-recent-login');
 
       // Act
       final authError = AuthError.from(firebaseAuthException);
@@ -115,11 +115,11 @@ void main() {
     });
 
     test(
-        'Should return an instance of AuthErrorWeakPassword if the error from FirebaseAuthException is auth/weak-password',
+        'Should return an instance of AuthErrorWeakPassword if the error from FirebaseAuthException is weak-password',
         () {
       // Arrange
       final firebaseAuthException =
-          FirebaseAuthException(code: 'auth/weak-password');
+          FirebaseAuthException(code: 'weak-password');
 
       // Act
       final authError = AuthError.from(firebaseAuthException);
@@ -129,11 +129,11 @@ void main() {
     });
 
     test(
-        'Should return an instance of AuthErrorUserMismatch if the error from FirebaseAuthException is auth/user-mismatch',
+        'Should return an instance of AuthErrorUserMismatch if the error from FirebaseAuthException is user-mismatch',
         () {
       // Arrange
       final firebaseAuthException =
-          FirebaseAuthException(code: 'auth/user-mismatch');
+          FirebaseAuthException(code: 'user-mismatch');
 
       // Act
       final authError = AuthError.from(firebaseAuthException);
@@ -142,11 +142,11 @@ void main() {
       expect(authError, isA<AuthErrorUserMismatch>());
     });
     test(
-        'Should return an instance of AuthErrorWrongPassword if the error from FirebaseAuthException is auth/wrong-password',
+        'Should return an instance of AuthErrorWrongPassword if the error from FirebaseAuthException is wrong-password',
         () {
       // Arrange
       final firebaseAuthException =
-          FirebaseAuthException(code: 'auth/wrong-password');
+          FirebaseAuthException(code: 'wrong-password');
 
       // Act
       final authError = AuthError.from(firebaseAuthException);

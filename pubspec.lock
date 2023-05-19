@@ -480,6 +480,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.0"
+  modular_bloc_bind:
+    dependency: "direct main"
+    description:
+      name: modular_bloc_bind
+      sha256: abc81f41cf0c82c62189b73c52b0a616d190f6de3b0ecb24bb8a97f4e99a730d
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   modular_core:
     dependency: transitive
     description:
@@ -741,6 +749,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  stream_transform:
+    dependency: transitive
+    description:
+      name: stream_transform
+      sha256: "14a00e794c7c11aa145a170587321aedce29769c08d7f58b1d141da75e3b1c6f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   string_scanner:
     dependency: transitive
     description:

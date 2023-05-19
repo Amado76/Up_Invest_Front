@@ -87,3 +87,8 @@ class AuthEventPasswordReset implements AuthEvent {
     required this.email,
   });
 }
+
+@immutable
+class AuthEventIsLogged implements AuthEvent {
+  const AuthEventIsLogged();
+}

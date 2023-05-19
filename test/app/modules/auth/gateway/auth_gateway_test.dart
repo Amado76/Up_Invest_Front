@@ -45,6 +45,12 @@ class UserMock extends Mock implements User {
   }
 
   @override
+  List<UserInfo> get providerData {
+    List<UserInfo> userInfoList = [UserInfoMock()];
+    return userInfoList;
+  }
+
+  @override
   Future<void> updateDisplayName(String? newDisplayName) async {
     displayName = newDisplayName ?? displayName;
   }
@@ -52,6 +58,13 @@ class UserMock extends Mock implements User {
   @override
   Future<String> getIdToken([bool forceRefresh = false]) async {
     return 'foo';
+  }
+}
+
+class UserInfoMock extends Mock implements UserInfo {
+  @override
+  get providerId {
+    return 'email';
   }
 }
 
@@ -78,7 +91,7 @@ Future<void> main() async {
     });
 
     test(
-        'Should return a AuthUserModel after sucesseful sign in with email and password',
+        'Should return a AuthUserModel after sucesseful sign-in with email and password',
         () async {
       //Arrage
       // Configure the FirebaseAuth mock to return the UserCredential mock
@@ -95,7 +108,7 @@ Future<void> main() async {
     });
 
     test(
-        'Should return a AuthUserModel after sucesseful sign in with Google account',
+        'Should return a AuthUserModel after sucesseful sign-in with Google account',
         () async {
       //Act
       AuthUserModel signInWithGoogle =
@@ -107,7 +120,7 @@ Future<void> main() async {
       expect(signInWithGoogle, const TypeMatcher<AuthUserModel>());
     });
     test(
-        'Should return a AuthUserModel after sucesseful sign in with Facebook account',
+        'Should return a AuthUserModel after sucesseful sign-in with Facebook account',
         () async {
       //Act
       AuthUserModel signInWithGoogle =
@@ -117,6 +130,14 @@ Future<void> main() async {
       //Assert
 
       expect(signInWithGoogle, const TypeMatcher<AuthUserModel>());
+    });
+    test('Should return a AuthUserModel after request the logged-in user',
+        () async {
+      //Act
+      AuthUserModel signedInUser = await firebaseGateway.getLoggedUser();
+
+      //Assert
+      expect(signedInUser, const TypeMatcher<AuthUserModel>());
     });
     test('Should throw an exception if an invalid sign-in option is received',
         () async {
@@ -140,7 +161,7 @@ Future<void> main() async {
       expect(isSignedIn, false);
     });
 
-    test('Should return false when the user logs out', () async {
+    test('Should return false when the user logout', () async {
       //Arrage
       bool isSignedIn = true;
       when(() => firebaseAuthMock.authStateChanges())

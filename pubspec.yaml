@@ -43,6 +43,7 @@ dependencies:
   equatable: ^2.0.5
   google_sign_in: ^6.1.0
   flutter_bloc: ^8.1.2
+  modular_bloc_bind: ^1.0.1
 
 dev_dependencies:
   flutter_test:

@@ -12,15 +12,19 @@ class CustomElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colarScheme = theme.colorScheme;
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
+          backgroundColor: colarScheme.primary,
           minimumSize: const Size(400, 65),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
+          color: colarScheme.onPrimary,
           fontSize: 22,
           fontWeight: FontWeight.bold,
         ),

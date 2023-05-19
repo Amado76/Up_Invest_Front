@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  final String label;
+  final String hintText;
   final String? Function(String?) validator;
   final bool obscureText;
   final TextEditingController controller;
@@ -10,7 +10,7 @@ class CustomTextFormField extends StatelessWidget {
 
   const CustomTextFormField(
       {Key? key,
-      required this.label,
+      required this.hintText,
       required this.validator,
       this.obscureText = false,
       required this.controller,
@@ -28,22 +28,20 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: obscureText,
       style: TextStyle(
           fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: colarScheme.onSurface),
+          fontWeight: FontWeight.w400,
+          color: colarScheme.onSecondaryContainer),
       decoration: InputDecoration(
           fillColor: colarScheme.secondaryContainer,
           filled: true,
-          hintText: label,
+          hintText: hintText,
           hintStyle: TextStyle(color: colarScheme.outline),
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
           focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.all(Radius.circular(10))),
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          label: Center(child: Text(label)),
-          labelStyle: TextStyle(
-            fontSize: 23,
-            color: colarScheme.onSurface,
-          ),
           border: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.all(Radius.circular(10)))),
