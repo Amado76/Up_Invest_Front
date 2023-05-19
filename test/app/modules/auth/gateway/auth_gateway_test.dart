@@ -15,7 +15,8 @@ Future<void> main() async {
     final firebaseAuthMock = FirebaseAuthMock();
     final userCredential = UserCredentialMock();
     final firebaseGateway = FireBaseGateway(auth: firebaseAuthMock);
-    test('Should return a AuthUserModel when creating a new account', () async {
+    test('Should return an AuthUserModel when creating a new account',
+        () async {
       //Arrage
       // Configure the FirebaseAuth mock to return the UserCredential mock
       when(() => firebaseAuthMock.createUserWithEmailAndPassword(
@@ -31,7 +32,7 @@ Future<void> main() async {
     });
 
     test(
-        'Should return a AuthUserModel after sucesseful sign-in with email and password',
+        'Should return an AuthUserModel after successful sign-in with email and password',
         () async {
       //Arrage
       // Configure the FirebaseAuth mock to return the UserCredential mock
@@ -48,7 +49,7 @@ Future<void> main() async {
     });
 
     test(
-        'Should return a AuthUserModel after sucesseful sign-in with Google account',
+        'Should return an AuthUserModel after successful sign-in with Google account',
         () async {
       //Act
       AuthUserModel signInWithGoogle =
@@ -60,7 +61,7 @@ Future<void> main() async {
       expect(signInWithGoogle, const TypeMatcher<AuthUserModel>());
     });
     test(
-        'Should return a AuthUserModel after sucesseful sign-in with Facebook account',
+        'Should return an AuthUserModel after successful sign-in with Facebook account',
         () async {
       //Act
       AuthUserModel signInWithGoogle =
@@ -71,7 +72,7 @@ Future<void> main() async {
 
       expect(signInWithGoogle, const TypeMatcher<AuthUserModel>());
     });
-    test('Should return a AuthUserModel after request the logged-in user',
+    test('Should return an AuthUserModel after requesting the logged-in user',
         () async {
       //Act
       AuthUserModel signedInUser = await firebaseGateway.getLoggedUser();
