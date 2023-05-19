@@ -109,6 +109,8 @@ class FireBaseGateway implements IAuthGateway {
         isSignedIn = true;
         break;
       }
+      isSignedIn = false;
+      break;
     }
     return isSignedIn;
   }

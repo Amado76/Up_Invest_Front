@@ -35,6 +35,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(const AuthStateLoggedOut(isLoading: false));
       }
     });
+
+    on<AuthEventLogOut>((event, emit) async {
+      await authRepository.signOut();
+      emit(const AuthStateLoggedOut(isLoading: false));
+    });
   }
 
   Future<AuthUserModel> signInWithEmailAndPassword(

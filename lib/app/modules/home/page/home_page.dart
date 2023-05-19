@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
 
 import '../../auth/model/auth_user_model.dart';
@@ -29,9 +31,25 @@ class _HomePageState extends State<HomePage> {
       isEmailVerified: true,
     );
     return Scaffold(
-      body: Center(
-          child: Text(
-              'Sign In! email:${authUser.email},userId:${authUser.userId}')),
+      body: BlocListener<AuthBloc, AuthState>(
+        bloc: authBloc,
+        listener: (context, state) {
+          if (state is AuthStateLoggedOut) {
+            Modular.to.navigate('/auth');
+          }
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(child: Text('Sign In! email:${authUser.email}')),
+            TextButton(
+                onPressed: () {
+                  authBloc.add(const AuthEventLogOut());
+                },
+                child: const Text('Loggout'))
+          ],
+        ),
+      ),
     );
   }
 }
