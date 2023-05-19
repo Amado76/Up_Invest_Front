@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
 
-import '../auth/bloc/auth_bloc.dart';
-
-class GetStartedPage extends StatelessWidget {
+class GetStartedPage extends StatefulWidget {
   const GetStartedPage({Key? key}) : super(key: key);
 
+  @override
+  State<GetStartedPage> createState() => _GetStartedPageState();
+}
+
+class _GetStartedPageState extends State<GetStartedPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -24,10 +28,10 @@ class GetStartedPage extends StatelessWidget {
         bloc: authBloc,
         listener: (context, state) {
           if (state is AuthStateLoggedIn) {
-            Modular.to.navigate('/home');
+            Modular.to.navigate('/home/');
           }
           if (state is AuthStateLoggedOut) {
-            Modular.to.navigate('/auth');
+            Modular.to.navigate('/auth/');
           }
         },
         child: SafeArea(
@@ -56,7 +60,8 @@ class GetStartedPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            'Take off towards your\n' 'Financial Independence',
+                            'Take off towards your\n'
+                            'Financial Independence',
                             style: TextStyle(
                                 color: colorScheme.primary,
                                 fontSize: 30,

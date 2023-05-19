@@ -22,3 +22,8 @@ class AuthStateLoggedIn extends AuthState {
 class AuthStateLoggedOut extends AuthState {
   const AuthStateLoggedOut({required super.isLoading, super.authError});
 }
+
+@immutable
+class AuthStateIdle extends AuthState {
+  const AuthStateIdle({required super.isLoading, super.authError});
+}

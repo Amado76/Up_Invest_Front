@@ -10,7 +10,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository authRepository;
   AuthBloc({required this.authRepository})
       : super(
-          const AuthStateLoggedOut(isLoading: false),
+          const AuthStateIdle(isLoading: false),
         ) {
     on<AuthEventSignInWithEmailAndPassword>((event, emit) async {
       emit(
@@ -31,7 +31,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final authUser = await authRepository.getLoggedUser();
         emit(AuthStateLoggedIn(authUser: authUser, isLoading: false));
       }
-      emit(const AuthStateLoggedOut(isLoading: false));
+      if (!isLogged) {
+        emit(const AuthStateLoggedOut(isLoading: false));
+      }
     });
   }
 
