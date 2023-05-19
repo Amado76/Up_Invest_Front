@@ -26,7 +26,13 @@ class AuthEventSignInWithSocialNetwork implements AuthEvent {
 
 @immutable
 class AuthEventDeleteAccount implements AuthEvent {
-  const AuthEventDeleteAccount();
+  final String email;
+  final String password;
+
+  const AuthEventDeleteAccount({
+    required this.email,
+    required this.password,
+  });
 }
 
 @immutable

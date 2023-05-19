@@ -15,7 +15,7 @@ class AuthStateLoggedIn extends AuthState {
   final AuthUserModel authUser;
 
   const AuthStateLoggedIn(
-      {required this.authUser, required super.isLoading, AuthError? authError});
+      {required this.authUser, required super.isLoading, super.authError});
 }
 
 @immutable

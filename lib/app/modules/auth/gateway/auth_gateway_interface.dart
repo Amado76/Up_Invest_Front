@@ -22,7 +22,7 @@ abstract class IAuthGateway {
 
   Future<void> updateDisplayName(String newDisplayName);
 
-  Future<void> deleteUser(String email, String password);
+  Future<void> deleteUser();
 
   Future<void> sendPasswordResetEmail(String email);
 
@@ -31,4 +31,5 @@ abstract class IAuthGateway {
   Future<bool> isUserSignedIn();
 
   Future<AuthUserModel> getLoggedUser();
+  Future<void> reauthenticateAUser(String email, String password);
 }

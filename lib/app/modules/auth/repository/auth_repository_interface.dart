@@ -12,11 +12,12 @@ abstract class IAuthRepository {
       String email, String password, String displayName, String avatarPicture);
   Future<void> updatePassword(
       String oldPassword, String newPassword, String email);
-  Future<void> deleteUser(String email, String password);
+  Future<void> deleteUser();
   Future<void> sendPasswordResetEmail(String email);
   Future<void> signOut();
   Future<bool> isUserSignedIn();
   Future<AuthUserModel> getLoggedUser();
+  Future<void> reauthenticateAUser(String email, String password);
 
   IAuthRepository({required this.authGateway});
 }

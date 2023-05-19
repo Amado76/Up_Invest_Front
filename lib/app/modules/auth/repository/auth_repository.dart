@@ -16,8 +16,8 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<void> deleteUser(String email, String password) async {
-    authGateway.deleteUser(email, password);
+  Future<void> deleteUser() async {
+    authGateway.deleteUser();
   }
 
   @override
@@ -59,5 +59,10 @@ class AuthRepository implements IAuthRepository {
   @override
   Future<AuthUserModel> getLoggedUser() async {
     return await authGateway.getLoggedUser();
+  }
+
+  @override
+  Future<void> reauthenticateAUser(String email, String password) async {
+    await authGateway.reauthenticateAUser(email, password);
   }
 }

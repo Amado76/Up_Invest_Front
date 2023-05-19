@@ -93,8 +93,7 @@ class FireBaseGateway implements IAuthGateway {
 
   /// Delete and logout the user, this method requires a recent login for security.
   @override
-  Future<void> deleteUser(String email, String password) async {
-    await reauthenticateAUser(email, password);
+  Future<void> deleteUser() async {
     await auth.currentUser!.delete();
   }
 
@@ -134,6 +133,8 @@ class FireBaseGateway implements IAuthGateway {
   }
 
   /// Re Authenticate the user to generate a recent login
+
+  @override
   Future<void> reauthenticateAUser(String email, String password) async {
     AuthCredential credential =
         EmailAuthProvider.credential(email: email, password: password);
