@@ -6,10 +6,10 @@ import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
+import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
 
 import '../../auth/model/auth_user_model.dart';
-import '../../auth/util/login_form_validator.dart';
 import '../../auth/widgets/custom_elevated_button.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     final formKey = GlobalKey<FormState>();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
-    final validator = LoginFormValidator();
+    final validator = AuthFormValidator();
     final customBar = CustomSnackBar();
     AuthUserModel? authUser = authBloc.state is AuthStateLoggedIn
         ? (authBloc.state as AuthStateLoggedIn).authUser
@@ -73,7 +73,8 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     CustomTextFormField(
-                        hintText: 'Email  ',
+                        hintText: 'Email',
+                        icon: const Icon(Icons.email_outlined),
                         keyBoardType: TextInputType.emailAddress,
                         controller: emailController,
                         validator: (email) {

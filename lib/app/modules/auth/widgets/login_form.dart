@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
-import 'package:up_invest_front/app/modules/auth/util/login_form_validator.dart';
+import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_elevated_button.dart';
+import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_field.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
 
 class LoginForm extends StatefulWidget {
@@ -17,7 +18,7 @@ class LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _validator = LoginFormValidator();
+  final _validator = AuthFormValidator();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class LoginFormState extends State<LoginForm> {
             CustomTextFormField(
                 hintText: 'Email  ',
                 keyBoardType: TextInputType.emailAddress,
+                icon: const Icon(Icons.email_outlined),
                 controller: _emailController,
                 validator: (email) {
                   return _validator.emailValidator(email);
@@ -36,13 +38,12 @@ class LoginFormState extends State<LoginForm> {
             const SizedBox(
               height: 11,
             ),
-            CustomTextFormField(
+            CustomPasswordFormField(
               hintText: 'Password',
               controller: _passwordController,
               validator: (password) {
                 return _validator.signInPasswordValidator(password);
               },
-              obscureText: true,
             ),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

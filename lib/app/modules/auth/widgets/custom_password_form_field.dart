@@ -1,41 +1,44 @@
 import 'package:flutter/material.dart';
 
-class CustomTextFormField extends StatelessWidget {
+class CustomPasswordFormField extends StatefulWidget {
   final String hintText;
   final String? Function(String?) validator;
-  final bool obscureText;
   final TextEditingController controller;
   final TextInputType keyBoardType;
-  final Widget? icon;
 
-  const CustomTextFormField(
+  const CustomPasswordFormField(
       {Key? key,
       required this.hintText,
       required this.validator,
-      this.obscureText = false,
       required this.controller,
-      this.keyBoardType = TextInputType.text,
-      this.icon})
+      this.keyBoardType = TextInputType.text})
       : super(key: key);
+
+  @override
+  State<CustomPasswordFormField> createState() =>
+      _CustomPasswordFormFieldState();
+}
+
+class _CustomPasswordFormFieldState extends State<CustomPasswordFormField> {
+  bool obscureText = true;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colarScheme = theme.colorScheme;
     return TextFormField(
-      keyboardType: keyBoardType,
-      controller: controller,
-      validator: validator,
+      keyboardType: widget.keyBoardType,
+      controller: widget.controller,
+      validator: widget.validator,
       obscureText: obscureText,
       style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w400,
           color: colarScheme.onSecondaryContainer),
       decoration: InputDecoration(
-          prefixIcon: icon,
           fillColor: colarScheme.secondaryContainer,
           filled: true,
-          hintText: hintText,
+          hintText: widget.hintText,
           hintStyle: TextStyle(color: colarScheme.outline),
           enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.transparent),
@@ -46,7 +49,18 @@ class CustomTextFormField extends StatelessWidget {
           floatingLabelBehavior: FloatingLabelBehavior.never,
           border: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.transparent),
-              borderRadius: BorderRadius.all(Radius.circular(10)))),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          suffixIcon: IconButton(
+            icon: obscureText
+                ? const Icon(Icons.visibility_off_outlined)
+                : const Icon(Icons.visibility_outlined),
+            onPressed: () {
+              setState(() {
+                obscureText = !obscureText;
+              });
+            },
+          ),
+          prefixIcon: const Icon(Icons.lock_outline)),
     );
   }
 }

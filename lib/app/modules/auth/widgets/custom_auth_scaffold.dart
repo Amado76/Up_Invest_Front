@@ -12,7 +12,7 @@ class CustomAuthScaffold extends StatelessWidget {
     final colorScheme = theme.colorScheme;
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: colorScheme.surfaceVariant,
+          backgroundColor: colorScheme.background,
           elevation: 0,
           leading: Padding(
             padding: const EdgeInsets.only(left: 20),
@@ -22,13 +22,14 @@ class CustomAuthScaffold extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
                   onPressed: onPressed,
-                  icon: const ImageIcon(
-                    AssetImage('assets/icons/short_left.png'),
+                  icon: ImageIcon(
+                    color: colorScheme.onBackground,
+                    const AssetImage('assets/icons/short_left.png'),
                   )),
             ),
           ),
         ),
-        backgroundColor: colorScheme.surfaceVariant,
+        backgroundColor: colorScheme.background,
         body: SafeArea(
           child: widget,
         ));

@@ -117,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                           'Sign up!',
                           style: TextStyle(color: colorScheme.primary),
                         ),
-                        onPressed: () => Modular.to.navigate('/auth/sing_up'),
+                        onPressed: () => Modular.to.navigate('/auth/sign_up'),
                       )
                     ])
                   ],
