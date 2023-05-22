@@ -149,7 +149,7 @@ class _ButtonGetStarted extends StatelessWidget {
             ),
             size: 40),
         onPressed: () {
-          authBloc.add(const AuthEventIsLogged());
+          authBloc.add(const AuthEventIsLoggedIn());
         },
         style: ElevatedButton.styleFrom(
             alignment: Alignment.centerLeft,

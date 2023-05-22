@@ -6,6 +6,7 @@ abstract class IAuthGateway {
   final FirebaseAuth auth;
 
   IAuthGateway({required this.auth});
+
   Future<AuthUserModel> signInWithEmailAndPassword(
       String email, String password);
 
@@ -31,5 +32,6 @@ abstract class IAuthGateway {
   Future<bool> isUserSignedIn();
 
   Future<AuthUserModel> getLoggedUser();
+
   Future<void> reauthenticateAUser(String email, String password);
 }

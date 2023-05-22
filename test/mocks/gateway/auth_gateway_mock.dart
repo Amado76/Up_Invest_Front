@@ -2,7 +2,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 
-import '../authmodel/auth_model_mock.dart';
+import '../model/auth_user_model_mock.dart';
 
 class AuthGatewayMock extends Mock implements IAuthGateway {
   @override

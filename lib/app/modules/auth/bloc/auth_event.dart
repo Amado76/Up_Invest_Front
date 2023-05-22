@@ -95,6 +95,6 @@ class AuthEventPasswordReset implements AuthEvent {
 }
 
 @immutable
-class AuthEventIsLogged implements AuthEvent {
-  const AuthEventIsLogged();
+class AuthEventIsLoggedIn implements AuthEvent {
+  const AuthEventIsLoggedIn();
 }
