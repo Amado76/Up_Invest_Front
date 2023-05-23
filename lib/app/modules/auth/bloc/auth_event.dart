@@ -95,6 +95,20 @@ class AuthEventPasswordReset implements AuthEvent {
 }
 
 @immutable
+class AuthEventChangeAvatar implements AuthEvent {
+  final String changeAvatar;
+
+  const AuthEventChangeAvatar({
+    required this.changeAvatar,
+  });
+}
+
+@immutable
 class AuthEventIsLoggedIn implements AuthEvent {
   const AuthEventIsLoggedIn();
+}
+
+@immutable
+class AuthEventGoToSignUpPage implements AuthEvent {
+  const AuthEventGoToSignUpPage();
 }

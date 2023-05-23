@@ -25,6 +25,8 @@ class _SingUpFormState extends State<SingUpForm> {
 
   final _confirmPasswordController = TextEditingController();
 
+  final _avatarController = TextEditingController();
+
   final _validator = AuthFormValidator();
 
   @override
@@ -71,7 +73,10 @@ class _SingUpFormState extends State<SingUpForm> {
           const SizedBox(height: 10),
           CustomElevatedButton(
               text: 'Submeter!',
-              onPressed: () => {if (_formKey.currentState!.validate()) {}})
+              onPressed: () => {
+                    if (_formKey.currentState!.validate())
+                      {print(_avatarController.text)}
+                  })
         ],
       ),
     );

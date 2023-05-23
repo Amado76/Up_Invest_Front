@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/login_form.dart';
 
@@ -44,6 +45,9 @@ class _LoginPageState extends State<LoginPage> {
           }
           if (state is AuthStateLoggedIn) {
             Modular.to.navigate('/home');
+          }
+          if (state is AuthStateSigningUp) {
+            Modular.to.navigate('/auth/sign_up');
           }
         },
         child: SafeArea(
@@ -117,7 +121,8 @@ class _LoginPageState extends State<LoginPage> {
                           'Sign up!',
                           style: TextStyle(color: colorScheme.primary),
                         ),
-                        onPressed: () => Modular.to.navigate('/auth/sign_up'),
+                        onPressed: () =>
+                            authBloc.add(const AuthEventGoToSignUpPage()),
                       )
                     ])
                   ],

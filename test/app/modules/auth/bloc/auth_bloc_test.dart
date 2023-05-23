@@ -9,6 +9,7 @@ import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository_interface.dart';
+import 'package:up_invest_front/app/modules/user/avatar_model.dart';
 
 import '../../../../mocks/gateway/auth_gateway_mock.dart';
 import '../../../../mocks/model/auth_user_model_mock.dart';
@@ -116,6 +117,25 @@ void main() async {
         ),
         expect: () => <AuthState>[
           const AuthStateLoggedOut(isLoading: false),
+        ],
+      );
+    });
+
+    group('when [AuthEventGoToSignUpPage] is added', () {
+      late AvatarModel avatarModel;
+      late String avatarImage;
+      setUp(() => {
+            avatarModel = AvatarModel(),
+            avatarImage = avatarModel.avatarList[1],
+          });
+      blocTest<AuthBloc, AuthState>(
+        'emits [AuthStateSign',
+        build: () => authBloc,
+        act: (bloc) => bloc.add(
+          const AuthEventGoToSignUpPage(),
+        ),
+        expect: () => <AuthState>[
+          AuthStateSigningUp(avatarImage: avatarImage, isLoading: false)
         ],
       );
     });

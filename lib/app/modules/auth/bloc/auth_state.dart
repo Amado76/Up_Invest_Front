@@ -29,6 +29,14 @@ class AuthStateLoggedOut extends AuthState {
   List<Object?> get props => [super.isLoading, super.authError];
 }
 
+class AuthStateSigningUp extends AuthState {
+  final String avatarImage;
+  const AuthStateSigningUp(
+      {required this.avatarImage, required super.isLoading, super.authError});
+  @override
+  List<Object?> get props => [avatarImage, super.isLoading, super.authError];
+}
+
 @immutable
 class AuthStateIdle extends AuthState {
   const AuthStateIdle({required super.isLoading, super.authError});
