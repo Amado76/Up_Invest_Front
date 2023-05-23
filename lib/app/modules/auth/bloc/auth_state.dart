@@ -30,11 +30,16 @@ class AuthStateLoggedOut extends AuthState {
 }
 
 class AuthStateSigningUp extends AuthState {
-  final String avatarImage;
+  final String avatar;
+  final int index;
+
   const AuthStateSigningUp(
-      {required this.avatarImage, required super.isLoading, super.authError});
+      {required this.index,
+      required this.avatar,
+      required super.isLoading,
+      super.authError});
   @override
-  List<Object?> get props => [avatarImage, super.isLoading, super.authError];
+  List<Object?> get props => [index, avatar, super.isLoading, super.authError];
 }
 
 @immutable

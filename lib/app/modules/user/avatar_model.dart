@@ -4,9 +4,9 @@ class AvatarModel {
     this.id,
   });
 
-  get avatarPath => _avatarMap[id];
+  String get avatarPath => _avatarMap[id] ?? 'assets/avatars/kitty.png';
 
-  get avatarList => _avatarMap;
+  Map<int, String> get avatarList => _avatarMap;
 
   final Map<int, String> _avatarMap = {
     1: 'assets/avatars/kitty.png',

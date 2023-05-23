@@ -9,14 +9,14 @@ import 'package:up_invest_front/app/modules/auth/widgets/login_form.dart';
 
 import '../../../core/widgets/custom_snack_bar.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignInPage> createState() => _SignInState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignInState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

@@ -28,8 +28,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthEventDeleteAccount>((event, emit) async {
       _deleteAccount(event.email, event.password);
     });
-    on<AuthEventGoToSignUpPage>((event, emit) async {
-      _goToSignUpPage;
+    on<AuthEventGoToSignUpPage>((event, emit) {
+      _goToSignUpPage();
+    });
+    on<AuthEventGoToSignInPage>((event, emit) {
+      _goToSignInPage();
+    });
+
+    on<AuthEventChangeAvatar>((event, emit) {
+      _changeAvatar(event.avatarNavigation);
     });
   }
 
@@ -79,9 +86,41 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void _goToSignUpPage() async {
+  void _goToSignUpPage() {
     final AvatarModel avatarModel = AvatarModel();
-    final String avatarImage = avatarModel.avatarList[1];
-    emit(AuthStateSigningUp(isLoading: false, avatarImage: avatarImage));
+    const index = 1;
+    final String avatar = avatarModel.avatarList[index]!;
+
+    emit(AuthStateSigningUp(isLoading: false, avatar: avatar, index: index));
+  }
+
+  void _goToSignInPage() {
+    emit(const AuthStateLoggedOut(isLoading: false));
+  }
+
+  void _changeAvatar(String avatarNavigation) {
+    final AvatarModel avatarModel = AvatarModel();
+    final listLength = avatarModel.avatarList.length;
+    final currentState = state as AuthStateSigningUp;
+    final currentIndex = currentState.index;
+    final newIndex = _selectAvatar(avatarNavigation, currentIndex, listLength);
+    final newAvatar = avatarModel.avatarList[newIndex]!;
+    emit(AuthStateSigningUp(
+        index: newIndex, avatar: newAvatar, isLoading: false));
+  }
+
+  int _selectAvatar(String avatarNavigation, int currentIndex, int listLength) {
+    int newIndex;
+    if (currentIndex < listLength && avatarNavigation == 'FowardButton') {
+      currentIndex++;
+      newIndex = currentIndex;
+      return newIndex;
+    }
+    if (currentIndex > 1 && avatarNavigation == 'BackButton') {
+      currentIndex--;
+      newIndex = currentIndex;
+      return newIndex;
+    }
+    return currentIndex;
   }
 }

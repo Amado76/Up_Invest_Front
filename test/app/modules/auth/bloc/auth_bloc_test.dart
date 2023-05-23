@@ -126,18 +126,102 @@ void main() async {
       late String avatarImage;
       setUp(() => {
             avatarModel = AvatarModel(),
-            avatarImage = avatarModel.avatarList[1],
+            avatarImage = avatarModel.avatarList[1]!,
           });
       blocTest<AuthBloc, AuthState>(
-        'emits [AuthStateSign',
+        'emits [AuthStateSigningUp]',
         build: () => authBloc,
         act: (bloc) => bloc.add(
           const AuthEventGoToSignUpPage(),
         ),
         expect: () => <AuthState>[
-          AuthStateSigningUp(avatarImage: avatarImage, isLoading: false)
+          AuthStateSigningUp(avatar: avatarImage, isLoading: false, index: 1)
         ],
       );
+    });
+    group('when [AuthEventGoToSignInPage] is added', () {
+      blocTest<AuthBloc, AuthState>(
+        'emits [AuthStateLoggedOut]',
+        build: () => authBloc,
+        seed: () =>
+            const AuthStateSigningUp(avatar: '', isLoading: false, index: 1),
+        act: (bloc) => bloc.add(
+          const AuthEventGoToSignInPage(),
+        ),
+        expect: () => <AuthState>[const AuthStateLoggedOut(isLoading: false)],
+      );
+    });
+    group('when [AuthEventChangeAvatar] is added', () {
+      blocTest<AuthBloc, AuthState>(
+        'and [index] is 1 and [avatarNavigation] is "FowardButton" emits [AuthStateSigningUp] with [index] 2 and [avatar] equal to "assets/avatars/dog.png"',
+        build: () => authBloc,
+        seed: () => const AuthStateSigningUp(
+            avatar: 'assets/avatars/kitty.png', isLoading: false, index: 1),
+        act: (bloc) => bloc.add(
+          const AuthEventChangeAvatar(avatarNavigation: 'FowardButton'),
+        ),
+        expect: () => <AuthState>[
+          const AuthStateSigningUp(
+              avatar: 'assets/avatars/dog.png', index: 2, isLoading: false)
+        ],
+      );
+      blocTest<AuthBloc, AuthState>(
+          'and [index] is 8 and [avatarNavigation] is "FowardButton" emits [AuthStateSigningUp] with [index] 8 and [avatar] equal to "assets/avatars/kid.png"',
+          build: () => authBloc,
+          seed: () => const AuthStateSigningUp(
+              avatar: 'assets/avatars/kid.png', isLoading: false, index: 8),
+          act: (bloc) => bloc.add(
+                const AuthEventChangeAvatar(avatarNavigation: 'FowardButton'),
+              ),
+          verify: (bloc) {
+            expect(
+              (bloc.state as AuthStateSigningUp).avatar,
+              'assets/avatars/kid.png',
+            );
+            expect(
+              (bloc.state as AuthStateSigningUp).index,
+              8,
+            );
+            expect(
+              (bloc.state as AuthStateSigningUp).isLoading,
+              false,
+            );
+          });
+      blocTest<AuthBloc, AuthState>(
+        'and [index] is 4 and [avatarNavigation] is "BackButton" emits [AuthStateSigningUp] with [index] 3 and [avatar] equal to "assets/avatars/man.png"',
+        build: () => authBloc,
+        seed: () => const AuthStateSigningUp(
+            avatar: 'assets/avatars/unicorn.png', isLoading: false, index: 4),
+        act: (bloc) => bloc.add(
+          const AuthEventChangeAvatar(avatarNavigation: 'BackButton'),
+        ),
+        expect: () => <AuthState>[
+          const AuthStateSigningUp(
+              avatar: 'assets/avatars/man.png', index: 3, isLoading: false)
+        ],
+      );
+      blocTest<AuthBloc, AuthState>(
+          'and [index] is 1 and [avatarNavigation] is "BackButton" emits [AuthStateSigningUp] with [index] 1 and [avatar] equal to "assets/avatars/kitty.png"',
+          build: () => authBloc,
+          seed: () => const AuthStateSigningUp(
+              avatar: 'assets/avatars/kitty.png', isLoading: false, index: 1),
+          act: (bloc) => bloc.add(
+                const AuthEventChangeAvatar(avatarNavigation: 'BackButton'),
+              ),
+          verify: (bloc) {
+            expect(
+              (bloc.state as AuthStateSigningUp).avatar,
+              'assets/avatars/kitty.png',
+            );
+            expect(
+              (bloc.state as AuthStateSigningUp).index,
+              1,
+            );
+            expect(
+              (bloc.state as AuthStateSigningUp).isLoading,
+              false,
+            );
+          });
     });
   });
 }

@@ -32,12 +32,12 @@ class _SingUpPageState extends State<SingUpPage> {
       bloc: authBloc,
       listener: (context, state) {
         if (state is AuthStateSigningUp) {
-          avatarImage = state.avatarImage;
+          avatarImage = state.avatar;
         }
       },
       builder: (context, state) {
         if (state is AuthStateSigningUp) {
-          avatarImage = state.avatarImage;
+          avatarImage = state.avatar;
         }
         return CustomAuthScaffold(
           onPressed: () => Modular.to.navigate('/auth'),
