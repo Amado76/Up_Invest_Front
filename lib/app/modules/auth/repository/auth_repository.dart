@@ -27,7 +27,7 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<void> sendPasswordResetEmail(String email) async {
-    authGateway.sendPasswordResetEmail(email);
+    await authGateway.sendPasswordResetEmail(email);
   }
 
   @override

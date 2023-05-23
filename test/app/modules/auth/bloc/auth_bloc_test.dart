@@ -231,9 +231,12 @@ void main() async {
               .add(const AuthEventSendPasswordResetEmail(email: 'whatever')),
           expect: () => <AuthState>[
             const AuthStateRecoverPassword(isLoading: true),
-            AuthStateLoggedOut(
+            AuthStateRecoverPassword(
                 isLoading: false,
-                authSuccess: AuthSuccess.from('reset-password'))
+                authSuccess: AuthSuccess.from('reset-password')),
+            const AuthStateLoggedOut(
+              isLoading: false,
+            )
           ],
         );
         blocTest<AuthBloc, AuthState>(

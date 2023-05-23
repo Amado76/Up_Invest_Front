@@ -45,7 +45,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           password: event.password,
           displayName: event.displayName);
     });
-    //TODO Finish this method and do the test
     on<AuthEventSendPasswordResetEmail>((event, emit) async {
       _passwordReset(event.email);
     });
@@ -168,8 +167,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(const AuthStateRecoverPassword(isLoading: true));
     try {
       await authRepository.sendPasswordResetEmail(email);
-      emit(AuthStateLoggedOut(
+      emit(AuthStateRecoverPassword(
           isLoading: false, authSuccess: AuthSuccess.from('reset-password')));
+      emit(const AuthStateLoggedOut(isLoading: false));
     } on FirebaseAuthException catch (e) {
       emit(
         AuthStateRecoverPassword(

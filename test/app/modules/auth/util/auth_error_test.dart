@@ -154,5 +154,19 @@ void main() {
       // Assert
       expect(authError, isA<AuthErrorWrongPassword>());
     });
+
+    test(
+        'Should return an instance of AuthErrorTooManyRequests if the error from FirebaseAuthException is too-many-requests',
+        () {
+      // Arrange
+      final firebaseAuthException =
+          FirebaseAuthException(code: 'too-many-requests');
+
+      // Act
+      final authError = AuthError.from(firebaseAuthException);
+
+      // Assert
+      expect(authError, isA<AuthErrorTooManyRequests>());
+    });
   });
 }

@@ -14,6 +14,7 @@ const Map<String, AuthError> authErrorMapping = {
   'user-mismatch': AuthErrorUserMismatch(),
   'wrong-password': AuthErrorWrongPassword(),
   'email-already-in-use': AuthErrorEmailAlreadyExists(),
+  'too-many-requests': AuthErrorTooManyRequests(),
 };
 
 @immutable
@@ -148,5 +149,16 @@ class AuthErrorWrongPassword extends AuthError {
       : super(
           dialogTitle: 'Wrong email or password',
           dialogText: 'Please verify your email and password and try again.',
+        );
+}
+
+//too-many-requests
+@immutable
+class AuthErrorTooManyRequests extends AuthError {
+  const AuthErrorTooManyRequests()
+      : super(
+          dialogTitle: 'To many failed login attempts',
+          dialogText:
+              'Access to this account has been temporarily disabled due to many failed login attempts.',
         );
 }

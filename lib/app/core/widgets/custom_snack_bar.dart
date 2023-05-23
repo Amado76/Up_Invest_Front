@@ -12,11 +12,23 @@ class CustomSnackBar {
         context: context);
   }
 
+  showBottomSuccessSnackBar(
+      String title, String message, BuildContext context) {
+    return _generateCustomSnackBar(
+        textColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        imageColor: null,
+        image: 'assets/images/flag.png',
+        title: title,
+        message: message,
+        context: context);
+  }
+
   _generateCustomSnackBar(
       {required BuildContext context,
       required Color textColor,
       required Color backgroundColor,
-      required Color imageColor,
+      required Color? imageColor,
       required String image,
       required String title,
       required String message}) {
@@ -47,7 +59,7 @@ class CustomSnackBar {
                         const SizedBox(height: 4),
                         Text(
                           message,
-                          style: TextStyle(fontSize: 16, color: textColor),
+                          style: TextStyle(fontSize: 15, color: textColor),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -61,7 +73,7 @@ class CustomSnackBar {
             child: Image.asset(
               image,
               height: 80,
-              color: Theme.of(context).colorScheme.onError.withOpacity(0.1),
+              color: imageColor,
             ),
           ),
         ],

@@ -42,6 +42,7 @@ class _SignInState extends State<SignInPage> {
             customBar.showBottomErrorSnackBar(
                 authError.dialogTitle, authError.dialogText, context);
           }
+
           if (state is AuthStateLoggedIn) {
             Modular.to.navigate('/home/');
           }

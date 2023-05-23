@@ -46,6 +46,11 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
           _customBar.showBottomErrorSnackBar(
               authError.dialogTitle, authError.dialogText, context);
         }
+        final authSuccess = state.authSuccess;
+        if (authSuccess != null) {
+          _customBar.showBottomSuccessSnackBar(
+              authSuccess.dialogTitle, authSuccess.dialogText, context);
+        }
         if (state.isLoading == true) {
           LoadingScreen.instance().show(context: context, text: 'Loading...');
         } else {
