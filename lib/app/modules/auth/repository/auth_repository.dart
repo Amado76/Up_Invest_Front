@@ -51,9 +51,14 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
+  Future<void> updatePhoto(String newAvatar) async {
+    await authGateway.updatePhoto(newAvatar);
+  }
+
+  @override
   Future<void> updatePassword(
       String oldPassword, String newPassword, String email) async {
-    authGateway.updatePassword(oldPassword, newPassword, email);
+    await authGateway.updatePassword(oldPassword, newPassword, email);
   }
 
   @override

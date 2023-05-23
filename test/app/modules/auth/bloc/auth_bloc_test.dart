@@ -9,6 +9,7 @@ import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository_interface.dart';
+import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';
 import 'package:up_invest_front/app/modules/user/avatar_model.dart';
 
 import '../../../../mocks/gateway/auth_gateway_mock.dart';
@@ -32,7 +33,7 @@ void main() async {
       expect(authBloc.state, const AuthStateIdle(isLoading: false));
     });
 
-    // AuthEventIsLoggedIn tests
+    // AuthEventIsLoggedIn test
     group('when [AuthEventIsLoggedIn] is added', () {
       blocTest<AuthBloc, AuthState>(
         'and the user is logged-out emits [AuthStateLoggedOut].',
@@ -59,7 +60,7 @@ void main() async {
         ],
       );
     });
-    // AuthEventCreateNewUser tests
+    // AuthEventCreateNewUser test
     group('when [AuthEventcreateAccount] is added', () {
       blocTest<AuthBloc, AuthState>(
         'and the account is succesfull create',
@@ -78,11 +79,11 @@ void main() async {
         expect: () => <AuthState>[
           const AuthStateSigningUp(
               avatar: 'assets/avatars/fox.png', index: 7, isLoading: true),
-          AuthStateLoggedIn(authUser: authUserModelmMock, isLoading: true)
+          AuthStateLoggedIn(authUser: authUserModelmMock, isLoading: false)
         ],
       );
 
-      // AuthEventSignInWithEmailAndPassword tests
+      // AuthEventSignInWithEmailAndPassword test
       group('when [AuthEventSignInWithEmailAndPassword] is added', () {
         blocTest<AuthBloc, AuthState>(
           'and authentication is successful emits [AuthStateLoggedIn].',
@@ -117,11 +118,10 @@ void main() async {
         );
       });
 
-      // AuthEventDeleteAccount tests
+      // AuthEventDeleteAccount test
       group('when [AuthEventDeleteAccount] is added', () {
         blocTest<AuthBloc, AuthState>(
           'and it is successfull emits [AuthStateLoggedOut].',
-          setUp: () {},
           build: () => authBloc,
           seed: () => AuthStateLoggedIn(
               authUser: AuthUserModelMock(), isLoading: false),
@@ -133,7 +133,7 @@ void main() async {
           ],
         );
       });
-      // AuthEventLogOut tests
+      // AuthEventLogOut test
       group('when [AuthEventLogOut] is added', () {
         blocTest<AuthBloc, AuthState>(
           'and the user is successfully logged out emits [AuthStateLoggedOut].',
@@ -147,7 +147,7 @@ void main() async {
         );
       });
 
-      // AuthEventChangeAvatar tests
+      // AuthEventChangeAvatar test
       group('when [AuthEventChangeAvatar] is added', () {
         blocTest<AuthBloc, AuthState>(
           'and [index] is 1 and [avatarNavigation] is "FowardButton" emits [AuthStateSigningUp] with [index] 2 and [avatar] equal to "assets/avatars/dog.png"',
@@ -220,7 +220,45 @@ void main() async {
               );
             });
       });
-      // AuthEventGoToSignUpPage tests
+
+      //AuthEventSendPasswordResetEmail test
+      group('when [AuthEventSendPasswordResetEmail] is added', () {
+        blocTest<AuthBloc, AuthState>(
+          'and the email was sent successfully, emits [AuthStateLogOut]',
+          build: () => authBloc,
+          seed: () => const AuthStateRecoverPassword(isLoading: false),
+          act: (bloc) => bloc
+              .add(const AuthEventSendPasswordResetEmail(email: 'whatever')),
+          expect: () => <AuthState>[
+            const AuthStateRecoverPassword(isLoading: true),
+            AuthStateLoggedOut(
+                isLoading: false,
+                authSuccess: AuthSuccess.from('reset-password'))
+          ],
+        );
+        blocTest<AuthBloc, AuthState>(
+          'and FireBase throws some error, emits [AuthStateRecoverPassword]',
+          setUp: () {
+            final authRepositoryMock2 =
+                AuthRepositoryMock2(authGateway: AuthGatewayMock());
+            authBloc = AuthBloc(authRepository: authRepositoryMock2);
+            when(
+              () => authRepositoryMock2.sendPasswordResetEmail(any()),
+            ).thenThrow(FirebaseAuthException(code: 'invalid-email'));
+          },
+          build: () => authBloc,
+          seed: () => const AuthStateRecoverPassword(isLoading: false),
+          act: (bloc) => bloc
+              .add(const AuthEventSendPasswordResetEmail(email: 'whatever')),
+          expect: () => <AuthState>[
+            const AuthStateRecoverPassword(isLoading: true),
+            const AuthStateRecoverPassword(
+                isLoading: false, authError: AuthErrorInvalidEmail())
+          ],
+        );
+      });
+
+      // AuthEventGoToSignUpPage test
       group('when [AuthEventGoToSignUpPage] is added', () {
         late AvatarModel avatarModel;
         late String avatarImage;
@@ -239,7 +277,7 @@ void main() async {
           ],
         );
       });
-      // AuthEventGoToSignInPage tests
+      // AuthEventGoToSignInPage test
       group('when [AuthEventGoToSignInPage] is added', () {
         blocTest<AuthBloc, AuthState>(
           'emits [AuthStateLoggedOut]',
@@ -250,6 +288,19 @@ void main() async {
             const AuthEventGoToSignInPage(),
           ),
           expect: () => <AuthState>[const AuthStateLoggedOut(isLoading: false)],
+        );
+      });
+
+      // AuthEventGoRecoverPasswordPage test
+      group('when [AuthEventGoToRecoverPasswordPage] is added', () {
+        blocTest<AuthBloc, AuthState>(
+          'emits [AuthStateRecoverPasswordPage]',
+          build: () => authBloc,
+          act: (bloc) => bloc.add(
+            const AuthEventGoToRecoverPasswordPage(),
+          ),
+          expect: () =>
+              <AuthState>[const AuthStateRecoverPassword(isLoading: false)],
         );
       });
     });

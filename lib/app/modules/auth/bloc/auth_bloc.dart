@@ -7,6 +7,7 @@ import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository_interface.dart';
+import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';
 import 'package:up_invest_front/app/modules/user/avatar_model.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -43,6 +44,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           email: event.email,
           password: event.password,
           displayName: event.displayName);
+    });
+    //TODO Finish this method and do the test
+    on<AuthEventSendPasswordResetEmail>((event, emit) async {
+      _passwordReset(event.email);
+    });
+    on<AuthEventGoToRecoverPasswordPage>((event, emit) {
+      _goToRecoverPasswordPage();
     });
   }
 
@@ -104,6 +112,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(const AuthStateLoggedOut(isLoading: false));
   }
 
+  void _goToRecoverPasswordPage() {
+    emit(const AuthStateRecoverPassword(isLoading: false));
+  }
+
   void _changeAvatar(String avatarNavigation) {
     final AvatarModel avatarModel = AvatarModel();
     final listLength = avatarModel.avatarList.length;
@@ -149,6 +161,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           avatar: avatar,
           isLoading: false,
           authError: AuthError.from(e)));
+    }
+  }
+
+  void _passwordReset(String email) async {
+    emit(const AuthStateRecoverPassword(isLoading: true));
+    try {
+      await authRepository.sendPasswordResetEmail(email);
+      emit(AuthStateLoggedOut(
+          isLoading: false, authSuccess: AuthSuccess.from('reset-password')));
+    } on FirebaseAuthException catch (e) {
+      emit(
+        AuthStateRecoverPassword(
+            isLoading: false, authError: AuthError.from(e)),
+      );
     }
   }
 }

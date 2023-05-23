@@ -19,16 +19,11 @@ class SingUpForm extends StatefulWidget {
 
 class _SingUpFormState extends State<SingUpForm> {
   final _formKey = GlobalKey<FormState>();
-
   final _nameController = TextEditingController();
-
   final _emailController = TextEditingController();
-
   final _passwordController = TextEditingController();
-
   final _confirmPasswordController = TextEditingController();
-  final authBloc = Modular.get<AuthBloc>();
-
+  final _authBloc = Modular.get<AuthBloc>();
   final _validator = AuthFormValidator();
 
   @override
@@ -77,7 +72,7 @@ class _SingUpFormState extends State<SingUpForm> {
               text: 'Submeter!',
               onPressed: () => {
                     if (_formKey.currentState!.validate())
-                      authBloc.add(AuthEventCreateAccount(
+                      _authBloc.add(AuthEventCreateAccount(
                           email: _emailController.text,
                           password: _passwordController.text,
                           displayName: _nameController.text))

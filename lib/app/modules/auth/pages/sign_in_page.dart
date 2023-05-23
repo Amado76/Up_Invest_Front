@@ -37,7 +37,6 @@ class _SignInState extends State<SignInPage> {
           } else {
             LoadingScreen.instance().hide();
           }
-
           final authError = state.authError;
           if (authError != null) {
             customBar.showBottomErrorSnackBar(
@@ -48,6 +47,9 @@ class _SignInState extends State<SignInPage> {
           }
           if (state is AuthStateSigningUp) {
             Modular.to.navigate('/auth/sign_up');
+          }
+          if (state is AuthStateRecoverPassword) {
+            Modular.to.navigate('/auth/recover_password');
           }
         },
         child: SafeArea(

@@ -75,8 +75,9 @@ class _ForgotPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = Modular.get<AuthBloc>();
     return TextButton(
-      onPressed: () => Modular.to.navigate('/auth/recover_password'),
+      onPressed: () => authBloc.add(const AuthEventGoToRecoverPasswordPage()),
       child: Text(
         'Forgot Password?',
         style: TextStyle(color: Theme.of(context).colorScheme.onBackground),

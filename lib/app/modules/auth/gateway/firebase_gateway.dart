@@ -79,18 +79,6 @@ class FireBaseGateway implements IAuthGateway {
     return await geAuthtUserModelFromUserCredential(userCredential);
   }
 
-  /// Update the username, if it doesn't return any exception, it was successful.
-  @override
-  Future<void> updateDisplayName(String newDisplayName) async {
-    await auth.currentUser!.updateDisplayName(newDisplayName);
-  }
-
-  /// Update the Avatar Picture, if it doesn't return any exception, it was successful.
-  @override
-  Future<void> updatePhoto(String newAvatar) async {
-    await auth.currentUser!.updatePhotoURL(newAvatar);
-  }
-
   /// Delete and logout the user, this method requires a recent login for security.
   @override
   Future<void> deleteUser() async {
@@ -122,6 +110,18 @@ class FireBaseGateway implements IAuthGateway {
   @override
   Future<void> signOut() async {
     await auth.signOut();
+  }
+
+  /// Update the username, if it doesn't return any exception, it was successful.
+  @override
+  Future<void> updateDisplayName(String newDisplayName) async {
+    await auth.currentUser!.updateDisplayName(newDisplayName);
+  }
+
+  /// Update the Avatar Picture, if it doesn't return any exception, it was successful.
+  @override
+  Future<void> updatePhoto(String newAvatar) async {
+    await auth.currentUser!.updatePhotoURL(newAvatar);
   }
 
   /// Update password, this method requires a recent login for security.

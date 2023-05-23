@@ -85,10 +85,10 @@ class AuthEventUpdateDisplayName implements AuthEvent {
 }
 
 @immutable
-class AuthEventPasswordReset implements AuthEvent {
+class AuthEventSendPasswordResetEmail implements AuthEvent {
   final String email;
 
-  const AuthEventPasswordReset({
+  const AuthEventSendPasswordResetEmail({
     required this.email,
   });
 }
@@ -115,4 +115,9 @@ class AuthEventGoToSignUpPage implements AuthEvent {
 @immutable
 class AuthEventGoToSignInPage implements AuthEvent {
   const AuthEventGoToSignInPage();
+}
+
+@immutable
+class AuthEventGoToRecoverPasswordPage implements AuthEvent {
+  const AuthEventGoToRecoverPasswordPage();
 }

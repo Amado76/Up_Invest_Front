@@ -18,6 +18,8 @@ abstract class IAuthRepository {
   Future<void> updatePassword(
       String oldPassword, String newPassword, String email);
 
+  Future<void> updatePhoto(String newAvatar);
+
   Future<void> deleteUser();
 
   Future<void> sendPasswordResetEmail(String email);

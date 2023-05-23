@@ -8,6 +8,7 @@ class AuthUserModel extends Equatable {
   final String avatarPicture;
   final String signInMethod;
   final bool isEmailVerified;
+
   const AuthUserModel(
       {required this.userId,
       required this.email,

@@ -34,6 +34,15 @@ class _SingUpPageState extends State<SingUpPage> {
     return BlocConsumer<AuthBloc, AuthState>(
       bloc: authBloc,
       listener: (context, state) {
+        if (state is AuthStateLoggedIn) {
+          Modular.to.navigate('/home/');
+        }
+        if (state is AuthStateLoggedOut) {
+          Modular.to.navigate('/auth/');
+        }
+        if (state is AuthStateSigningUp) {
+          avatar = state.avatar;
+        }
         if (state.isLoading == true) {
           LoadingScreen.instance().show(context: context, text: 'Loading...');
         } else {
@@ -43,15 +52,6 @@ class _SingUpPageState extends State<SingUpPage> {
         if (authError != null) {
           customBar.showBottomErrorSnackBar(
               authError.dialogTitle, authError.dialogText, context);
-        }
-        if (state is AuthStateLoggedIn) {
-          Modular.to.navigate('/home/');
-        }
-        if (state is AuthStateLoggedOut) {
-          Modular.to.navigate('/auth/');
-        }
-        if (state is AuthStateSigningUp) {
-          avatar = state.avatar;
         }
       },
       builder: (context, state) {

@@ -19,7 +19,7 @@ abstract class IAuthGateway {
   Future<void> updatePassword(
       String oldPassword, String newPassword, String email);
 
-  Future<void> updatePhoto(String newAvatarPicture);
+  Future<void> updatePhoto(String newAvatar);
 
   Future<void> updateDisplayName(String newDisplayName);
 
