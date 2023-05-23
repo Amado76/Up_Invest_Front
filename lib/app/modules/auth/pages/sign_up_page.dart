@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:up_invest_front/app/core/widgets/custom_snack_bar.dart';
+import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 
 import 'package:up_invest_front/app/modules/auth/widgets/choose_your_avatar_widget.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_auth_scaffold.dart';
@@ -26,21 +29,37 @@ class _SingUpPageState extends State<SingUpPage> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final authBloc = Modular.get<AuthBloc>();
-    String? avatarImage;
-
+    String? avatar;
+    final customBar = CustomSnackBar();
     return BlocConsumer<AuthBloc, AuthState>(
       bloc: authBloc,
       listener: (context, state) {
+        if (state.isLoading == true) {
+          LoadingScreen.instance().show(context: context, text: 'Loading...');
+        } else {
+          LoadingScreen.instance().hide();
+        }
+        final authError = state.authError;
+        if (authError != null) {
+          customBar.showBottomErrorSnackBar(
+              authError.dialogTitle, authError.dialogText, context);
+        }
+        if (state is AuthStateLoggedIn) {
+          Modular.to.navigate('/home/');
+        }
+        if (state is AuthStateLoggedOut) {
+          Modular.to.navigate('/auth/');
+        }
         if (state is AuthStateSigningUp) {
-          avatarImage = state.avatar;
+          avatar = state.avatar;
         }
       },
       builder: (context, state) {
         if (state is AuthStateSigningUp) {
-          avatarImage = state.avatar;
+          avatar = state.avatar;
         }
         return CustomAuthScaffold(
-          onPressed: () => Modular.to.navigate('/auth'),
+          onPressed: () => authBloc.add(const AuthEventGoToSignInPage()),
           widget: (Padding(
             padding: const EdgeInsets.only(left: 30, right: 30),
             child: SizedBox(
@@ -61,7 +80,7 @@ class _SingUpPageState extends State<SingUpPage> {
                             fontWeight: FontWeight.bold)),
                     const SizedBox(height: 25),
                     ChooseYourAvatarWidget(
-                      avatarImage: avatarImage ?? 'assets/avatars/man.png',
+                      avatarImage: avatar ?? 'assets/avatars/man.png',
                     ),
                     const SizedBox(height: 10),
                     const SingUpForm(),

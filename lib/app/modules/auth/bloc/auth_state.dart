@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart' show immutable;
-import 'package:up_invest_front/app/modules/auth/auth_error.dart';
+import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 
 @immutable

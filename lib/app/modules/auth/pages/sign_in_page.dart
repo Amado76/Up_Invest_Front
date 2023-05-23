@@ -44,7 +44,7 @@ class _SignInState extends State<SignInPage> {
                 authError.dialogTitle, authError.dialogText, context);
           }
           if (state is AuthStateLoggedIn) {
-            Modular.to.navigate('/home');
+            Modular.to.navigate('/home/');
           }
           if (state is AuthStateSigningUp) {
             Modular.to.navigate('/auth/sign_up');

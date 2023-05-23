@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:up_invest_front/app/modules/auth/auth_error.dart';
+import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 
 void main() {
   group('AuthError', () {

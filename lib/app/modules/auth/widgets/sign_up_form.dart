@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/accept_terms_widget.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_elevated_button.dart';
@@ -24,8 +27,7 @@ class _SingUpFormState extends State<SingUpForm> {
   final _passwordController = TextEditingController();
 
   final _confirmPasswordController = TextEditingController();
-
-  final _avatarController = TextEditingController();
+  final authBloc = Modular.get<AuthBloc>();
 
   final _validator = AuthFormValidator();
 
@@ -75,7 +77,10 @@ class _SingUpFormState extends State<SingUpForm> {
               text: 'Submeter!',
               onPressed: () => {
                     if (_formKey.currentState!.validate())
-                      {print(_avatarController.text)}
+                      authBloc.add(AuthEventCreateAccount(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                          displayName: _nameController.text))
                   })
         ],
       ),

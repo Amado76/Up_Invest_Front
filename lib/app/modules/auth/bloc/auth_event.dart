@@ -41,16 +41,15 @@ class AuthEventLogOut implements AuthEvent {
 }
 
 @immutable
-class AuthEventCreateNewUser implements AuthEvent {
+class AuthEventCreateAccount implements AuthEvent {
   final String email;
   final String password;
   final String displayName;
-  final String avatar;
-  const AuthEventCreateNewUser({
+
+  const AuthEventCreateAccount({
     required this.email,
     required this.password,
     required this.displayName,
-    required this.avatar,
   });
 }
 

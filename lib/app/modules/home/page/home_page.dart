@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(child: Text('Sign In! email:${authUser.email}')),
+            Center(child: Text('Sign In! email:${authUser.email},')),
             TextButton(
                 onPressed: () {
                   authBloc.add(const AuthEventLogOut());

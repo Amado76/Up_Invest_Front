@@ -13,7 +13,7 @@ abstract class IAuthRepository {
       String email, String socialNetwork);
 
   Future<AuthUserModel> createAccount(
-      String email, String password, String displayName, String avatarPicture);
+      String email, String password, String displayName, String avatar);
 
   Future<void> updatePassword(
       String oldPassword, String newPassword, String email);

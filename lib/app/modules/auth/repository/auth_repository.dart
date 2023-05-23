@@ -8,10 +8,10 @@ class AuthRepository implements IAuthRepository {
 
   AuthRepository(this.authGateway);
   @override
-  Future<AuthUserModel> createAccount(String email, String password,
-      String displayName, String avatarPicture) async {
-    AuthUserModel user = await authGateway.createAccount(
-        email, password, displayName, avatarPicture);
+  Future<AuthUserModel> createAccount(
+      String email, String password, String displayName, String avatar) async {
+    AuthUserModel user =
+        await authGateway.createAccount(email, password, displayName, avatar);
     return user;
   }
 

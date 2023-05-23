@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuthException;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:up_invest_front/app/modules/auth/auth_error.dart';
+import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
@@ -37,6 +37,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<AuthEventChangeAvatar>((event, emit) {
       _changeAvatar(event.avatarNavigation);
+    });
+    on<AuthEventCreateAccount>((event, emit) {
+      _createNewUser(
+          email: event.email,
+          password: event.password,
+          displayName: event.displayName);
     });
   }
 
@@ -122,5 +128,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       return newIndex;
     }
     return currentIndex;
+  }
+
+  void _createNewUser({
+    required String email,
+    required String password,
+    required String displayName,
+  }) async {
+    final currentState = state as AuthStateSigningUp;
+    final index = currentState.index;
+    final avatar = currentState.avatar;
+    emit(AuthStateSigningUp(index: index, avatar: avatar, isLoading: true));
+    try {
+      AuthUserModel authUser = await authRepository.createAccount(
+          email, password, displayName, avatar);
+      emit(AuthStateLoggedIn(authUser: authUser, isLoading: false));
+    } on FirebaseAuthException catch (e) {
+      emit(AuthStateSigningUp(
+          index: index,
+          avatar: avatar,
+          isLoading: false,
+          authError: AuthError.from(e)));
+    }
   }
 }

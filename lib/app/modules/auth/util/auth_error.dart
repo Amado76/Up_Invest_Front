@@ -13,6 +13,7 @@ const Map<String, AuthError> authErrorMapping = {
   'weak-password': AuthErrorWeakPassword(),
   'user-mismatch': AuthErrorUserMismatch(),
   'wrong-password': AuthErrorWrongPassword(),
+  'email-already-in-use': AuthErrorEmailAlreadyExists(),
 };
 
 @immutable

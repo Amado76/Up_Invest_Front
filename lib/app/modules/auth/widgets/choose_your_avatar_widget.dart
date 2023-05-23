@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 
 class ChooseYourAvatarWidget extends StatefulWidget {
   final String avatarImage;
@@ -12,28 +15,11 @@ class ChooseYourAvatarWidget extends StatefulWidget {
 }
 
 class _ChooseYourAvatarWidgetState extends State<ChooseYourAvatarWidget> {
-  // final avatarList = AvatarModel().avatarList;
-  // late var avatarImage = avatarList[1];
-  // late String avatarController = avatarList[1];
-  // int index = 1;
-
-  // void _changeAvatar(key) {
-  //   setState(() {
-  //     if (index < avatarList.length - 1 && key == 'FowardButton') {
-  //       index++;
-  //     }
-  //     if (index > 1 && key == 'BackButton') {
-  //       index--;
-  //     }
-  //     avatarImage = avatarList[index];
-  //     avatarController = avatarList[index];
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final authBloc = Modular.get<AuthBloc>();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -53,8 +39,10 @@ class _ChooseYourAvatarWidgetState extends State<ChooseYourAvatarWidget> {
                     borderRadius: BorderRadius.circular(100),
                     color: colorScheme.tertiaryContainer.withOpacity(0.7)),
                 child: IconButton(
-                    // onPressed: () => _changeAvatar('BackButton'),
-                    onPressed: () {},
+                    onPressed: () {
+                      authBloc.add(const AuthEventChangeAvatar(
+                          avatarNavigation: 'BackButton'));
+                    },
                     icon: Icon(
                       Icons.arrow_back_ios_rounded,
                       color: colorScheme.onBackground,
@@ -69,8 +57,10 @@ class _ChooseYourAvatarWidgetState extends State<ChooseYourAvatarWidget> {
                     borderRadius: BorderRadius.circular(100),
                     color: colorScheme.tertiaryContainer.withOpacity(0.7)),
                 child: IconButton(
-                    // onPressed: () => _changeAvatar('FowardButton'),
-                    onPressed: () {},
+                    onPressed: () {
+                      authBloc.add(const AuthEventChangeAvatar(
+                          avatarNavigation: 'FowardButton'));
+                    },
                     icon: Icon(
                       Icons.arrow_forward_ios_rounded,
                       color: colorScheme.onBackground,

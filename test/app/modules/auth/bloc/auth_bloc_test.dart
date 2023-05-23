@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:up_invest_front/app/modules/auth/auth_error.dart';
+import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
@@ -27,10 +27,12 @@ void main() async {
       authUserModelmMock = AuthUserModelMock();
     });
 
-    test('initical state is [AuthStateIdle]', () {
+    //Initial state test
+    test('initial state is [AuthStateIdle]', () {
       expect(authBloc.state, const AuthStateIdle(isLoading: false));
     });
 
+    // AuthEventIsLoggedIn tests
     group('when [AuthEventIsLoggedIn] is added', () {
       blocTest<AuthBloc, AuthState>(
         'and the user is logged-out emits [AuthStateLoggedOut].',
@@ -57,171 +59,199 @@ void main() async {
         ],
       );
     });
-
-    group('when [AuthEventSignInWithEmailAndPassword] is added', () {
+    // AuthEventCreateNewUser tests
+    group('when [AuthEventcreateAccount] is added', () {
       blocTest<AuthBloc, AuthState>(
-        'and authentication is successful emits [AuthStateLoggedIn].',
+        'and the account is succesfull create',
         setUp: () {
           when(() =>
-                  authRepositoryMock.signInWithEmailAndPassword(any(), any()))
+                  authRepositoryMock.createAccount(any(), any(), any(), any()))
               .thenAnswer((invocation) async => authUserModelmMock);
         },
         build: () => authBloc,
-        act: (bloc) => bloc.add(const AuthEventSignInWithEmailAndPassword(
-            email: 'any', password: 'any')),
-        expect: () => <AuthState>[
-          const AuthStateLoggedOut(isLoading: true),
-          AuthStateLoggedIn(isLoading: false, authUser: authUserModelmMock)
-        ],
-      );
-      blocTest<AuthBloc, AuthState>(
-        'and authentication fails emits [AuthStateLoggedOut, with specific autherror].',
-        setUp: () {
-          when(() =>
-                  authRepositoryMock.signInWithEmailAndPassword(any(), any()))
-              .thenThrow(FirebaseAuthException(code: 'wrong-password'));
-        },
-        build: () => authBloc,
-        act: (bloc) => bloc.add(const AuthEventSignInWithEmailAndPassword(
-            email: 'any', password: 'any')),
-        expect: () => <AuthState>[
-          const AuthStateLoggedOut(isLoading: true),
-          const AuthStateLoggedOut(
-              isLoading: false, authError: AuthErrorWrongPassword())
-        ],
-      );
-    });
-
-    group('when [AuthEventDeleteAccount] is added', () {
-      blocTest<AuthBloc, AuthState>(
-        'and it is successfull emits [AuthStateLoggedOut].',
-        setUp: () {},
-        build: () => authBloc,
-        seed: () =>
-            AuthStateLoggedIn(authUser: AuthUserModelMock(), isLoading: false),
-        act: (bloc) => bloc
-            .add(const AuthEventDeleteAccount(email: 'any', password: 'any')),
-        expect: () => <AuthState>[
-          AuthStateLoggedIn(authUser: authUserModelmMock, isLoading: true),
-          const AuthStateLoggedOut(isLoading: false)
-        ],
-      );
-    });
-
-    group('when [AuthEventLogOut] is added', () {
-      blocTest<AuthBloc, AuthState>(
-        'and the user is successfully logged out emits [AuthStateLoggedOut].',
-        build: () => authBloc,
-        act: (bloc) => bloc.add(
-          const AuthEventLogOut(),
-        ),
-        expect: () => <AuthState>[
-          const AuthStateLoggedOut(isLoading: false),
-        ],
-      );
-    });
-
-    group('when [AuthEventGoToSignUpPage] is added', () {
-      late AvatarModel avatarModel;
-      late String avatarImage;
-      setUp(() => {
-            avatarModel = AvatarModel(),
-            avatarImage = avatarModel.avatarList[1]!,
-          });
-      blocTest<AuthBloc, AuthState>(
-        'emits [AuthStateSigningUp]',
-        build: () => authBloc,
-        act: (bloc) => bloc.add(
-          const AuthEventGoToSignUpPage(),
-        ),
-        expect: () => <AuthState>[
-          AuthStateSigningUp(avatar: avatarImage, isLoading: false, index: 1)
-        ],
-      );
-    });
-    group('when [AuthEventGoToSignInPage] is added', () {
-      blocTest<AuthBloc, AuthState>(
-        'emits [AuthStateLoggedOut]',
-        build: () => authBloc,
-        seed: () =>
-            const AuthStateSigningUp(avatar: '', isLoading: false, index: 1),
-        act: (bloc) => bloc.add(
-          const AuthEventGoToSignInPage(),
-        ),
-        expect: () => <AuthState>[const AuthStateLoggedOut(isLoading: false)],
-      );
-    });
-    group('when [AuthEventChangeAvatar] is added', () {
-      blocTest<AuthBloc, AuthState>(
-        'and [index] is 1 and [avatarNavigation] is "FowardButton" emits [AuthStateSigningUp] with [index] 2 and [avatar] equal to "assets/avatars/dog.png"',
-        build: () => authBloc,
         seed: () => const AuthStateSigningUp(
-            avatar: 'assets/avatars/kitty.png', isLoading: false, index: 1),
-        act: (bloc) => bloc.add(
-          const AuthEventChangeAvatar(avatarNavigation: 'FowardButton'),
-        ),
+            index: 7, avatar: 'assets/avatars/fox.png', isLoading: false),
+        act: (bloc) => bloc.add(const AuthEventCreateAccount(
+            email: 'ash@pallet.com',
+            password: 'Teste123!',
+            displayName: 'Ash Ketchum')),
         expect: () => <AuthState>[
           const AuthStateSigningUp(
-              avatar: 'assets/avatars/dog.png', index: 2, isLoading: false)
+              avatar: 'assets/avatars/fox.png', index: 7, isLoading: true),
+          AuthStateLoggedIn(authUser: authUserModelmMock, isLoading: true)
         ],
       );
-      blocTest<AuthBloc, AuthState>(
-          'and [index] is 8 and [avatarNavigation] is "FowardButton" emits [AuthStateSigningUp] with [index] 8 and [avatar] equal to "assets/avatars/kid.png"',
+
+      // AuthEventSignInWithEmailAndPassword tests
+      group('when [AuthEventSignInWithEmailAndPassword] is added', () {
+        blocTest<AuthBloc, AuthState>(
+          'and authentication is successful emits [AuthStateLoggedIn].',
+          setUp: () {
+            when(() =>
+                    authRepositoryMock.signInWithEmailAndPassword(any(), any()))
+                .thenAnswer((invocation) async => authUserModelmMock);
+          },
           build: () => authBloc,
-          seed: () => const AuthStateSigningUp(
-              avatar: 'assets/avatars/kid.png', isLoading: false, index: 8),
+          act: (bloc) => bloc.add(const AuthEventSignInWithEmailAndPassword(
+              email: 'any', password: 'any')),
+          expect: () => <AuthState>[
+            const AuthStateLoggedOut(isLoading: true),
+            AuthStateLoggedIn(isLoading: false, authUser: authUserModelmMock)
+          ],
+        );
+        blocTest<AuthBloc, AuthState>(
+          'and authentication fails emits [AuthStateLoggedOut, with specific autherror].',
+          setUp: () {
+            when(() =>
+                    authRepositoryMock.signInWithEmailAndPassword(any(), any()))
+                .thenThrow(FirebaseAuthException(code: 'wrong-password'));
+          },
+          build: () => authBloc,
+          act: (bloc) => bloc.add(const AuthEventSignInWithEmailAndPassword(
+              email: 'any', password: 'any')),
+          expect: () => <AuthState>[
+            const AuthStateLoggedOut(isLoading: true),
+            const AuthStateLoggedOut(
+                isLoading: false, authError: AuthErrorWrongPassword())
+          ],
+        );
+      });
+
+      // AuthEventDeleteAccount tests
+      group('when [AuthEventDeleteAccount] is added', () {
+        blocTest<AuthBloc, AuthState>(
+          'and it is successfull emits [AuthStateLoggedOut].',
+          setUp: () {},
+          build: () => authBloc,
+          seed: () => AuthStateLoggedIn(
+              authUser: AuthUserModelMock(), isLoading: false),
+          act: (bloc) => bloc
+              .add(const AuthEventDeleteAccount(email: 'any', password: 'any')),
+          expect: () => <AuthState>[
+            AuthStateLoggedIn(authUser: authUserModelmMock, isLoading: true),
+            const AuthStateLoggedOut(isLoading: false)
+          ],
+        );
+      });
+      // AuthEventLogOut tests
+      group('when [AuthEventLogOut] is added', () {
+        blocTest<AuthBloc, AuthState>(
+          'and the user is successfully logged out emits [AuthStateLoggedOut].',
+          build: () => authBloc,
           act: (bloc) => bloc.add(
-                const AuthEventChangeAvatar(avatarNavigation: 'FowardButton'),
-              ),
-          verify: (bloc) {
-            expect(
-              (bloc.state as AuthStateSigningUp).avatar,
-              'assets/avatars/kid.png',
-            );
-            expect(
-              (bloc.state as AuthStateSigningUp).index,
-              8,
-            );
-            expect(
-              (bloc.state as AuthStateSigningUp).isLoading,
-              false,
-            );
-          });
-      blocTest<AuthBloc, AuthState>(
-        'and [index] is 4 and [avatarNavigation] is "BackButton" emits [AuthStateSigningUp] with [index] 3 and [avatar] equal to "assets/avatars/man.png"',
-        build: () => authBloc,
-        seed: () => const AuthStateSigningUp(
-            avatar: 'assets/avatars/unicorn.png', isLoading: false, index: 4),
-        act: (bloc) => bloc.add(
-          const AuthEventChangeAvatar(avatarNavigation: 'BackButton'),
-        ),
-        expect: () => <AuthState>[
-          const AuthStateSigningUp(
-              avatar: 'assets/avatars/man.png', index: 3, isLoading: false)
-        ],
-      );
-      blocTest<AuthBloc, AuthState>(
-          'and [index] is 1 and [avatarNavigation] is "BackButton" emits [AuthStateSigningUp] with [index] 1 and [avatar] equal to "assets/avatars/kitty.png"',
+            const AuthEventLogOut(),
+          ),
+          expect: () => <AuthState>[
+            const AuthStateLoggedOut(isLoading: false),
+          ],
+        );
+      });
+
+      // AuthEventChangeAvatar tests
+      group('when [AuthEventChangeAvatar] is added', () {
+        blocTest<AuthBloc, AuthState>(
+          'and [index] is 1 and [avatarNavigation] is "FowardButton" emits [AuthStateSigningUp] with [index] 2 and [avatar] equal to "assets/avatars/dog.png"',
           build: () => authBloc,
           seed: () => const AuthStateSigningUp(
               avatar: 'assets/avatars/kitty.png', isLoading: false, index: 1),
           act: (bloc) => bloc.add(
-                const AuthEventChangeAvatar(avatarNavigation: 'BackButton'),
-              ),
-          verify: (bloc) {
-            expect(
-              (bloc.state as AuthStateSigningUp).avatar,
-              'assets/avatars/kitty.png',
-            );
-            expect(
-              (bloc.state as AuthStateSigningUp).index,
-              1,
-            );
-            expect(
-              (bloc.state as AuthStateSigningUp).isLoading,
-              false,
-            );
-          });
+            const AuthEventChangeAvatar(avatarNavigation: 'FowardButton'),
+          ),
+          expect: () => <AuthState>[
+            const AuthStateSigningUp(
+                avatar: 'assets/avatars/dog.png', index: 2, isLoading: false)
+          ],
+        );
+        blocTest<AuthBloc, AuthState>(
+            'and [index] is 8 and [avatarNavigation] is "FowardButton" emits [AuthStateSigningUp] with [index] 8 and [avatar] equal to "assets/avatars/kid.png"',
+            build: () => authBloc,
+            seed: () => const AuthStateSigningUp(
+                avatar: 'assets/avatars/kid.png', isLoading: false, index: 8),
+            act: (bloc) => bloc.add(
+                  const AuthEventChangeAvatar(avatarNavigation: 'FowardButton'),
+                ),
+            verify: (bloc) {
+              expect(
+                (bloc.state as AuthStateSigningUp).avatar,
+                'assets/avatars/kid.png',
+              );
+              expect(
+                (bloc.state as AuthStateSigningUp).index,
+                8,
+              );
+              expect(
+                (bloc.state as AuthStateSigningUp).isLoading,
+                false,
+              );
+            });
+        blocTest<AuthBloc, AuthState>(
+          'and [index] is 4 and [avatarNavigation] is "BackButton" emits [AuthStateSigningUp] with [index] 3 and [avatar] equal to "assets/avatars/man.png"',
+          build: () => authBloc,
+          seed: () => const AuthStateSigningUp(
+              avatar: 'assets/avatars/unicorn.png', isLoading: false, index: 4),
+          act: (bloc) => bloc.add(
+            const AuthEventChangeAvatar(avatarNavigation: 'BackButton'),
+          ),
+          expect: () => <AuthState>[
+            const AuthStateSigningUp(
+                avatar: 'assets/avatars/man.png', index: 3, isLoading: false)
+          ],
+        );
+        blocTest<AuthBloc, AuthState>(
+            'and [index] is 1 and [avatarNavigation] is "BackButton" emits [AuthStateSigningUp] with [index] 1 and [avatar] equal to "assets/avatars/kitty.png"',
+            build: () => authBloc,
+            seed: () => const AuthStateSigningUp(
+                avatar: 'assets/avatars/kitty.png', isLoading: false, index: 1),
+            act: (bloc) => bloc.add(
+                  const AuthEventChangeAvatar(avatarNavigation: 'BackButton'),
+                ),
+            verify: (bloc) {
+              expect(
+                (bloc.state as AuthStateSigningUp).avatar,
+                'assets/avatars/kitty.png',
+              );
+              expect(
+                (bloc.state as AuthStateSigningUp).index,
+                1,
+              );
+              expect(
+                (bloc.state as AuthStateSigningUp).isLoading,
+                false,
+              );
+            });
+      });
+      // AuthEventGoToSignUpPage tests
+      group('when [AuthEventGoToSignUpPage] is added', () {
+        late AvatarModel avatarModel;
+        late String avatarImage;
+        setUp(() => {
+              avatarModel = AvatarModel(),
+              avatarImage = avatarModel.avatarList[1]!,
+            });
+        blocTest<AuthBloc, AuthState>(
+          'emits [AuthStateSigningUp]',
+          build: () => authBloc,
+          act: (bloc) => bloc.add(
+            const AuthEventGoToSignUpPage(),
+          ),
+          expect: () => <AuthState>[
+            AuthStateSigningUp(avatar: avatarImage, isLoading: false, index: 1)
+          ],
+        );
+      });
+      // AuthEventGoToSignInPage tests
+      group('when [AuthEventGoToSignInPage] is added', () {
+        blocTest<AuthBloc, AuthState>(
+          'emits [AuthStateLoggedOut]',
+          build: () => authBloc,
+          seed: () =>
+              const AuthStateSigningUp(avatar: '', isLoading: false, index: 1),
+          act: (bloc) => bloc.add(
+            const AuthEventGoToSignInPage(),
+          ),
+          expect: () => <AuthState>[const AuthStateLoggedOut(isLoading: false)],
+        );
+      });
     });
   });
 }
