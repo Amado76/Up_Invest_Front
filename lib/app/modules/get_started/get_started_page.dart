@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
 
 class GetStartedPage extends StatefulWidget {
   const GetStartedPage({Key? key}) : super(key: key);
@@ -20,21 +18,10 @@ class _GetStartedPageState extends State<GetStartedPage> {
     final bottomBarSize = MediaQuery.of(context).viewPadding.bottom;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final authBloc = Modular.get<AuthBloc>();
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
-      body: BlocListener<AuthBloc, AuthState>(
-        bloc: authBloc,
-        listener: (context, state) {
-          if (state is AuthStateLoggedIn) {
-            Modular.to.navigate('/home/');
-          }
-          if (state is AuthStateLoggedOut) {
-            Modular.to.navigate('/auth/');
-          }
-        },
-        child: SafeArea(
+        backgroundColor: colorScheme.background,
+        body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(left: 30, right: 30),
@@ -78,9 +65,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
               ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 
@@ -149,7 +134,8 @@ class _ButtonGetStarted extends StatelessWidget {
             ),
             size: 40),
         onPressed: () {
-          authBloc.add(const AuthEventIsLoggedIn());
+          authBloc.add(const AuthEventGoToSignInPage());
+          Modular.to.navigate('/auth/');
         },
         style: ElevatedButton.styleFrom(
             alignment: Alignment.centerLeft,

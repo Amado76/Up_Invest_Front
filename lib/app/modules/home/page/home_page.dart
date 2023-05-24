@@ -7,6 +7,7 @@ import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
+import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_field.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
 
 import '../../auth/model/auth_user_model.dart';
@@ -24,8 +25,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final authBloc = Modular.get<AuthBloc>();
     final formKey = GlobalKey<FormState>();
+    final formKey2 = GlobalKey<FormState>();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
+    final newPasswordController = TextEditingController();
+    final passwordController2 = TextEditingController();
     final validator = AuthFormValidator();
     final customBar = CustomSnackBar();
     AuthUserModel? authUser = authBloc.state is AuthStateLoggedIn
@@ -57,6 +61,11 @@ class _HomePageState extends State<HomePage> {
           if (authError != null) {
             customBar.showBottomErrorSnackBar(
                 authError.dialogTitle, authError.dialogText, context);
+          }
+          final authSuccess = state.authSuccess;
+          if (authSuccess != null) {
+            customBar.showBottomSuccessSnackBar(
+                authSuccess.dialogTitle, authSuccess.dialogText, context);
           }
         },
         child: Column(
@@ -95,12 +104,48 @@ class _HomePageState extends State<HomePage> {
                       height: 10,
                     ),
                     CustomElevatedButton(
-                      text: 'Delete ACcount ',
+                      text: 'Delete Account ',
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           authBloc.add(AuthEventDeleteAccount(
                               email: emailController.text,
                               password: passwordController.text));
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                  ],
+                )),
+            Form(
+                key: formKey2,
+                child: Column(
+                  children: [
+                    CustomPasswordFormField(
+                        hintText: 'Password',
+                        keyBoardType: TextInputType.visiblePassword,
+                        controller: passwordController2,
+                        validator: (password) {
+                          return validator.signInPasswordValidator(password);
+                        }),
+                    const SizedBox(
+                      height: 11,
+                    ),
+                    CustomPasswordFormField(
+                        hintText: 'New Password',
+                        controller: newPasswordController,
+                        validator: (password) {
+                          return validator.signInPasswordValidator(password);
+                        }),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    CustomElevatedButton(
+                      text: 'Change Password ',
+                      onPressed: () {
+                        if (formKey2.currentState!.validate()) {
+                          authBloc.add(AuthEventUpdatePassword(
+                              newPassword: newPasswordController.text,
+                              oldPassword: passwordController2.text));
                         }
                       },
                     ),

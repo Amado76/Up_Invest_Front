@@ -63,7 +63,7 @@ class _SignInState extends State<SignInPage> {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 20,
+                      height: 90,
                     ),
                     Image.asset(
                       'assets/images/logo_up_invest.png',
