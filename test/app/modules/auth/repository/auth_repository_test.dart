@@ -12,7 +12,10 @@ void main() async {
     test('Should return an AuthUser when creating a new account', () async {
       //Act
       AuthUserModel expectUser = await authRepository.createAccount(
-          'email', 'password', 'displayName', 'avatarPicture');
+          email: 'email',
+          password: 'password',
+          displayName: 'displayName',
+          avatar: 'avatarPicture');
       //Assert
       expect(expectUser, const TypeMatcher<AuthUserModel>());
     });

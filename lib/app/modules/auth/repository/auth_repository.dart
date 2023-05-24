@@ -9,7 +9,10 @@ class AuthRepository implements IAuthRepository {
   AuthRepository(this.authGateway);
   @override
   Future<AuthUserModel> createAccount(
-      String email, String password, String displayName, String avatar) async {
+      {required String email,
+      required String password,
+      required String displayName,
+      required String avatar}) async {
     AuthUserModel user =
         await authGateway.createAccount(email, password, displayName, avatar);
     return user;
@@ -57,7 +60,9 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<void> updatePassword(
-      String oldPassword, String newPassword, String email) async {
+      {required String oldPassword,
+      required String newPassword,
+      required String email}) async {
     await authGateway.updatePassword(oldPassword, newPassword, email);
   }
 

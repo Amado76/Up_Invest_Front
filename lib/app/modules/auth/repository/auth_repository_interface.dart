@@ -13,10 +13,15 @@ abstract class IAuthRepository {
       String email, String socialNetwork);
 
   Future<AuthUserModel> createAccount(
-      String email, String password, String displayName, String avatar);
+      {required String email,
+      required String password,
+      required String displayName,
+      required String avatar});
 
   Future<void> updatePassword(
-      String oldPassword, String newPassword, String email);
+      {required String oldPassword,
+      required String newPassword,
+      required String email});
 
   Future<void> updatePhoto(String newAvatar);
 

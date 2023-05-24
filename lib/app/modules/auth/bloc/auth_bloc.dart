@@ -51,6 +51,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthEventGoToRecoverPasswordPage>((event, emit) {
       _goToRecoverPasswordPage();
     });
+    on<AuthEventUpdatePassword>((event, emit) {
+      _updatePassword(event.oldPassword, event.newPassword);
+    });
   }
 
   void _signInWithEmailAndPassword(String email, String password) async {
@@ -99,20 +102,41 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void _goToSignUpPage() {
-    final AvatarModel avatarModel = AvatarModel();
-    const index = 1;
-    final String avatar = avatarModel.avatarList[index]!;
-
-    emit(AuthStateSigningUp(isLoading: false, avatar: avatar, index: index));
+  void _updatePassword(String oldPassword, String newPassword) async {
+    final currentState = state as AuthStateLoggedIn;
+    final currentUser = currentState.authUser;
+    emit(AuthStateLoggedIn(authUser: currentUser, isLoading: true));
+    try {
+      await authRepository.reauthenticateAUser(currentUser.email, oldPassword);
+      await authRepository.updatePassword(
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+          email: currentUser.email);
+      emit(AuthStateLoggedIn(
+          authUser: currentUser,
+          isLoading: false,
+          authSuccess: AuthSuccess.from('set-new-password')));
+    } on FirebaseAuthException catch (e) {
+      emit(AuthStateLoggedIn(
+          authUser: currentUser,
+          isLoading: false,
+          authError: AuthError.from(e)));
+    }
   }
 
-  void _goToSignInPage() {
-    emit(const AuthStateLoggedOut(isLoading: false));
-  }
-
-  void _goToRecoverPasswordPage() {
-    emit(const AuthStateRecoverPassword(isLoading: false));
+  void _passwordReset(String email) async {
+    emit(const AuthStateRecoverPassword(isLoading: true));
+    try {
+      await authRepository.sendPasswordResetEmail(email);
+      emit(AuthStateRecoverPassword(
+          isLoading: false, authSuccess: AuthSuccess.from('reset-password')));
+      emit(const AuthStateLoggedOut(isLoading: false));
+    } on FirebaseAuthException catch (e) {
+      emit(
+        AuthStateRecoverPassword(
+            isLoading: false, authError: AuthError.from(e)),
+      );
+    }
   }
 
   void _changeAvatar(String avatarNavigation) {
@@ -152,7 +176,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthStateSigningUp(index: index, avatar: avatar, isLoading: true));
     try {
       AuthUserModel authUser = await authRepository.createAccount(
-          email, password, displayName, avatar);
+          email: email,
+          password: password,
+          displayName: displayName,
+          avatar: avatar);
       emit(AuthStateLoggedIn(authUser: authUser, isLoading: false));
     } on FirebaseAuthException catch (e) {
       emit(AuthStateSigningUp(
@@ -163,18 +190,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void _passwordReset(String email) async {
-    emit(const AuthStateRecoverPassword(isLoading: true));
-    try {
-      await authRepository.sendPasswordResetEmail(email);
-      emit(AuthStateRecoverPassword(
-          isLoading: false, authSuccess: AuthSuccess.from('reset-password')));
-      emit(const AuthStateLoggedOut(isLoading: false));
-    } on FirebaseAuthException catch (e) {
-      emit(
-        AuthStateRecoverPassword(
-            isLoading: false, authError: AuthError.from(e)),
-      );
-    }
+  void _goToSignUpPage() {
+    final AvatarModel avatarModel = AvatarModel();
+    const index = 1;
+    final String avatar = avatarModel.avatarList[index]!;
+
+    emit(AuthStateSigningUp(isLoading: false, avatar: avatar, index: index));
+  }
+
+  void _goToSignInPage() {
+    emit(const AuthStateLoggedOut(isLoading: false));
+  }
+
+  void _goToRecoverPasswordPage() {
+    emit(const AuthStateRecoverPassword(isLoading: false));
   }
 }

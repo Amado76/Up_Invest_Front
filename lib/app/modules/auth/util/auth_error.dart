@@ -48,7 +48,7 @@ class AuthErrorUnknown extends AuthError {
         );
 }
 
-// auth/email-already-exists
+///email-already-exists
 @immutable
 class AuthErrorEmailAlreadyExists extends AuthError {
   const AuthErrorEmailAlreadyExists()
@@ -58,7 +58,7 @@ class AuthErrorEmailAlreadyExists extends AuthError {
         );
 }
 
-// auth/id-token-expired
+///id-token-expired
 @immutable
 class AuthErrorTokenExpired extends AuthError {
   const AuthErrorTokenExpired()
@@ -68,7 +68,7 @@ class AuthErrorTokenExpired extends AuthError {
         );
 }
 
-// auth/id-token-revoked
+///id-token-revoked
 @immutable
 class AuthErrorTokenRevoked extends AuthError {
   const AuthErrorTokenRevoked()
@@ -78,7 +78,7 @@ class AuthErrorTokenRevoked extends AuthError {
         );
 }
 
-// auth/invalid-email
+///invalid-email
 @immutable
 class AuthErrorInvalidEmail extends AuthError {
   const AuthErrorInvalidEmail()
@@ -88,7 +88,7 @@ class AuthErrorInvalidEmail extends AuthError {
         );
 }
 
-// auth/operation-not-allowed
+///operation-not-allowed
 
 @immutable
 class AuthErrorOperationNotAllowed extends AuthError {
@@ -99,7 +99,7 @@ class AuthErrorOperationNotAllowed extends AuthError {
         );
 }
 
-// auth/user-not-found
+///user-not-found
 @immutable
 class AuthErrorUserNotFound extends AuthError {
   const AuthErrorUserNotFound()
@@ -109,7 +109,7 @@ class AuthErrorUserNotFound extends AuthError {
         );
 }
 
-// auth/requires-recent-login
+///requires-recent-login
 @immutable
 class AuthErrorRequiresRecentLogin extends AuthError {
   const AuthErrorRequiresRecentLogin()
@@ -120,7 +120,7 @@ class AuthErrorRequiresRecentLogin extends AuthError {
         );
 }
 
-// auth/weak-password
+///weak-password
 @immutable
 class AuthErrorWeakPassword extends AuthError {
   const AuthErrorWeakPassword()
@@ -131,7 +131,7 @@ class AuthErrorWeakPassword extends AuthError {
         );
 }
 
-// auth/user-mismatch
+/// user-mismatch
 @immutable
 class AuthErrorUserMismatch extends AuthError {
   const AuthErrorUserMismatch()
@@ -142,7 +142,7 @@ class AuthErrorUserMismatch extends AuthError {
         );
 }
 
-// auth/wrong-password
+///wrong-password
 @immutable
 class AuthErrorWrongPassword extends AuthError {
   const AuthErrorWrongPassword()
@@ -152,7 +152,7 @@ class AuthErrorWrongPassword extends AuthError {
         );
 }
 
-//too-many-requests
+///too-many-requests
 @immutable
 class AuthErrorTooManyRequests extends AuthError {
   const AuthErrorTooManyRequests()

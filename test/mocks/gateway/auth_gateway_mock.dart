@@ -18,5 +18,14 @@ class AuthGatewayMock extends Mock implements IAuthGateway {
   }
 
   @override
+  Future<void> signOut() async {}
+  @override
+  Future<void> deleteUser() async {}
+  @override
   Future<void> sendPasswordResetEmail(String email) async {}
+  @override
+  Future<void> updatePassword(
+      String oldPassword, String newPassword, String email) async {}
+  @override
+  Future<void> reauthenticateAUser(String email, String password) async {}
 }

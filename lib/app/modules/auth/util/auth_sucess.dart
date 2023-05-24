@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart' show immutable;
 
 /// The [AuthSucess] class represents authentication errors.
 const Map<String, AuthSuccess> authSucessMapping = {
-  'reset-password': AuthSuccessResetPassword()
+  'reset-password': AuthSuccessResetPassword(),
+  'set-new-password': AuthSuccessSetNewPassword(),
 };
 
 @immutable
@@ -44,5 +45,15 @@ class AuthSuccessResetPassword extends AuthSuccess {
           dialogTitle: 'Email Sent!',
           dialogText:
               'We have sent an email with instructions to reset your password!',
+        );
+}
+
+//set-new-password
+@immutable
+class AuthSuccessSetNewPassword extends AuthSuccess {
+  const AuthSuccessSetNewPassword()
+      : super(
+          dialogTitle: 'Password Successfully Changed!',
+          dialogText: 'Your password has been changed successfully!',
         );
 }

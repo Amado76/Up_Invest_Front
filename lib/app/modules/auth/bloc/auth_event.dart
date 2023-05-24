@@ -55,12 +55,10 @@ class AuthEventCreateAccount implements AuthEvent {
 
 @immutable
 class AuthEventUpdatePassword implements AuthEvent {
-  final String email;
   final String oldPassword;
   final String newPassword;
 
   const AuthEventUpdatePassword({
-    required this.email,
     required this.oldPassword,
     required this.newPassword,
   });
