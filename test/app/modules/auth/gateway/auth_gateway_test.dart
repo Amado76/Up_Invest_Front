@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/firebase_gateway.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
-import 'package:up_invest_front/app/modules/auth/credential_dto.dart';
+import 'package:up_invest_front/app/modules/auth/util/credential_dto.dart';
 import '../../../../mocks/firebase/firebase_auth_mock.dart';
 import '../../../../mocks/firebase/user_credential_mock.dart';
 import '../../../../mocks/firebase/user_mock.dart';

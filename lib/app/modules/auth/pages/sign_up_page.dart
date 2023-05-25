@@ -4,13 +4,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/widgets/custom_snack_bar.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
 
 import 'package:up_invest_front/app/modules/auth/widgets/choose_your_avatar_widget.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_auth_scaffold.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/sign_up_form.dart';
-
-import '../bloc/auth_state.dart';
 
 class SingUpPage extends StatefulWidget {
   const SingUpPage({Key? key}) : super(key: key);

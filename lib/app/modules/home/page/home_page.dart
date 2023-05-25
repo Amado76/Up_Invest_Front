@@ -4,8 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/widgets/custom_snack_bar.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
+
 import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_field.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
@@ -32,6 +31,7 @@ class _HomePageState extends State<HomePage> {
     final passwordController2 = TextEditingController();
     final validator = AuthFormValidator();
     final customBar = CustomSnackBar();
+
     AuthUserModel? authUser = authBloc.state is AuthStateLoggedIn
         ? (authBloc.state as AuthStateLoggedIn).authUser
         : null;
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       email: '',
       token: 'token',
       displayName: 'displayName',
-      avatarPicture: 'avatarPicture',
+      avatar: 'avatarPicture',
       signInMethod: 'signInMethod',
       isEmailVerified: true,
     );
@@ -71,12 +71,19 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(child: Text('Sign In! email:${authUser.email},')),
+            Center(
+                child: Text(
+                    'Sign In! email:${authUser.email}, ${authUser.displayName}')),
             TextButton(
                 onPressed: () {
                   authBloc.add(const AuthEventLogOut());
                 },
                 child: const Text('Loggout')),
+            TextButton(
+                onPressed: () {
+                  Modular.to.navigate('/settings');
+                },
+                child: const Text('Go to Settings')),
             Form(
                 key: formKey,
                 child: Column(

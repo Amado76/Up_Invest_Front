@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
+
 import 'package:up_invest_front/app/modules/auth/widgets/login_form.dart';
 
 import '../../../core/widgets/custom_snack_bar.dart';

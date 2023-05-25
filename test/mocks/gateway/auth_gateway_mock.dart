@@ -1,5 +1,5 @@
 import 'package:mocktail/mocktail.dart';
-import 'package:up_invest_front/app/modules/auth/credential_dto.dart';
+import 'package:up_invest_front/app/modules/auth/util/credential_dto.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/firebase_gateway.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 

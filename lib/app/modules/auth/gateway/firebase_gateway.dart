@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show visibleForTesting;
-import 'package:up_invest_front/app/modules/auth/credential_dto.dart';
+import 'package:up_invest_front/app/modules/auth/util/credential_dto.dart';
 
 import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
@@ -161,7 +161,7 @@ class FireBaseGateway implements IAuthGateway {
         email: userCredential.user?.email ?? '',
         token: await userCredential.user?.getIdToken() ?? '',
         displayName: userCredential.user?.displayName ?? '',
-        avatarPicture: userCredential.user?.photoURL ?? 'default',
+        avatar: userCredential.user?.photoURL ?? 'default',
         signInMethod: userCredential.credential?.signInMethod ?? '',
         isEmailVerified: userCredential.user?.emailVerified ?? false);
     return authUser;
@@ -174,7 +174,7 @@ class FireBaseGateway implements IAuthGateway {
         email: user?.email ?? '',
         token: await user?.getIdToken() ?? '',
         displayName: user?.displayName ?? '',
-        avatarPicture: user?.photoURL ?? 'default',
+        avatar: user?.photoURL ?? 'default',
         signInMethod: user?.providerData[0].providerId ?? '',
         isEmailVerified: user?.emailVerified ?? false);
     return authUser;

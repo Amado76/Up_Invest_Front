@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:up_invest_front/app/modules/auth/credential_dto.dart';
+import 'package:up_invest_front/app/modules/auth/util/credential_dto.dart';
 
 sealed class IAuthSocialNetworkGateway {
   Future<CredentialDTO> getCredential(String socialNetwork);

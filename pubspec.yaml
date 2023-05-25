@@ -44,7 +44,7 @@ dependencies:
   google_sign_in: ^6.1.0
   flutter_bloc: ^8.1.2
   modular_bloc_bind: ^1.0.1
-  flutter_facebook_auth: ^5.0.11
+    
 
 dev_dependencies:
   flutter_test:

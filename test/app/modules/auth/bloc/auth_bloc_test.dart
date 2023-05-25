@@ -5,8 +5,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
+
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository_interface.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';

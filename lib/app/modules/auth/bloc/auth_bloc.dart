@@ -1,14 +1,16 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
+import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuthException;
+import 'package:flutter/foundation.dart' show immutable;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_event.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_state.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
-import 'package:up_invest_front/app/modules/auth/repository/auth_repository_interface.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';
+import 'package:up_invest_front/app/modules/auth/repository/auth_repository_interface.dart';
 import 'package:up_invest_front/app/modules/user/avatar_model.dart';
+part 'auth_event.dart';
+part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository authRepository;

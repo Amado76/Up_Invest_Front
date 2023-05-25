@@ -5,7 +5,7 @@ class AuthUserModel extends Equatable {
   final String email;
   final String token;
   final String displayName;
-  final String avatarPicture;
+  final String avatar;
   final String signInMethod;
   final bool isEmailVerified;
 
@@ -14,7 +14,7 @@ class AuthUserModel extends Equatable {
       required this.email,
       required this.token,
       required this.displayName,
-      required this.avatarPicture,
+      required this.avatar,
       required this.signInMethod,
       required this.isEmailVerified});
 
@@ -24,7 +24,7 @@ class AuthUserModel extends Equatable {
         email,
         token,
         displayName,
-        avatarPicture,
+        avatar,
         signInMethod,
         isEmailVerified,
       ];
