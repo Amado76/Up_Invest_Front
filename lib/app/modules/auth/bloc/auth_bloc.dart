@@ -16,43 +16,48 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       : super(
           const AuthStateIdle(isLoading: false),
         ) {
-    on<AuthEventSignInWithEmailAndPassword>((event, emit) async {
-      _signInWithEmailAndPassword(event.email, event.password);
-    });
     on<AuthEventIsLoggedIn>((event, emit) async {
       _isLoggedIn();
     });
-
     on<AuthEventLogOut>((event, emit) async {
       _signOut();
     });
-    on<AuthEventDeleteAccount>((event, emit) async {
-      _deleteAccount(event.email, event.password);
-    });
-    on<AuthEventGoToSignUpPage>((event, emit) {
-      _goToSignUpPage();
-    });
-    on<AuthEventGoToSignInPage>((event, emit) {
-      _goToSignInPage();
-    });
-
-    on<AuthEventChangeAvatar>((event, emit) {
-      _changeAvatar(event.avatarNavigation);
-    });
-    on<AuthEventCreateAccount>((event, emit) {
+    on<AuthEventCreateAccount>((event, emit) async {
       _createNewUser(
           email: event.email,
           password: event.password,
           displayName: event.displayName);
     });
+    on<AuthEventSignInWithEmailAndPassword>((event, emit) async {
+      _signInWithEmailAndPassword(event.email, event.password);
+    });
+    on<AuthEventSignInWithSocialNetwork>((event, emit) async {
+      _signInWithSocialNetWork(event.socialNetwork);
+    });
+
+    on<AuthEventDeleteAccount>((event, emit) async {
+      _deleteAccount(event.email, event.password);
+    });
+
+    on<AuthEventChangeAvatar>((event, emit) {
+      _changeAvatar(event.avatarNavigation);
+    });
+
+    on<AuthEventUpdatePassword>((event, emit) {
+      _updatePassword(event.oldPassword, event.newPassword);
+    });
+
     on<AuthEventSendPasswordResetEmail>((event, emit) async {
       _passwordReset(event.email);
     });
     on<AuthEventGoToRecoverPasswordPage>((event, emit) {
       _goToRecoverPasswordPage();
     });
-    on<AuthEventUpdatePassword>((event, emit) {
-      _updatePassword(event.oldPassword, event.newPassword);
+    on<AuthEventGoToSignUpPage>((event, emit) {
+      _goToSignUpPage();
+    });
+    on<AuthEventGoToSignInPage>((event, emit) {
+      _goToSignInPage();
     });
   }
 
@@ -63,6 +68,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       AuthUserModel authUser =
           await authRepository.signInWithEmailAndPassword(email, password);
+      emit(AuthStateLoggedIn(authUser: authUser, isLoading: false));
+    } on FirebaseAuthException catch (e) {
+      emit(AuthStateLoggedOut(isLoading: false, authError: AuthError.from(e)));
+    }
+  }
+
+  void _signInWithSocialNetWork(String socialNetwork) async {
+    emit(const AuthStateLoggedOut(isLoading: true));
+    try {
+      AuthUserModel authUser =
+          await authRepository.signInWithSocialNetwork(socialNetwork);
       emit(AuthStateLoggedIn(authUser: authUser, isLoading: false));
     } on FirebaseAuthException catch (e) {
       emit(AuthStateLoggedOut(isLoading: false, authError: AuthError.from(e)));

@@ -1,12 +1,16 @@
+import 'package:up_invest_front/app/modules/auth/credential_dto.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
+import 'package:up_invest_front/app/modules/auth/gateway/social_network_authentication_interface.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository_interface.dart';
 
 class AuthRepository implements IAuthRepository {
   @override
   final IAuthGateway authGateway;
+  @override
+  final ISocialAuthenticationGateway authSocialNetworkGateway;
 
-  AuthRepository(this.authGateway);
+  AuthRepository(this.authGateway, this.authSocialNetworkGateway);
   @override
   Future<AuthUserModel> createAccount(
       {required String email,
@@ -42,10 +46,21 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<AuthUserModel> signInWithSocialNetwork(
-      String email, String socialNetwork) {
-    // TODO: implement singInWithSocialNetwork
-    throw UnimplementedError();
+  Future<AuthUserModel> signInWithSocialNetwork(String socialNetwork) async {
+    final CredentialDTO credential;
+    final AuthUserModel authUser;
+
+    credential = await getGoogleCredential();
+    authUser =
+        await authGateway.signInWithSocialNetwork(socialNetwork, credential);
+
+    return authUser;
+  }
+
+  Future<CredentialDTO> getGoogleCredential() async {
+    final CredentialDTO googleCredential;
+    googleCredential = await authSocialNetworkGateway.getCredential('google');
+    return googleCredential;
   }
 
   @override

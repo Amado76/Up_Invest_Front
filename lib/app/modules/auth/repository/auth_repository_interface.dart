@@ -1,16 +1,18 @@
 import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
+import 'package:up_invest_front/app/modules/auth/gateway/social_network_authentication_interface.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 
 abstract class IAuthRepository {
   final IAuthGateway authGateway;
+  final ISocialAuthenticationGateway authSocialNetworkGateway;
 
-  IAuthRepository({required this.authGateway});
+  IAuthRepository(
+      {required this.authSocialNetworkGateway, required this.authGateway});
 
   Future<AuthUserModel> signInWithEmailAndPassword(
       String email, String password);
 
-  Future<AuthUserModel> signInWithSocialNetwork(
-      String email, String socialNetwork);
+  Future<AuthUserModel> signInWithSocialNetwork(String socialNetwork);
 
   Future<AuthUserModel> createAccount(
       {required String email,

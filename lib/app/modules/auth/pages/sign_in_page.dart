@@ -107,7 +107,10 @@ class _SignInState extends State<SignInPage> {
                           iconSize: 55,
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            authBloc.add(const AuthEventSignInWithSocialNetwork(
+                                socialNetwork: 'google'));
+                          },
                           icon: Image.asset('assets/images/logo_google.png'),
                           iconSize: 55,
                         ),
