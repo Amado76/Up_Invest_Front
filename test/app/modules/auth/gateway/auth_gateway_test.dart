@@ -88,7 +88,7 @@ Future<void> main() async {
             'orkut', CredentialDTO(acessToken: 'acessToken'));
       } catch (e) {
         //Assert
-        expect(e, 'Invalid Social Network');
+        expect(e.toString(), ('Exception: invalid-social-network'));
       }
     });
 

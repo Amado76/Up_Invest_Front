@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     final settingsState = settingsBloc.state;
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      themeMode: settingsState.themeMode,
+      themeMode: settingsState.settingsModel.themeMode,
       theme: lightTheme,
       darkTheme: darkTheme,
       routeInformationParser: Modular.routeInformationParser,

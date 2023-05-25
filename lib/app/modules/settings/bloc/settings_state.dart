@@ -2,16 +2,17 @@
 part of 'settings_bloc.dart';
 
 abstract class SettingsState extends Equatable {
-  final ThemeMode themeMode;
-  const SettingsState({required this.themeMode});
+  final SettingsModel settingsModel;
+
+  const SettingsState({required this.settingsModel});
 }
 
 @immutable
 class SettingsStateGlobal extends SettingsState {
   const SettingsStateGlobal({
-    required super.themeMode,
+    required super.settingsModel,
   });
 
   @override
-  List<Object> get props => [super.themeMode];
+  List<Object> get props => [super.settingsModel];
 }

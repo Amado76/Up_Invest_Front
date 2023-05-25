@@ -13,7 +13,8 @@ void main() {
         build: () => settingsBloc,
         act: (bloc) => settingsBloc.add(const SettingsEventChangeThemeToDark()),
         verify: (bloc) {
-          expect((bloc.state as SettingsStateGlobal).themeMode, ThemeMode.dark);
+          expect((bloc.state as SettingsStateGlobal).settingsModel.themeMode,
+              ThemeMode.dark);
         });
     blocTest<SettingsBloc, SettingsState>(
         'when [SettingsEventChangeThemeToLight] is added emits [SettingsStateGlobal] with [themeMode.light]',
@@ -21,8 +22,8 @@ void main() {
         act: (bloc) =>
             settingsBloc.add(const SettingsEventChangeThemeToLight()),
         verify: (bloc) {
-          expect(
-              (bloc.state as SettingsStateGlobal).themeMode, ThemeMode.light);
+          expect((bloc.state as SettingsStateGlobal).settingsModel.themeMode,
+              ThemeMode.light);
         });
   });
 }
