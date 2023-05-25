@@ -19,6 +19,11 @@ class SettingsEventChangeThemeToLight extends SettingsEvent {
 }
 
 @immutable
-class SettingsEventGetSavedSettings extends SettingsEvent {
-  const SettingsEventGetSavedSettings();
+class SettingsEventChangeThemeToSystem extends SettingsEvent {
+  const SettingsEventChangeThemeToSystem();
+}
+
+@immutable
+class SettingsEventFetchSavedSettings extends SettingsEvent {
+  const SettingsEventFetchSavedSettings();
 }

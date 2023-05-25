@@ -5,11 +5,11 @@ import 'package:up_invest_front/app/core/adapter/local_storage_adapter/local_sto
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart';
 import 'package:up_invest_front/app/modules/settings/repository/settings_repository.dart';
 
-class LocalStorageAdapterMock extends Mock implements LocalStorageAdapter {}
+import '../../../../mocks/adapter/shared_preferences_mock.dart';
 
 void main() async {
   group('SettingsRepository', () {
-    late LocalStorageAdapter localStorageAdapterMock;
+    late SharedPreferencesAdapter localStorageAdapterMock;
     late SettingsRepository settingsRepository;
 
     setUp(() {

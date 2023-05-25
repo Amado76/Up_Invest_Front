@@ -10,7 +10,6 @@ import 'package:up_invest_front/app/modules/auth/pages/sign_in_page.dart';
 import 'package:up_invest_front/app/modules/auth/pages/sign_up_page.dart';
 
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
-import 'package:up_invest_front/app/modules/auth/repository/auth_repository_interface.dart';
 
 class AuthModule extends Module {
   @override

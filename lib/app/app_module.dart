@@ -12,7 +12,9 @@ class AppModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.singleton<FirebaseAuth>((i) => FirebaseAuth.instance),
-    Bind.singleton<ILocalStorageAdapter>((i) => LocalStorageAdapter())
+    Bind.singleton<ILocalStorageAdapter>(
+      (i) => SharedPreferencesAdapter(),
+    )
   ];
 
   @override

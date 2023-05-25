@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final settingsBloc = context.watch<SettingsBloc>((bloc) => bloc.stream);
     final settingsState = settingsBloc.state;
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       themeMode: settingsState.settingsModel.themeMode,

@@ -9,7 +9,9 @@ import 'bloc/settings_bloc.dart';
 class SettingsModule extends Module {
   @override
   final List<Bind> binds = [
-    BlocBind.singleton((i) => SettingsBloc(), export: true),
+    BlocBind.singleton(
+        (i) => SettingsBloc(settingsRepository: i.get<ISettingsRepository>()),
+        export: true),
     Bind.singleton<ISettingsRepository>(
         (i) => SettingsRepository(
             localStorageAdapter: i.get<ILocalStorageAdapter>()),

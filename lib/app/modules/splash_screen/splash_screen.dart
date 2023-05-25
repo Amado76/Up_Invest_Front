@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,6 +21,8 @@ class _SplashScreenState extends State<SplashScreen> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final authBloc = Modular.get<AuthBloc>();
+    final settingsBloc = Modular.get<SettingsBloc>();
+
     return BlocConsumer<AuthBloc, AuthState>(
       bloc: authBloc,
       listener: (context, state) {
@@ -36,6 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
       },
       builder: (context, state) {
         authBloc.add(const AuthEventIsLoggedIn());
+        settingsBloc.add(const SettingsEventFetchSavedSettings());
         return Scaffold(
           body: Container(
             height: size.height - bottomBarSize,

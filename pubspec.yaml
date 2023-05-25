@@ -44,6 +44,7 @@ dependencies:
   google_sign_in: ^6.1.0
   flutter_bloc: ^8.1.2
   modular_bloc_bind: ^1.0.1
+  shared_preferences: ^2.1.1
     
 
 dev_dependencies:

@@ -5,6 +5,7 @@ import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 
 import 'package:up_invest_front/app/modules/auth/widgets/login_form.dart';
+import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
 
 import '../../../core/widgets/custom_snack_bar.dart';
 
@@ -24,6 +25,9 @@ class _SignInState extends State<SignInPage> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final authBloc = Modular.get<AuthBloc>();
+    final settingsBloc = Modular.get<SettingsBloc>();
+    final currentTheme = settingsBloc.state.settingsModel.themeMode;
+
     final customBar = CustomSnackBar();
 
     return Scaffold(
@@ -65,7 +69,9 @@ class _SignInState extends State<SignInPage> {
                       height: 90,
                     ),
                     Image.asset(
-                      'assets/images/logo_up_invest.png',
+                      currentTheme == ThemeMode.light
+                          ? 'assets/images/logo_up_invest.png'
+                          : 'assets/images/logo_up_invest_dark_mode.png',
                       alignment: Alignment.center,
                     ),
                     const SizedBox(height: 50),
