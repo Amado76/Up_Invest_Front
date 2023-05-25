@@ -1,6 +1,6 @@
 import 'package:up_invest_front/app/modules/auth/credential_dto.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
-import 'package:up_invest_front/app/modules/auth/gateway/social_network_authentication_interface.dart';
+import 'package:up_invest_front/app/modules/auth/gateway/auth_social_network_gateway_interface.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository_interface.dart';
 
@@ -8,7 +8,7 @@ class AuthRepository implements IAuthRepository {
   @override
   final IAuthGateway authGateway;
   @override
-  final ISocialAuthenticationGateway authSocialNetworkGateway;
+  final IAuthSocialNetworkGateway authSocialNetworkGateway;
 
   AuthRepository(this.authGateway, this.authSocialNetworkGateway);
   @override

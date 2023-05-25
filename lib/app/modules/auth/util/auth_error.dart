@@ -15,6 +15,7 @@ const Map<String, AuthError> authErrorMapping = {
   'wrong-password': AuthErrorWrongPassword(),
   'email-already-in-use': AuthErrorEmailAlreadyExists(),
   'too-many-requests': AuthErrorTooManyRequests(),
+  'Exception: invalid-social-network': AuthErrorOperationNotAllowed(),
 };
 
 @immutable
@@ -34,9 +35,18 @@ sealed class AuthError {
   /// [exception] - The [FirebaseAuthException] from which to create the [AuthError].
   /// Returns an [AuthError] object corresponding to the provided exception,
   /// or a default [AuthErrorUnknown] object if no mapping is found.
-  factory AuthError.from(FirebaseAuthException exception) =>
+  factory AuthError.fromFirebase(FirebaseAuthException exception) =>
       authErrorMapping[exception.code.toLowerCase().trim()] ??
       const AuthErrorUnknown();
+
+  /// Factory method to create an [AuthError] object based on a [Exception].
+  /// [exception] - The [Exception] from which to create the [AuthError].
+  /// Returns an [AuthError] object corresponding to the provided exception,
+  /// or a default [AuthErrorUnknown] object if no mapping is found.
+  factory AuthError.from(Exception exception) {
+    String errorMessage = exception.toString();
+    return authErrorMapping[errorMessage] ?? const AuthErrorUnknown();
+  }
 }
 
 @immutable

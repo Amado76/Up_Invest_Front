@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:up_invest_front/app/modules/auth/credential_dto.dart';
 
 import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
@@ -55,11 +56,12 @@ class FireBaseGateway implements IAuthGateway {
       case 'facebook':
         return await signInWithFacebook(credentialDTO);
       default:
-        throw 'Invalid Social Network';
+        throw Exception('invalid-social-network');
     }
   }
 
   /// Specific rules to sing in with Facebook
+  @visibleForTesting
   Future<AuthUserModel> signInWithFacebook(CredentialDTO credentialDTO) async {
     final OAuthCredential facebookAuthCredential;
     facebookAuthCredential =
@@ -70,6 +72,7 @@ class FireBaseGateway implements IAuthGateway {
   }
 
   /// Specific rules to sing in with Google
+  @visibleForTesting
   Future<AuthUserModel> signInWithGoogle(CredentialDTO credentialDTO) async {
     final OAuthCredential googleAuthCredential;
     googleAuthCredential = GoogleAuthProvider.credential(
@@ -150,6 +153,7 @@ class FireBaseGateway implements IAuthGateway {
   }
 
   /// Convert the UserCredential (Firebase Object) to AuthUserModel
+  @visibleForTesting
   Future<AuthUserModel> geAuthtUserModelFromUserCredential(
       UserCredential userCredential) async {
     AuthUserModel authUser = AuthUserModel(
@@ -163,6 +167,7 @@ class FireBaseGateway implements IAuthGateway {
     return authUser;
   }
 
+  @visibleForTesting
   Future<AuthUserModel> getAuthUserModelFromUser(User? user) async {
     AuthUserModel authUser = AuthUserModel(
         userId: user?.uid ?? '',

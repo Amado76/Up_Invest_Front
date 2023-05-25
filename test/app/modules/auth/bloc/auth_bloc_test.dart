@@ -147,6 +147,48 @@ void main() async {
         ],
       );
     });
+    // AuthEventSignInWithSocialNetwork
+    group('whe [AuthEventSignInWithSocialNetwork', () {
+      blocTest<AuthBloc, AuthState>(
+          'and it is successfull emits [AuthStateLoggedIn]',
+          setUp: () {
+            when(() => authRepositoryMock.signInWithSocialNetwork('google'))
+                .thenAnswer((_) async => authUserMock);
+          },
+          build: () => authBloc,
+          act: (bloc) => bloc.add(
+              const AuthEventSignInWithSocialNetwork(socialNetwork: 'google')),
+          expect: () => <AuthState>[
+                const AuthStateLoggedOut(isLoading: true),
+                AuthStateLoggedIn(authUser: authUserMock, isLoading: false)
+              ]);
+      blocTest<AuthBloc, AuthState>('and it fails emits [AuthStateLoggedOut]',
+          setUp: () {
+            when(() => authRepositoryMock.signInWithSocialNetwork('google'))
+                .thenThrow(FirebaseAuthException(code: 'email-already-exists'));
+          },
+          build: () => authBloc,
+          act: (bloc) => bloc.add(
+              const AuthEventSignInWithSocialNetwork(socialNetwork: 'google')),
+          expect: () => <AuthState>[
+                const AuthStateLoggedOut(isLoading: true),
+                const AuthStateLoggedOut(
+                    authError: AuthErrorEmailAlreadyExists(), isLoading: false)
+              ]);
+      blocTest<AuthBloc, AuthState>('and it fails emits [AuthStateLoggedOut] ',
+          setUp: () {
+            when(() => authRepositoryMock.signInWithSocialNetwork(''))
+                .thenThrow(Exception('invalid-social-network'));
+          },
+          build: () => authBloc,
+          act: (bloc) => bloc
+              .add(const AuthEventSignInWithSocialNetwork(socialNetwork: '')),
+          expect: () => <AuthState>[
+                const AuthStateLoggedOut(isLoading: true),
+                const AuthStateLoggedOut(
+                    authError: AuthErrorOperationNotAllowed(), isLoading: false)
+              ]);
+    });
     // AuthEventDeleteAccount test
     group('when [AuthEventDeleteAccount] is added', () {
       blocTest<AuthBloc, AuthState>(

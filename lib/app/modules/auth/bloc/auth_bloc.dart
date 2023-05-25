@@ -70,7 +70,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           await authRepository.signInWithEmailAndPassword(email, password);
       emit(AuthStateLoggedIn(authUser: authUser, isLoading: false));
     } on FirebaseAuthException catch (e) {
-      emit(AuthStateLoggedOut(isLoading: false, authError: AuthError.from(e)));
+      emit(AuthStateLoggedOut(
+          isLoading: false, authError: AuthError.fromFirebase(e)));
     }
   }
 
@@ -81,6 +82,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           await authRepository.signInWithSocialNetwork(socialNetwork);
       emit(AuthStateLoggedIn(authUser: authUser, isLoading: false));
     } on FirebaseAuthException catch (e) {
+      emit(AuthStateLoggedOut(
+          isLoading: false, authError: AuthError.fromFirebase(e)));
+    } on Exception catch (e) {
       emit(AuthStateLoggedOut(isLoading: false, authError: AuthError.from(e)));
     }
   }
@@ -113,7 +117,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } on FirebaseAuthException catch (e) {
       emit(AuthStateLoggedIn(
           isLoading: false,
-          authError: AuthError.from(e),
+          authError: AuthError.fromFirebase(e),
           authUser: currentUser));
     }
   }
@@ -136,7 +140,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthStateLoggedIn(
           authUser: currentUser,
           isLoading: false,
-          authError: AuthError.from(e)));
+          authError: AuthError.fromFirebase(e)));
     }
   }
 
@@ -150,7 +154,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } on FirebaseAuthException catch (e) {
       emit(
         AuthStateRecoverPassword(
-            isLoading: false, authError: AuthError.from(e)),
+            isLoading: false, authError: AuthError.fromFirebase(e)),
       );
     }
   }
@@ -202,7 +206,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           index: index,
           avatar: avatar,
           isLoading: false,
-          authError: AuthError.from(e)));
+          authError: AuthError.fromFirebase(e)));
     }
   }
 
