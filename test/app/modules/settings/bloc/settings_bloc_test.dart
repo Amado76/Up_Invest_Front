@@ -27,31 +27,31 @@ void main() {
         });
 
     blocTest<SettingsBloc, SettingsState>(
-        'when [SettingsEventChangeThemeToDark] is added emits [SettingsStateGlobal] with [themeMode.dark]',
-        setUp: () {},
+        'when [SettingsEventChangeTheme] is added with ["system"]emits [SettingsStateGlobal] with [themeMode.system]',
         build: () => settingsBloc,
-        act: (bloc) => settingsBloc.add(const SettingsEventChangeThemeToDark()),
+        act: (bloc) =>
+            settingsBloc.add(const SettingsEventChangeTheme(theme: 'system')),
+        verify: (bloc) {
+          expect((bloc.state as SettingsStateGlobal).settingsModel.themeMode,
+              ThemeMode.system);
+        });
+    blocTest<SettingsBloc, SettingsState>(
+        'when [SettingsEventChangeTheme] is added with ["system"]emits [SettingsStateGlobal] with [themeMode.dark]',
+        build: () => settingsBloc,
+        act: (bloc) =>
+            settingsBloc.add(const SettingsEventChangeTheme(theme: 'dark')),
         verify: (bloc) {
           expect((bloc.state as SettingsStateGlobal).settingsModel.themeMode,
               ThemeMode.dark);
         });
     blocTest<SettingsBloc, SettingsState>(
-        'when [SettingsEventChangeThemeToLight] is added emits [SettingsStateGlobal] with [themeMode.light]',
+        'when [SettingsEventChangeTheme] is added with ["system"]emits [SettingsStateGlobal] with [themeMode.light]',
         build: () => settingsBloc,
         act: (bloc) =>
-            settingsBloc.add(const SettingsEventChangeThemeToLight()),
+            settingsBloc.add(const SettingsEventChangeTheme(theme: 'light')),
         verify: (bloc) {
           expect((bloc.state as SettingsStateGlobal).settingsModel.themeMode,
               ThemeMode.light);
-        });
-    blocTest<SettingsBloc, SettingsState>(
-        'when [SettingsEventChangeThemeToSystem] is added emits [SettingsStateGlobal] with [themeMode.System]',
-        build: () => settingsBloc,
-        act: (bloc) =>
-            settingsBloc.add(const SettingsEventChangeThemeToSystem()),
-        verify: (bloc) {
-          expect((bloc.state as SettingsStateGlobal).settingsModel.themeMode,
-              ThemeMode.system);
         });
   });
 }

@@ -15,52 +15,24 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc({required this.settingsRepository})
       : super(SettingsStateGlobal(
             settingsModel: SettingsModel(themeMode: ThemeMode.system))) {
-    on<SettingsEventChangeThemeToDark>((event, emit) async {
-      _onChangeThemeToDark();
-    });
-    on<SettingsEventChangeThemeToLight>((event, emit) async {
-      _onChangeThemeToLight();
-    });
-    on<SettingsEventChangeThemeToSystem>((event, emit) async {
-      _onChangeThemeToSystem();
+    on<SettingsEventChangeTheme>((event, emit) {
+      _onChangeTheme(event.theme);
     });
     on<SettingsEventFetchSavedSettings>((event, emit) async {
       _onGetSavedSettings();
     });
   }
 
-  void _onChangeThemeToDark() async {
+  void _onChangeTheme(String theme) async {
     final currentState = state as SettingsStateGlobal;
     final currentSettings = currentState.settingsModel;
     SettingsModel newSettings =
         SettingsModel(themeMode: currentSettings.themeMode);
-    newSettings.themeMode = ThemeMode.dark;
-
-    await saveSettings(newSettings);
-    emit(SettingsStateGlobal(
-      settingsModel: newSettings,
-    ));
-  }
-
-  void _onChangeThemeToLight() async {
-    final currentState = state as SettingsStateGlobal;
-    final currentSettings = currentState.settingsModel;
-
-    SettingsModel newSettings =
-        SettingsModel(themeMode: currentSettings.themeMode);
-    newSettings.themeMode = ThemeMode.light;
-
-    await saveSettings(newSettings);
-    emit(SettingsStateGlobal(settingsModel: newSettings));
-  }
-
-  void _onChangeThemeToSystem() async {
-    final currentState = state as SettingsStateGlobal;
-    final currentSettings = currentState.settingsModel;
-
-    SettingsModel newSettings =
-        SettingsModel(themeMode: currentSettings.themeMode);
-    newSettings.themeMode = ThemeMode.system;
+    newSettings.themeMode = (theme == 'system')
+        ? ThemeMode.system
+        : (theme == 'dark')
+            ? ThemeMode.dark
+            : ThemeMode.light;
     await saveSettings(newSettings);
 
     emit(SettingsStateGlobal(settingsModel: newSettings));

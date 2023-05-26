@@ -21,13 +21,13 @@ class _SettingsPageState extends State<SettingsPage> {
           TextButton(
             child: const Text('Change Theme - Dark'),
             onPressed: () {
-              settingsBloc.add(const SettingsEventChangeThemeToDark());
+              settingsBloc.add(const SettingsEventChangeTheme(theme: 'dark'));
             },
           ),
           TextButton(
-            child: const Text('Change Theme - Ligth'),
+            child: const Text('Change Theme - Light'),
             onPressed: () {
-              settingsBloc.add(const SettingsEventChangeThemeToLight());
+              settingsBloc.add(const SettingsEventChangeTheme(theme: 'light'));
             },
           ),
           TextButton(

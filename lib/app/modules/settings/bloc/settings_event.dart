@@ -9,18 +9,9 @@ abstract class SettingsEvent extends Equatable {
 }
 
 @immutable
-class SettingsEventChangeThemeToDark extends SettingsEvent {
-  const SettingsEventChangeThemeToDark();
-}
-
-@immutable
-class SettingsEventChangeThemeToLight extends SettingsEvent {
-  const SettingsEventChangeThemeToLight();
-}
-
-@immutable
-class SettingsEventChangeThemeToSystem extends SettingsEvent {
-  const SettingsEventChangeThemeToSystem();
+class SettingsEventChangeTheme extends SettingsEvent {
+  final String theme;
+  const SettingsEventChangeTheme({required this.theme});
 }
 
 @immutable
