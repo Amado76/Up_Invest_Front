@@ -104,7 +104,7 @@ void main() async {
         expect: () => <AuthState>[
           const AuthStateSigningUp(
               avatar: 'assets/avatars/fox.png', index: 7, isLoading: true),
-          const AuthStateSigningUp(
+          AuthStateSigningUp(
               avatar: 'assets/avatars/fox.png',
               index: 7,
               isLoading: false,
@@ -141,7 +141,7 @@ void main() async {
             email: 'any', password: 'any')),
         expect: () => <AuthState>[
           const AuthStateLoggedOut(isLoading: true),
-          const AuthStateLoggedOut(
+          AuthStateLoggedOut(
               isLoading: false, authError: AuthErrorWrongPassword())
         ],
       );
@@ -171,7 +171,7 @@ void main() async {
               const AuthEventSignInWithSocialNetwork(socialNetwork: 'google')),
           expect: () => <AuthState>[
                 const AuthStateLoggedOut(isLoading: true),
-                const AuthStateLoggedOut(
+                AuthStateLoggedOut(
                     authError: AuthErrorEmailAlreadyExists(), isLoading: false)
               ]);
       blocTest<AuthBloc, AuthState>('and it fails emits [AuthStateLoggedOut] ',
@@ -184,7 +184,7 @@ void main() async {
               .add(const AuthEventSignInWithSocialNetwork(socialNetwork: '')),
           expect: () => <AuthState>[
                 const AuthStateLoggedOut(isLoading: true),
-                const AuthStateLoggedOut(
+                AuthStateLoggedOut(
                     authError: AuthErrorOperationNotAllowed(), isLoading: false)
               ]);
     });
@@ -255,7 +255,7 @@ void main() async {
                 AuthStateLoggedIn(
                     authUser: authUserMock,
                     isLoading: false,
-                    authError: const AuthErrorRequiresRecentLogin()),
+                    authError: AuthErrorRequiresRecentLogin()),
               ]);
     });
     // AuthEventLogOut test
@@ -383,7 +383,7 @@ void main() async {
             bloc.add(const AuthEventSendPasswordResetEmail(email: 'whatever')),
         expect: () => <AuthState>[
           const AuthStateRecoverPassword(isLoading: true),
-          const AuthStateRecoverPassword(
+          AuthStateRecoverPassword(
               isLoading: false, authError: AuthErrorInvalidEmail())
         ],
       );

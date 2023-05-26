@@ -28,8 +28,35 @@
     "authValidatorEnterYourPassword": "Por favor, ingrese su contraseña",
     "authValidatorPasswordInvalidRequirements": "La contraseña debe contener al menos un carácter especial \ny una letra mayúscula",
     "authValidatorPasswordDoNotMatch": "Las contraseñas no coinciden",
-    "authValidatorNameMinLength": "Por favor, ingrese un nombre con al menos 4 caracteres"
+    "authValidatorNameMinLength": "Por favor, ingrese un nombre con al menos 4 caracteres",
 
-    
+    "authErrorUnknownTitle": "Error de autenticación",
+    "authErrorUnknownMessage": "Error de autenticación desconocido",
+    "authErrorEmailAlreadyExistsTitle": "Correo electrónico en uso",
+    "authErrorEmailAlreadyExistsMessage": "Por favor, elija otro correo electrónico para registrarse",
+    "authErrorTokenExpiredTitle": "Sesión expirada",
+    "authErrorTokenExpiredMessage": "Tu sesión ha expirado. Por favor, inicia la sesión nuevamente",
+    "authErrorTokenRevokedTitle": "Sesión expirada",
+    "authErrorTokenRevokedMessage": "Tu sesión ha expirado. Por favor, inicia la sesión nuevamente",
+    "authErrorInvalidEmailTitle": "Correo electrónico inválido",
+    "authErrorInvalidEmailMessage": "Por favor, ingresa una dirección de correo electrónico válida",
+    "authErrorOperationNotAllowedTitle": "Operación no permitida",
+    "authErrorOperationNotAllowedMessage": "No puedes registrarte usando este método en este momento",
+    "authErrorUserNotFoundTitle": "Usuario no encontrado",
+    "authErrorUserNotFoundMessage": "No se encontró ningún usuario actual con esta información",
+    "authErrorRequiresRecentLoginTitle": "Requiere inicio de sesión reciente",
+    "authErrorRequiresRecentLoginMessage": "Debes cerrar sesión e iniciarla nuevamente para realizar esta operación",
+    "authErrorWeakPasswordTitle": "Contraseña débil",
+    "authErrorWeakPasswordMessage": "Por favor, elige una contraseña más fuerte",
+    "authErrorWrongPasswordTitle": "Correo electrónico o contraseña incorrectos",
+    "authErrorWrongPasswordMessage": "Por favor, verifica tu correo electrónico y contraseña e intenta nuevamente",
+    "authErrorUserMismatchTitle": "Incompatibilidad de usuario",
+    "authErrorUserMismatchMessage": "Las credenciales proporcionadas no corresponden al usuario",
+    "authErrorTooManyRequestsTitle": "Demasiados intentos de inicio de sesión",
+    "authErrorTooManyRequestsMessage": "El acceso a esta cuenta ha sido temporalmente desactivado debido a muchos intentos de inicio de sesión fallidos",
+    "authErrorNetworkErrorTitle": "Error de conexión",
+    "authErrorNetworkErrorMessage": "Por favor, verifica tu conexión a internet y vuelve a intentarlo"
+
+
 
 }

@@ -22,6 +22,60 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "authErrorEmailAlreadyExistsMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "Por favor, escolha outro email para se cadastrar!"),
+        "authErrorEmailAlreadyExistsTitle":
+            MessageLookupByLibrary.simpleMessage("Email em uso"),
+        "authErrorInvalidEmailMessage": MessageLookupByLibrary.simpleMessage(
+            "Por favor, insira um endereço de email válido!"),
+        "authErrorInvalidEmailTitle":
+            MessageLookupByLibrary.simpleMessage("Email inválido"),
+        "authErrorNetworkErrorMessage": MessageLookupByLibrary.simpleMessage(
+            "Por favor, verifique sua conexão com a internet e tente novamente."),
+        "authErrorNetworkErrorTitle":
+            MessageLookupByLibrary.simpleMessage("Erro de conexão!"),
+        "authErrorOperationNotAllowedMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "Você não pode se cadastrar usando este método neste momento!"),
+        "authErrorOperationNotAllowedTitle":
+            MessageLookupByLibrary.simpleMessage("Operação não permitida"),
+        "authErrorRequiresRecentLoginMessage": MessageLookupByLibrary.simpleMessage(
+            "Você precisa sair e entrar novamente para realizar esta operação"),
+        "authErrorRequiresRecentLoginTitle":
+            MessageLookupByLibrary.simpleMessage("Requer login recente"),
+        "authErrorTokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
+            "Sua sessão expirou. Por favor, faça o login novamente!"),
+        "authErrorTokenExpiredTitle":
+            MessageLookupByLibrary.simpleMessage("Sessão expirada"),
+        "authErrorTokenRevokedMessage": MessageLookupByLibrary.simpleMessage(
+            "Sua sessão expirou. Por favor, faça o login novamente!"),
+        "authErrorTokenRevokedTitle":
+            MessageLookupByLibrary.simpleMessage("Sessão expirada"),
+        "authErrorTooManyRequestsMessage": MessageLookupByLibrary.simpleMessage(
+            "O acesso a esta conta foi temporariamente bloqueado devido a muitas tentativas de login fracassadas."),
+        "authErrorTooManyRequestsTitle":
+            MessageLookupByLibrary.simpleMessage("Muitas tentativas de login!"),
+        "authErrorUnknownMessage": MessageLookupByLibrary.simpleMessage(
+            "Erro de autenticação desconhecido"),
+        "authErrorUnknownTitle":
+            MessageLookupByLibrary.simpleMessage("Erro de autenticação"),
+        "authErrorUserMismatchMessage": MessageLookupByLibrary.simpleMessage(
+            "As credenciais fornecidas não correspondem ao usuário!"),
+        "authErrorUserMismatchTitle": MessageLookupByLibrary.simpleMessage(
+            "Incompatibilidade de usuário"),
+        "authErrorUserNotFoundMessage": MessageLookupByLibrary.simpleMessage(
+            "Nenhum usuário atual com estas informações foi encontrado!"),
+        "authErrorUserNotFoundTitle":
+            MessageLookupByLibrary.simpleMessage("Usuário não encontrado!"),
+        "authErrorWeakPasswordMessage": MessageLookupByLibrary.simpleMessage(
+            "Por favor, escolha uma senha mais forte!"),
+        "authErrorWeakPasswordTitle":
+            MessageLookupByLibrary.simpleMessage("Senha fraca"),
+        "authErrorWrongPasswordMessage": MessageLookupByLibrary.simpleMessage(
+            "Por favor, verifique seu email e senha e tente novamente."),
+        "authErrorWrongPasswordTitle":
+            MessageLookupByLibrary.simpleMessage("Email ou senha incorretos"),
         "authValidatorEnterYourEmail": MessageLookupByLibrary.simpleMessage(
             "Por favor, digite seu e-mail"),
         "authValidatorEnterYourPassword": MessageLookupByLibrary.simpleMessage(

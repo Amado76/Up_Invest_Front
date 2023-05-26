@@ -74,6 +74,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } on FirebaseAuthException catch (e) {
       emit(AuthStateLoggedOut(
           isLoading: false, authError: AuthError.fromFirebase(e)));
+    } on Exception catch (e) {
+      emit(AuthStateLoggedOut(isLoading: false, authError: AuthError.from(e)));
     }
   }
 
@@ -102,6 +104,37 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  void _createNewUser({
+    required String email,
+    required String password,
+    required String displayName,
+  }) async {
+    final currentState = state as AuthStateSigningUp;
+    final index = currentState.index;
+    final avatar = currentState.avatar;
+    emit(AuthStateSigningUp(index: index, avatar: avatar, isLoading: true));
+    try {
+      AuthUserModel authUser = await authRepository.createAccount(
+          email: email,
+          password: password,
+          displayName: displayName,
+          avatar: avatar);
+      emit(AuthStateLoggedIn(authUser: authUser, isLoading: false));
+    } on FirebaseAuthException catch (e) {
+      emit(AuthStateSigningUp(
+          index: index,
+          avatar: avatar,
+          isLoading: false,
+          authError: AuthError.fromFirebase(e)));
+    } on Exception catch (e) {
+      emit(AuthStateSigningUp(
+          index: index,
+          avatar: avatar,
+          isLoading: false,
+          authError: AuthError.from(e)));
+    }
+  }
+
   void _signOut() async {
     await authRepository.signOut();
     emit(const AuthStateLoggedOut(isLoading: false));
@@ -120,6 +153,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthStateLoggedIn(
           isLoading: false,
           authError: AuthError.fromFirebase(e),
+          authUser: currentUser));
+    } on Exception catch (e) {
+      emit(AuthStateLoggedIn(
+          isLoading: false,
+          authError: AuthError.from(e),
           authUser: currentUser));
     }
   }
@@ -143,6 +181,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           authUser: currentUser,
           isLoading: false,
           authError: AuthError.fromFirebase(e)));
+    } on Exception catch (e) {
+      emit(AuthStateLoggedIn(
+          isLoading: false,
+          authError: AuthError.from(e),
+          authUser: currentUser));
     }
   }
 
@@ -185,31 +228,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       return newIndex;
     }
     return currentIndex;
-  }
-
-  void _createNewUser({
-    required String email,
-    required String password,
-    required String displayName,
-  }) async {
-    final currentState = state as AuthStateSigningUp;
-    final index = currentState.index;
-    final avatar = currentState.avatar;
-    emit(AuthStateSigningUp(index: index, avatar: avatar, isLoading: true));
-    try {
-      AuthUserModel authUser = await authRepository.createAccount(
-          email: email,
-          password: password,
-          displayName: displayName,
-          avatar: avatar);
-      emit(AuthStateLoggedIn(authUser: authUser, isLoading: false));
-    } on FirebaseAuthException catch (e) {
-      emit(AuthStateSigningUp(
-          index: index,
-          avatar: avatar,
-          isLoading: false,
-          authError: AuthError.fromFirebase(e)));
-    }
   }
 
   void _goToSignUpPage() {

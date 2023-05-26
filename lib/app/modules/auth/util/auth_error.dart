@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show immutable;
+import 'package:flutter/services.dart' show PlatformException;
+import 'package:up_invest_front/l10n/generated/l10n.dart';
 
 /// The [AuthError] class represents authentication errors.
-const Map<String, AuthError> authErrorMapping = {
+Map<String, AuthError> authErrorMapping = {
   'email-already-exists': AuthErrorEmailAlreadyExists(),
   'id-token-expired': AuthErrorTokenExpired(),
   'id-token-revoked': AuthErrorTokenRevoked(),
@@ -16,6 +18,8 @@ const Map<String, AuthError> authErrorMapping = {
   'email-already-in-use': AuthErrorEmailAlreadyExists(),
   'too-many-requests': AuthErrorTooManyRequests(),
   'Exception: invalid-social-network': AuthErrorOperationNotAllowed(),
+  'network_error': AuthErrorNetworkError(),
+  'network-request-failed': AuthErrorNetworkError(),
 };
 
 @immutable
@@ -37,64 +41,68 @@ sealed class AuthError {
   /// or a default [AuthErrorUnknown] object if no mapping is found.
   factory AuthError.fromFirebase(FirebaseAuthException exception) =>
       authErrorMapping[exception.code.toLowerCase().trim()] ??
-      const AuthErrorUnknown();
+      AuthErrorUnknown();
 
   /// Factory method to create an [AuthError] object based on a [Exception].
   /// [exception] - The [Exception] from which to create the [AuthError].
   /// Returns an [AuthError] object corresponding to the provided exception,
   /// or a default [AuthErrorUnknown] object if no mapping is found.
   factory AuthError.from(Exception exception) {
+    if (exception is PlatformException) {
+      String errorMessage = exception.code;
+      return authErrorMapping[errorMessage] ?? AuthErrorUnknown();
+    }
     String errorMessage = exception.toString();
-    return authErrorMapping[errorMessage] ?? const AuthErrorUnknown();
+    return authErrorMapping[errorMessage] ?? AuthErrorUnknown();
   }
 }
 
 @immutable
 class AuthErrorUnknown extends AuthError {
-  const AuthErrorUnknown()
+  AuthErrorUnknown()
       : super(
-          dialogTitle: 'Authentication error',
-          dialogText: 'Unknown authentication error',
+          dialogTitle: IntlStrings.current.authErrorUnknownTitle,
+          dialogText: IntlStrings.current.authErrorUnknownMessage,
         );
 }
 
 ///email-already-exists
 @immutable
 class AuthErrorEmailAlreadyExists extends AuthError {
-  const AuthErrorEmailAlreadyExists()
+  AuthErrorEmailAlreadyExists()
       : super(
-          dialogTitle: 'Email already in use',
-          dialogText: 'Please choose another email to register with!',
+          dialogTitle: IntlStrings.current.authErrorEmailAlreadyExistsTitle,
+          dialogText: IntlStrings.current.authErrorEmailAlreadyExistsMessage,
         );
 }
 
 ///id-token-expired
 @immutable
 class AuthErrorTokenExpired extends AuthError {
-  const AuthErrorTokenExpired()
+  AuthErrorTokenExpired()
       : super(
-          dialogTitle: 'Session Expired',
-          dialogText: 'Your session has expired. Please sign in again!',
+          dialogTitle: IntlStrings.current.authErrorTokenExpiredTitle,
+          dialogText: IntlStrings.current.authErrorTokenExpiredMessage,
         );
 }
 
 ///id-token-revoked
 @immutable
 class AuthErrorTokenRevoked extends AuthError {
-  const AuthErrorTokenRevoked()
+  AuthErrorTokenRevoked()
       : super(
-          dialogTitle: 'Session Expired',
-          dialogText: 'Your session has expired. Please sign in again!',
+          dialogTitle: IntlStrings.current.authErrorTokenRevokedTitle,
+          dialogText: IntlStrings.current.authErrorTokenRevokedMessage,
         );
 }
 
 ///invalid-email
 @immutable
 class AuthErrorInvalidEmail extends AuthError {
-  const AuthErrorInvalidEmail()
+  AuthErrorInvalidEmail()
       : super(
-          dialogTitle: 'Invalid Email',
-          dialogText: 'Please enter a valid email address!',
+          dialogTitle: IntlStrings.current.authErrorInvalidEmailTitle,
+          dialogText: IntlStrings.current.authErrorInvalidEmailMessage,
         );
 }
 
@@ -102,73 +110,79 @@ class AuthErrorInvalidEmail extends AuthError {
 
 @immutable
 class AuthErrorOperationNotAllowed extends AuthError {
-  const AuthErrorOperationNotAllowed()
+  AuthErrorOperationNotAllowed()
       : super(
-          dialogTitle: 'Operation not allowed',
-          dialogText: 'You cannot register using this method at this moment!',
+          dialogTitle: IntlStrings.current.authErrorOperationNotAllowedTitle,
+          dialogText: IntlStrings.current.authErrorOperationNotAllowedMessage,
         );
 }
 
 ///user-not-found
 @immutable
 class AuthErrorUserNotFound extends AuthError {
-  const AuthErrorUserNotFound()
+  AuthErrorUserNotFound()
       : super(
-          dialogTitle: 'User not found!',
-          dialogText: 'No current user with this information was found!',
+          dialogTitle: IntlStrings.current.authErrorUserNotFoundTitle,
+          dialogText: IntlStrings.current.authErrorUserNotFoundMessage,
         );
 }
 
 ///requires-recent-login
 @immutable
 class AuthErrorRequiresRecentLogin extends AuthError {
-  const AuthErrorRequiresRecentLogin()
+  AuthErrorRequiresRecentLogin()
       : super(
-          dialogTitle: 'Requires recent login',
-          dialogText:
-              'You need to log out and log back in again in order to perform this operation',
+          dialogTitle: IntlStrings.current.authErrorRequiresRecentLoginTitle,
+          dialogText: IntlStrings.current.authErrorRequiresRecentLoginMessage,
         );
 }
 
 ///weak-password
 @immutable
 class AuthErrorWeakPassword extends AuthError {
-  const AuthErrorWeakPassword()
+  AuthErrorWeakPassword()
       : super(
-          dialogTitle: 'Weak password',
-          dialogText:
-              'Please choose a stronger password consisting of more characters!',
+          dialogTitle: IntlStrings.current.authErrorWeakPasswordTitle,
+          dialogText: IntlStrings.current.authErrorWeakPasswordMessage,
         );
 }
 
 /// user-mismatch
 @immutable
 class AuthErrorUserMismatch extends AuthError {
-  const AuthErrorUserMismatch()
+  AuthErrorUserMismatch()
       : super(
-          dialogTitle: 'User Mismatch',
-          dialogText:
-              'The provided credential does not correspond to the user!',
+          dialogTitle: IntlStrings.current.authErrorUserMismatchTitle,
+          dialogText: IntlStrings.current.authErrorUserMismatchMessage,
         );
 }
 
 ///wrong-password
 @immutable
 class AuthErrorWrongPassword extends AuthError {
-  const AuthErrorWrongPassword()
+  AuthErrorWrongPassword()
       : super(
-          dialogTitle: 'Wrong email or password',
-          dialogText: 'Please verify your email and password and try again.',
+          dialogTitle: IntlStrings.current.authErrorWrongPasswordTitle,
+          dialogText: IntlStrings.current.authErrorWrongPasswordMessage,
         );
 }
 
 ///too-many-requests
 @immutable
 class AuthErrorTooManyRequests extends AuthError {
-  const AuthErrorTooManyRequests()
+  AuthErrorTooManyRequests()
       : super(
-          dialogTitle: 'To many failed login attempts',
-          dialogText:
-              'Access to this account has been temporarily disabled due to many failed login attempts.',
+          dialogTitle: IntlStrings.current.authErrorTooManyRequestsTitle,
+          dialogText: IntlStrings.current.authErrorTooManyRequestsMessage,
+        );
+}
+
+//network_error
+@immutable
+class AuthErrorNetworkError extends AuthError {
+  AuthErrorNetworkError()
+      : super(
+          dialogTitle: IntlStrings.current.authErrorNetworkErrorTitle,
+          dialogText: IntlStrings.current.authErrorNetworkErrorMessage,
         );
 }

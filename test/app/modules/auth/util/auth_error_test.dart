@@ -1,9 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart' show Locale;
+
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
+import 'package:up_invest_front/l10n/generated/l10n.dart';
 
-void main() {
+void main() async {
+  final strings =
+      await IntlStrings.load(const Locale.fromSubtags(languageCode: 'en'));
   group('AuthError', () {
+    setUp(() => {});
     group('.fromFirebase', () {
       test(
           'Should return an instance of [AuthErrorUnknown] if the error from FirebaseAuthException is [unknown or not mapped]',
@@ -192,6 +199,26 @@ void main() {
         final authError = AuthError.from(exception);
         //Assert
         expect(authError, isA<AuthErrorOperationNotAllowed>());
+      });
+      test(
+          'Should return an instance of [AuthErrorNetworkError] if the error from PlataformException is ["network-request-failed"]',
+          () {
+        // Arrange
+        final exception = PlatformException(code: 'network-request-failed');
+        // Act
+        final authError = AuthError.from(exception);
+        //Assert
+        expect(authError, isA<AuthErrorNetworkError>());
+      });
+      test(
+          'Should return an instance of [AuthErrorNetworkError] if the error from PlataformException is ["network_error"]',
+          () {
+        // Arrange
+        final exception = PlatformException(code: 'network_error');
+        // Act
+        final authError = AuthError.from(exception);
+        //Assert
+        expect(authError, isA<AuthErrorNetworkError>());
       });
     });
   });

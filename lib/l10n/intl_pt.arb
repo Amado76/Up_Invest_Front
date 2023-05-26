@@ -27,7 +27,34 @@
     "authValidatorEnterYourPassword": "Por favor, digite sua senha!",
     "authValidatorPasswordInvalidRequirements": "A senha deve conter pelo menos um caractere especial \ne uma letra maiúscula",
     "authValidatorPasswordDoNotMatch": "As senhas não correspondem",
-    "authValidatorNameMinLength": "Por favor, digite um nome com pelo menos 4 caracteres"
+    "authValidatorNameMinLength": "Por favor, digite um nome com pelo menos 4 caracteres",
+
+    "authErrorUnknownTitle": "Erro de autenticação",
+    "authErrorUnknownMessage": "Erro de autenticação desconhecido",
+    "authErrorEmailAlreadyExistsTitle": "Email em uso",
+    "authErrorEmailAlreadyExistsMessage": "Por favor, escolha outro email para se cadastrar!",
+    "authErrorTokenExpiredTitle": "Sessão expirada",
+    "authErrorTokenExpiredMessage": "Sua sessão expirou. Por favor, faça o login novamente!",
+    "authErrorTokenRevokedTitle": "Sessão expirada",
+    "authErrorTokenRevokedMessage": "Sua sessão expirou. Por favor, faça o login novamente!",
+    "authErrorInvalidEmailTitle": "Email inválido",
+    "authErrorInvalidEmailMessage": "Por favor, insira um endereço de email válido!",
+    "authErrorOperationNotAllowedTitle": "Operação não permitida",
+    "authErrorOperationNotAllowedMessage": "Você não pode se cadastrar usando este método neste momento!",
+    "authErrorUserNotFoundTitle": "Usuário não encontrado!",
+    "authErrorUserNotFoundMessage": "Nenhum usuário atual com estas informações foi encontrado!",
+    "authErrorRequiresRecentLoginTitle": "Requer login recente",
+    "authErrorRequiresRecentLoginMessage": "Você precisa sair e entrar novamente para realizar esta operação",
+    "authErrorWeakPasswordTitle": "Senha fraca",
+    "authErrorWeakPasswordMessage": "Por favor, escolha uma senha mais forte!",
+    "authErrorWrongPasswordTitle": "Email ou senha incorretos",
+    "authErrorWrongPasswordMessage": "Por favor, verifique seu email e senha e tente novamente.",
+    "authErrorUserMismatchTitle": "Incompatibilidade de usuário",
+    "authErrorUserMismatchMessage": "As credenciais fornecidas não correspondem ao usuário!",
+    "authErrorTooManyRequestsTitle": "Muitas tentativas de login!",
+    "authErrorTooManyRequestsMessage": "O acesso a esta conta foi temporariamente bloqueado devido a muitas tentativas de login fracassadas.",
+    "authErrorNetworkErrorTitle": "Erro de conexão!",
+    "authErrorNetworkErrorMessage": "Por favor, verifique sua conexão com a internet e tente novamente."
 
     
 

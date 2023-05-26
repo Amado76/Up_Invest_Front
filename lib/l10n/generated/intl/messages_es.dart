@@ -22,6 +22,61 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "authErrorEmailAlreadyExistsMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "Por favor, elija otro correo electrónico para registrarse"),
+        "authErrorEmailAlreadyExistsTitle":
+            MessageLookupByLibrary.simpleMessage("Correo electrónico en uso"),
+        "authErrorInvalidEmailMessage": MessageLookupByLibrary.simpleMessage(
+            "Por favor, ingresa una dirección de correo electrónico válida"),
+        "authErrorInvalidEmailTitle":
+            MessageLookupByLibrary.simpleMessage("Correo electrónico inválido"),
+        "authErrorNetworkErrorMessage": MessageLookupByLibrary.simpleMessage(
+            "Por favor, verifica tu conexión a internet y vuelve a intentarlo"),
+        "authErrorNetworkErrorTitle":
+            MessageLookupByLibrary.simpleMessage("Error de conexión"),
+        "authErrorOperationNotAllowedMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "No puedes registrarte usando este método en este momento"),
+        "authErrorOperationNotAllowedTitle":
+            MessageLookupByLibrary.simpleMessage("Operación no permitida"),
+        "authErrorRequiresRecentLoginMessage": MessageLookupByLibrary.simpleMessage(
+            "Debes cerrar sesión e iniciarla nuevamente para realizar esta operación"),
+        "authErrorRequiresRecentLoginTitle":
+            MessageLookupByLibrary.simpleMessage(
+                "Requiere inicio de sesión reciente"),
+        "authErrorTokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
+            "Tu sesión ha expirado. Por favor, inicia la sesión nuevamente"),
+        "authErrorTokenExpiredTitle":
+            MessageLookupByLibrary.simpleMessage("Sesión expirada"),
+        "authErrorTokenRevokedMessage": MessageLookupByLibrary.simpleMessage(
+            "Tu sesión ha expirado. Por favor, inicia la sesión nuevamente"),
+        "authErrorTokenRevokedTitle":
+            MessageLookupByLibrary.simpleMessage("Sesión expirada"),
+        "authErrorTooManyRequestsMessage": MessageLookupByLibrary.simpleMessage(
+            "El acceso a esta cuenta ha sido temporalmente desactivado debido a muchos intentos de inicio de sesión fallidos"),
+        "authErrorTooManyRequestsTitle": MessageLookupByLibrary.simpleMessage(
+            "Demasiados intentos de inicio de sesión"),
+        "authErrorUnknownMessage": MessageLookupByLibrary.simpleMessage(
+            "Error de autenticación desconocido"),
+        "authErrorUnknownTitle":
+            MessageLookupByLibrary.simpleMessage("Error de autenticación"),
+        "authErrorUserMismatchMessage": MessageLookupByLibrary.simpleMessage(
+            "Las credenciales proporcionadas no corresponden al usuario"),
+        "authErrorUserMismatchTitle":
+            MessageLookupByLibrary.simpleMessage("Incompatibilidad de usuario"),
+        "authErrorUserNotFoundMessage": MessageLookupByLibrary.simpleMessage(
+            "No se encontró ningún usuario actual con esta información"),
+        "authErrorUserNotFoundTitle":
+            MessageLookupByLibrary.simpleMessage("Usuario no encontrado"),
+        "authErrorWeakPasswordMessage": MessageLookupByLibrary.simpleMessage(
+            "Por favor, elige una contraseña más fuerte"),
+        "authErrorWeakPasswordTitle":
+            MessageLookupByLibrary.simpleMessage("Contraseña débil"),
+        "authErrorWrongPasswordMessage": MessageLookupByLibrary.simpleMessage(
+            "Por favor, verifica tu correo electrónico y contraseña e intenta nuevamente"),
+        "authErrorWrongPasswordTitle": MessageLookupByLibrary.simpleMessage(
+            "Correo electrónico o contraseña incorrectos"),
         "authValidatorEnterYourEmail": MessageLookupByLibrary.simpleMessage(
             "Por favor, ingrese su correo electrónico"),
         "authValidatorEnterYourPassword": MessageLookupByLibrary.simpleMessage(

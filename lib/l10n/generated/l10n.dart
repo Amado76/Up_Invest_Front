@@ -299,6 +299,266 @@ class IntlStrings {
       args: [],
     );
   }
+
+  /// `Authentication error`
+  String get authErrorUnknownTitle {
+    return Intl.message(
+      'Authentication error',
+      name: 'authErrorUnknownTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown authentication error`
+  String get authErrorUnknownMessage {
+    return Intl.message(
+      'Unknown authentication error',
+      name: 'authErrorUnknownMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email already in use`
+  String get authErrorEmailAlreadyExistsTitle {
+    return Intl.message(
+      'Email already in use',
+      name: 'authErrorEmailAlreadyExistsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please choose another email to register with!`
+  String get authErrorEmailAlreadyExistsMessage {
+    return Intl.message(
+      'Please choose another email to register with!',
+      name: 'authErrorEmailAlreadyExistsMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Session Expired`
+  String get authErrorTokenExpiredTitle {
+    return Intl.message(
+      'Session Expired',
+      name: 'authErrorTokenExpiredTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your session has expired. Please sign in again!`
+  String get authErrorTokenExpiredMessage {
+    return Intl.message(
+      'Your session has expired. Please sign in again!',
+      name: 'authErrorTokenExpiredMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Session Expired`
+  String get authErrorTokenRevokedTitle {
+    return Intl.message(
+      'Session Expired',
+      name: 'authErrorTokenRevokedTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your session has expired. Please sign in again!`
+  String get authErrorTokenRevokedMessage {
+    return Intl.message(
+      'Your session has expired. Please sign in again!',
+      name: 'authErrorTokenRevokedMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Email`
+  String get authErrorInvalidEmailTitle {
+    return Intl.message(
+      'Invalid Email',
+      name: 'authErrorInvalidEmailTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email address!`
+  String get authErrorInvalidEmailMessage {
+    return Intl.message(
+      'Please enter a valid email address!',
+      name: 'authErrorInvalidEmailMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Operation not allowed`
+  String get authErrorOperationNotAllowedTitle {
+    return Intl.message(
+      'Operation not allowed',
+      name: 'authErrorOperationNotAllowedTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You cannot register using this method at this moment!`
+  String get authErrorOperationNotAllowedMessage {
+    return Intl.message(
+      'You cannot register using this method at this moment!',
+      name: 'authErrorOperationNotAllowedMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User not found!`
+  String get authErrorUserNotFoundTitle {
+    return Intl.message(
+      'User not found!',
+      name: 'authErrorUserNotFoundTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No current user with this information was found!`
+  String get authErrorUserNotFoundMessage {
+    return Intl.message(
+      'No current user with this information was found!',
+      name: 'authErrorUserNotFoundMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Requires recent login`
+  String get authErrorRequiresRecentLoginTitle {
+    return Intl.message(
+      'Requires recent login',
+      name: 'authErrorRequiresRecentLoginTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You need to log out and log back in again in order to perform this operation`
+  String get authErrorRequiresRecentLoginMessage {
+    return Intl.message(
+      'You need to log out and log back in again in order to perform this operation',
+      name: 'authErrorRequiresRecentLoginMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weak password`
+  String get authErrorWeakPasswordTitle {
+    return Intl.message(
+      'Weak password',
+      name: 'authErrorWeakPasswordTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please choose a stronger password consisting of more characters!`
+  String get authErrorWeakPasswordMessage {
+    return Intl.message(
+      'Please choose a stronger password consisting of more characters!',
+      name: 'authErrorWeakPasswordMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong email or password`
+  String get authErrorWrongPasswordTitle {
+    return Intl.message(
+      'Wrong email or password',
+      name: 'authErrorWrongPasswordTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please verify your email and password and try again.`
+  String get authErrorWrongPasswordMessage {
+    return Intl.message(
+      'Please verify your email and password and try again.',
+      name: 'authErrorWrongPasswordMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User Mismatch`
+  String get authErrorUserMismatchTitle {
+    return Intl.message(
+      'User Mismatch',
+      name: 'authErrorUserMismatchTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The provided credential does not correspond to the user!`
+  String get authErrorUserMismatchMessage {
+    return Intl.message(
+      'The provided credential does not correspond to the user!',
+      name: 'authErrorUserMismatchMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To many failed login attempts`
+  String get authErrorTooManyRequestsTitle {
+    return Intl.message(
+      'To many failed login attempts',
+      name: 'authErrorTooManyRequestsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Access to this account has been temporarily disabled due to many failed login attempts.`
+  String get authErrorTooManyRequestsMessage {
+    return Intl.message(
+      'Access to this account has been temporarily disabled due to many failed login attempts.',
+      name: 'authErrorTooManyRequestsMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connection Error!`
+  String get authErrorNetworkErrorTitle {
+    return Intl.message(
+      'Connection Error!',
+      name: 'authErrorNetworkErrorTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check your internet connection and try again.`
+  String get authErrorNetworkErrorMessage {
+    return Intl.message(
+      'Please check your internet connection and try again.',
+      name: 'authErrorNetworkErrorMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<IntlStrings> {
