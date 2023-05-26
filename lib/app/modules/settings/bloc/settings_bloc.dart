@@ -2,7 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart' show immutable, visibleForTesting;
-import 'package:flutter/material.dart' show ThemeMode;
+import 'package:flutter/material.dart' show Locale, ThemeMode;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart';
 import 'package:up_invest_front/app/modules/settings/repository/settings_repository.dart';
