@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:up_invest_front/l10n/generated/l10n.dart';
 
 class GetStartedPage extends StatefulWidget {
   const GetStartedPage({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
     final bottomBarSize = MediaQuery.of(context).viewPadding.bottom;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final intlStrings = IntlStrings.of(context);
 
     return Scaffold(
         backgroundColor: colorScheme.background,
@@ -46,8 +48,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            'Take off towards your\n'
-                            'Financial Independence',
+                            intlStrings.getStartedText,
                             style: TextStyle(
                                 color: colorScheme.primary,
                                 fontSize: 30,
@@ -122,6 +123,7 @@ class _ButtonGetStarted extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final intlStrings = IntlStrings.of(context);
     final colorScheme = theme.colorScheme;
     final authBloc = Modular.get<AuthBloc>();
     return Directionality(
@@ -143,11 +145,11 @@ class _ButtonGetStarted extends StatelessWidget {
             foregroundColor: colorScheme.onPrimary,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
-        label: const Padding(
-          padding: EdgeInsets.only(right: 142),
+        label: Padding(
+          padding: const EdgeInsets.only(right: 142),
           child: Text(
-            'Begin your journey',
-            style: TextStyle(
+            intlStrings.getStartedButton,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),

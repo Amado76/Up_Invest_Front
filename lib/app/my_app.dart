@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
+
+import 'package:up_invest_front/l10n/generated/l10n.dart';
+
 import 'core/themes/themes.dart';
 import 'modules/settings/bloc/settings_bloc.dart';
 
@@ -13,6 +17,14 @@ class MyApp extends StatelessWidget {
     final settingsState = settingsBloc.state;
 
     return MaterialApp.router(
+      localizationsDelegates: const [
+        IntlStrings.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      locale: const Locale('en'),
+      supportedLocales: IntlStrings.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
       themeMode: settingsState.settingsModel.themeMode,
       theme: lightTheme,
