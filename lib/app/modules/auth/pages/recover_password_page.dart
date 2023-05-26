@@ -9,6 +9,7 @@ import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_auth_scaffold.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_elevated_button.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
+import 'package:up_invest_front/l10n/generated/l10n.dart';
 
 class RecoverPasswordPage extends StatefulWidget {
   const RecoverPasswordPage({super.key});
@@ -32,6 +33,7 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
     final appBarSize = AppBar().preferredSize.height;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final intlString = IntlStrings.of(context);
 
     return BlocConsumer<AuthBloc, AuthState>(
       bloc: _authBloc,
@@ -50,7 +52,8 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
               authSuccess.dialogTitle, authSuccess.dialogText, context);
         }
         if (state.isLoading == true) {
-          LoadingScreen.instance().show(context: context, text: 'Loading...');
+          LoadingScreen.instance()
+              .show(context: context, text: intlString.loading);
         } else {
           LoadingScreen.instance().hide();
         }
@@ -75,7 +78,7 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                 'assets/images/forgot_password.png')),
                       ),
                       Text(
-                        'Forgot your password?',
+                        intlString.forgotPassword,
                         style: TextStyle(
                             color: colorScheme.onBackground,
                             fontSize: 30,
@@ -83,7 +86,7 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                       ),
                       const SizedBox(height: 25),
                       Text(
-                        'No problem! Just enter your email \nand our astronauts will send you a recovery code!',
+                        intlString.recoverPasswordBody,
                         style: TextStyle(
                             color: colorScheme.onBackground, fontSize: 20),
                       ),
@@ -95,13 +98,13 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                             CustomTextFormField(
                                 controller: _emailController,
                                 keyBoardType: TextInputType.emailAddress,
-                                hintText: 'Email',
+                                hintText: intlString.emailHintText,
                                 validator: (email) {
                                   return _validator.emailValidator(email);
                                 }),
                             const SizedBox(height: 15),
                             CustomElevatedButton(
-                                text: 'Submit!!',
+                                text: intlString.submitButton,
                                 onPressed: () => {
                                       if (_formKey.currentState!.validate())
                                         _authBloc.add(

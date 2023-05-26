@@ -1,20 +1,24 @@
+import 'package:up_invest_front/l10n/generated/l10n.dart';
+
 class AuthFormValidator {
+  final intlStrings = IntlStrings.current;
+
   String? emailValidator(String? email) {
     if (email == null || email.isEmpty) {
-      return 'Please enter your email';
+      return intlStrings.authValidatorEnterYourEmail;
     }
     if (!RegExp(_validEmailRegExp).hasMatch(email)) {
-      return 'Please enter a valid email';
+      return intlStrings.authValidatorValidEmail;
     }
     return null;
   }
 
   String? signInPasswordValidator(String? password) {
     if (password == null || password.isEmpty) {
-      return 'Please enter your password.';
+      return intlStrings.authValidatorEnterYourPassword;
     }
     if (password.length < 6) {
-      return 'Your password have less than 6 characters!';
+      return intlStrings.authValidatorPasswordMinLength;
     }
 
     return null;
@@ -22,14 +26,14 @@ class AuthFormValidator {
 
   String? signUpPasswordValidator(String? password) {
     if (password == null || password.isEmpty) {
-      return 'Please enter your password.';
+      return intlStrings.authValidatorEnterYourPassword;
     }
     if (password.length < 6) {
-      return 'Your password have less than 6 characters!';
+      return intlStrings.authValidatorPasswordMinLength;
     }
     if (!RegExp(_uppercaseCharRegExp).hasMatch(password) ||
         !RegExp(_specialCharRegExp).hasMatch(password)) {
-      return 'Password requires at least one special character and at least one uppercase letter.';
+      return intlStrings.authValidatorPasswordInvalidRequirements;
     }
     return null;
   }
@@ -38,12 +42,12 @@ class AuthFormValidator {
     if (password == confirmPassword) {
       return null;
     }
-    return 'The passwords do not match.';
+    return intlStrings.authValidatorPasswordDoNotMatch;
   }
 
   String? minNameLengthValidator(String? name) {
     if (name == null || name.length < 4) {
-      return 'Please enter a name with at least 4 characters.';
+      return intlStrings.authValidatorNameMinLength;
     }
     return null;
   }

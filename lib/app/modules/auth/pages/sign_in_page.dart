@@ -3,9 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
+import 'package:up_invest_front/app/modules/auth/widgets/custom_elevated_button.dart';
+import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_field.dart';
+import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
 
-import 'package:up_invest_front/app/modules/auth/widgets/login_form.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
+import 'package:up_invest_front/l10n/generated/l10n.dart';
 
 import '../../../core/widgets/custom_snack_bar.dart';
 
@@ -27,6 +31,7 @@ class _SignInState extends State<SignInPage> {
     final authBloc = Modular.get<AuthBloc>();
     final settingsBloc = Modular.get<SettingsBloc>();
     final currentTheme = settingsBloc.state.settingsModel.themeMode;
+    final intlString = IntlStrings.of(context);
 
     final customBar = CustomSnackBar();
 
@@ -36,7 +41,8 @@ class _SignInState extends State<SignInPage> {
         bloc: authBloc,
         listener: (context, state) {
           if (state.isLoading == true) {
-            LoadingScreen.instance().show(context: context, text: 'Loading...');
+            LoadingScreen.instance()
+                .show(context: context, text: intlString.loading);
           } else {
             LoadingScreen.instance().hide();
           }
@@ -75,7 +81,7 @@ class _SignInState extends State<SignInPage> {
                       alignment: Alignment.center,
                     ),
                     const SizedBox(height: 50),
-                    const LoginForm(),
+                    const _SignInForm(),
                     const SizedBox(height: 10),
                     Row(
                       children: [
@@ -88,7 +94,7 @@ class _SignInState extends State<SignInPage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 15, right: 15),
                           child: Text(
-                            'Or sign in with',
+                            intlString.signInWith,
                             style: TextStyle(
                               color: colorScheme.onBackground,
                             ),
@@ -124,12 +130,12 @@ class _SignInState extends State<SignInPage> {
                     const SizedBox(height: 30),
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       Text(
-                        'Don\'t have an account?',
+                        intlString.signInDoNotHaveAccount,
                         style: TextStyle(color: colorScheme.onBackground),
                       ),
                       TextButton(
                         child: Text(
-                          'Sign up!',
+                          intlString.signInSignUp,
                           style: TextStyle(color: colorScheme.primary),
                         ),
                         onPressed: () =>
@@ -142,6 +148,87 @@ class _SignInState extends State<SignInPage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _SignInForm extends StatefulWidget {
+  const _SignInForm();
+
+  @override
+  State<_SignInForm> createState() => SignInFormState();
+}
+
+class SignInFormState extends State<_SignInForm> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _validator = AuthFormValidator();
+
+  @override
+  Widget build(BuildContext context) {
+    final authBloc = Modular.get<AuthBloc>();
+    final intlString = IntlStrings.of(context);
+    return Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            CustomTextFormField(
+                hintText: intlString.emailHintText,
+                keyBoardType: TextInputType.emailAddress,
+                icon: const Icon(Icons.email_outlined),
+                controller: _emailController,
+                validator: (email) {
+                  return _validator.emailValidator(email);
+                }),
+            const SizedBox(
+              height: 11,
+            ),
+            CustomPasswordFormField(
+              hintText: intlString.passwordHintText,
+              controller: _passwordController,
+              validator: (password) {
+                return _validator.signInPasswordValidator(password);
+              },
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [_ForgotPassword()],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            CustomElevatedButton(
+              text: intlString.loginForm,
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  authBloc.add(AuthEventSignInWithEmailAndPassword(
+                      email: _emailController.text,
+                      password: _passwordController.text));
+                }
+              },
+            ),
+            const SizedBox(height: 10),
+          ],
+        ));
+  }
+}
+
+class _ForgotPassword extends StatelessWidget {
+  const _ForgotPassword({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final intlString = IntlStrings.of(context);
+    final authBloc = Modular.get<AuthBloc>();
+    return TextButton(
+      onPressed: () => authBloc.add(const AuthEventGoToRecoverPasswordPage()),
+      child: Text(
+        intlString.forgotPassword,
+        style: TextStyle(color: Theme.of(context).colorScheme.primary),
       ),
     );
   }

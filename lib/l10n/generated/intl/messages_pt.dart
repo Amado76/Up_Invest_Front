@@ -22,9 +22,48 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "authValidatorEnterYourEmail": MessageLookupByLibrary.simpleMessage(
+            "Por favor, digite seu e-mail"),
+        "authValidatorEnterYourPassword": MessageLookupByLibrary.simpleMessage(
+            "Por favor, digite sua senha!"),
+        "authValidatorNameMinLength": MessageLookupByLibrary.simpleMessage(
+            "Por favor, digite um nome com pelo menos 4 caracteres"),
+        "authValidatorPasswordDoNotMatch":
+            MessageLookupByLibrary.simpleMessage("As senhas não correspondem"),
+        "authValidatorPasswordInvalidRequirements":
+            MessageLookupByLibrary.simpleMessage(
+                "A senha deve conter pelo menos um caractere especial \ne uma letra maiúscula"),
+        "authValidatorPasswordMinLength": MessageLookupByLibrary.simpleMessage(
+            "Sua senha possui menos de 6 caracteres!"),
+        "authValidatorValidEmail": MessageLookupByLibrary.simpleMessage(
+            "Por favor, digite um e-mail válido"),
+        "confirmYourPasswordHintText":
+            MessageLookupByLibrary.simpleMessage("Confirme sua senha"),
+        "emailHintText": MessageLookupByLibrary.simpleMessage("E-mail"),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
         "getStartedButton":
             MessageLookupByLibrary.simpleMessage("Inicie sua jornada"),
         "getStartedText": MessageLookupByLibrary.simpleMessage(
-            "Voe para a sua\nIndependência financeira")
+            "Voe para a sua\nIndependência financeira"),
+        "loading": MessageLookupByLibrary.simpleMessage("Carregando!"),
+        "loginForm": MessageLookupByLibrary.simpleMessage("Fazer login"),
+        "nameHintText": MessageLookupByLibrary.simpleMessage("Nome"),
+        "passwordHintText": MessageLookupByLibrary.simpleMessage("Senha"),
+        "recoverPasswordBody": MessageLookupByLibrary.simpleMessage(
+            "Sem problemas! Basta digitar o seu e-mail \ne nossos astrounautas enviarão o código \nde recuperação para você!"),
+        "signInDoNotHaveAccount":
+            MessageLookupByLibrary.simpleMessage("Ainda não tem uma conta?"),
+        "signInSignUp": MessageLookupByLibrary.simpleMessage("Cadastre-se!"),
+        "signInWith": MessageLookupByLibrary.simpleMessage("Ou continue com"),
+        "signUpAgreeTerms": MessageLookupByLibrary.simpleMessage(
+            "Concordo com os termos de uso"),
+        "signUpSubTitle": MessageLookupByLibrary.simpleMessage(
+            "Você poderá edita-los mais tarde!"),
+        "signUpTitle":
+            MessageLookupByLibrary.simpleMessage("Preencha os seus dados"),
+        "splashScreenText": MessageLookupByLibrary.simpleMessage(
+            "Acompanhe seus ativos e \nvoe até o seu sucesso financeiro!"),
+        "submitButton": MessageLookupByLibrary.simpleMessage("Submeter!")
       };
 }

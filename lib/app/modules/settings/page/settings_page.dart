@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
+import 'package:up_invest_front/l10n/generated/l10n.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -34,6 +35,28 @@ class _SettingsPageState extends State<SettingsPage> {
             child: const Text('Go Home'),
             onPressed: () {
               Modular.to.navigate('/home');
+            },
+          ),
+          Text(IntlStrings.of(context).getStartedText),
+          TextButton(
+            child: const Text('en'),
+            onPressed: () {
+              settingsBloc
+                  .add(const SettingsEventChangeLanguage(language: 'en'));
+            },
+          ),
+          TextButton(
+            child: const Text('pt'),
+            onPressed: () {
+              settingsBloc
+                  .add(const SettingsEventChangeLanguage(language: 'pt'));
+            },
+          ),
+          TextButton(
+            child: const Text('es'),
+            onPressed: () {
+              settingsBloc
+                  .add(const SettingsEventChangeLanguage(language: 'es'));
             },
           ),
         ],

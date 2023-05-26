@@ -1,1 +1,35 @@
-{}
+{
+    "nameHintText": "Nombre",  
+    "emailHintText": "Correo electrónico",
+    "passwordHintText": "Contraseña",
+    "confirmYourPasswordHintText":"Confirma tu contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "loading": "Cargando!",
+    "submitButton":"Enviar!",
+    
+
+    "splashScreenText": "¡Haga un seguimiento de tus activos y vuela hacia el éxito financiero!",
+
+    "getStartedText": "Vuela hacia tu \nindependencia financiera",
+    "getStartedButton":"Empieza tu viaje",
+
+    "signInWith":"o contiuar con",
+    "signInDoNotHaveAccount": "¿No tienes una cuenta?",    
+    "signInSignUp":"¡Regístrate!",
+    "loginForm":"Iniciar sesión",    
+    "recoverPasswordBody": "¡Sin problemas! ¡Simplemente ingrese tu e-mail y nuestros astronautas le enviarán el código de recuperación!",
+    "signUpTitle":"Ingresa tus datos",
+    "signUpSubTitle":"¡Puedes editarlos más tarde!",
+    "signUpAgreeTerms":"Acepto los términos y condiciones",
+
+    "authValidatorEnterYourEmail": "Por favor, ingrese su correo electrónico",
+    "authValidatorValidEmail": "Por favor, ingrese un correo electrónico válido",
+    "authValidatorPasswordMinLength": "Su contraseña tiene menos de 6 caracteres",
+    "authValidatorEnterYourPassword": "Por favor, ingrese su contraseña",
+    "authValidatorPasswordInvalidRequirements": "La contraseña debe contener al menos un carácter especial \ny una letra mayúscula",
+    "authValidatorPasswordDoNotMatch": "Las contraseñas no coinciden",
+    "authValidatorNameMinLength": "Por favor, ingrese un nombre con al menos 4 caracteres"
+
+    
+
+}

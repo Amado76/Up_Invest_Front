@@ -50,6 +50,86 @@ class IntlStrings {
     return Localizations.of<IntlStrings>(context, IntlStrings);
   }
 
+  /// `Name`
+  String get nameHintText {
+    return Intl.message(
+      'Name',
+      name: 'nameHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get emailHintText {
+    return Intl.message(
+      'Email',
+      name: 'emailHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get passwordHintText {
+    return Intl.message(
+      'Password',
+      name: 'passwordHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm your password`
+  String get confirmYourPasswordHintText {
+    return Intl.message(
+      'Confirm your password',
+      name: 'confirmYourPasswordHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot your password?`
+  String get forgotPassword {
+    return Intl.message(
+      'Forgot your password?',
+      name: 'forgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading!`
+  String get loading {
+    return Intl.message(
+      'Loading!',
+      name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit!`
+  String get submitButton {
+    return Intl.message(
+      'Submit!',
+      name: 'submitButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Track your assets and \njourney to financial success!`
+  String get splashScreenText {
+    return Intl.message(
+      'Track your assets and \njourney to financial success!',
+      name: 'splashScreenText',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Take off towards your\nFinancial Independence`
   String get getStartedText {
     return Intl.message(
@@ -65,6 +145,156 @@ class IntlStrings {
     return Intl.message(
       'Begin your journey',
       name: 'getStartedButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Or sign in with`
+  String get signInWith {
+    return Intl.message(
+      'Or sign in with',
+      name: 'signInWith',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't have an account?`
+  String get signInDoNotHaveAccount {
+    return Intl.message(
+      'Don\'t have an account?',
+      name: 'signInDoNotHaveAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up!`
+  String get signInSignUp {
+    return Intl.message(
+      'Sign up!',
+      name: 'signInSignUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in`
+  String get loginForm {
+    return Intl.message(
+      'Sign in',
+      name: 'loginForm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No problem! Just enter your email \nand our astrounauts will send you a recovery code!`
+  String get recoverPasswordBody {
+    return Intl.message(
+      'No problem! Just enter your email \nand our astrounauts will send you a recovery code!',
+      name: 'recoverPasswordBody',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your details`
+  String get signUpTitle {
+    return Intl.message(
+      'Enter your details',
+      name: 'signUpTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can edit them later!`
+  String get signUpSubTitle {
+    return Intl.message(
+      'You can edit them later!',
+      name: 'signUpSubTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I agree to the terms and conditions`
+  String get signUpAgreeTerms {
+    return Intl.message(
+      'I agree to the terms and conditions',
+      name: 'signUpAgreeTerms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your email`
+  String get authValidatorEnterYourEmail {
+    return Intl.message(
+      'Please enter your email',
+      name: 'authValidatorEnterYourEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email`
+  String get authValidatorValidEmail {
+    return Intl.message(
+      'Please enter a valid email',
+      name: 'authValidatorValidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your password have less than 6 characters!`
+  String get authValidatorPasswordMinLength {
+    return Intl.message(
+      'Your password have less than 6 characters!',
+      name: 'authValidatorPasswordMinLength',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your password!`
+  String get authValidatorEnterYourPassword {
+    return Intl.message(
+      'Please enter your password!',
+      name: 'authValidatorEnterYourPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password requires at least one special character \nand one uppercase letter`
+  String get authValidatorPasswordInvalidRequirements {
+    return Intl.message(
+      'Password requires at least one special character \nand one uppercase letter',
+      name: 'authValidatorPasswordInvalidRequirements',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The passwords do not match`
+  String get authValidatorPasswordDoNotMatch {
+    return Intl.message(
+      'The passwords do not match',
+      name: 'authValidatorPasswordDoNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a name with at least 4 characters`
+  String get authValidatorNameMinLength {
+    return Intl.message(
+      'Please enter a name with at least 4 characters',
+      name: 'authValidatorNameMinLength',
       desc: '',
       args: [],
     );

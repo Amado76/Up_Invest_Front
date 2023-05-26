@@ -18,7 +18,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingsEventChangeTheme>((event, emit) {
       _onChangeTheme(event.theme);
     });
-    on<SettingsEventChangeLanguage>((event, emit) {
+    on<SettingsEventChangeLanguage>((event, emit) async {
       _onChangeLanguage(event.language);
     });
     on<SettingsEventFetchSavedSettings>((event, emit) async {
