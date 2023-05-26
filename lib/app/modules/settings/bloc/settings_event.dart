@@ -15,6 +15,12 @@ class SettingsEventChangeTheme extends SettingsEvent {
 }
 
 @immutable
+class SettingsEventChangeLanguage extends SettingsEvent {
+  final String language;
+  const SettingsEventChangeLanguage({required this.language});
+}
+
+@immutable
 class SettingsEventFetchSavedSettings extends SettingsEvent {
   const SettingsEventFetchSavedSettings();
 }

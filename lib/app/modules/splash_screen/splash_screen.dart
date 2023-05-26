@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:async' show Timer;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,18 +60,18 @@ class _SplashScreenState extends State<SplashScreen> {
                 Column(
                   children: [
                     Image.asset(
-                      'assets/images/logo_up_invest.png',
+                      'assets/images/logo_up_invest_dark_mode.png',
                       alignment: Alignment.center,
                       height: 300,
                       width: 300,
                     ),
-                    const Text(
+                    Text(
                       'Track your assets and \njourney to financial success!',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: colorScheme.tertiaryContainer,
                         fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
+                        fontSize: 30.0,
                       ),
                     ),
                   ],

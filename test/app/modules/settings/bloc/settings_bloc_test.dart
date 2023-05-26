@@ -26,32 +26,46 @@ void main() {
               .thenAnswer((_) => Future.value()),
         });
 
-    blocTest<SettingsBloc, SettingsState>(
-        'when [SettingsEventChangeTheme] is added with ["system"]emits [SettingsStateGlobal] with [themeMode.system]',
-        build: () => settingsBloc,
-        act: (bloc) =>
-            settingsBloc.add(const SettingsEventChangeTheme(theme: 'system')),
-        verify: (bloc) {
-          expect((bloc.state as SettingsStateGlobal).settingsModel.themeMode,
-              ThemeMode.system);
-        });
-    blocTest<SettingsBloc, SettingsState>(
-        'when [SettingsEventChangeTheme] is added with ["system"]emits [SettingsStateGlobal] with [themeMode.dark]',
-        build: () => settingsBloc,
-        act: (bloc) =>
-            settingsBloc.add(const SettingsEventChangeTheme(theme: 'dark')),
-        verify: (bloc) {
-          expect((bloc.state as SettingsStateGlobal).settingsModel.themeMode,
-              ThemeMode.dark);
-        });
-    blocTest<SettingsBloc, SettingsState>(
-        'when [SettingsEventChangeTheme] is added with ["system"]emits [SettingsStateGlobal] with [themeMode.light]',
-        build: () => settingsBloc,
-        act: (bloc) =>
-            settingsBloc.add(const SettingsEventChangeTheme(theme: 'light')),
-        verify: (bloc) {
-          expect((bloc.state as SettingsStateGlobal).settingsModel.themeMode,
-              ThemeMode.light);
-        });
+    //SettingsEventChangeTheme
+    group('when [SettingsEventChangeTheme] is added ', () {
+      blocTest<SettingsBloc, SettingsState>(
+          'with ["system"]emits [SettingsStateGlobal] with [themeMode.system]',
+          build: () => settingsBloc,
+          act: (bloc) =>
+              settingsBloc.add(const SettingsEventChangeTheme(theme: 'system')),
+          verify: (bloc) {
+            expect((bloc.state as SettingsStateGlobal).settingsModel.themeMode,
+                ThemeMode.system);
+          });
+      blocTest<SettingsBloc, SettingsState>(
+          'with ["system"]emits [SettingsStateGlobal] with [themeMode.dark]',
+          build: () => settingsBloc,
+          act: (bloc) =>
+              settingsBloc.add(const SettingsEventChangeTheme(theme: 'dark')),
+          verify: (bloc) {
+            expect((bloc.state as SettingsStateGlobal).settingsModel.themeMode,
+                ThemeMode.dark);
+          });
+      blocTest<SettingsBloc, SettingsState>(
+          'with ["system"]emits [SettingsStateGlobal] with [themeMode.light]',
+          build: () => settingsBloc,
+          act: (bloc) =>
+              settingsBloc.add(const SettingsEventChangeTheme(theme: 'light')),
+          verify: (bloc) {
+            expect((bloc.state as SettingsStateGlobal).settingsModel.themeMode,
+                ThemeMode.light);
+          });
+    });
+    group('when [SettingsEventChangeLanguage] is added', () {
+      blocTest<SettingsBloc, SettingsState>(
+          'with ["en"] emits [SettingsStateGlobal] with [Locale("en")]',
+          build: () => settingsBloc,
+          act: (bloc) => settingsBloc
+              .add(const SettingsEventChangeLanguage(language: 'en')),
+          verify: (bloc) {
+            expect((bloc.state as SettingsStateGlobal).settingsModel.locale,
+                const Locale('en'));
+          });
+    });
   });
 }

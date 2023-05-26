@@ -18,16 +18,16 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingsEventChangeTheme>((event, emit) {
       _onChangeTheme(event.theme);
     });
+    on<SettingsEventChangeLanguage>((event, emit) {
+      _onChangeLanguage(event.language);
+    });
     on<SettingsEventFetchSavedSettings>((event, emit) async {
-      _onGetSavedSettings();
+      _onFetchSavedSettings();
     });
   }
 
   void _onChangeTheme(String theme) async {
-    final currentState = state as SettingsStateGlobal;
-    final currentSettings = currentState.settingsModel;
-    SettingsModel newSettings =
-        SettingsModel(themeMode: currentSettings.themeMode);
+    SettingsModel newSettings = _generateNewSettings();
     newSettings.themeMode = (theme == 'system')
         ? ThemeMode.system
         : (theme == 'dark')
@@ -38,7 +38,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     emit(SettingsStateGlobal(settingsModel: newSettings));
   }
 
-  void _onGetSavedSettings() async {
+  void _onChangeLanguage(String language) async {
+    SettingsModel newSettings = _generateNewSettings();
+    newSettings.locale = Locale(language);
+    await saveSettings(newSettings);
+    emit(SettingsStateGlobal(settingsModel: newSettings));
+  }
+
+  void _onFetchSavedSettings() async {
     final SettingsModel fetchedSettingsModel;
     fetchedSettingsModel =
         await settingsRepository.getSettingsFromLocalStorage();
@@ -48,5 +55,18 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   @visibleForTesting
   Future<void> saveSettings(SettingsModel currentSettings) async {
     await settingsRepository.saveSettingsToLocalStorage(currentSettings);
+  }
+
+  SettingsModel _generateNewSettings() {
+    final currentSettings = _getCurrentSettings();
+    SettingsModel newSettings = SettingsModel(
+        themeMode: currentSettings.themeMode, locale: currentSettings.locale);
+    return newSettings;
+  }
+
+  SettingsModel _getCurrentSettings() {
+    final currentState = state as SettingsStateGlobal;
+    final currentSettings = currentState.settingsModel;
+    return currentSettings;
   }
 }
