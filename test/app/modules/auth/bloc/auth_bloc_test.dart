@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -10,12 +12,14 @@ import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';
 import 'package:up_invest_front/app/modules/user/avatar_model.dart';
+import 'package:up_invest_front/l10n/generated/l10n.dart';
 
 import '../../../../mocks/gateway/auth_gateway_mock.dart';
 import '../../../../mocks/model/auth_user_model_mock.dart';
 import '../../../../mocks/repository/auth_repository_mock.dart';
 
 void main() async {
+  await IntlStrings.load(const Locale.fromSubtags(languageCode: 'en'));
   group('AuthBloc', () {
     late AuthBloc authBloc;
     late IAuthRepository authRepositoryMock;
@@ -111,6 +115,33 @@ void main() async {
               authError: AuthErrorEmailAlreadyExists()),
         ],
       );
+      blocTest<AuthBloc, AuthState>(
+        'and throw error',
+        setUp: () {
+          when(() => authRepositoryMock.createAccount(
+                  email: any(named: 'email'),
+                  password: any(named: 'password'),
+                  displayName: any(named: 'displayName'),
+                  avatar: any(named: 'avatar')))
+              .thenThrow(PlatformException(code: 'too-many-requests'));
+        },
+        build: () => authBloc,
+        seed: () => const AuthStateSigningUp(
+            index: 7, avatar: 'assets/avatars/fox.png', isLoading: false),
+        act: (bloc) => bloc.add(const AuthEventCreateAccount(
+            email: 'ash@pallet.com',
+            password: 'Teste123!',
+            displayName: 'Ash Ketchum')),
+        expect: () => <AuthState>[
+          const AuthStateSigningUp(
+              avatar: 'assets/avatars/fox.png', index: 7, isLoading: true),
+          AuthStateSigningUp(
+              avatar: 'assets/avatars/fox.png',
+              index: 7,
+              isLoading: false,
+              authError: AuthErrorTooManyRequests()),
+        ],
+      );
     });
     // AuthEventSignInWithEmailAndPassword test
     group('when [AuthEventSignInWithEmailAndPassword] is added', () {
@@ -143,6 +174,22 @@ void main() async {
           const AuthStateLoggedOut(isLoading: true),
           AuthStateLoggedOut(
               isLoading: false, authError: AuthErrorWrongPassword())
+        ],
+      );
+      blocTest<AuthBloc, AuthState>(
+        'and authentication fails emits [AuthStateLoggedOut, with specific autherror].',
+        setUp: () {
+          when(() =>
+                  authRepositoryMock.signInWithEmailAndPassword(any(), any()))
+              .thenThrow(PlatformException(code: 'network_error'));
+        },
+        build: () => authBloc,
+        act: (bloc) => bloc.add(const AuthEventSignInWithEmailAndPassword(
+            email: 'any', password: 'any')),
+        expect: () => <AuthState>[
+          const AuthStateLoggedOut(isLoading: true),
+          AuthStateLoggedOut(
+              isLoading: false, authError: AuthErrorNetworkError())
         ],
       );
     });
@@ -208,6 +255,48 @@ void main() async {
           const AuthStateLoggedOut(isLoading: false)
         ],
       );
+      blocTest<AuthBloc, AuthState>(
+        'and it throw FirebaseAuthException.',
+        setUp: () {
+          when(() => authRepositoryMock.deleteUser())
+              .thenThrow(FirebaseAuthException(code: 'user-mismatch'));
+          when(() => authRepositoryMock.reauthenticateAUser(any(), any()))
+              .thenAnswer((_) => Future.value());
+        },
+        build: () => authBloc,
+        seed: () =>
+            AuthStateLoggedIn(authUser: AuthUserModelMock(), isLoading: false),
+        act: (bloc) => bloc
+            .add(const AuthEventDeleteAccount(email: 'any', password: 'any')),
+        expect: () => <AuthState>[
+          AuthStateLoggedIn(authUser: authUserMock, isLoading: true),
+          AuthStateLoggedIn(
+              authUser: authUserMock,
+              isLoading: false,
+              authError: AuthErrorUserMismatch())
+        ],
+      );
+      blocTest<AuthBloc, AuthState>(
+        'and it throw Exception.',
+        setUp: () {
+          when(() => authRepositoryMock.deleteUser())
+              .thenThrow(PlatformException(code: 'weak-password'));
+          when(() => authRepositoryMock.reauthenticateAUser(any(), any()))
+              .thenAnswer((_) => Future.value());
+        },
+        build: () => authBloc,
+        seed: () =>
+            AuthStateLoggedIn(authUser: AuthUserModelMock(), isLoading: false),
+        act: (bloc) => bloc
+            .add(const AuthEventDeleteAccount(email: 'any', password: 'any')),
+        expect: () => <AuthState>[
+          AuthStateLoggedIn(authUser: authUserMock, isLoading: true),
+          AuthStateLoggedIn(
+              authUser: authUserMock,
+              isLoading: false,
+              authError: AuthErrorWeakPassword())
+        ],
+      );
     });
     // AuthEventUpdatePassword test
     group('when [AuthEventUpdatePassword] is added', () {
@@ -256,6 +345,29 @@ void main() async {
                     authUser: authUserMock,
                     isLoading: false,
                     authError: AuthErrorRequiresRecentLogin()),
+              ]);
+      blocTest<AuthBloc, AuthState>(
+          'and it fails emits [AuthStateLoggedIn] with error',
+          setUp: () {
+            when(() => authRepositoryMock.reauthenticateAUser(any(), any()))
+                .thenAnswer((_) => Future.value());
+            when(() => authRepositoryMock.updatePassword(
+                    oldPassword: any(named: 'oldPassword'),
+                    newPassword: any(named: 'newPassword'),
+                    email: any(named: 'email')))
+                .thenThrow(PlatformException(code: 'user-not-found'));
+          },
+          build: () => authBloc,
+          seed: () =>
+              AuthStateLoggedIn(authUser: authUserMock, isLoading: false),
+          act: (bloc) => bloc.add(const AuthEventUpdatePassword(
+              oldPassword: 'oldPassword', newPassword: 'newPassword')),
+          expect: () => <AuthState>[
+                AuthStateLoggedIn(authUser: authUserMock, isLoading: true),
+                AuthStateLoggedIn(
+                    authUser: authUserMock,
+                    isLoading: false,
+                    authError: AuthErrorUserNotFound()),
               ]);
     });
     // AuthEventLogOut test

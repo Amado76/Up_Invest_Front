@@ -7,8 +7,7 @@ import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 import 'package:up_invest_front/l10n/generated/l10n.dart';
 
 void main() async {
-  final strings =
-      await IntlStrings.load(const Locale.fromSubtags(languageCode: 'en'));
+  await IntlStrings.load(const Locale.fromSubtags(languageCode: 'en'));
   group('AuthError', () {
     setUp(() => {});
     group('.fromFirebase', () {

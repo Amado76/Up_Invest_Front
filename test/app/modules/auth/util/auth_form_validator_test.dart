@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart' show Locale;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
+import 'package:up_invest_front/l10n/generated/l10n.dart';
 
-void main() {
+void main() async {
+  await IntlStrings.load(const Locale.fromSubtags(languageCode: 'en'));
   late AuthFormValidator validator;
 
   setUp(() {
@@ -61,10 +64,10 @@ void main() {
       expect(isValid, null);
     });
     test(
-        'Should return "Please enter your password." if the password is null or empty',
+        'Should return "Please enter your password!" if the password is null or empty',
         () {
       //Arrange
-      String expectResult = 'Please enter your password.';
+      String expectResult = 'Please enter your password!';
       String emptyPassword = '';
       Null nullPassword;
       //Act
@@ -92,7 +95,8 @@ void main() {
         () {
       //Arrange
       String expectResult =
-          'Password requires at least one special character and at least one uppercase letter.';
+          'Password requires at least one special character \n'
+          'and one uppercase letter';
       String password = 'Abc123';
 
       //Act
@@ -102,11 +106,12 @@ void main() {
       expect(weakPassword, expectResult);
     });
     test(
-        'Should return "Password requires at least one special character and at least one uppercase letter." if the does not have at least one uppercase letter.',
+        'Should return "Password requires at least one special character and one uppercase letter." if the does not have at least one uppercase letter.',
         () {
       //Arrange
       String expectResult =
-          'Password requires at least one special character and at least one uppercase letter.';
+          'Password requires at least one special character \n'
+          'and one uppercase letter';
       String password = 'abc123!';
 
       //Act
@@ -116,11 +121,12 @@ void main() {
       expect(weakPassword, expectResult);
     });
     test(
-        'Should return "Password requires at least one special character and at least one uppercase letter." if the does not have at least one special character and one uppercase letter.',
+        'Should return "Password requires at least one special character and one uppercase letter." if the does not have at least one special character and one uppercase letter.',
         () {
       //Arrange
       String expectResult =
-          'Password requires at least one special character and at least one uppercase letter.';
+          'Password requires at least one special character \n'
+          'and one uppercase letter';
       String password = 'abc123';
 
       //Act
@@ -144,7 +150,7 @@ void main() {
       expect(isValid, null);
     });
     test(
-        'Should return "The passwords do not match." if the password and confirm password do not match',
+        'Should return "The passwords do not match" if the password and confirm password do not match',
         () {
       //Arrange
       String password = 'Abc12\$';
@@ -153,7 +159,7 @@ void main() {
       String? isValid =
           validator.confirmPasswordValidator(confirmPassword, password);
       //Assert
-      expect(isValid, 'The passwords do not match.');
+      expect(isValid, 'The passwords do not match');
     });
   });
 
@@ -168,14 +174,14 @@ void main() {
       expect(isValid, null);
     });
     test(
-        'Should return "Please enter a name with at least 4 characters." if the name have less than 4 characters',
+        'Should return "Please enter a name with at least 4 characters" if the name have less than 4 characters',
         () {
       //Arrange
       String name = 'Jam';
       //Act
       String? isValid = validator.minNameLengthValidator(name);
       //Assert
-      expect(isValid, 'Please enter a name with at least 4 characters.');
+      expect(isValid, 'Please enter a name with at least 4 characters');
     });
   });
 
@@ -189,10 +195,10 @@ void main() {
       expect(isValid, null);
     });
     test(
-        'Should return "Please enter your password." if the password is null or empty',
+        'Should return "Please enter your password!" if the password is null or empty',
         () {
       //Arrange
-      String expectResult = 'Please enter your password.';
+      String expectResult = 'Please enter your password!';
       String emptyPassword = '';
       Null nullPassword;
       //Act

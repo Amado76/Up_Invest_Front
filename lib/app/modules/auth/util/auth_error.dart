@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:flutter/services.dart' show PlatformException;
@@ -23,7 +24,7 @@ Map<String, AuthError> authErrorMapping = {
 };
 
 @immutable
-sealed class AuthError {
+sealed class AuthError extends Equatable {
   /// The title of the error dialog to be displayed.
   final String dialogTitle;
 
@@ -64,6 +65,9 @@ class AuthErrorUnknown extends AuthError {
           dialogTitle: IntlStrings.current.authErrorUnknownTitle,
           dialogText: IntlStrings.current.authErrorUnknownMessage,
         );
+
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 ///email-already-exists
@@ -74,6 +78,8 @@ class AuthErrorEmailAlreadyExists extends AuthError {
           dialogTitle: IntlStrings.current.authErrorEmailAlreadyExistsTitle,
           dialogText: IntlStrings.current.authErrorEmailAlreadyExistsMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 ///id-token-expired
@@ -84,6 +90,8 @@ class AuthErrorTokenExpired extends AuthError {
           dialogTitle: IntlStrings.current.authErrorTokenExpiredTitle,
           dialogText: IntlStrings.current.authErrorTokenExpiredMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 ///id-token-revoked
@@ -94,6 +102,8 @@ class AuthErrorTokenRevoked extends AuthError {
           dialogTitle: IntlStrings.current.authErrorTokenRevokedTitle,
           dialogText: IntlStrings.current.authErrorTokenRevokedMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 ///invalid-email
@@ -104,6 +114,8 @@ class AuthErrorInvalidEmail extends AuthError {
           dialogTitle: IntlStrings.current.authErrorInvalidEmailTitle,
           dialogText: IntlStrings.current.authErrorInvalidEmailMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 ///operation-not-allowed
@@ -115,6 +127,8 @@ class AuthErrorOperationNotAllowed extends AuthError {
           dialogTitle: IntlStrings.current.authErrorOperationNotAllowedTitle,
           dialogText: IntlStrings.current.authErrorOperationNotAllowedMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 ///user-not-found
@@ -125,6 +139,8 @@ class AuthErrorUserNotFound extends AuthError {
           dialogTitle: IntlStrings.current.authErrorUserNotFoundTitle,
           dialogText: IntlStrings.current.authErrorUserNotFoundMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 ///requires-recent-login
@@ -135,6 +151,8 @@ class AuthErrorRequiresRecentLogin extends AuthError {
           dialogTitle: IntlStrings.current.authErrorRequiresRecentLoginTitle,
           dialogText: IntlStrings.current.authErrorRequiresRecentLoginMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 ///weak-password
@@ -145,6 +163,8 @@ class AuthErrorWeakPassword extends AuthError {
           dialogTitle: IntlStrings.current.authErrorWeakPasswordTitle,
           dialogText: IntlStrings.current.authErrorWeakPasswordMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 /// user-mismatch
@@ -155,6 +175,8 @@ class AuthErrorUserMismatch extends AuthError {
           dialogTitle: IntlStrings.current.authErrorUserMismatchTitle,
           dialogText: IntlStrings.current.authErrorUserMismatchMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 ///wrong-password
@@ -165,6 +187,8 @@ class AuthErrorWrongPassword extends AuthError {
           dialogTitle: IntlStrings.current.authErrorWrongPasswordTitle,
           dialogText: IntlStrings.current.authErrorWrongPasswordMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 ///too-many-requests
@@ -175,6 +199,8 @@ class AuthErrorTooManyRequests extends AuthError {
           dialogTitle: IntlStrings.current.authErrorTooManyRequestsTitle,
           dialogText: IntlStrings.current.authErrorTooManyRequestsMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 //network_error
@@ -185,4 +211,6 @@ class AuthErrorNetworkError extends AuthError {
           dialogTitle: IntlStrings.current.authErrorNetworkErrorTitle,
           dialogText: IntlStrings.current.authErrorNetworkErrorMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
