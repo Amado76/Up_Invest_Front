@@ -168,10 +168,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthStateLoggedIn(authUser: currentUser, isLoading: true));
     try {
       await authRepository.reauthenticateAUser(currentUser.email, oldPassword);
-      await authRepository.updatePassword(
-          oldPassword: oldPassword,
-          newPassword: newPassword,
-          email: currentUser.email);
+      await authRepository.updatePassword(newPassword: newPassword);
       emit(AuthStateLoggedIn(
           authUser: currentUser,
           isLoading: false,

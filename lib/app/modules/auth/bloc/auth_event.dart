@@ -64,24 +64,6 @@ class AuthEventUpdatePassword implements AuthEvent {
 }
 
 @immutable
-class AuthEventUpdateAvatar implements AuthEvent {
-  final String avatar;
-
-  const AuthEventUpdateAvatar({
-    required this.avatar,
-  });
-}
-
-@immutable
-class AuthEventUpdateDisplayName implements AuthEvent {
-  final String displayName;
-
-  const AuthEventUpdateDisplayName({
-    required this.displayName,
-  });
-}
-
-@immutable
 class AuthEventSendPasswordResetEmail implements AuthEvent {
   final String email;
 

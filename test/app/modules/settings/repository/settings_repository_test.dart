@@ -5,7 +5,7 @@ import 'package:up_invest_front/app/core/adapter/local_storage_adapter/local_sto
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart';
 import 'package:up_invest_front/app/modules/settings/repository/settings_repository.dart';
 
-import '../../../../mocks/adapter/shared_preferences_mock.dart';
+import '../../../../mocks/core/adapter/shared_preferences_mock.dart';
 
 void main() async {
   group('SettingsRepository', () {
@@ -30,7 +30,7 @@ void main() async {
             .thenAnswer((_) async => null);
         final SettingsModel settings;
         //Act
-        settings = await settingsRepository.getSettingsFromLocalStorage();
+        settings = await settingsRepository.fetchSettingsFromLocalStorage();
         //Assert
         expect(settings.themeMode, ThemeMode.dark);
       });
@@ -45,7 +45,7 @@ void main() async {
             .thenAnswer((_) async => null);
         final SettingsModel settings;
         //Act
-        settings = await settingsRepository.getSettingsFromLocalStorage();
+        settings = await settingsRepository.fetchSettingsFromLocalStorage();
         //Assert
         expect(settings.themeMode, ThemeMode.light);
       });
@@ -60,7 +60,7 @@ void main() async {
             .thenAnswer((_) async => null);
         final SettingsModel settings;
         //Act
-        settings = await settingsRepository.getSettingsFromLocalStorage();
+        settings = await settingsRepository.fetchSettingsFromLocalStorage();
         //Assert
         expect(settings.themeMode, ThemeMode.system);
       });
@@ -75,7 +75,7 @@ void main() async {
             .thenAnswer((_) async => null);
         final SettingsModel settings;
         //Act
-        settings = await settingsRepository.getSettingsFromLocalStorage();
+        settings = await settingsRepository.fetchSettingsFromLocalStorage();
         //Assert
         expect(settings.themeMode, ThemeMode.system);
       });
@@ -90,7 +90,7 @@ void main() async {
             .thenAnswer((_) async => 'en');
         final SettingsModel settings;
         //Act
-        settings = await settingsRepository.getSettingsFromLocalStorage();
+        settings = await settingsRepository.fetchSettingsFromLocalStorage();
         //Assert
         expect(settings.locale, const Locale('en'));
       });
@@ -105,7 +105,7 @@ void main() async {
             .thenAnswer((_) async => null);
         final SettingsModel settings;
         //Act
-        settings = await settingsRepository.getSettingsFromLocalStorage();
+        settings = await settingsRepository.fetchSettingsFromLocalStorage();
         //Assert
         expect(settings.locale, null);
       });

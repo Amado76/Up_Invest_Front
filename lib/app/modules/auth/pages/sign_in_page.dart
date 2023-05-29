@@ -9,7 +9,7 @@ import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_fi
 import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
 
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
-import 'package:up_invest_front/l10n/generated/l10n.dart';
+import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 import '../../../core/widgets/custom_snack_bar.dart';
 

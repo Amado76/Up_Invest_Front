@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:flutter/services.dart' show PlatformException;
-import 'package:up_invest_front/l10n/generated/l10n.dart';
+import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 /// The [AuthError] class represents authentication errors.
 Map<String, AuthError> authErrorMapping = {

@@ -22,10 +22,9 @@ sealed class IAuthRepository {
       required String displayName,
       required String avatar});
 
-  Future<void> updatePassword(
-      {required String oldPassword,
-      required String newPassword,
-      required String email});
+  Future<void> updatePassword({
+    required String newPassword,
+  });
 
   Future<void> updatePhoto(String newAvatar);
 
@@ -112,11 +111,8 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<void> updatePassword(
-      {required String oldPassword,
-      required String newPassword,
-      required String email}) async {
-    await authGateway.updatePassword(oldPassword, newPassword, email);
+  Future<void> updatePassword({required String newPassword}) async {
+    await authGateway.updatePassword(newPassword);
   }
 
   @override

@@ -3,15 +3,16 @@ part of 'settings_bloc.dart';
 
 abstract class SettingsState extends Equatable {
   final SettingsModel settingsModel;
-  final Locale? locale;
+  final SettingsError? settingsError;
 
-  const SettingsState({required this.settingsModel, this.locale});
+  const SettingsState({required this.settingsModel, this.settingsError});
 }
 
 @immutable
 class SettingsStateGlobal extends SettingsState {
-  const SettingsStateGlobal({required super.settingsModel, super.locale});
+  const SettingsStateGlobal(
+      {required super.settingsModel, super.settingsError});
 
   @override
-  List<Object?> get props => [super.settingsModel, super.locale];
+  List<Object?> get props => [super.settingsModel, super.settingsError];
 }

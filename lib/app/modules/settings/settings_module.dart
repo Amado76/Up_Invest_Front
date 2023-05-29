@@ -15,7 +15,7 @@ class SettingsModule extends Module {
     Bind.singleton<ISettingsRepository>(
         (i) => SettingsRepository(
             localStorageAdapter: i.get<ILocalStorageAdapter>()),
-        export: true)
+        export: true),
   ];
 
   @override

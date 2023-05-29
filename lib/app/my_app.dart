@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
-import 'package:up_invest_front/l10n/generated/l10n.dart';
+import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 import 'core/themes/themes.dart';
 import 'modules/settings/bloc/settings_bloc.dart';
@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate
       ],
-      locale: settingsState.settingsModel.locale,
       supportedLocales: IntlStrings.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
       themeMode: settingsState.settingsModel.themeMode,

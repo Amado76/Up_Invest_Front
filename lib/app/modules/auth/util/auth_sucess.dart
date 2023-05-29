@@ -1,13 +1,15 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart' show immutable;
+import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 /// The [AuthSucess] class represents authentication errors.
-const Map<String, AuthSuccess> authSucessMapping = {
+Map<String, AuthSuccess> authSucessMapping = {
   'reset-password': AuthSuccessResetPassword(),
   'set-new-password': AuthSuccessSetNewPassword(),
 };
 
 @immutable
-sealed class AuthSuccess {
+sealed class AuthSuccess extends Equatable {
   /// The title of the Success dialog to be displayed.
   final String dialogTitle;
 
@@ -24,36 +26,41 @@ sealed class AuthSuccess {
   /// Returns an [AuthSuccess] object corresponding to the provided exception,
   /// or a default [AuthSuccessUnknown] object if no mapping is found.
   factory AuthSuccess.from(String success) =>
-      authSucessMapping[success.toLowerCase().trim()] ??
-      const AuthSuccessUnknown();
+      authSucessMapping[success.toLowerCase().trim()] ?? AuthSuccessUnknown();
 }
 
 @immutable
 class AuthSuccessUnknown extends AuthSuccess {
-  const AuthSuccessUnknown()
+  AuthSuccessUnknown()
       : super(
-          dialogTitle: 'Success!',
-          dialogText: 'Successful request!',
+          dialogTitle: IntlStrings.current.authSuccessUnknownTitle,
+          dialogText: IntlStrings.current.authSuccessUnknownMessage,
         );
+
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 //reset-password
 @immutable
 class AuthSuccessResetPassword extends AuthSuccess {
-  const AuthSuccessResetPassword()
+  AuthSuccessResetPassword()
       : super(
-          dialogTitle: 'Email Sent!',
-          dialogText:
-              'We have sent an email with instructions to reset your password!',
+          dialogTitle: IntlStrings.current.authSuccessResetPasswordTitle,
+          dialogText: IntlStrings.current.authSuccessResetPasswordMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }
 
 //set-new-password
 @immutable
 class AuthSuccessSetNewPassword extends AuthSuccess {
-  const AuthSuccessSetNewPassword()
+  AuthSuccessSetNewPassword()
       : super(
-          dialogTitle: 'Password Successfully Changed!',
-          dialogText: 'Your password has been changed successfully!',
+          dialogTitle: IntlStrings.current.authSuccessSetNewPasswordTitle,
+          dialogText: IntlStrings.current.authSuccessSetNewPasswordMessage,
         );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
 }

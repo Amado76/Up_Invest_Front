@@ -6,14 +6,14 @@ sealed class ISettingsRepository {
   final ILocalStorageAdapter localStorageAdapter;
   ISettingsRepository({required this.localStorageAdapter});
   Future<void> saveSettingsToLocalStorage(SettingsModel settingsModel);
-  Future<SettingsModel> getSettingsFromLocalStorage();
+  Future<SettingsModel> fetchSettingsFromLocalStorage();
 }
 
 class SettingsRepository extends ISettingsRepository {
   SettingsRepository({required super.localStorageAdapter});
 
   @override
-  Future<SettingsModel> getSettingsFromLocalStorage() async {
+  Future<SettingsModel> fetchSettingsFromLocalStorage() async {
     String? theme =
         await localStorageAdapter.readStringFromLocalStorage('theme');
     String? language =

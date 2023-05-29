@@ -10,7 +10,7 @@ import 'package:up_invest_front/app/modules/auth/widgets/custom_auth_scaffold.da
 import 'package:up_invest_front/app/modules/auth/widgets/custom_elevated_button.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_field.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
-import 'package:up_invest_front/l10n/generated/l10n.dart';
+import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 class SingUpPage extends StatefulWidget {
   const SingUpPage({Key? key}) : super(key: key);

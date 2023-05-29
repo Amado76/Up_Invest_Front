@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
-import 'package:up_invest_front/l10n/generated/l10n.dart';
+import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

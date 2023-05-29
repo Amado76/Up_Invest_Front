@@ -6,6 +6,7 @@ import 'package:flutter/material.dart' show Locale, ThemeMode;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart';
 import 'package:up_invest_front/app/modules/settings/repository/settings_repository.dart';
+import 'package:up_invest_front/app/modules/settings/util/settings_error.dart';
 
 part 'settings_event.dart';
 part 'settings_state.dart';
@@ -27,28 +28,43 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   void _onChangeTheme(String theme) async {
-    SettingsModel newSettings = _generateNewSettings();
-    newSettings.themeMode = (theme == 'system')
-        ? ThemeMode.system
-        : (theme == 'dark')
-            ? ThemeMode.dark
-            : ThemeMode.light;
-    await saveSettings(newSettings);
+    SettingsModel currentSettings = _getCurrentSettings();
 
-    emit(SettingsStateGlobal(settingsModel: newSettings));
+    try {
+      SettingsModel newSettings = _generateNewSettings(currentSettings);
+      newSettings.themeMode = (theme == 'system')
+          ? ThemeMode.system
+          : (theme == 'dark')
+              ? ThemeMode.dark
+              : ThemeMode.light;
+      await saveSettings(newSettings);
+
+      emit(SettingsStateGlobal(settingsModel: newSettings));
+    } on Exception catch (e) {
+      emit(SettingsStateGlobal(
+          settingsModel: currentSettings,
+          settingsError: SettingsError.from(e)));
+    }
   }
 
   void _onChangeLanguage(String language) async {
-    SettingsModel newSettings = _generateNewSettings();
-    newSettings.locale = Locale(language);
-    await saveSettings(newSettings);
-    emit(SettingsStateGlobal(settingsModel: newSettings));
+    SettingsModel currentSettings = _getCurrentSettings();
+    try {
+      SettingsModel newSettings = _generateNewSettings(currentSettings);
+      newSettings.locale = Locale(language);
+      await saveSettings(newSettings);
+      emit(SettingsStateGlobal(settingsModel: newSettings));
+    } on Exception catch (e) {
+      emit(SettingsStateGlobal(
+          settingsModel: currentSettings,
+          settingsError: SettingsError.from(e)));
+    }
   }
 
   void _onFetchSavedSettings() async {
     final SettingsModel fetchedSettingsModel;
     fetchedSettingsModel =
-        await settingsRepository.getSettingsFromLocalStorage();
+        await settingsRepository.fetchSettingsFromLocalStorage();
     emit(SettingsStateGlobal(settingsModel: fetchedSettingsModel));
   }
 
@@ -57,8 +73,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     await settingsRepository.saveSettingsToLocalStorage(currentSettings);
   }
 
-  SettingsModel _generateNewSettings() {
-    final currentSettings = _getCurrentSettings();
+  SettingsModel _generateNewSettings(SettingsModel currentSettings) {
     SettingsModel newSettings = SettingsModel(
         themeMode: currentSettings.themeMode, locale: currentSettings.locale);
     return newSettings;

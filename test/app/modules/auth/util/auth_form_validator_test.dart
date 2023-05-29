@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' show Locale;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
-import 'package:up_invest_front/l10n/generated/l10n.dart';
+import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 void main() async {
   await IntlStrings.load(const Locale.fromSubtags(languageCode: 'en'));

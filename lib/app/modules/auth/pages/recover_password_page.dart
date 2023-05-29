@@ -9,7 +9,7 @@ import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_auth_scaffold.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_elevated_button.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
-import 'package:up_invest_front/l10n/generated/l10n.dart';
+import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 class RecoverPasswordPage extends StatefulWidget {
   const RecoverPasswordPage({super.key});
