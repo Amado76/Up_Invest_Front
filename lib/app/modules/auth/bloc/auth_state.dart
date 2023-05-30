@@ -10,7 +10,7 @@ sealed class AuthState extends Equatable {
 }
 
 @immutable
-class AuthStateLoggedIn extends AuthState {
+final class AuthStateLoggedIn extends AuthState {
   final AuthUserModel authUser;
 
   const AuthStateLoggedIn(
@@ -25,7 +25,7 @@ class AuthStateLoggedIn extends AuthState {
 }
 
 @immutable
-class AuthStateLoggedOut extends AuthState {
+final class AuthStateLoggedOut extends AuthState {
   const AuthStateLoggedOut(
       {required super.isLoading, super.authError, super.authSuccess});
   @override
@@ -33,7 +33,7 @@ class AuthStateLoggedOut extends AuthState {
       [super.isLoading, super.authError, super.authSuccess];
 }
 
-class AuthStateSigningUp extends AuthState {
+final class AuthStateSigningUp extends AuthState {
   final AvatarModel avatarModel;
 
   const AuthStateSigningUp(
@@ -44,7 +44,7 @@ class AuthStateSigningUp extends AuthState {
 }
 
 @immutable
-class AuthStateRecoverPassword extends AuthState {
+final class AuthStateRecoverPassword extends AuthState {
   const AuthStateRecoverPassword(
       {required super.isLoading, super.authError, super.authSuccess});
   @override
@@ -53,7 +53,7 @@ class AuthStateRecoverPassword extends AuthState {
 }
 
 @immutable
-class AuthStateIdle extends AuthState {
+final class AuthStateIdle extends AuthState {
   const AuthStateIdle(
       {required super.isLoading, super.authError, super.authSuccess});
   @override

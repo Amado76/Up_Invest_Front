@@ -29,33 +29,43 @@ class _SingUpPageState extends State<SingUpPage> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final authBloc = Modular.get<AuthBloc>();
-    final intlStrings = IntlStrings.of(context);
+    final intlString = IntlStrings.of(context);
 
     String? avatar;
     final customBar = CustomSnackBar();
     return BlocConsumer<AuthBloc, AuthState>(
       bloc: authBloc,
       listener: (context, state) {
-        if (state is AuthStateLoggedIn) {
-          Modular.to.navigate('/home/');
-        }
-        if (state is AuthStateLoggedOut) {
-          Modular.to.navigate('/auth/');
-        }
-        if (state is AuthStateSigningUp) {
-          avatar = state.avatarModel.avatarPath;
-        }
-        if (state.isLoading == true) {
-          LoadingScreen.instance()
-              .show(context: context, text: intlStrings.loading);
-        } else {
-          LoadingScreen.instance().hide();
-        }
-        final authError = state.authError;
-        if (authError != null) {
-          customBar.showBottomErrorSnackBar(
-              authError.dialogTitle, authError.dialogText, context);
-        }
+        final hideLoading = LoadingScreen.instance().hide();
+
+        return switch (state) {
+          AuthStateLoggedIn() => {
+              Modular.to.navigate('/home/'),
+              hideLoading,
+            },
+          AuthStateSigningUp(isLoading: true) => LoadingScreen.instance()
+              .show(context: context, text: intlString.loading),
+          AuthStateSigningUp(
+            authError: final authError,
+            isLoading: false,
+            avatarModel: final avatarModel
+          ) =>
+            {
+              hideLoading,
+              avatarModel.avatarPath,
+              if (authError != null)
+                {
+                  customBar.showBottomErrorSnackBar(
+                      authError.dialogTitle, authError.dialogText, context)
+                }
+            },
+          AuthStateLoggedOut(isLoading: true) => LoadingScreen.instance()
+              .show(context: context, text: intlString.loading),
+          AuthStateLoggedOut() => Modular.to.navigate('/auth/'),
+          AuthStateIdle() => const AuthStateLoggedOut(isLoading: false),
+          AuthStateRecoverPassword() =>
+            const AuthStateLoggedOut(isLoading: false),
+        };
       },
       builder: (context, state) {
         if (state is AuthStateSigningUp) {
@@ -71,12 +81,12 @@ class _SingUpPageState extends State<SingUpPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(intlStrings.signUpTitle,
+                    Text(intlString.signUpTitle,
                         style: TextStyle(
                             color: colorScheme.onBackground,
                             fontSize: 30,
                             fontWeight: FontWeight.bold)),
-                    Text(intlStrings.signUpSubTitle,
+                    Text(intlString.signUpSubTitle,
                         style: TextStyle(
                             color: colorScheme.onBackground,
                             fontSize: 16,

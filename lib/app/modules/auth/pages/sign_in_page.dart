@@ -40,27 +40,31 @@ class _SignInState extends State<SignInPage> {
       body: BlocListener<AuthBloc, AuthState>(
         bloc: authBloc,
         listener: (context, state) {
-          if (state.isLoading == true) {
-            LoadingScreen.instance()
-                .show(context: context, text: intlString.loading);
-          } else {
-            LoadingScreen.instance().hide();
-          }
-          final authError = state.authError;
-          if (authError != null) {
-            customBar.showBottomErrorSnackBar(
-                authError.dialogTitle, authError.dialogText, context);
-          }
+          final hideLoading = LoadingScreen.instance().hide();
 
-          if (state is AuthStateLoggedIn) {
-            Modular.to.navigate('/home/');
-          }
-          if (state is AuthStateSigningUp) {
-            Modular.to.navigate('/auth/sign_up');
-          }
-          if (state is AuthStateRecoverPassword) {
-            Modular.to.navigate('/auth/recover_password');
-          }
+          return switch (state) {
+            AuthStateLoggedIn() => {Modular.to.navigate('/home/'), hideLoading},
+            AuthStateSigningUp() => {
+                Modular.to.navigate('/auth/sign_up'),
+                hideLoading
+              },
+            AuthStateRecoverPassword() => {
+                hideLoading,
+                Modular.to.navigate('/auth/recover_password')
+              },
+            AuthStateLoggedOut(isLoading: true) => LoadingScreen.instance()
+                .show(context: context, text: intlString.loading),
+            AuthStateLoggedOut(isLoading: false, authError: final authError) =>
+              {
+                hideLoading,
+                if (authError != null)
+                  {
+                    customBar.showBottomErrorSnackBar(
+                        authError.dialogTitle, authError.dialogText, context)
+                  }
+              },
+            AuthStateIdle() => const AuthStateLoggedOut(isLoading: false)
+          };
         },
         child: SafeArea(
           child: SingleChildScrollView(

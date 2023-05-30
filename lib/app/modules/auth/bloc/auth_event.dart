@@ -4,7 +4,7 @@ part of 'auth_bloc.dart';
 sealed class AuthEvent {}
 
 @immutable
-class AuthEventSignInWithEmailAndPassword implements AuthEvent {
+final class AuthEventSignInWithEmailAndPassword implements AuthEvent {
   final String email;
   final String password;
 
@@ -15,7 +15,7 @@ class AuthEventSignInWithEmailAndPassword implements AuthEvent {
 }
 
 @immutable
-class AuthEventSignInWithSocialNetwork implements AuthEvent {
+final class AuthEventSignInWithSocialNetwork implements AuthEvent {
   final String socialNetwork;
 
   const AuthEventSignInWithSocialNetwork({
@@ -24,7 +24,7 @@ class AuthEventSignInWithSocialNetwork implements AuthEvent {
 }
 
 @immutable
-class AuthEventDeleteAccount implements AuthEvent {
+final class AuthEventDeleteAccount implements AuthEvent {
   final String email;
   final String password;
 
@@ -35,12 +35,12 @@ class AuthEventDeleteAccount implements AuthEvent {
 }
 
 @immutable
-class AuthEventLogOut implements AuthEvent {
+final class AuthEventLogOut implements AuthEvent {
   const AuthEventLogOut();
 }
 
 @immutable
-class AuthEventCreateAccount implements AuthEvent {
+final class AuthEventCreateAccount implements AuthEvent {
   final String email;
   final String password;
   final String displayName;
@@ -53,7 +53,7 @@ class AuthEventCreateAccount implements AuthEvent {
 }
 
 @immutable
-class AuthEventUpdatePassword implements AuthEvent {
+final class AuthEventUpdatePassword implements AuthEvent {
   final String oldPassword;
   final String newPassword;
 
@@ -64,7 +64,7 @@ class AuthEventUpdatePassword implements AuthEvent {
 }
 
 @immutable
-class AuthEventSendPasswordResetEmail implements AuthEvent {
+final class AuthEventSendPasswordResetEmail implements AuthEvent {
   final String email;
 
   const AuthEventSendPasswordResetEmail({
@@ -73,7 +73,7 @@ class AuthEventSendPasswordResetEmail implements AuthEvent {
 }
 
 @immutable
-class AuthEventChangeAvatar implements AuthEvent {
+final class AuthEventChangeAvatar implements AuthEvent {
   final String avatarNavigation;
 
   const AuthEventChangeAvatar({
@@ -82,21 +82,21 @@ class AuthEventChangeAvatar implements AuthEvent {
 }
 
 @immutable
-class AuthEventIsLoggedIn implements AuthEvent {
+final class AuthEventIsLoggedIn implements AuthEvent {
   const AuthEventIsLoggedIn();
 }
 
 @immutable
-class AuthEventGoToSignUpPage implements AuthEvent {
+final class AuthEventGoToSignUpPage implements AuthEvent {
   const AuthEventGoToSignUpPage();
 }
 
 @immutable
-class AuthEventGoToSignInPage implements AuthEvent {
+final class AuthEventGoToSignInPage implements AuthEvent {
   const AuthEventGoToSignInPage();
 }
 
 @immutable
-class AuthEventGoToRecoverPasswordPage implements AuthEvent {
+final class AuthEventGoToRecoverPasswordPage implements AuthEvent {
   const AuthEventGoToRecoverPasswordPage();
 }

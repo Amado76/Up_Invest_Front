@@ -119,12 +119,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordHintText": MessageLookupByLibrary.simpleMessage("Senha"),
         "recoverPasswordBody": MessageLookupByLibrary.simpleMessage(
             "Sem problemas! Basta digitar o seu e-mail \ne nossos astrounautas enviarão o código \nde recuperação para você!"),
+        "settignsEnglish": MessageLookupByLibrary.simpleMessage("Ingles"),
+        "settignsPortuguese": MessageLookupByLibrary.simpleMessage("Portugues"),
+        "settignsSpanish": MessageLookupByLibrary.simpleMessage("Espanhol"),
         "settingsErrorOnSaveTitle": MessageLookupByLibrary.simpleMessage(
             "Erro ao salvar as configurações!"),
         "settingsErrorUnknownMessage": MessageLookupByLibrary.simpleMessage(
             "Ocorreu um erro desconhecido."),
         "settingsErrorUnknownTitle":
             MessageLookupByLibrary.simpleMessage("Erro desconhecido!"),
+        "settingsLanguage": MessageLookupByLibrary.simpleMessage("Idioma"),
         "signInDoNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("Ainda não tem uma conta?"),
         "signInSignUp": MessageLookupByLibrary.simpleMessage("Cadastre-se!"),

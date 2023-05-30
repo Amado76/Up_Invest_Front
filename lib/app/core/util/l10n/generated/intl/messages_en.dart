@@ -119,6 +119,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordHintText": MessageLookupByLibrary.simpleMessage("Password"),
         "recoverPasswordBody": MessageLookupByLibrary.simpleMessage(
             "No problem! Just enter your email \nand our astrounauts will send you a recovery code!"),
+        "settignsEnglish": MessageLookupByLibrary.simpleMessage("English"),
+        "settignsPortuguese":
+            MessageLookupByLibrary.simpleMessage("Portuguese"),
+        "settignsSpanish": MessageLookupByLibrary.simpleMessage("Spanish"),
+        "settingsAppBarTitle": MessageLookupByLibrary.simpleMessage("Settings"),
         "settingsErrorOnSaveTitle":
             MessageLookupByLibrary.simpleMessage("Error Saving Settings!"),
         "settingsErrorOnSaveessage": MessageLookupByLibrary.simpleMessage(
@@ -127,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("An unknown error occurred."),
         "settingsErrorUnknownTitle":
             MessageLookupByLibrary.simpleMessage("Unknown error!"),
+        "settingsLanguage": MessageLookupByLibrary.simpleMessage("Language"),
         "signInDoNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "signInSignUp": MessageLookupByLibrary.simpleMessage("Sign up!"),

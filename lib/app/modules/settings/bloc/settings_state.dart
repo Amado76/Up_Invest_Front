@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'settings_bloc.dart';
 
-abstract class SettingsState extends Equatable {
+sealed class SettingsState extends Equatable {
   final SettingsModel settingsModel;
   final SettingsError? settingsError;
 
@@ -9,7 +9,7 @@ abstract class SettingsState extends Equatable {
 }
 
 @immutable
-class SettingsStateGlobal extends SettingsState {
+final class SettingsStateGlobal extends SettingsState {
   const SettingsStateGlobal(
       {required super.settingsModel, super.settingsError});
 

@@ -67,7 +67,12 @@
     "settingsErrorUnknownTitle": "Error desconocido",
     "settingsErrorUnknownMessage": "Se produjo un error desconocido",
     "settingsErrorOnSaveTitle": "Error al guardar la configuración",
-    "settingsErrorOnSaveMessage": "Se produjo un error al guardar la configuración, por favor intente nuevamente"
+    "settingsErrorOnSaveMessage": "Se produjo un error al guardar la configuración, por favor intente nuevamente",
+    "settingsAppBarTitle": "Configuraciones",
+    "settingsLanguage": "Idioma",    
+    "settignsEnglish":"Inglés",
+    "settignsSpanish":"Español",
+    "settignsPortuguese":"Portugués"
 
 
 }

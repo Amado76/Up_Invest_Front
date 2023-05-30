@@ -66,8 +66,11 @@
     "settingsErrorUnknownTitle": "Erro desconhecido!",
     "settingsErrorUnknownMessage": "Ocorreu um erro desconhecido.",
     "settingsErrorOnSaveTitle": "Erro ao salvar as configurações!",
-    "settingsErrorOnSaveMessage": "Ocorreu um erro ao salvar as configurações, por favor, tente novamente!"
-    
+    "settingsErrorOnSaveMessage": "Ocorreu um erro ao salvar as configurações, por favor, tente novamente!",
+    "settingsLanguage": "Idioma",
+    "settignsEnglish":"Ingles",
+    "settignsSpanish":"Espanhol",
+    "settignsPortuguese":"Portugues"
 
 
     

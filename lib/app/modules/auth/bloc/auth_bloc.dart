@@ -115,6 +115,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       avatarModel: avatar,
       isLoading: true,
     ));
+
     try {
       AuthUserModel authUser = await authRepository.createAccount(
           email: email,

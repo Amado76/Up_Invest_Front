@@ -1,7 +1,7 @@
 part of 'settings_bloc.dart';
 
 @immutable
-abstract class SettingsEvent extends Equatable {
+sealed class SettingsEvent extends Equatable {
   const SettingsEvent();
 }
 

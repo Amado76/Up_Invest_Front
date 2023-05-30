@@ -659,6 +659,56 @@ class IntlStrings {
       args: [],
     );
   }
+
+  /// `Settings`
+  String get settingsAppBarTitle {
+    return Intl.message(
+      'Settings',
+      name: 'settingsAppBarTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get settingsLanguage {
+    return Intl.message(
+      'Language',
+      name: 'settingsLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get settignsEnglish {
+    return Intl.message(
+      'English',
+      name: 'settignsEnglish',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Spanish`
+  String get settignsSpanish {
+    return Intl.message(
+      'Spanish',
+      name: 'settignsSpanish',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Portuguese`
+  String get settignsPortuguese {
+    return Intl.message(
+      'Portuguese',
+      name: 'settignsPortuguese',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<IntlStrings> {
