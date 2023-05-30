@@ -110,28 +110,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required String displayName,
   }) async {
     final currentState = state as AuthStateSigningUp;
-    final index = currentState.index;
-    final avatar = currentState.avatar;
-    emit(AuthStateSigningUp(index: index, avatar: avatar, isLoading: true));
+    final avatar = currentState.avatarModel;
+    emit(AuthStateSigningUp(
+      avatarModel: avatar,
+      isLoading: true,
+    ));
     try {
       AuthUserModel authUser = await authRepository.createAccount(
           email: email,
           password: password,
           displayName: displayName,
-          avatar: avatar);
+          avatar: avatar.avatarGetUrl);
       emit(AuthStateLoggedIn(authUser: authUser, isLoading: false));
     } on FirebaseAuthException catch (e) {
       emit(AuthStateSigningUp(
-          index: index,
-          avatar: avatar,
+          avatarModel: avatar,
           isLoading: false,
           authError: AuthError.fromFirebase(e)));
     } on Exception catch (e) {
       emit(AuthStateSigningUp(
-          index: index,
-          avatar: avatar,
-          isLoading: false,
-          authError: AuthError.from(e)));
+          avatarModel: avatar, isLoading: false, authError: AuthError.from(e)));
     }
   }
 
@@ -202,37 +200,41 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _changeAvatar(String avatarNavigation) {
-    final AvatarModel avatarModel = AvatarModel();
-    final listLength = avatarModel.avatarList.length;
     final currentState = state as AuthStateSigningUp;
-    final currentIndex = currentState.index;
-    final newIndex = _selectAvatar(avatarNavigation, currentIndex, listLength);
-    final newAvatar = avatarModel.avatarList[newIndex]!;
+    final currentAvatarModel = currentState.avatarModel;
+    final listLength = currentAvatarModel.avatarList.length;
+    final currentId = currentState.avatarModel.id;
+    final newId = _selectAvatar(avatarNavigation, currentId, listLength);
+    final newAvatarModel = AvatarModel(id: newId);
+
     emit(AuthStateSigningUp(
-        index: newIndex, avatar: newAvatar, isLoading: false));
+      avatarModel: newAvatarModel,
+      isLoading: false,
+    ));
   }
 
-  int _selectAvatar(String avatarNavigation, int currentIndex, int listLength) {
-    int newIndex;
-    if (currentIndex < listLength && avatarNavigation == 'FowardButton') {
-      currentIndex++;
-      newIndex = currentIndex;
-      return newIndex;
+  int _selectAvatar(String avatarNavigation, int? currentId, int listLength) {
+    int newId;
+    if (currentId == null) {
+      return 1;
     }
-    if (currentIndex > 1 && avatarNavigation == 'BackButton') {
-      currentIndex--;
-      newIndex = currentIndex;
-      return newIndex;
+    if (currentId < listLength && avatarNavigation == 'FowardButton') {
+      currentId++;
+      newId = currentId;
+      return newId;
     }
-    return currentIndex;
+    if (currentId > 1 && avatarNavigation == 'BackButton') {
+      currentId--;
+      newId = currentId;
+      return newId;
+    }
+    return currentId;
   }
 
   void _goToSignUpPage() {
-    final AvatarModel avatarModel = AvatarModel();
-    const index = 1;
-    final String avatar = avatarModel.avatarList[index]!;
+    final AvatarModel avatarModel = AvatarModel(id: 1);
 
-    emit(AuthStateSigningUp(isLoading: false, avatar: avatar, index: index));
+    emit(AuthStateSigningUp(isLoading: false, avatarModel: avatarModel));
   }
 
   void _goToSignInPage() {

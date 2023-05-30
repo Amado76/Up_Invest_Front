@@ -24,6 +24,11 @@ void main() async {
     late AuthBloc authBloc;
     late IAuthRepository authRepositoryMock;
     late AuthUserModel authUserMock;
+    late AvatarModel avatarModel;
+
+    String kittyAvatarUrl = 'https://i.ibb.co/m6NHwyd/kitty.png';
+
+    String kidAvatarUrl = 'https://i.ibb.co/4S6cYZS/kid.png';
 
     setUp(() {
       authRepositoryMock = AuthRepositoryMock(authGateway: AuthGatewayMock());
@@ -76,15 +81,19 @@ void main() async {
               .thenAnswer((invocation) async => authUserMock);
         },
         build: () => authBloc,
-        seed: () => const AuthStateSigningUp(
-            index: 7, avatar: 'assets/avatars/fox.png', isLoading: false),
+        seed: () => AuthStateSigningUp(
+          avatarModel: AvatarModel(id: 7),
+          isLoading: false,
+        ),
         act: (bloc) => bloc.add(const AuthEventCreateAccount(
             email: 'ash@pallet.com',
             password: 'Teste123!',
             displayName: 'Ash Ketchum')),
         expect: () => <AuthState>[
-          const AuthStateSigningUp(
-              avatar: 'assets/avatars/fox.png', index: 7, isLoading: true),
+          AuthStateSigningUp(
+            avatarModel: AvatarModel(id: 7),
+            isLoading: true,
+          ),
           AuthStateLoggedIn(authUser: authUserMock, isLoading: false)
         ],
       );
@@ -99,18 +108,21 @@ void main() async {
               .thenThrow(FirebaseAuthException(code: 'email-already-in-use'));
         },
         build: () => authBloc,
-        seed: () => const AuthStateSigningUp(
-            index: 7, avatar: 'assets/avatars/fox.png', isLoading: false),
+        seed: () => AuthStateSigningUp(
+          avatarModel: AvatarModel(id: 7),
+          isLoading: false,
+        ),
         act: (bloc) => bloc.add(const AuthEventCreateAccount(
             email: 'ash@pallet.com',
             password: 'Teste123!',
             displayName: 'Ash Ketchum')),
         expect: () => <AuthState>[
-          const AuthStateSigningUp(
-              avatar: 'assets/avatars/fox.png', index: 7, isLoading: true),
           AuthStateSigningUp(
-              avatar: 'assets/avatars/fox.png',
-              index: 7,
+            avatarModel: AvatarModel(id: 7),
+            isLoading: true,
+          ),
+          AuthStateSigningUp(
+              avatarModel: AvatarModel(id: 7),
               isLoading: false,
               authError: AuthErrorEmailAlreadyExists()),
         ],
@@ -118,6 +130,8 @@ void main() async {
       blocTest<AuthBloc, AuthState>(
         'and throw error',
         setUp: () {
+          avatarModel = AvatarModel(id: 7);
+
           when(() => authRepositoryMock.createAccount(
                   email: any(named: 'email'),
                   password: any(named: 'password'),
@@ -126,18 +140,18 @@ void main() async {
               .thenThrow(PlatformException(code: 'too-many-requests'));
         },
         build: () => authBloc,
-        seed: () => const AuthStateSigningUp(
-            index: 7, avatar: 'assets/avatars/fox.png', isLoading: false),
+        seed: () => AuthStateSigningUp(
+          avatarModel: avatarModel,
+          isLoading: false,
+        ),
         act: (bloc) => bloc.add(const AuthEventCreateAccount(
             email: 'ash@pallet.com',
             password: 'Teste123!',
             displayName: 'Ash Ketchum')),
         expect: () => <AuthState>[
-          const AuthStateSigningUp(
-              avatar: 'assets/avatars/fox.png', index: 7, isLoading: true),
+          AuthStateSigningUp(avatarModel: AvatarModel(id: 7), isLoading: true),
           AuthStateSigningUp(
-              avatar: 'assets/avatars/fox.png',
-              index: 7,
+              avatarModel: avatarModel,
               isLoading: false,
               authError: AuthErrorTooManyRequests()),
         ],
@@ -387,71 +401,77 @@ void main() async {
       blocTest<AuthBloc, AuthState>(
         'and [index] is 1 and [avatarNavigation] is "FowardButton" emits [AuthStateSigningUp] with [index] 2 and [avatar] equal to "assets/avatars/dog.png"',
         build: () => authBloc,
-        seed: () => const AuthStateSigningUp(
-            avatar: 'assets/avatars/kitty.png', isLoading: false, index: 1),
+        seed: () => AuthStateSigningUp(
+          avatarModel: AvatarModel(id: 1),
+          isLoading: false,
+        ),
         act: (bloc) => bloc.add(
           const AuthEventChangeAvatar(avatarNavigation: 'FowardButton'),
         ),
         expect: () => <AuthState>[
-          const AuthStateSigningUp(
-              avatar: 'assets/avatars/dog.png', index: 2, isLoading: false)
+          AuthStateSigningUp(avatarModel: AvatarModel(id: 2), isLoading: false)
         ],
       );
       blocTest<AuthBloc, AuthState>(
           'and [index] is 8 and [avatarNavigation] is "FowardButton" emits [AuthStateSigningUp] with [index] 8 and [avatar] equal to "assets/avatars/kid.png"',
           build: () => authBloc,
-          seed: () => const AuthStateSigningUp(
-              avatar: 'assets/avatars/kid.png', isLoading: false, index: 8),
+          seed: () => AuthStateSigningUp(
+              avatarModel: AvatarModel(id: 8), isLoading: false),
           act: (bloc) => bloc.add(
                 const AuthEventChangeAvatar(avatarNavigation: 'FowardButton'),
               ),
           verify: (bloc) {
             expect(
-              (bloc.state as AuthStateSigningUp).avatar,
+              (bloc.state as AuthStateSigningUp).avatarModel.avatarPath,
               'assets/avatars/kid.png',
             );
             expect(
-              (bloc.state as AuthStateSigningUp).index,
+              (bloc.state as AuthStateSigningUp).avatarModel.id,
               8,
             );
             expect(
               (bloc.state as AuthStateSigningUp).isLoading,
               false,
             );
+            expect((bloc.state as AuthStateSigningUp).avatarModel.avatarGetUrl,
+                kidAvatarUrl);
           });
       blocTest<AuthBloc, AuthState>(
         'and [index] is 4 and [avatarNavigation] is "BackButton" emits [AuthStateSigningUp] with [index] 3 and [avatar] equal to "assets/avatars/man.png"',
         build: () => authBloc,
-        seed: () => const AuthStateSigningUp(
-            avatar: 'assets/avatars/unicorn.png', isLoading: false, index: 4),
+        seed: () => AuthStateSigningUp(
+            avatarModel: AvatarModel(id: 4), isLoading: false),
         act: (bloc) => bloc.add(
           const AuthEventChangeAvatar(avatarNavigation: 'BackButton'),
         ),
         expect: () => <AuthState>[
-          const AuthStateSigningUp(
-              avatar: 'assets/avatars/man.png', index: 3, isLoading: false)
+          AuthStateSigningUp(avatarModel: AvatarModel(id: 3), isLoading: false)
         ],
       );
       blocTest<AuthBloc, AuthState>(
           'and [index] is 1 and [avatarNavigation] is "BackButton" emits [AuthStateSigningUp] with [index] 1 and [avatar] equal to "assets/avatars/kitty.png"',
           build: () => authBloc,
-          seed: () => const AuthStateSigningUp(
-              avatar: 'assets/avatars/kitty.png', isLoading: false, index: 1),
+          seed: () => AuthStateSigningUp(
+              avatarModel: AvatarModel(id: 1), isLoading: false),
           act: (bloc) => bloc.add(
                 const AuthEventChangeAvatar(avatarNavigation: 'BackButton'),
               ),
           verify: (bloc) {
             expect(
-              (bloc.state as AuthStateSigningUp).avatar,
+              (bloc.state as AuthStateSigningUp).avatarModel.avatarPath,
               'assets/avatars/kitty.png',
             );
             expect(
-              (bloc.state as AuthStateSigningUp).index,
+              (bloc.state as AuthStateSigningUp).avatarModel.id,
               1,
             );
             expect(
               (bloc.state as AuthStateSigningUp).isLoading,
               false,
+            );
+            expect(
+              (bloc.state as AuthStateSigningUp).avatarModel.avatarGetUrl,
+              kittyAvatarUrl,
             );
           });
     });
@@ -497,12 +517,7 @@ void main() async {
     });
     // AuthEventGoToSignUpPage test
     group('when [AuthEventGoToSignUpPage] is added', () {
-      late AvatarModel avatarModel;
-      late String avatarImage;
-      setUp(() => {
-            avatarModel = AvatarModel(),
-            avatarImage = avatarModel.avatarList[1]!,
-          });
+      final AvatarModel avatarModel = AvatarModel(id: 1);
       blocTest<AuthBloc, AuthState>(
         'emits [AuthStateSigningUp]',
         build: () => authBloc,
@@ -510,7 +525,10 @@ void main() async {
           const AuthEventGoToSignUpPage(),
         ),
         expect: () => <AuthState>[
-          AuthStateSigningUp(avatar: avatarImage, isLoading: false, index: 1)
+          AuthStateSigningUp(
+            avatarModel: avatarModel,
+            isLoading: false,
+          )
         ],
       );
     });
@@ -519,8 +537,10 @@ void main() async {
       blocTest<AuthBloc, AuthState>(
         'emits [AuthStateLoggedOut]',
         build: () => authBloc,
-        seed: () =>
-            const AuthStateSigningUp(avatar: '', isLoading: false, index: 1),
+        seed: () => AuthStateSigningUp(
+          avatarModel: AvatarModel(id: 1),
+          isLoading: false,
+        ),
         act: (bloc) => bloc.add(
           const AuthEventGoToSignInPage(),
         ),

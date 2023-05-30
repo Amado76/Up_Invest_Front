@@ -43,7 +43,7 @@ class _SingUpPageState extends State<SingUpPage> {
           Modular.to.navigate('/auth/');
         }
         if (state is AuthStateSigningUp) {
-          avatar = state.avatar;
+          avatar = state.avatarModel.avatarPath;
         }
         if (state.isLoading == true) {
           LoadingScreen.instance()
@@ -59,7 +59,7 @@ class _SingUpPageState extends State<SingUpPage> {
       },
       builder: (context, state) {
         if (state is AuthStateSigningUp) {
-          avatar = state.avatar;
+          avatar = state.avatarModel.avatarPath;
         }
         return CustomAuthScaffold(
           onPressed: () => authBloc.add(const AuthEventGoToSignInPage()),

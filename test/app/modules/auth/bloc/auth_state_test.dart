@@ -2,11 +2,13 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:up_invest_front/app/modules/user/avatar_model.dart';
 
 import '../../../../mocks/auth/model/auth_user_model_mock.dart';
 
 void main() {
   const isLoading = true;
+
   group('[AuthStateIdle]', () {
     test('supports value comparisons', () {
       expect(AuthStateIdle(isLoading: isLoading),
@@ -14,7 +16,7 @@ void main() {
     });
   });
   group('[AuthStateLoggedIn]', () {
-    test('supports value comparisons', () {
+    test('supports value comparisonso', () {
       expect(
           AuthStateLoggedIn(
               isLoading: isLoading, authUser: AuthUserModelMock()),
@@ -36,8 +38,11 @@ void main() {
   });
   group('[AuthStateRecoverPassword]', () {
     test('supports value comparisons', () {
-      expect(AuthStateSigningUp(isLoading: isLoading, index: 1, avatar: ''),
-          AuthStateSigningUp(isLoading: isLoading, index: 1, avatar: ''));
+      expect(
+          AuthStateSigningUp(
+              avatarModel: AvatarModel(id: 1), isLoading: isLoading),
+          AuthStateSigningUp(
+              avatarModel: AvatarModel(id: 1), isLoading: isLoading));
     });
   });
 }
