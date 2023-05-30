@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Center(
                 child: Text(
-                    'Sign In! email:${authUser.email}, ${authUser.displayName}')),
+                    'Sign In! email:${authUser.email}, ${authUser.displayName}, ${authUser.avatar}')),
             TextButton(
                 onPressed: () {
                   authBloc.add(const AuthEventLogOut());
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                 child: const Text('Loggout')),
             TextButton(
                 onPressed: () {
-                  Modular.to.navigate('/settings');
+                  Modular.to.pushNamed('/settings');
                 },
                 child: const Text('Go to Settings')),
             Form(

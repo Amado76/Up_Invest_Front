@@ -6,18 +6,17 @@ sealed class ILocalStorageAdapter {
 }
 
 class SharedPreferencesAdapter extends ILocalStorageAdapter {
-  final SharedPreferences sharedPreferences;
-
-  SharedPreferencesAdapter(this.sharedPreferences);
-
   @override
   Future<String?> readStringFromLocalStorage(String key) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
     String? fetchedString = sharedPreferences.getString(key);
     return fetchedString;
   }
 
   @override
   Future<void> saveStringToLocalStorage(String key, String value) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     bool result = await sharedPreferences.setString(key, value);
     if (result == false) {
       throw Exception('error-on-save');

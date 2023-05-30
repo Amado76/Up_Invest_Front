@@ -44,13 +44,10 @@ class FireBaseGateway implements IAuthGateway {
   /// Create a new account using e-mail and password
   Future<AuthUserModel> createAccount(
       String email, String password, String displayName, String avatar) async {
-    UserCredential userCredential;
-    userCredential = await auth.createUserWithEmailAndPassword(
-        email: email, password: password);
+    await auth.createUserWithEmailAndPassword(email: email, password: password);
     await updatePhoto(avatar);
     await updateDisplayName(displayName);
-    AuthUserModel authUser =
-        await geAuthtUserModelFromUserCredential(userCredential);
+    AuthUserModel authUser = await getLoggedUser();
 
     return authUser;
   }

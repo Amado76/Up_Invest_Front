@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -15,6 +16,11 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final size = MediaQuery.of(context).size;
+    final systemBarSize = MediaQuery.of(context).viewPadding.top;
+    final bottomBarSize = MediaQuery.of(context).viewPadding.bottom;
+    final authBloc = Modular.get<AuthBloc>();
+    final currentAuthState = authBloc.state as AuthStateLoggedIn;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: colorScheme.background,
@@ -26,7 +32,9 @@ class _SettingsPageState extends State<SettingsPage> {
               child: IconButton(
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
-                  onPressed: () {},
+                  onPressed: () {
+                    Modular.to.pop();
+                  },
                   icon: ImageIcon(
                     color: colorScheme.onBackground,
                     const AssetImage('assets/icons/short_left.png'),
@@ -36,7 +44,22 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         backgroundColor: colorScheme.background,
         body: SafeArea(
-          child: widget,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: SizedBox(
+                height: size.height - systemBarSize - bottomBarSize,
+                width: size.width,
+                child: Column(children: [
+                  CircleAvatar(
+                      backgroundColor: colorScheme.tertiary,
+                      radius: 90,
+                      backgroundImage:
+                          NetworkImage(currentAuthState.authUser.avatar)),
+                ]),
+              ),
+            ),
+          ),
         ));
   }
 }

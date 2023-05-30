@@ -25,7 +25,7 @@ class AuthModule extends Module {
     Bind.singleton<IAuthGateway>(
         (i) => FireBaseGateway(auth: i.get<FirebaseAuth>()),
         export: true),
-    Bind.factory<GoogleSignIn>((i) => GoogleSignIn()),
+    Bind.factory<GoogleSignIn>((i) => GoogleSignIn(), export: true),
     BlocBind.singleton(
         (i) => AuthBloc(authRepository: i.get<IAuthRepository>()),
         export: true)
