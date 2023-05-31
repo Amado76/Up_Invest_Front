@@ -69,9 +69,13 @@
     "settingsErrorOnSaveessage":"An error occurred while saving the settings, please try again!",
     "settingsAppBarTitle": "Settings",
     "settingsLanguage": "Language",
-    "settignsEnglish":"English",
-    "settignsSpanish":"Spanish",
-    "settignsPortuguese":"Portuguese"
+    "settingsEnglish":"English",
+    "settingsSpanish":"Spanish",
+    "settingsPortuguese":"Portuguese",
+    "settingsDark": "Dark",
+    "settingsLight": "Light"
+ 
+
 
 
 

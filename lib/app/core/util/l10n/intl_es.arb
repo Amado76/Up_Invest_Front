@@ -69,9 +69,11 @@
     "settingsErrorOnSaveMessage": "Se produjo un error al guardar la configuración, por favor intente nuevamente",
     "settingsAppBarTitle": "Configuraciones",
     "settingsLanguage": "Idioma",    
-    "settignsEnglish":"Inglés",
-    "settignsSpanish":"Español",
-    "settignsPortuguese":"Portugués"
+    "settingsEnglish":"Inglés",
+    "settingsSpanish":"Español",
+    "settingsPortuguese":"Portugués",
+    "settingsDark": "Oscuro",
+    "settingsLight": "Claro"
 
 
 }

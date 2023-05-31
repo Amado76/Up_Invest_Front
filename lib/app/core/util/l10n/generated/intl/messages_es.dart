@@ -121,11 +121,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordHintText": MessageLookupByLibrary.simpleMessage("Contraseña"),
         "recoverPasswordBody": MessageLookupByLibrary.simpleMessage(
             "¡Sin problemas! ¡Simplemente ingrese tu e-mail y nuestros astronautas le enviarán el código de recuperación!"),
-        "settignsEnglish": MessageLookupByLibrary.simpleMessage("Inglés"),
-        "settignsPortuguese": MessageLookupByLibrary.simpleMessage("Portugués"),
-        "settignsSpanish": MessageLookupByLibrary.simpleMessage("Español"),
         "settingsAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Configuraciones"),
+        "settingsDark": MessageLookupByLibrary.simpleMessage("Oscuro"),
+        "settingsEnglish": MessageLookupByLibrary.simpleMessage("Inglés"),
         "settingsErrorOnSaveTitle": MessageLookupByLibrary.simpleMessage(
             "Error al guardar la configuración"),
         "settingsErrorUnknownMessage": MessageLookupByLibrary.simpleMessage(
@@ -133,6 +132,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "settingsErrorUnknownTitle":
             MessageLookupByLibrary.simpleMessage("Error desconocido"),
         "settingsLanguage": MessageLookupByLibrary.simpleMessage("Idioma"),
+        "settingsLight": MessageLookupByLibrary.simpleMessage("Claro"),
+        "settingsPortuguese": MessageLookupByLibrary.simpleMessage("Portugués"),
+        "settingsSpanish": MessageLookupByLibrary.simpleMessage("Español"),
         "signInDoNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("¿No tienes una cuenta?"),
         "signInSignUp": MessageLookupByLibrary.simpleMessage("¡Regístrate!"),

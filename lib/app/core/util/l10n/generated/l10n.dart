@@ -681,30 +681,50 @@ class IntlStrings {
   }
 
   /// `English`
-  String get settignsEnglish {
+  String get settingsEnglish {
     return Intl.message(
       'English',
-      name: 'settignsEnglish',
+      name: 'settingsEnglish',
       desc: '',
       args: [],
     );
   }
 
   /// `Spanish`
-  String get settignsSpanish {
+  String get settingsSpanish {
     return Intl.message(
       'Spanish',
-      name: 'settignsSpanish',
+      name: 'settingsSpanish',
       desc: '',
       args: [],
     );
   }
 
   /// `Portuguese`
-  String get settignsPortuguese {
+  String get settingsPortuguese {
     return Intl.message(
       'Portuguese',
-      name: 'settignsPortuguese',
+      name: 'settingsPortuguese',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark`
+  String get settingsDark {
+    return Intl.message(
+      'Dark',
+      name: 'settingsDark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Light`
+  String get settingsLight {
+    return Intl.message(
+      'Light',
+      name: 'settingsLight',
       desc: '',
       args: [],
     );
