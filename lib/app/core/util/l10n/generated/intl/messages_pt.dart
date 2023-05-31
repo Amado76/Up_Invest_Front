@@ -122,6 +122,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "settignsEnglish": MessageLookupByLibrary.simpleMessage("Ingles"),
         "settignsPortuguese": MessageLookupByLibrary.simpleMessage("Portugues"),
         "settignsSpanish": MessageLookupByLibrary.simpleMessage("Espanhol"),
+        "settingsAppBarTitle":
+            MessageLookupByLibrary.simpleMessage("Configurações"),
         "settingsErrorOnSaveTitle": MessageLookupByLibrary.simpleMessage(
             "Erro ao salvar as configurações!"),
         "settingsErrorUnknownMessage": MessageLookupByLibrary.simpleMessage(

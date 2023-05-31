@@ -1,4 +1,3 @@
-
 {   
     "nameHintText": "Name",    
     "emailHintText": "Email",
@@ -62,8 +61,7 @@
     "authSuccessResetPasswordTitle": "Email Sent!",
     "authSuccessResetPasswordMessage":"We have sent an email with instructions to reset your password!",
     "authSuccessSetNewPasswordTitle": "Password Successfully Changed!",
-    "authSuccessSetNewPasswordMessage":"Your password has been changed successfully!",
- 
+    "authSuccessSetNewPasswordMessage":"Your password has been changed successfully!", 
 
     "settingsErrorUnknownTitle": "Unknown error!",
     "settingsErrorUnknownMessage":"An unknown error occurred.",

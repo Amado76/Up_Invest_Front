@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate
       ],
+      locale: settingsState.settingsModel.locale,
       supportedLocales: IntlStrings.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
       themeMode: settingsState.settingsModel.themeMode,
