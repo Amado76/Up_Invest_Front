@@ -660,6 +660,26 @@ class IntlStrings {
     );
   }
 
+  /// `Error opening external link!`
+  String get settingsErrorExternalLinkTitle {
+    return Intl.message(
+      'Error opening external link!',
+      name: 'settingsErrorExternalLinkTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An error occurred while opening an external link, please try again!`
+  String get settingsErrorExternalLinkMessage {
+    return Intl.message(
+      'An error occurred while opening an external link, please try again!',
+      name: 'settingsErrorExternalLinkMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Settings`
   String get settingsAppBarTitle {
     return Intl.message(

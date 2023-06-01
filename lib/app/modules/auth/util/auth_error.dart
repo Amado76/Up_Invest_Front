@@ -48,11 +48,18 @@ sealed class AuthError extends Equatable {
   /// [exception] - The [Exception] from which to create the [AuthError].
   /// Returns an [AuthError] object corresponding to the provided exception,
   /// or a default [AuthErrorUnknown] object if no mapping is found.
+
   factory AuthError.from(Exception exception) {
+    if (exception is FirebaseAuthException) {
+      return authErrorMapping[exception.code.toLowerCase().trim()] ??
+          AuthErrorUnknown();
+    }
+
     if (exception is PlatformException) {
       String errorMessage = exception.code;
       return authErrorMapping[errorMessage] ?? AuthErrorUnknown();
     }
+
     String errorMessage = exception.toString();
     return authErrorMapping[errorMessage] ?? AuthErrorUnknown();
   }

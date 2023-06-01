@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
+import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
+import 'package:up_invest_front/app/modules/settings/util/settings_error.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/settings_options_row.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,9 +21,12 @@ class AboutUs extends StatelessWidget {
             onPressed: () {
               showDialog(
                   context: context,
-                  builder: (context) => const AlertDialog(
-                      title: Text('UpInvest - Quem somos nós!'),
-                      content: AboutMeText()));
+                  builder: (context) => AlertDialog(
+                      title: Text(
+                        'UpInvest - Quem somos nós!',
+                        style: TextStyle(color: colorScheme.onBackground),
+                      ),
+                      content: const AboutMeText()));
             },
             icon: ImageIcon(
               color: colorScheme.onBackground,
@@ -44,11 +49,17 @@ class _AboutMeTextState extends State<AboutMeText> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final intlStrings = IntlStrings.of(context);
+    final customBar = CustomSnackBar();
     return SingleChildScrollView(
       child: Column(
         children: [
-          Text(intlStrings.aboutUsTextOne),
+          Text(
+            intlStrings.aboutUsTextOne,
+            style: TextStyle(color: colorScheme.onBackground),
+          ),
           const SizedBox(
             height: 18,
           ),
@@ -58,11 +69,16 @@ class _AboutMeTextState extends State<AboutMeText> {
               GestureDetector(
                 onTap: () async {
                   Uri uriParams = Uri(scheme: 'mailto', path: email);
-                  if (await canLaunchUrl(uriParams)) {
+
+                  try {
                     await launchUrl(uriParams);
-                  } else {
-                    throw 'Não foi possível abrir o link! :(';
+                  } on Exception {
+                    SettingsError settignsError = SettingsError.from(
+                        Exception('error-opening-external-link'));
+                    customBar.showBottomErrorSnackBar(settignsError.dialogTitle,
+                        settignsError.dialogText, context);
                   }
+                  await launchUrl(uriParams);
                 },
                 child: SizedBox(
                     height: 50, child: Image.asset('assets/images/email.png')),
@@ -70,10 +86,13 @@ class _AboutMeTextState extends State<AboutMeText> {
               GestureDetector(
                 onTap: () async {
                   Uri uri = Uri.parse(linkedinUrl);
-                  if (await canLaunchUrl(uri)) {
+                  try {
                     await launchUrl(uri);
-                  } else {
-                    throw 'Não foi possível abrir o link! :(';
+                  } on Exception {
+                    SettingsError settignsError = SettingsError.from(
+                        Exception('error-opening-external-link'));
+                    customBar.showBottomErrorSnackBar(settignsError.dialogTitle,
+                        settignsError.dialogText, context);
                   }
                 },
                 child: SizedBox(
@@ -83,10 +102,13 @@ class _AboutMeTextState extends State<AboutMeText> {
               GestureDetector(
                 onTap: () async {
                   Uri uri = Uri.parse(githubUrl);
-                  if (await canLaunchUrl(uri)) {
+                  try {
                     await launchUrl(uri);
-                  } else {
-                    throw 'Não foi possível abrir o link! :(';
+                  } on Exception {
+                    SettingsError settignsError = SettingsError.from(
+                        Exception('error-opening-external-link'));
+                    customBar.showBottomErrorSnackBar(settignsError.dialogTitle,
+                        settignsError.dialogText, context);
                   }
                 },
                 child: SizedBox(
@@ -95,7 +117,10 @@ class _AboutMeTextState extends State<AboutMeText> {
             ],
           ),
           const SizedBox(height: 18),
-          Text(intlStrings.aboutUsTextTwo),
+          Text(
+            intlStrings.aboutUsTextTwo,
+            style: TextStyle(color: colorScheme.onBackground),
+          ),
         ],
       ),
     );

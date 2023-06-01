@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/change_theme.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/user_profile_card.dart';
@@ -26,8 +25,6 @@ class _SettingsPageState extends State<SettingsPage> {
     final systemBarSize = MediaQuery.viewPaddingOf(context).top;
     final bottomBarSize = MediaQuery.viewPaddingOf(context).bottom;
     final intlStrings = IntlStrings.of(context);
-    final authBloc = context.watch<AuthBloc>((bloc) => bloc.stream);
-    final currentAuthState = authBloc.state as AuthStateLoggedIn;
 
     return Scaffold(
         appBar: AppBar(

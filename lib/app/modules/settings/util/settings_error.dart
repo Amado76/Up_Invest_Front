@@ -4,6 +4,7 @@ import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 Map<String, SettingsError> settingsErrorMapping = {
   'Exception: error-on-save': SettingsErrorOnSave(),
+  'Exception: error-opening-external-link': SettingsErrorOpeningExternalLink(),
 };
 
 sealed class SettingsError extends Equatable {
@@ -46,6 +47,18 @@ class SettingsErrorOnSave extends SettingsError {
       : super(
           dialogTitle: IntlStrings.current.settingsErrorOnSaveTitle,
           dialogText: IntlStrings.current.settingsErrorOnSaveessage,
+        );
+
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
+}
+
+@immutable
+class SettingsErrorOpeningExternalLink extends SettingsError {
+  SettingsErrorOpeningExternalLink()
+      : super(
+          dialogTitle: IntlStrings.current.settingsErrorExternalLinkTitle,
+          dialogText: IntlStrings.current.settingsErrorExternalLinkMessage,
         );
 
   @override

@@ -131,6 +131,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Configuraciones"),
         "settingsDark": MessageLookupByLibrary.simpleMessage("Oscuro"),
         "settingsEnglish": MessageLookupByLibrary.simpleMessage("Inglés"),
+        "settingsErrorExternalLinkMessage": MessageLookupByLibrary.simpleMessage(
+            "Ocurrió un error al abrir un enlace externo, ¡inténtalo de nuevo!"),
+        "settingsErrorExternalLinkTitle": MessageLookupByLibrary.simpleMessage(
+            "Error al abrir un enlace externo"),
         "settingsErrorOnSaveTitle": MessageLookupByLibrary.simpleMessage(
             "Error al guardar la configuración"),
         "settingsErrorUnknownMessage": MessageLookupByLibrary.simpleMessage(

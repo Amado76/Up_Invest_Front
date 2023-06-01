@@ -67,6 +67,8 @@
     "settingsErrorUnknownMessage": "Ocorreu um erro desconhecido.",
     "settingsErrorOnSaveTitle": "Erro ao salvar as configurações!",
     "settingsErrorOnSaveMessage": "Ocorreu um erro ao salvar as configurações, por favor, tente novamente!",
+    "settingsErrorExternalLinkTitle": "Erro ao abrir link externo!",
+    "settingsErrorExternalLinkMessage": "Ocorreu um erro ao abrir um link externo, por favor, tente novamente!",
     "settingsAppBarTitle": "Configurações",
     "settingsLanguage": "Idioma",
     "settingsEnglish":"Ingles",
