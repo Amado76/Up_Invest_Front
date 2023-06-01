@@ -73,9 +73,10 @@
     "settingsSpanish":"Espanhol",
     "settingsPortuguese":"Portugues",
     "settingsDark": "Escuro",
-    "settingsLight": "Claro"
-
-
+    "settingsLight": "Claro",
+    "settingsAboutUs": "Sobre nós",
+    "aboutUsTextOne":"Meu nome é Bruno Amado, sou desenvolvedor mobile, e criei o UpInvest como um projeto pessoal, unindo duas paixões: o desenvolvimento de aplicativos móveis e investimentos financeiros.\n\nSe você tiver alguma sugestão, crítica ou elogio, ficarei muito feliz em ouvir! Sinta-se à vontade para entrar em contato comigo através dos seguintes canais:",
+    "aboutUsTextTwo": "Agradeço por usar o UpInvest e por fazer parte da minha jornada de desenvolvimento e aprendizado no Flutter!"
     
 
 }

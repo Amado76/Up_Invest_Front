@@ -33,4 +33,21 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="www.linkedin.com" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="github.com" />
+       </intent>
+       <intent>
+            <action android:name="android.intent.action.SENDTO" />          
+            <data android:scheme="mailto" />
+       </intent>
+    </queries>     
 </manifest>

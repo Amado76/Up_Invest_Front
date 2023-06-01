@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:up_invest_front/app/core/widgets/custom_snack_bar.dart';
+import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 
 import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_auth_scaffold.dart';
-import 'package:up_invest_front/app/modules/auth/widgets/custom_elevated_button.dart';
+import 'package:up_invest_front/app/core/widgets/custom_elevated_button.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
@@ -27,9 +27,9 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final systemBarSize = MediaQuery.of(context).viewPadding.top;
-    final bottomBarSize = MediaQuery.of(context).viewPadding.bottom;
+    final size = MediaQuery.sizeOf(context);
+    final systemBarSize = MediaQuery.viewPaddingOf(context).top;
+    final bottomBarSize = MediaQuery.viewPaddingOf(context).bottom;
     final appBarSize = AppBar().preferredSize.height;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;

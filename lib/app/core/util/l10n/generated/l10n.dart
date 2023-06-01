@@ -729,6 +729,36 @@ class IntlStrings {
       args: [],
     );
   }
+
+  /// `About us`
+  String get settingsAboutUs {
+    return Intl.message(
+      'About us',
+      name: 'settingsAboutUs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My name is Bruno Amado, I am a mobile developer, and I created UpInvest as a personal project, combining two passions: mobile app development and financial investments.\n\nI would be delighted to hear from you if you have any suggestions, criticisms, or compliments! Please feel free to get in touch with me through the following channels:`
+  String get aboutUsTextOne {
+    return Intl.message(
+      'My name is Bruno Amado, I am a mobile developer, and I created UpInvest as a personal project, combining two passions: mobile app development and financial investments.\n\nI would be delighted to hear from you if you have any suggestions, criticisms, or compliments! Please feel free to get in touch with me through the following channels:',
+      name: 'aboutUsTextOne',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thank you for using UpInvest and for being a part of my journey of development and learning in Flutter!`
+  String get aboutUsTextTwo {
+    return Intl.message(
+      'Thank you for using UpInvest and for being a part of my journey of development and learning in Flutter!',
+      name: 'aboutUsTextTwo',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<IntlStrings> {

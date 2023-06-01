@@ -4,14 +4,14 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
-import 'package:up_invest_front/app/modules/auth/widgets/custom_elevated_button.dart';
+import 'package:up_invest_front/app/core/widgets/custom_elevated_button.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_field.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
 
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
-import '../../../core/widgets/custom_snack_bar.dart';
+import '../../../core/widgets/snackbar/custom_snack_bar.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -23,14 +23,15 @@ class SignInPage extends StatefulWidget {
 class _SignInState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final systemBarSize = MediaQuery.of(context).viewPadding.top;
-    final bottomBarSize = MediaQuery.of(context).viewPadding.bottom;
+    final size = MediaQuery.sizeOf(context);
+    final systemBarSize = MediaQuery.viewPaddingOf(context).top;
+    final bottomBarSize = MediaQuery.viewPaddingOf(context).bottom;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final authBloc = Modular.get<AuthBloc>();
     final settingsBloc = Modular.get<SettingsBloc>();
     final currentTheme = settingsBloc.state.settingsModel.themeMode;
+    Brightness systemBrightness = MediaQuery.of(context).platformBrightness;
     final intlString = IntlStrings.of(context);
 
     final customBar = CustomSnackBar();
@@ -81,7 +82,10 @@ class _SignInState extends State<SignInPage> {
                     Image.asset(
                       currentTheme == ThemeMode.light
                           ? 'assets/images/logo_up_invest.png'
-                          : 'assets/images/logo_up_invest_dark_mode.png',
+                          : (currentTheme == ThemeMode.system &&
+                                  systemBrightness == Brightness.light)
+                              ? 'assets/images/logo_up_invest.png'
+                              : 'assets/images/logo_up_invest_dark_mode.png',
                       alignment: Alignment.center,
                     ),
                     const SizedBox(height: 50),

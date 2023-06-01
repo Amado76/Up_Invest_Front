@@ -46,7 +46,7 @@ class _CustomSettingsIcon extends StatelessWidget {
       ),
       child: Icon(
         icon,
-        color: colorScheme.secondary,
+        color: colorScheme.tertiary,
       ),
     );
   }

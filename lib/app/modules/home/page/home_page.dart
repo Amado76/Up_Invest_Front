@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:up_invest_front/app/core/widgets/custom_snack_bar.dart';
+import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 
@@ -10,7 +10,7 @@ import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_fi
 import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
 
 import '../../auth/model/auth_user_model.dart';
-import '../../auth/widgets/custom_elevated_button.dart';
+import '../../../core/widgets/custom_elevated_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

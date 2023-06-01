@@ -22,31 +22,34 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colarScheme = theme.colorScheme;
-    return TextFormField(
-      keyboardType: keyBoardType,
-      controller: controller,
-      validator: validator,
-      obscureText: obscureText,
-      style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
-          color: colarScheme.onSecondaryContainer),
-      decoration: InputDecoration(
-          prefixIcon: icon,
-          fillColor: colarScheme.secondaryContainer,
-          filled: true,
-          hintText: hintText,
-          hintStyle: TextStyle(color: colarScheme.outline),
-          enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent),
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-          focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent),
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          border: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent),
-              borderRadius: BorderRadius.all(Radius.circular(10)))),
+    return SizedBox(
+      height: 56,
+      child: TextFormField(
+        keyboardType: keyBoardType,
+        controller: controller,
+        validator: validator,
+        obscureText: obscureText,
+        style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            color: colarScheme.onSecondaryContainer),
+        decoration: InputDecoration(
+            prefixIcon: icon,
+            fillColor: colarScheme.secondaryContainer,
+            filled: true,
+            hintText: hintText,
+            hintStyle: TextStyle(color: colarScheme.outline),
+            enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent),
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent),
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent),
+                borderRadius: BorderRadius.all(Radius.circular(10)))),
+      ),
     );
   }
 }

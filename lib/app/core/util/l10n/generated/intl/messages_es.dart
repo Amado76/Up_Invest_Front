@@ -22,6 +22,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "aboutUsTextOne": MessageLookupByLibrary.simpleMessage(
+            "Mi nombre es Bruno Amado, soy un desarrollador móvil y creé UpInvest como un proyecto personal, combinando dos pasiones: el desarrollo de aplicaciones móviles y las inversiones financieras. UpInvest es una aplicación que desarrollé para mejorar mis habilidades en Flutter.\n\nMe encantaría saber si tienes alguna sugerencia, crítica o cumplido. No dudes en contactarme a través de los siguientes canales:"),
+        "aboutUsTextTwo": MessageLookupByLibrary.simpleMessage(
+            "¡Gracias por usar UpInvest y por ser parte de mi viaje de desarrollo y aprendizaje en Flutter!"),
         "authErrorEmailAlreadyExistsMessage":
             MessageLookupByLibrary.simpleMessage(
                 "Por favor, elija otro correo electrónico para registrarse"),
@@ -121,6 +125,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordHintText": MessageLookupByLibrary.simpleMessage("Contraseña"),
         "recoverPasswordBody": MessageLookupByLibrary.simpleMessage(
             "¡Sin problemas! ¡Simplemente ingrese tu e-mail y nuestros astronautas le enviarán el código de recuperación!"),
+        "settingsAboutUs":
+            MessageLookupByLibrary.simpleMessage("Acerca de nosotros"),
         "settingsAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Configuraciones"),
         "settingsDark": MessageLookupByLibrary.simpleMessage("Oscuro"),

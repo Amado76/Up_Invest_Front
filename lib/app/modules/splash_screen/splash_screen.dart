@@ -17,8 +17,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final bottomBarSize = MediaQuery.of(context).viewPadding.bottom;
+    final size = MediaQuery.sizeOf(context);
+    final bottomBarSize = MediaQuery.viewPaddingOf(context).bottom;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final authBloc = Modular.get<AuthBloc>();

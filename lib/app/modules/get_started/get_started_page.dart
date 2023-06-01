@@ -13,9 +13,9 @@ class GetStartedPage extends StatefulWidget {
 class _GetStartedPageState extends State<GetStartedPage> {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final systemBarSize = MediaQuery.of(context).viewPadding.top;
-    final bottomBarSize = MediaQuery.of(context).viewPadding.bottom;
+    final size = MediaQuery.sizeOf(context);
+    final systemBarSize = MediaQuery.viewPaddingOf(context).top;
+    final bottomBarSize = MediaQuery.viewPaddingOf(context).bottom;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final intlStrings = IntlStrings.of(context);
