@@ -10,7 +10,7 @@ class UserProfileCard extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final authBloc = context.watch<AuthBloc>((bloc) => bloc.stream);
-    final currentAuthState = authBloc.state as AuthStateLoggedIn;
+    final currentAuthState = authBloc.state as AuthLoggedIn;
     return Row(
       children: [
         CircleAvatar(

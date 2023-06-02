@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/recovery_password/recover_password_bloc.dart';
 
 import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_auth_scaffold.dart';
@@ -21,7 +21,7 @@ class RecoverPasswordPage extends StatefulWidget {
 class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final _authBloc = Modular.get<AuthBloc>();
+  final _recoverPasswordBloc = Modular.get<RecoverPasswordBloc>();
   final _customBar = CustomSnackBar();
   final _validator = AuthFormValidator();
 
@@ -35,32 +35,29 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
     final colorScheme = theme.colorScheme;
     final intlString = IntlStrings.of(context);
 
-    return BlocConsumer<AuthBloc, AuthState>(
-      bloc: _authBloc,
-      listener: (context, state) {
-        if (state is AuthStateLoggedOut) {
-          Modular.to.navigate('/auth/');
-        }
-        final authError = state.authError;
-        if (authError != null) {
-          _customBar.showBottomErrorSnackBar(
-              authError.dialogTitle, authError.dialogText, context);
-        }
-        final authSuccess = state.authSuccess;
-        if (authSuccess != null) {
-          _customBar.showBottomSuccessSnackBar(
-              authSuccess.dialogTitle, authSuccess.dialogText, context);
-        }
-        if (state.isLoading == true) {
-          LoadingScreen.instance()
-              .show(context: context, text: intlString.loading);
-        } else {
-          LoadingScreen.instance().hide();
-        }
-      },
-      builder: (context, state) {
-        return CustomAuthScaffold(
-          onPressed: () => _authBloc.add(const AuthEventGoToSignInPage()),
+    return BlocListener<RecoverPasswordBloc, RecoverPasswordState>(
+        bloc: _recoverPasswordBloc,
+        listener: (context, state) {
+          final hideLoadingScreen = LoadingScreen.instance().hide();
+          return switch (state) {
+            RecoverPasswordIdle() => hideLoadingScreen,
+            RecoverPasswordLoading() => {
+                LoadingScreen.instance()
+                    .show(context: context, text: intlString.loading)
+              },
+            RecoverPasswordError(authError: final authError) => {
+                hideLoadingScreen,
+                _customBar.showBottomErrorSnackBar(
+                    authError.dialogTitle, authError.dialogText, context)
+              },
+            RecoverPasswordSuccess(authSuccess: final authSuccess) => {
+                _customBar.showBottomSuccessSnackBar(
+                    authSuccess.dialogTitle, authSuccess.dialogText, context)
+              }
+          };
+        },
+        child: CustomAuthScaffold(
+          onPressed: () => Modular.to.navigate('/auth/'),
           widget: Padding(
             padding: const EdgeInsets.only(left: 30, right: 30),
             child: SingleChildScrollView(
@@ -107,8 +104,8 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                 text: intlString.submitButton,
                                 onPressed: () => {
                                       if (_formKey.currentState!.validate())
-                                        _authBloc.add(
-                                            AuthEventSendPasswordResetEmail(
+                                        _recoverPasswordBloc.add(
+                                            RecoverPasswordSendEmail(
                                                 email: _emailController.text))
                                     }),
                           ],
@@ -119,8 +116,6 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
               ),
             ),
           ),
-        );
-      },
-    );
+        ));
   }
 }

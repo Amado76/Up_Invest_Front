@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
+import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
-import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/sign_up/sign_up_bloc.dart';
 
+import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_auth_scaffold.dart';
 import 'package:up_invest_front/app/core/widgets/custom_elevated_button.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_field.dart';
@@ -28,91 +29,85 @@ class _SingUpPageState extends State<SingUpPage> {
     final appBarSize = AppBar().preferredSize.height;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final signUpBloc = Modular.get<SignUpBloc>();
     final authBloc = Modular.get<AuthBloc>();
     final intlString = IntlStrings.of(context);
-
-    String? avatar;
     final customBar = CustomSnackBar();
-    return BlocConsumer<AuthBloc, AuthState>(
+    String avatar = signUpBloc.state.avatar.avatarPath;
+    final hideLoading = LoadingScreen.instance().hide();
+
+    return BlocListener<AuthBloc, AuthState>(
       bloc: authBloc,
       listener: (context, state) {
-        final hideLoading = LoadingScreen.instance().hide();
-
-        return switch (state) {
-          AuthStateLoggedIn() => {
-              Modular.to.navigate('/home/'),
-              hideLoading,
-            },
-          AuthStateSigningUp(isLoading: true) => LoadingScreen.instance()
-              .show(context: context, text: intlString.loading),
-          AuthStateSigningUp(
-            authError: final authError,
-            isLoading: false,
-            avatarModel: final avatarModel
-          ) =>
-            {
-              hideLoading,
-              avatarModel.avatarPath,
-              if (authError != null)
-                {
-                  customBar.showBottomErrorSnackBar(
-                      authError.dialogTitle, authError.dialogText, context)
-                }
-            },
-          AuthStateLoggedOut(isLoading: true) => LoadingScreen.instance()
-              .show(context: context, text: intlString.loading),
-          AuthStateLoggedOut() => Modular.to.navigate('/auth/'),
-          AuthStateIdle() => const AuthStateLoggedOut(isLoading: false),
-          AuthStateRecoverPassword() =>
-            const AuthStateLoggedOut(isLoading: false),
-        };
-      },
-      builder: (context, state) {
-        if (state is AuthStateSigningUp) {
-          avatar = state.avatarModel.avatarPath;
+        if (authBloc.state is AuthLoggedIn) {
+          LoadingScreen.instance().hide();
+          Modular.to.navigate('/home/');
         }
-        return CustomAuthScaffold(
-          onPressed: () => authBloc.add(const AuthEventGoToSignInPage()),
-          widget: (Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30),
-            child: SizedBox(
-              height: size.height - appBarSize - bottomBarSize - systemBarSize,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(intlString.signUpTitle,
-                        style: TextStyle(
-                            color: colorScheme.onBackground,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold)),
-                    Text(intlString.signUpSubTitle,
-                        style: TextStyle(
-                            color: colorScheme.onBackground,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 25),
-                    _ChooseYourAvatarWidget(
-                      avatarImage: avatar ?? 'assets/avatars/man.png',
-                    ),
-                    const SizedBox(height: 10),
-                    const _SingUpForm(),
-                  ],
+      },
+      child: BlocConsumer<SignUpBloc, SignUpState>(
+        bloc: signUpBloc,
+        listener: (context, state) {
+          return switch (state) {
+            SignUpIdle(avatar: final avatar) => {
+                hideLoading,
+                avatar.avatarPath
+              },
+            SignUpError(avatar: final avatar, authError: final authError) => {
+                hideLoading,
+                avatar.avatarPath,
+                customBar.showBottomErrorSnackBar(
+                    authError.dialogTitle, authError.dialogText, context)
+              },
+            SignUpLoading() => LoadingScreen.instance()
+                .show(context: context, text: intlString.loading),
+          };
+        },
+        builder: (context, state) {
+          avatar = state.avatar.avatarPath;
+          return CustomAuthScaffold(
+            onPressed: () => Modular.to.navigate('/auth/'),
+            widget: (Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: SizedBox(
+                height:
+                    size.height - appBarSize - bottomBarSize - systemBarSize,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(intlString.signUpTitle,
+                          style: TextStyle(
+                              color: colorScheme.onBackground,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold)),
+                      Text(intlString.signUpSubTitle,
+                          style: TextStyle(
+                              color: colorScheme.onBackground,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 25),
+                      _ChooseYourAvatarWidget(
+                        avatar: avatar,
+                      ),
+                      const SizedBox(height: 10),
+                      const _SingUpForm(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          )),
-        );
-      },
+            )),
+          );
+        },
+      ),
     );
   }
 }
 
 class _ChooseYourAvatarWidget extends StatefulWidget {
-  final String avatarImage;
+  final String avatar;
   const _ChooseYourAvatarWidget({
     Key? key,
-    required this.avatarImage,
+    required this.avatar,
   }) : super(key: key);
 
   @override
@@ -125,7 +120,7 @@ class _ChooseYourAvatarWidgetState extends State<_ChooseYourAvatarWidget> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final authBloc = Modular.get<AuthBloc>();
+    final signUpBloc = Modular.get<SignUpBloc>();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -136,7 +131,7 @@ class _ChooseYourAvatarWidgetState extends State<_ChooseYourAvatarWidget> {
             CircleAvatar(
                 backgroundColor: colorScheme.tertiary,
                 radius: 90,
-                backgroundImage: AssetImage(widget.avatarImage)),
+                backgroundImage: AssetImage(widget.avatar)),
             Positioned(
               top: 140,
               left: 10,
@@ -146,7 +141,7 @@ class _ChooseYourAvatarWidgetState extends State<_ChooseYourAvatarWidget> {
                     color: colorScheme.tertiaryContainer.withOpacity(0.7)),
                 child: IconButton(
                     onPressed: () {
-                      authBloc.add(const AuthEventChangeAvatar(
+                      signUpBloc.add(const SignUpChangeAvatar(
                           avatarNavigation: 'BackButton'));
                     },
                     icon: Icon(
@@ -164,7 +159,7 @@ class _ChooseYourAvatarWidgetState extends State<_ChooseYourAvatarWidget> {
                     color: colorScheme.tertiaryContainer.withOpacity(0.7)),
                 child: IconButton(
                     onPressed: () {
-                      authBloc.add(const AuthEventChangeAvatar(
+                      signUpBloc.add(const SignUpChangeAvatar(
                           avatarNavigation: 'FowardButton'));
                     },
                     icon: Icon(
@@ -195,7 +190,7 @@ class _SingUpFormState extends State<_SingUpForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  final _authBloc = Modular.get<AuthBloc>();
+  final _signUpBloc = Modular.get<SignUpBloc>();
   final _validator = AuthFormValidator();
 
   @override
@@ -245,7 +240,7 @@ class _SingUpFormState extends State<_SingUpForm> {
               text: intlStrings.submitButton,
               onPressed: () => {
                     if (_formKey.currentState!.validate())
-                      _authBloc.add(AuthEventCreateAccount(
+                      _signUpBloc.add(SignUpCreateAccount(
                           email: _emailController.text,
                           password: _passwordController.text,
                           displayName: _nameController.text))

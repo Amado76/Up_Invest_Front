@@ -27,19 +27,19 @@ class _SplashScreenState extends State<SplashScreen> {
     return BlocConsumer<AuthBloc, AuthState>(
       bloc: authBloc,
       listener: (context, state) {
-        if (authBloc.state is AuthStateLoggedIn) {
+        if (authBloc.state is AuthLoggedIn) {
           Timer(const Duration(seconds: 2), () {
             Modular.to.navigate('/home/');
           });
         }
-        if (authBloc.state is AuthStateLoggedOut) {
+        if (authBloc.state is AuthLoggedOut) {
           Timer(const Duration(seconds: 2), () {
             Modular.to.navigate('/get_started');
           });
         }
       },
       builder: (context, state) {
-        authBloc.add(const AuthEventIsLoggedIn());
+        authBloc.add(const AuthIsLoggedIn());
         settingsBloc.add(const SettingsEventFetchSavedSettings());
         return Scaffold(
           body: Container(

@@ -1,102 +1,70 @@
 part of 'auth_bloc.dart';
 
 @immutable
-sealed class AuthEvent {}
-
-@immutable
-final class AuthEventSignInWithEmailAndPassword implements AuthEvent {
-  final String email;
-  final String password;
-
-  const AuthEventSignInWithEmailAndPassword({
-    required this.email,
-    required this.password,
-  });
+sealed class AuthEvent extends Equatable {
+  const AuthEvent();
 }
 
 @immutable
-final class AuthEventSignInWithSocialNetwork implements AuthEvent {
+final class AuthSignInWithEmailAndPassword extends AuthEvent {
+  final String email;
+  final String password;
+
+  const AuthSignInWithEmailAndPassword({
+    required this.email,
+    required this.password,
+  });
+  @override
+  List<Object?> get props => [email, password];
+}
+
+@immutable
+final class AuthSignInWithSocialNetwork extends AuthEvent {
   final String socialNetwork;
 
-  const AuthEventSignInWithSocialNetwork({
+  const AuthSignInWithSocialNetwork({
     required this.socialNetwork,
   });
+  @override
+  List<Object?> get props => [socialNetwork];
 }
 
 @immutable
-final class AuthEventDeleteAccount implements AuthEvent {
+final class AuthDeleteAccount extends AuthEvent {
   final String email;
   final String password;
 
-  const AuthEventDeleteAccount({
+  const AuthDeleteAccount({
     required this.email,
     required this.password,
   });
+  @override
+  List<Object?> get props => [email, password];
 }
 
 @immutable
-final class AuthEventLogOut implements AuthEvent {
-  const AuthEventLogOut();
+final class AuthLogOut extends AuthEvent {
+  const AuthLogOut();
+  @override
+  List<Object?> get props => [];
 }
 
 @immutable
-final class AuthEventCreateAccount implements AuthEvent {
-  final String email;
-  final String password;
-  final String displayName;
-
-  const AuthEventCreateAccount({
-    required this.email,
-    required this.password,
-    required this.displayName,
-  });
-}
-
-@immutable
-final class AuthEventUpdatePassword implements AuthEvent {
+final class AuthUpdatePassword extends AuthEvent {
   final String oldPassword;
   final String newPassword;
 
-  const AuthEventUpdatePassword({
+  const AuthUpdatePassword({
     required this.oldPassword,
     required this.newPassword,
   });
+  @override
+  List<Object?> get props => [oldPassword, newPassword];
 }
 
 @immutable
-final class AuthEventSendPasswordResetEmail implements AuthEvent {
-  final String email;
-
-  const AuthEventSendPasswordResetEmail({
-    required this.email,
-  });
-}
-
-@immutable
-final class AuthEventChangeAvatar implements AuthEvent {
-  final String avatarNavigation;
-
-  const AuthEventChangeAvatar({
-    required this.avatarNavigation,
-  });
-}
-
-@immutable
-final class AuthEventIsLoggedIn implements AuthEvent {
-  const AuthEventIsLoggedIn();
-}
-
-@immutable
-final class AuthEventGoToSignUpPage implements AuthEvent {
-  const AuthEventGoToSignUpPage();
-}
-
-@immutable
-final class AuthEventGoToSignInPage implements AuthEvent {
-  const AuthEventGoToSignInPage();
-}
-
-@immutable
-final class AuthEventGoToRecoverPasswordPage implements AuthEvent {
-  const AuthEventGoToRecoverPasswordPage();
+final class AuthIsLoggedIn extends AuthEvent {
+  const AuthIsLoggedIn();
+  @override
+  List<Object?> get props => [];
 }

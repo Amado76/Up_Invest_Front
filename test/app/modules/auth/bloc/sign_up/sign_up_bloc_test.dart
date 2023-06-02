@@ -5,15 +5,16 @@ import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/sign_up_bloc.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/sign_up/sign_up_bloc.dart';
+
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 import 'package:up_invest_front/app/modules/user/avatar_model.dart';
 
-import '../../../../mocks/auth/gateway/auth_gateway_mock.dart';
-import '../../../../mocks/auth/model/auth_user_model_mock.dart';
-import '../../../../mocks/auth/repository/auth_repository_mock.dart';
+import '../../../../../mocks/auth/gateway/auth_gateway_mock.dart';
+import '../../../../../mocks/auth/model/auth_user_model_mock.dart';
+import '../../../../../mocks/auth/repository/auth_repository_mock.dart';
 
 void main() async {
   await IntlStrings.load(const Locale.fromSubtags(languageCode: 'es'));
@@ -30,6 +31,10 @@ void main() async {
       authUserMock = AuthUserModelMock();
 
       signUpBloc = SignUpBloc(authRepository: authRepositoryMock);
+    });
+
+    test('initial state is [AuthStateIdle]', () {
+      expect(signUpBloc.state, SignUpIdle(avatar: AvatarModel(id: 1)));
     });
 
     group('when [SignUpChangeAvatar] is added', () {

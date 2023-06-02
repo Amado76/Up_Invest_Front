@@ -36,14 +36,6 @@ sealed class AuthError extends Equatable {
     required this.dialogText,
   });
 
-  /// Factory method to create an [AuthError] object based on a [FirebaseAuthException].
-  /// [exception] - The [FirebaseAuthException] from which to create the [AuthError].
-  /// Returns an [AuthError] object corresponding to the provided exception,
-  /// or a default [AuthErrorUnknown] object if no mapping is found.
-  factory AuthError.fromFirebase(FirebaseAuthException exception) =>
-      authErrorMapping[exception.code.toLowerCase().trim()] ??
-      AuthErrorUnknown();
-
   /// Factory method to create an [AuthError] object based on a [Exception].
   /// [exception] - The [Exception] from which to create the [AuthError].
   /// Returns an [AuthError] object corresponding to the provided exception,

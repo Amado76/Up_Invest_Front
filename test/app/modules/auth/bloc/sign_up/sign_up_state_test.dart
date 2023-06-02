@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart' show Locale;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/sign_up_bloc.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/sign_up/sign_up_bloc.dart';
+
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 import 'package:up_invest_front/app/modules/user/avatar_model.dart';
 

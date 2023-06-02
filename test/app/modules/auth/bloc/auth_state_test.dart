@@ -1,48 +1,43 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/material.dart' show Locale;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
-import 'package:up_invest_front/app/modules/user/avatar_model.dart';
+import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
+import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';
 
 import '../../../../mocks/auth/model/auth_user_model_mock.dart';
 
-void main() {
-  const isLoading = true;
-
-  group('[AuthStateIdle]', () {
-    test('supports value comparisons', () {
-      expect(AuthStateIdle(isLoading: isLoading),
-          AuthStateIdle(isLoading: isLoading));
-    });
-  });
-  group('[AuthStateLoggedIn]', () {
+void main() async {
+  await IntlStrings.load(const Locale.fromSubtags(languageCode: 'en'));
+  final authUserModelMock = AuthUserModelMock();
+  group('[AuthLoggedIn]', () {
     test('supports value comparisonso', () {
-      expect(
-          AuthStateLoggedIn(
-              isLoading: isLoading, authUser: AuthUserModelMock()),
-          AuthStateLoggedIn(
-              isLoading: isLoading, authUser: AuthUserModelMock()));
+      expect(AuthLoggedIn(authUser: authUserModelMock),
+          AuthLoggedIn(authUser: authUserModelMock));
     });
   });
-  group('[AuthStateLoggedOut]', () {
+  group('[AuthLoggedOut]', () {
     test('supports value comparisons', () {
-      expect(AuthStateLoggedOut(isLoading: isLoading),
-          AuthStateLoggedOut(isLoading: isLoading));
+      expect(AuthLoggedOut(), AuthLoggedOut());
     });
   });
-  group('[AuthStateRecoverPassword]', () {
+  group('[AuthLoading]', () {
     test('supports value comparisons', () {
-      expect(AuthStateRecoverPassword(isLoading: isLoading),
-          AuthStateRecoverPassword(isLoading: isLoading));
+      expect(AuthLoading(), AuthLoading());
     });
   });
-  group('[AuthStateRecoverPassword]', () {
+  group('[AuthSuccessState]', () {
     test('supports value comparisons', () {
-      expect(
-          AuthStateSigningUp(
-              avatarModel: AvatarModel(id: 1), isLoading: isLoading),
-          AuthStateSigningUp(
-              avatarModel: AvatarModel(id: 1), isLoading: isLoading));
+      expect(AuthSuccessState(authSucess: AuthSuccessSetNewPassword()),
+          AuthSuccessState(authSucess: AuthSuccessSetNewPassword()));
+    });
+  });
+  group('[AuthErrorState]', () {
+    test('supports value comparisons', () {
+      expect(AuthErrorState(authError: AuthErrorInvalidEmail()),
+          AuthErrorState(authError: AuthErrorInvalidEmail()));
     });
   });
 }

@@ -44,27 +44,18 @@ class _SignInState extends State<SignInPage> {
           final hideLoading = LoadingScreen.instance().hide();
 
           return switch (state) {
-            AuthStateLoggedIn() => {Modular.to.navigate('/home/'), hideLoading},
-            AuthStateSigningUp() => {
-                Modular.to.navigate('/auth/sign_up'),
-                hideLoading
-              },
-            AuthStateRecoverPassword() => {
-                hideLoading,
-                Modular.to.navigate('/auth/recover_password')
-              },
-            AuthStateLoggedOut(isLoading: true) => LoadingScreen.instance()
+            AuthLoggedIn() => {Modular.to.navigate('/home/'), hideLoading},
+            AuthLoggedOut() => hideLoading,
+            AuthLoading() => LoadingScreen.instance()
                 .show(context: context, text: intlString.loading),
-            AuthStateLoggedOut(isLoading: false, authError: final authError) =>
-              {
-                hideLoading,
-                if (authError != null)
-                  {
-                    customBar.showBottomErrorSnackBar(
-                        authError.dialogTitle, authError.dialogText, context)
-                  }
+            AuthErrorState(authError: final authError) => {
+                customBar.showBottomErrorSnackBar(
+                    authError.dialogTitle, authError.dialogText, context)
               },
-            AuthStateIdle() => const AuthStateLoggedOut(isLoading: false)
+            AuthSuccessState(authSucess: final authSucess) => {
+                customBar.showBottomSuccessSnackBar(
+                    authSucess.dialogTitle, authSucess.dialogText, context)
+              }
           };
         },
         child: SafeArea(
@@ -127,7 +118,7 @@ class _SignInState extends State<SignInPage> {
                         ),
                         IconButton(
                           onPressed: () {
-                            authBloc.add(const AuthEventSignInWithSocialNetwork(
+                            authBloc.add(const AuthSignInWithSocialNetwork(
                                 socialNetwork: 'google'));
                           },
                           icon: Image.asset('assets/images/logo_google.png'),
@@ -146,8 +137,7 @@ class _SignInState extends State<SignInPage> {
                           intlString.signInSignUp,
                           style: TextStyle(color: colorScheme.primary),
                         ),
-                        onPressed: () =>
-                            authBloc.add(const AuthEventGoToSignUpPage()),
+                        onPressed: () => Modular.to.navigate('/auth/sign_up'),
                       )
                     ])
                   ],
@@ -211,7 +201,7 @@ class SignInFormState extends State<_SignInForm> {
               text: intlString.loginForm,
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  authBloc.add(AuthEventSignInWithEmailAndPassword(
+                  authBloc.add(AuthSignInWithEmailAndPassword(
                       email: _emailController.text,
                       password: _passwordController.text));
                 }
@@ -231,9 +221,8 @@ class _ForgotPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final intlString = IntlStrings.of(context);
-    final authBloc = Modular.get<AuthBloc>();
     return TextButton(
-      onPressed: () => authBloc.add(const AuthEventGoToRecoverPasswordPage()),
+      onPressed: () => Modular.to.navigate('/auth/recover_password'),
       child: Text(
         intlString.forgotPassword,
         style: TextStyle(color: Theme.of(context).colorScheme.primary),

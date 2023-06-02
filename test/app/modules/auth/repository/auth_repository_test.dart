@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
@@ -8,12 +10,15 @@ import '../../../../mocks/auth/gateway/auth_social_network_gateway_mock.dart';
 import '../../../../mocks/auth/model/auth_user_model_mock.dart';
 import '../gateway/auth_gateway_interface_test.dart';
 
+class MockStreamController<T> extends Mock implements StreamController<T> {}
+
 void main() async {
   group('AuthRepository', () {
     final authGatewayMock = AuthGatewayMock();
     final authSocialNetworkGateway = AuthSocialNetworkGatewayMock();
-    final authRepository =
-        AuthRepository(authGatewayMock, authSocialNetworkGateway);
+    final authRepository = AuthRepository(
+        authGateway: authGatewayMock,
+        authSocialNetworkGateway: authSocialNetworkGateway);
 
     group('[createAccount]', () {
       test('should return an [AuthUser] when creating a new account', () async {

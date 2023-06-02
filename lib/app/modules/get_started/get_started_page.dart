@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 class GetStartedPage extends StatefulWidget {
@@ -125,7 +124,7 @@ class _ButtonGetStarted extends StatelessWidget {
     final theme = Theme.of(context);
     final intlStrings = IntlStrings.of(context);
     final colorScheme = theme.colorScheme;
-    final authBloc = Modular.get<AuthBloc>();
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: ElevatedButton.icon(
@@ -135,7 +134,6 @@ class _ButtonGetStarted extends StatelessWidget {
             ),
             size: 40),
         onPressed: () {
-          authBloc.add(const AuthEventGoToSignInPage());
           Modular.to.navigate('/auth/');
         },
         style: ElevatedButton.styleFrom(

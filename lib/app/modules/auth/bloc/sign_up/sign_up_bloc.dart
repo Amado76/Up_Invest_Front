@@ -31,6 +31,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       required String email,
       required String displayName}) async {
     AvatarModel currentAvatar = state.avatar;
+
     emit(SignUpLoading(avatar: currentAvatar));
     try {
       await authRepository.createAccount(

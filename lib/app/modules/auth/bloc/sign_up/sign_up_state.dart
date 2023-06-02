@@ -3,18 +3,20 @@ part of 'sign_up_bloc.dart';
 sealed class SignUpState extends Equatable {
   final AvatarModel avatar;
   const SignUpState({required this.avatar});
-  @override
-  List<Object> get props => [avatar];
 }
 
 @immutable
 final class SignUpIdle extends SignUpState {
   const SignUpIdle({required super.avatar});
+  @override
+  List<Object> get props => [super.avatar];
 }
 
 @immutable
 final class SignUpLoading extends SignUpState {
   const SignUpLoading({required super.avatar});
+  @override
+  List<Object> get props => [avatar];
 }
 
 @immutable

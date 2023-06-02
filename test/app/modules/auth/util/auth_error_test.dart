@@ -9,8 +9,8 @@ import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 void main() async {
   await IntlStrings.load(const Locale.fromSubtags(languageCode: 'en'));
   group('AuthError', () {
-    //fromFirebase factory
-    group('.fromFirebase', () {
+    //from factory
+    group('.from', () {
       group('[AuthErrorUnknown]', () {
         test(
             'should return an instance of [AuthErrorUnknown] if the error from FirebaseAuthException is [unknown or not mapped]',
@@ -19,7 +19,7 @@ void main() async {
           final firebaseAuthException =
               FirebaseAuthException(code: 'unknown-code');
           // Act
-          final authError = AuthError.fromFirebase(firebaseAuthException);
+          final authError = AuthError.from(firebaseAuthException);
 
           // Assert
           expect(authError, isA<AuthErrorUnknown>());
@@ -36,7 +36,7 @@ void main() async {
           final firebaseAuthException =
               FirebaseAuthException(code: 'email-already-exists');
           // Act
-          final authError = AuthError.fromFirebase(firebaseAuthException);
+          final authError = AuthError.from(firebaseAuthException);
 
           // Assert
           expect(authError, isA<AuthErrorEmailAlreadyExists>());
@@ -53,7 +53,7 @@ void main() async {
           final firebaseAuthException =
               FirebaseAuthException(code: 'id-token-expired');
           // Act
-          final authError = AuthError.fromFirebase(firebaseAuthException);
+          final authError = AuthError.from(firebaseAuthException);
 
           // Assert
           expect(authError, isA<AuthErrorTokenExpired>());
@@ -71,7 +71,7 @@ void main() async {
           final firebaseAuthException =
               FirebaseAuthException(code: 'id-token-revoked');
           // Act
-          final authError = AuthError.fromFirebase(firebaseAuthException);
+          final authError = AuthError.from(firebaseAuthException);
 
           // Assert
           expect(authError, isA<AuthErrorTokenRevoked>());
@@ -88,7 +88,7 @@ void main() async {
           final firebaseAuthException =
               FirebaseAuthException(code: 'invalid-email');
           // Act
-          final authError = AuthError.fromFirebase(firebaseAuthException);
+          final authError = AuthError.from(firebaseAuthException);
 
           // Assert
           expect(authError, isA<AuthErrorInvalidEmail>());
@@ -106,7 +106,7 @@ void main() async {
           final firebaseAuthException =
               FirebaseAuthException(code: 'operation-not-allowed');
           // Act
-          final authError = AuthError.fromFirebase(firebaseAuthException);
+          final authError = AuthError.from(firebaseAuthException);
 
           // Assert
           expect(authError, isA<AuthErrorOperationNotAllowed>());
@@ -125,7 +125,7 @@ void main() async {
           final firebaseAuthException =
               FirebaseAuthException(code: 'user-not-found');
           // Act
-          final authError = AuthError.fromFirebase(firebaseAuthException);
+          final authError = AuthError.from(firebaseAuthException);
 
           // Assert
           expect(authError, isA<AuthErrorUserNotFound>());
@@ -143,7 +143,7 @@ void main() async {
           final firebaseAuthException =
               FirebaseAuthException(code: 'requires-recent-login');
           // Act
-          final authError = AuthError.fromFirebase(firebaseAuthException);
+          final authError = AuthError.from(firebaseAuthException);
 
           // Assert
           expect(authError, isA<AuthErrorRequiresRecentLogin>());
@@ -162,7 +162,7 @@ void main() async {
           final firebaseAuthException =
               FirebaseAuthException(code: 'weak-password');
           // Act
-          final authError = AuthError.fromFirebase(firebaseAuthException);
+          final authError = AuthError.from(firebaseAuthException);
 
           // Assert
           expect(authError, isA<AuthErrorWeakPassword>());
@@ -179,7 +179,7 @@ void main() async {
           final firebaseAuthException =
               FirebaseAuthException(code: 'user-mismatch');
           // Act
-          final authError = AuthError.fromFirebase(firebaseAuthException);
+          final authError = AuthError.from(firebaseAuthException);
 
           // Assert
           expect(authError, isA<AuthErrorUserMismatch>());
@@ -196,7 +196,7 @@ void main() async {
           final firebaseAuthException =
               FirebaseAuthException(code: 'wrong-password');
           // Act
-          final authError = AuthError.fromFirebase(firebaseAuthException);
+          final authError = AuthError.from(firebaseAuthException);
 
           // Assert
           expect(authError, isA<AuthErrorWrongPassword>());
@@ -214,7 +214,7 @@ void main() async {
           final firebaseAuthException =
               FirebaseAuthException(code: 'too-many-requests');
           // Act
-          final authError = AuthError.fromFirebase(firebaseAuthException);
+          final authError = AuthError.from(firebaseAuthException);
 
           // Assert
           expect(authError, isA<AuthErrorTooManyRequests>());

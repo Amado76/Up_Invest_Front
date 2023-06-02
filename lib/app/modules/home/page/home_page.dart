@@ -32,8 +32,8 @@ class _HomePageState extends State<HomePage> {
     final validator = AuthFormValidator();
     final customBar = CustomSnackBar();
 
-    AuthUserModel? authUser = authBloc.state is AuthStateLoggedIn
-        ? (authBloc.state as AuthStateLoggedIn).authUser
+    AuthUserModel? authUser = authBloc.state is AuthLoggedIn
+        ? (authBloc.state as AuthLoggedIn).authUser
         : null;
     authUser ??= const AuthUserModel(
       userId: 'userId',
@@ -48,25 +48,21 @@ class _HomePageState extends State<HomePage> {
       body: BlocListener<AuthBloc, AuthState>(
         bloc: authBloc,
         listener: (context, state) {
-          if (state is AuthStateLoggedOut) {
-            Modular.to.navigate('/auth');
-          }
-          if (state.isLoading == true) {
-            LoadingScreen.instance().show(context: context, text: 'Loading...');
-          } else {
-            LoadingScreen.instance().hide();
-          }
-
-          final authError = state.authError;
-          if (authError != null) {
-            customBar.showBottomErrorSnackBar(
-                authError.dialogTitle, authError.dialogText, context);
-          }
-          final authSuccess = state.authSuccess;
-          if (authSuccess != null) {
-            customBar.showBottomSuccessSnackBar(
-                authSuccess.dialogTitle, authSuccess.dialogText, context);
-          }
+          final hideLoading = LoadingScreen.instance().hide();
+          return switch (state) {
+            AuthLoggedIn() => hideLoading,
+            AuthLoggedOut() => {hideLoading, Modular.to.navigate('/auth')},
+            AuthLoading() => LoadingScreen.instance()
+                .show(context: context, text: 'Loading...'),
+            AuthErrorState(authError: final authError) => {
+                customBar.showBottomErrorSnackBar(
+                    authError.dialogTitle, authError.dialogText, context)
+              },
+            AuthSuccessState(authSucess: final authSuccess) => {
+                customBar.showBottomSuccessSnackBar(
+                    authSuccess.dialogTitle, authSuccess.dialogText, context)
+              }
+          };
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                     'Sign In! email:${authUser.email}, ${authUser.displayName}, ${authUser.avatar}')),
             TextButton(
                 onPressed: () {
-                  authBloc.add(const AuthEventLogOut());
+                  authBloc.add(const AuthLogOut());
                 },
                 child: const Text('Loggout')),
             TextButton(
@@ -114,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                       text: 'Delete Account ',
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          authBloc.add(AuthEventDeleteAccount(
+                          authBloc.add(AuthDeleteAccount(
                               email: emailController.text,
                               password: passwordController.text));
                         }
@@ -150,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                       text: 'Change Password ',
                       onPressed: () {
                         if (formKey2.currentState!.validate()) {
-                          authBloc.add(AuthEventUpdatePassword(
+                          authBloc.add(AuthUpdatePassword(
                               newPassword: newPasswordController.text,
                               oldPassword: passwordController2.text));
                         }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/auth_social_network_gateway_interface.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
@@ -10,6 +12,18 @@ sealed class IAuthRepository {
 
   IAuthRepository(
       {required this.authSocialNetworkGateway, required this.authGateway});
+
+  // final StreamController<AuthUserModel> _controller =
+  //     StreamController<AuthUserModel>();
+
+  // void _addAuthUserToStream(AuthUserModel authUserModel) =>
+  //     _controller.sink.add(authUserModel);
+
+  // Stream<AuthUserModel> get authUser => _controller.stream;
+
+  addAuthUserToStream(AuthUserModel? authUserModel);
+
+  Stream<AuthUserModel?> get authUser;
 
   Future<AuthUserModel> signInWithEmailAndPassword(
       String email, String password);
@@ -41,13 +55,20 @@ sealed class IAuthRepository {
   Future<void> reauthenticateAUser(String email, String password);
 }
 
-class AuthRepository implements IAuthRepository {
-  @override
-  final IAuthGateway authGateway;
-  @override
-  final IAuthSocialNetworkGateway authSocialNetworkGateway;
+class AuthRepository extends IAuthRepository {
+  AuthRepository(
+      {required super.authSocialNetworkGateway, required super.authGateway});
 
-  AuthRepository(this.authGateway, this.authSocialNetworkGateway);
+  @override
+  void addAuthUserToStream(AuthUserModel? authUserModel) =>
+      _controller.sink.add(authUserModel);
+
+  @override
+  Stream<AuthUserModel?> get authUser => _controller.stream;
+
+  final StreamController<AuthUserModel?> _controller =
+      StreamController<AuthUserModel?>();
+
   @override
   Future<AuthUserModel> createAccount(
       {required String email,
@@ -56,6 +77,7 @@ class AuthRepository implements IAuthRepository {
       required String avatar}) async {
     AuthUserModel user =
         await authGateway.createAccount(email, password, displayName, avatar);
+    addAuthUserToStream(user);
     return user;
   }
 

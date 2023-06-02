@@ -2,61 +2,44 @@ part of 'auth_bloc.dart';
 
 @immutable
 sealed class AuthState extends Equatable {
-  final bool isLoading;
-  final AuthError? authError;
-  final AuthSuccess? authSuccess;
-
-  const AuthState({required this.isLoading, this.authError, this.authSuccess});
+  const AuthState();
 }
 
 @immutable
-final class AuthStateLoggedIn extends AuthState {
+final class AuthLoggedIn extends AuthState {
   final AuthUserModel authUser;
-
-  const AuthStateLoggedIn(
-      {required this.authUser,
-      required super.isLoading,
-      super.authError,
-      super.authSuccess});
-
+  const AuthLoggedIn({
+    required this.authUser,
+  });
   @override
-  List<Object?> get props =>
-      [authError, super.isLoading, super.authError, super.authSuccess];
+  List<Object> get props => [authUser];
 }
 
 @immutable
-final class AuthStateLoggedOut extends AuthState {
-  const AuthStateLoggedOut(
-      {required super.isLoading, super.authError, super.authSuccess});
+final class AuthLoggedOut extends AuthState {
   @override
-  List<Object?> get props =>
-      [super.isLoading, super.authError, super.authSuccess];
-}
-
-final class AuthStateSigningUp extends AuthState {
-  final AvatarModel avatarModel;
-
-  const AuthStateSigningUp(
-      {required this.avatarModel, required super.isLoading, super.authError});
-  @override
-  List<Object?> get props =>
-      [avatarModel, super.isLoading, super.authError, super.authSuccess];
+  List<Object?> get props => [];
 }
 
 @immutable
-final class AuthStateRecoverPassword extends AuthState {
-  const AuthStateRecoverPassword(
-      {required super.isLoading, super.authError, super.authSuccess});
+final class AuthLoading extends AuthState {
   @override
-  List<Object?> get props =>
-      [super.isLoading, super.authError, super.authSuccess];
+  List<Object?> get props => [];
 }
 
 @immutable
-final class AuthStateIdle extends AuthState {
-  const AuthStateIdle(
-      {required super.isLoading, super.authError, super.authSuccess});
+final class AuthSuccessState extends AuthState {
+  final AuthSuccess authSucess;
+  const AuthSuccessState({required this.authSucess});
   @override
-  List<Object?> get props =>
-      [super.isLoading, super.authError, super.authSuccess];
+  List<Object?> get props => [authSucess];
+}
+
+@immutable
+final class AuthErrorState extends AuthState {
+  final AuthError authError;
+
+  const AuthErrorState({required this.authError});
+  @override
+  List<Object?> get props => [authError];
 }
