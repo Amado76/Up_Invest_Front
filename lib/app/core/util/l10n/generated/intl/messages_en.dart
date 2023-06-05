@@ -123,6 +123,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordHintText": MessageLookupByLibrary.simpleMessage("Password"),
         "recoverPasswordBody": MessageLookupByLibrary.simpleMessage(
             "No problem! Just enter your email \nand our astrounauts will send you a recovery code!"),
+        "remoteStorageErrorRetryLimitExceededMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "The operation\'s time limit has been exceeded, please try again."),
+        "remoteStorageErrorRetryLimitExceededTitle":
+            MessageLookupByLibrary.simpleMessage("Time Exceeded"),
+        "remoteStorageErrorUnknownMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "Unknown error, please try again."),
+        "remoteStorageErrorUnknownTitle":
+            MessageLookupByLibrary.simpleMessage("Unknown Error"),
         "settingsAboutUs": MessageLookupByLibrary.simpleMessage("About us"),
         "settingsAppBarTitle": MessageLookupByLibrary.simpleMessage("Settings"),
         "settingsDark": MessageLookupByLibrary.simpleMessage("Dark"),

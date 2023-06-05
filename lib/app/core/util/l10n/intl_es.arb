@@ -78,7 +78,12 @@
     "settingsLight": "Claro",
     "settingsAboutUs": "Acerca de nosotros",
     "aboutUsTextOne": "Mi nombre es Bruno Amado, soy un desarrollador móvil y creé UpInvest como un proyecto personal, combinando dos pasiones: el desarrollo de aplicaciones móviles y las inversiones financieras. UpInvest es una aplicación que desarrollé para mejorar mis habilidades en Flutter.\n\nMe encantaría saber si tienes alguna sugerencia, crítica o cumplido. No dudes en contactarme a través de los siguientes canales:",
-    "aboutUsTextTwo":"¡Gracias por usar UpInvest y por ser parte de mi viaje de desarrollo y aprendizaje en Flutter!"
+    "aboutUsTextTwo":"¡Gracias por usar UpInvest y por ser parte de mi viaje de desarrollo y aprendizaje en Flutter!",
+
+    "remoteStorageErrorUnknownTitle": "Error Desconocido",
+    "remoteStorageErrorUnknownMessage": "Error desconocido, por favor inténtalo de nuevo.",
+    "remoteStorageErrorRetryLimitExceededTitle": "Tiempo Excedido",
+    "remoteStorageErrorRetryLimitExceededMessage": "Se ha excedido el límite de tiempo de la operación, por favor inténtalo de nuevo."
 
 
 }

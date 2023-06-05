@@ -13,10 +13,13 @@ sealed class IAuthGateway {
   Future<AuthUserModel> createAccount(
       String email, String password, String displayName, String avatar);
 
+  Future<AuthUserModel> updateAccountDetails(
+      String? displayName, String? avatar);
+
   Future<void> updatePassword(String newPassword);
-
+  @visibleForTesting
   Future<void> updatePhoto(String newAvatar);
-
+  @visibleForTesting
   Future<void> updateDisplayName(String newDisplayName);
 
   Future<void> deleteUser();
@@ -140,6 +143,20 @@ class FireBaseGateway implements IAuthGateway {
   }
 
   /// Update the username, if it doesn't return any exception, it was successful.
+  @override
+  Future<AuthUserModel> updateAccountDetails(
+      String? displayName, String? avatar) async {
+    if (displayName != null) {
+      await updateDisplayName(displayName);
+    }
+    if (avatar != null) {
+      await updatePhoto(avatar);
+    }
+    AuthUserModel authUser = await getLoggedUser();
+
+    return authUser;
+  }
+
   @override
   Future<void> updateDisplayName(String newDisplayName) async {
     await auth.currentUser!.updateDisplayName(newDisplayName);

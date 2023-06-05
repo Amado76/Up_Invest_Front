@@ -779,6 +779,46 @@ class IntlStrings {
       args: [],
     );
   }
+
+  /// `Unknown Error`
+  String get remoteStorageErrorUnknownTitle {
+    return Intl.message(
+      'Unknown Error',
+      name: 'remoteStorageErrorUnknownTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown error, please try again.`
+  String get remoteStorageErrorUnknownMessage {
+    return Intl.message(
+      'Unknown error, please try again.',
+      name: 'remoteStorageErrorUnknownMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time Exceeded`
+  String get remoteStorageErrorRetryLimitExceededTitle {
+    return Intl.message(
+      'Time Exceeded',
+      name: 'remoteStorageErrorRetryLimitExceededTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The operation's time limit has been exceeded, please try again.`
+  String get remoteStorageErrorRetryLimitExceededMessage {
+    return Intl.message(
+      'The operation\'s time limit has been exceeded, please try again.',
+      name: 'remoteStorageErrorRetryLimitExceededMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<IntlStrings> {

@@ -4,8 +4,9 @@ import 'dart:math' show Random;
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart' show immutable;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
+import 'package:up_invest_front/app/modules/auth/repository/avatar_model_repository.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
@@ -16,8 +17,9 @@ part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final IAuthRepository authRepository;
+  final IAvatarRepository avatarRepository;
 
-  SignUpBloc({required this.authRepository})
+  SignUpBloc({required this.authRepository, required this.avatarRepository})
       : super(SignUpIdle(
             avatarList: AvatarList(),
             avatar: AvatarList().avatars[Random().nextInt(7) + 1]!)) {
@@ -44,13 +46,26 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     AvatarList currentAvatarList = state.avatarList;
 
     emit(SignUpLoading(avatar: currentAvatar, avatarList: currentAvatarList));
+
     try {
-      await authRepository.createAccount(
+      AuthUserModel authUser = await authRepository.createAccount(
           displayName: displayName,
           email: email,
           password: password,
           avatar: currentAvatar.url);
-      Modular.to.navigate('/home/');
+
+      if (currentAvatar is CustomAvatar) {
+        await avatarRepository.uploadAvatar(
+            avatarModel: currentAvatar, authUser: authUser);
+        AvatarModel updatedAvatar =
+            await avatarRepository.getUrlFromRemoteStorage(
+                avatarModel: currentAvatar, authUser: authUser);
+        authUser = await authRepository.updateAccountDetails(
+            avatar: updatedAvatar.url);
+        authRepository.addAuthUserToStream(authUser);
+      }
+
+      authRepository.addAuthUserToStream(authUser);
     } on Exception catch (e) {
       emit(SignUpError(
           avatarList: currentAvatarList,

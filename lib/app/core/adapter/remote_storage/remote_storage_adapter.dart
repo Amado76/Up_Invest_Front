@@ -7,7 +7,9 @@ sealed class IRemoteStorageAdapter {
     required File file,
     required String userId,
     required String fileName,
-  }) async {}
+  });
+
+  Future<String> getUrl({required String userId, required String reference});
 }
 
 class FirebaseStorageAdapter extends IRemoteStorageAdapter {
@@ -22,5 +24,11 @@ class FirebaseStorageAdapter extends IRemoteStorageAdapter {
     required String fileName,
   }) async {
     await storage.ref(userId).child(fileName).putFile(file);
+  }
+
+  @override
+  Future<String> getUrl(
+      {required String userId, required String reference}) async {
+    return storage.ref(userId).child(reference).getDownloadURL();
   }
 }

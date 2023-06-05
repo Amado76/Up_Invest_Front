@@ -8,21 +8,15 @@ import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import '../util/credential_dto.dart';
 
 sealed class IAuthRepository {
+  @visibleForTesting
   final IAuthGateway authGateway;
+  @visibleForTesting
   final IAuthSocialNetworkGateway authSocialNetworkGateway;
 
   IAuthRepository(
       {required this.authSocialNetworkGateway, required this.authGateway});
 
-  // final StreamController<AuthUserModel> _controller =
-  //     StreamController<AuthUserModel>();
-
-  // void _addAuthUserToStream(AuthUserModel authUserModel) =>
-  //     _controller.sink.add(authUserModel);
-
-  // Stream<AuthUserModel> get authUser => _controller.stream;
-
-  addAuthUserToStream(AuthUserModel? authUserModel);
+  void addAuthUserToStream(AuthUserModel? authUserModel);
 
   Stream<AuthUserModel?> get authUser;
 
@@ -41,7 +35,7 @@ sealed class IAuthRepository {
     required String newPassword,
   });
 
-  Future<void> updatePhoto(String newAvatar);
+  Future<AuthUserModel> updateAccountDetails({String? newName, String? avatar});
 
   Future<void> deleteUser();
 
@@ -77,12 +71,21 @@ class AuthRepository extends IAuthRepository {
       required String password,
       required String displayName,
       required String avatar}) async {
-    AuthUserModel user =
+    AuthUserModel authUser =
         await authGateway.createAccount(email, password, displayName, avatar);
-    addAuthUserToStream(user);
-    return user;
+    return authUser;
   }
 
+  @override
+  Future<AuthUserModel> updateAccountDetails(
+      {String? newName, String? avatar}) async {
+    AuthUserModel authUser =
+        await authGateway.updateAccountDetails(newName, avatar);
+
+    return authUser;
+  }
+
+  @override
   @override
   Future<void> deleteUser() async {
     authGateway.deleteUser();
@@ -130,11 +133,7 @@ class AuthRepository extends IAuthRepository {
   }
 
   @override
-  Future<void> updatePhoto(String newAvatar) async {
-    await authGateway.updatePhoto(newAvatar);
-  }
-
-  @override
+  @visibleForTesting
   Future<void> updatePassword({required String newPassword}) async {
     await authGateway.updatePassword(newPassword);
   }
