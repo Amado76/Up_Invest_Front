@@ -21,7 +21,7 @@ void main() async {
   await IntlStrings.load(const Locale.fromSubtags(languageCode: 'es'));
   group('AuthBloc', () {
     late AuthBloc authBloc;
-    late IAuthRepository authRepositoryMock;
+    late AuthRepository authRepositoryMock;
     late AuthUserModel authUserMock;
     setUp(() {
       authRepositoryMock = AuthRepositoryMock(authGateway: AuthGatewayMock());

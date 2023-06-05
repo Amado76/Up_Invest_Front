@@ -40,9 +40,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     authRepository.authUser.listen((user) {
       if (user == null) {
         emit(AuthLoggedOut());
-      } else {
-        emit(AuthLoggedIn(authUser: user));
+        return;
       }
+      emit(AuthLoggedIn(authUser: user));
     });
   }
 

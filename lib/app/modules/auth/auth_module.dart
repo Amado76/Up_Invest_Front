@@ -33,7 +33,8 @@ class AuthModule extends Module {
     BlocBind.singleton(
         (i) => SignUpBloc(authRepository: i.get<IAuthRepository>())),
     BlocBind.lazySingleton(
-        (i) => RecoverPasswordBloc(authRepository: i.get<IAuthRepository>()))
+        (i) => RecoverPasswordBloc(authRepository: i.get<IAuthRepository>())),
+    Bind.singleton<FirebaseAuth>((i) => FirebaseAuth.instance, export: true),
   ];
 
   @override

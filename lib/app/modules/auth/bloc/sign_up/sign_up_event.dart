@@ -17,6 +17,18 @@ final class SignUpChangeAvatar extends SignUpEvent {
 }
 
 @immutable
+final class SignUpUploadPhoto extends SignUpEvent {
+  final String imagePath;
+
+  const SignUpUploadPhoto({
+    required this.imagePath,
+  });
+
+  @override
+  List<Object> get props => [imagePath];
+}
+
+@immutable
 final class SignUpCreateAccount extends SignUpEvent {
   final String email;
   final String password;

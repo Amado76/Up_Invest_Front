@@ -1,4 +1,4 @@
-import 'avatar_model.dart';
+import '../auth/model/avatar_model.dart';
 
 class UserModel {
   String name;

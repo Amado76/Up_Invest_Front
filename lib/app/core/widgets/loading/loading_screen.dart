@@ -15,12 +15,12 @@ class LoadingScreen {
   }) {
     if (controller?.update(text) ?? false) {
       return;
-    } else {
-      controller = showOverlay(
-        context: context,
-        text: text,
-      );
     }
+
+    controller = showOverlay(
+      context: context,
+      text: text,
+    );
   }
 
   void hide() {
@@ -72,9 +72,8 @@ class LoadingScreen {
                               snapshot.data as String,
                               textAlign: TextAlign.center,
                             );
-                          } else {
-                            return Container();
                           }
+                          return Container();
                         },
                       ),
                     ],

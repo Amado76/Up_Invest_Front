@@ -8,9 +8,10 @@ import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/sign_up/sign_up_bloc.dart';
 
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
+import 'package:up_invest_front/app/modules/auth/model/avatar_list.dart';
+import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
-import 'package:up_invest_front/app/modules/user/avatar_model.dart';
 
 import '../../../../../mocks/auth/gateway/auth_gateway_mock.dart';
 import '../../../../../mocks/auth/model/auth_user_model_mock.dart';
@@ -24,7 +25,7 @@ void main() async {
     late IAuthRepository authRepositoryMock;
     late SignUpBloc signUpBloc;
     late AuthUserModel authUserMock;
-    late AvatarModel avatar;
+    AvatarList avatarList = AvatarList();
 
     setUp(() {
       authRepositoryMock = AuthRepositoryMock(authGateway: AuthGatewayMock());
@@ -34,31 +35,33 @@ void main() async {
     });
 
     test('initial state is [AuthStateIdle]', () {
-      expect(signUpBloc.state, SignUpIdle(avatar: AvatarModel(id: 1)));
+      expect(signUpBloc.state.avatar, isA<AvatarModel>());
     });
 
     group('when [SignUpChangeAvatar] is added', () {
       blocTest<SignUpBloc, SignUpState>(
         'and [index] is 1 and [avatarNavigation] is "FowardButton" emits [SignUpIdle] with [index] 2 and [avatar] equal to "assets/avatars/dog.png"',
         build: () => signUpBloc,
-        seed: () => SignUpIdle(
-          avatar: AvatarModel(id: 1),
-        ),
+        seed: () =>
+            SignUpIdle(avatar: avatarList.avatars[1]!, avatarList: avatarList),
         act: (bloc) => bloc.add(
           const SignUpChangeAvatar(avatarNavigation: 'FowardButton'),
         ),
-        expect: () => <SignUpState>[SignUpIdle(avatar: AvatarModel(id: 2))],
+        expect: () => <SignUpState>[
+          SignUpIdle(avatar: avatarList.avatars[2]!, avatarList: avatarList)
+        ],
       );
       blocTest<SignUpBloc, SignUpState>(
           'and [index] is 8 and [avatarNavigation] is "FowardButton" emits [SignUpIdle] with [index] 8 and [avatar] equal to "assets/avatars/kid.png"',
           build: () => signUpBloc,
-          seed: () => SignUpIdle(avatar: AvatarModel(id: 8)),
+          seed: () => SignUpIdle(
+              avatar: avatarList.avatars[8]!, avatarList: avatarList),
           act: (bloc) => bloc.add(
                 const SignUpChangeAvatar(avatarNavigation: 'FowardButton'),
               ),
           verify: (bloc) {
             expect(
-              (bloc.state as SignUpIdle).avatar.avatarPath,
+              (bloc.state as SignUpIdle).avatar.path,
               'assets/avatars/kid.png',
             );
             expect(
@@ -66,28 +69,31 @@ void main() async {
               8,
             );
 
-            expect(
-                (bloc.state as SignUpIdle).avatar.avatarGetUrl, kidAvatarUrl);
+            expect((bloc.state as SignUpIdle).avatar.url, kidAvatarUrl);
           });
       blocTest<SignUpBloc, SignUpState>(
         'and [index] is 4 and [avatarNavigation] is "BackButton" emits [SignUpIdle] with [index] 3 and [avatar] equal to "assets/avatars/man.png"',
         build: () => signUpBloc,
-        seed: () => SignUpIdle(avatar: AvatarModel(id: 4)),
+        seed: () =>
+            SignUpIdle(avatar: avatarList.avatars[4]!, avatarList: avatarList),
         act: (bloc) => bloc.add(
           const SignUpChangeAvatar(avatarNavigation: 'BackButton'),
         ),
-        expect: () => <SignUpState>[SignUpIdle(avatar: AvatarModel(id: 3))],
+        expect: () => <SignUpState>[
+          SignUpIdle(avatar: avatarList.avatars[3]!, avatarList: avatarList)
+        ],
       );
       blocTest<SignUpBloc, SignUpState>(
           'and [index] is 1 and [avatarNavigation] is "BackButton" emits [SignUpIdle] with [index] 1 and [avatar] equal to "assets/avatars/kitty.png"',
           build: () => signUpBloc,
-          seed: () => SignUpIdle(avatar: AvatarModel(id: 1)),
+          seed: () => SignUpIdle(
+              avatar: avatarList.avatars[1]!, avatarList: avatarList),
           act: (bloc) => bloc.add(
                 const SignUpChangeAvatar(avatarNavigation: 'BackButton'),
               ),
           verify: (bloc) {
             expect(
-              (bloc.state as SignUpIdle).avatar.avatarPath,
+              (bloc.state as SignUpIdle).avatar.path,
               'assets/avatars/kitty.png',
             );
             expect(
@@ -96,7 +102,7 @@ void main() async {
             );
 
             expect(
-              (bloc.state as SignUpIdle).avatar.avatarGetUrl,
+              (bloc.state as SignUpIdle).avatar.url,
               kittyAvatarUrl,
             );
           });
@@ -105,7 +111,7 @@ void main() async {
     group('when [AuthEventcreateAccount] is added', () {
       blocTest<SignUpBloc, SignUpState>(
         'and the account is succesfull create',
-        setUp: () {
+        setUp: () async {
           when(() => authRepositoryMock.createAccount(
                   email: any(named: 'email'),
                   password: any(named: 'password'),
@@ -114,17 +120,14 @@ void main() async {
               .thenAnswer((invocation) async => authUserMock);
         },
         build: () => signUpBloc,
-        seed: () => SignUpIdle(
-          avatar: AvatarModel(id: 7),
-        ),
+        seed: () =>
+            SignUpIdle(avatar: avatarList.avatars[7]!, avatarList: avatarList),
         act: (bloc) => bloc.add(const SignUpCreateAccount(
             email: 'ash@pallet.com',
             password: 'Teste123!',
             displayName: 'Ash Ketchum')),
         expect: () => <SignUpState>[
-          SignUpLoading(
-            avatar: AvatarModel(id: 7),
-          ),
+          SignUpLoading(avatar: avatarList.avatars[7]!, avatarList: avatarList),
         ],
       );
       blocTest<SignUpBloc, SignUpState>(
@@ -138,27 +141,26 @@ void main() async {
               .thenThrow(FirebaseAuthException(code: 'email-already-in-use'));
         },
         build: () => signUpBloc,
-        seed: () => SignUpIdle(
-          avatar: AvatarModel(id: 7),
-        ),
+        seed: () =>
+            SignUpIdle(avatar: avatarList.avatars[7]!, avatarList: avatarList),
         act: (bloc) => bloc.add(const SignUpCreateAccount(
             email: 'ash@pallet.com',
             password: 'Teste123!',
             displayName: 'Ash Ketchum')),
         expect: () => <SignUpState>[
           SignUpLoading(
-            avatar: AvatarModel(id: 7),
+            avatar: avatarList.avatars[7]!,
+            avatarList: avatarList,
           ),
           SignUpError(
-              avatar: AvatarModel(id: 7),
+              avatar: avatarList.avatars[7]!,
+              avatarList: avatarList,
               authError: AuthErrorEmailAlreadyExists())
         ],
       );
       blocTest<SignUpBloc, SignUpState>(
         'and throw [PlatformException]',
         setUp: () {
-          avatar = AvatarModel(id: 7);
-
           when(() => authRepositoryMock.createAccount(
                   email: any(named: 'email'),
                   password: any(named: 'password'),
@@ -167,19 +169,36 @@ void main() async {
               .thenThrow(PlatformException(code: 'too-many-requests'));
         },
         build: () => signUpBloc,
-        seed: () => SignUpIdle(
-          avatar: avatar,
-        ),
+        seed: () =>
+            SignUpIdle(avatar: avatarList.avatars[7]!, avatarList: avatarList),
         act: (bloc) => bloc.add(const SignUpCreateAccount(
             email: 'ash@pallet.com',
             password: 'Teste123!',
             displayName: 'Ash Ketchum')),
         expect: () => <SignUpState>[
           SignUpLoading(
-            avatar: AvatarModel(id: 7),
+            avatar: avatarList.avatars[7]!,
+            avatarList: avatarList,
           ),
           SignUpError(
-              avatar: AvatarModel(id: 7), authError: AuthErrorTooManyRequests())
+              avatar: avatarList.avatars[7]!,
+              avatarList: avatarList,
+              authError: AuthErrorTooManyRequests())
+        ],
+      );
+    });
+
+    group('[when SignUpUploadPhoto is added]', () {
+      blocTest<SignUpBloc, SignUpState>(
+        'and [index] is 4 and [avatarNavigation] is "BackButton" emits [SignUpIdle] with [index] 3 and [avatar] equal to "assets/avatars/man.png"',
+        build: () => signUpBloc,
+        seed: () =>
+            SignUpIdle(avatar: avatarList.avatars[4]!, avatarList: avatarList),
+        act: (bloc) => bloc.add(
+          const SignUpUploadPhoto(imagePath: 'BackButton'),
+        ),
+        expect: () => <SignUpState>[
+          SignUpIdle(avatar: avatarList.avatars[9]!, avatarList: avatarList)
         ],
       );
     });

@@ -1,10 +1,14 @@
+import 'dart:io' show File;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/sign_up/sign_up_bloc.dart';
+import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
 import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_auth_scaffold.dart';
@@ -33,7 +37,7 @@ class _SingUpPageState extends State<SingUpPage> {
     final authBloc = Modular.get<AuthBloc>();
     final intlString = IntlStrings.of(context);
     final customBar = CustomSnackBar();
-    String avatar = signUpBloc.state.avatar.avatarPath;
+    AvatarModel avatar = signUpBloc.state.avatar;
     final hideLoading = LoadingScreen.instance().hide();
 
     return BlocListener<AuthBloc, AuthState>(
@@ -48,13 +52,10 @@ class _SingUpPageState extends State<SingUpPage> {
         bloc: signUpBloc,
         listener: (context, state) {
           return switch (state) {
-            SignUpIdle(avatar: final avatar) => {
-                hideLoading,
-                avatar.avatarPath
-              },
+            SignUpIdle(avatar: final avatar) => {hideLoading, avatar.path},
             SignUpError(avatar: final avatar, authError: final authError) => {
                 hideLoading,
-                avatar.avatarPath,
+                avatar.path,
                 customBar.showBottomErrorSnackBar(
                     authError.dialogTitle, authError.dialogText, context)
               },
@@ -63,7 +64,7 @@ class _SingUpPageState extends State<SingUpPage> {
           };
         },
         builder: (context, state) {
-          avatar = state.avatar.avatarPath;
+          avatar = state.avatar;
           return CustomAuthScaffold(
             onPressed: () => Modular.to.navigate('/auth/'),
             widget: (Padding(
@@ -104,7 +105,7 @@ class _SingUpPageState extends State<SingUpPage> {
 }
 
 class _ChooseYourAvatarWidget extends StatefulWidget {
-  final String avatar;
+  final AvatarModel avatar;
   const _ChooseYourAvatarWidget({
     Key? key,
     required this.avatar,
@@ -120,6 +121,7 @@ class _ChooseYourAvatarWidgetState extends State<_ChooseYourAvatarWidget> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final imagePicker = ImagePicker();
     final signUpBloc = Modular.get<SignUpBloc>();
 
     return Row(
@@ -128,10 +130,39 @@ class _ChooseYourAvatarWidgetState extends State<_ChooseYourAvatarWidget> {
         Stack(
           clipBehavior: Clip.none,
           children: [
-            CircleAvatar(
-                backgroundColor: colorScheme.tertiary,
-                radius: 90,
-                backgroundImage: AssetImage(widget.avatar)),
+            if (widget.avatar is StandardAvatar)
+              CircleAvatar(
+                  backgroundColor: colorScheme.tertiary,
+                  radius: 90,
+                  backgroundImage: AssetImage(widget.avatar.path)),
+            if (widget.avatar is CustomAvatar)
+              CircleAvatar(
+                  backgroundColor: colorScheme.tertiary,
+                  radius: 90,
+                  backgroundImage: FileImage(File(widget.avatar.path))),
+            Positioned(
+              left: 130,
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: colorScheme.tertiaryContainer.withOpacity(0.5)),
+                child: IconButton(
+                    onPressed: () async {
+                      final image = await imagePicker.pickImage(
+                          source: ImageSource.gallery);
+                      if (image == null) {
+                        return;
+                      }
+                      signUpBloc.add(SignUpUploadPhoto(imagePath: image.path));
+                    },
+                    icon: Icon(
+                      Icons.photo,
+                      color: colorScheme.onBackground,
+                    )),
+              ),
+            ),
             Positioned(
               top: 140,
               left: 10,

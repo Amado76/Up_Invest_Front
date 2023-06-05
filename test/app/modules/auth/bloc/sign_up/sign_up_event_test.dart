@@ -21,4 +21,10 @@ void main() {
               displayName: 'displayName'));
     });
   });
+  group('[SignUpUploadPhoto]', () {
+    test('supports value comparisons', () {
+      expect(
+          SignUpUploadPhoto(imagePath: ''), SignUpUploadPhoto(imagePath: ''));
+    });
+  });
 }

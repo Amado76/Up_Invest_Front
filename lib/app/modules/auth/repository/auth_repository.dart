@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart' show visibleForTesting;
 import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/auth_social_network_gateway_interface.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
@@ -61,13 +62,14 @@ class AuthRepository extends IAuthRepository {
 
   @override
   void addAuthUserToStream(AuthUserModel? authUserModel) =>
-      _controller.sink.add(authUserModel);
+      controller.sink.add(authUserModel);
 
   @override
-  Stream<AuthUserModel?> get authUser => _controller.stream;
+  Stream<AuthUserModel?> get authUser => controller.stream;
 
-  final StreamController<AuthUserModel?> _controller =
-      StreamController<AuthUserModel?>();
+  @visibleForTesting
+  final StreamController<AuthUserModel?> controller =
+      StreamController<AuthUserModel?>.broadcast();
 
   @override
   Future<AuthUserModel> createAccount(

@@ -20,6 +20,12 @@ void main() async {
         authGateway: authGatewayMock,
         authSocialNetworkGateway: authSocialNetworkGateway);
 
+    test('description', () {
+      AuthUserModelMock authUserMock = AuthUserModelMock();
+      authRepository.authUser.listen((event) {});
+      expectLater(authRepository.controller.stream, emits(authUserMock));
+      authRepository.addAuthUserToStream(authUserMock);
+    });
     group('[createAccount]', () {
       test('should return an [AuthUser] when creating a new account', () async {
         //Act
