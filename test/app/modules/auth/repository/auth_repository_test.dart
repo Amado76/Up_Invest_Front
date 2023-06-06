@@ -8,26 +8,30 @@ import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart
 import '../../../../mocks/auth/gateway/auth_gateway_mock.dart';
 import '../../../../mocks/auth/gateway/auth_social_network_gateway_mock.dart';
 import '../../../../mocks/auth/model/auth_user_model_mock.dart';
+import '../../../../mocks/core/adapter/remote_storage_mock.dart';
 import '../gateway/auth_gateway_interface_test.dart';
 
 class MockStreamController<T> extends Mock implements StreamController<T> {}
 
 void main() async {
-  group('AuthRepository', () {
+  group('[AuthRepository]', () {
     final authGatewayMock = AuthGatewayMock();
     final authSocialNetworkGateway = AuthSocialNetworkGatewayMock();
+    final remoteStorageAdapter = RemoteStorageAdapterMock();
     final authRepository = AuthRepository(
         authGateway: authGatewayMock,
-        authSocialNetworkGateway: authSocialNetworkGateway);
+        authSocialNetworkGateway: authSocialNetworkGateway,
+        remoteStorageAdapter: remoteStorageAdapter);
 
-    test('description', () {
+    test('test stream', () {
       AuthUserModelMock authUserMock = AuthUserModelMock();
       authRepository.authUser.listen((event) {});
       expectLater(authRepository.controller.stream, emits(authUserMock));
       authRepository.addAuthUserToStream(authUserMock);
     });
     group('[createAccount]', () {
-      test('should return an [AuthUser] when creating a new account', () async {
+      test('should return an [AuthUser] when creating a [new account]',
+          () async {
         //Act
         AuthUserModel expectUser = await authRepository.createAccount(
             email: 'email',
@@ -75,6 +79,24 @@ void main() async {
 
                 //Assert
                 verify(() => authGatewayMock.deleteUser()).called(1)
+              });
+    });
+    group('[deleteUserAllData]', () {
+      test(
+          'should call [authGateway.deleteUser]',
+          () async => {
+                //Arrange
+                when(() => remoteStorageAdapter.deleteAllData(
+                        userId: AuthUserModelMock().userId))
+                    .thenAnswer((_) => Future.value()),
+
+                //Act
+                await authRepository.deleteAllData(
+                    authUser: AuthUserModelMock()),
+
+                //Assert
+                verify(() => remoteStorageAdapter.deleteAllData(
+                    userId: AuthUserModelMock().userId)).called(1)
               });
     });
     group('isUserSignedIn', () {

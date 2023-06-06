@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart' show visibleForTesting;
+import 'package:up_invest_front/app/core/adapter/remote_storage/remote_storage_adapter.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
 import 'package:up_invest_front/app/modules/auth/gateway/auth_social_network_gateway_interface.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
@@ -8,51 +9,45 @@ import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import '../util/credential_dto.dart';
 
 sealed class IAuthRepository {
-  @visibleForTesting
   final IAuthGateway authGateway;
-  @visibleForTesting
+
   final IAuthSocialNetworkGateway authSocialNetworkGateway;
 
+  final IRemoteStorageAdapter remoteStorageAdapter;
+
   IAuthRepository(
-      {required this.authSocialNetworkGateway, required this.authGateway});
+      {required this.authSocialNetworkGateway,
+      required this.authGateway,
+      required this.remoteStorageAdapter});
 
   void addAuthUserToStream(AuthUserModel? authUserModel);
-
   Stream<AuthUserModel?> get authUser;
-
   Future<AuthUserModel> signInWithEmailAndPassword(
       String email, String password);
 
   Future<AuthUserModel> signInWithSocialNetwork(String socialNetwork);
-
   Future<AuthUserModel> createAccount(
       {required String email,
       required String password,
       required String displayName,
       required String avatar});
 
-  Future<void> updatePassword({
-    required String newPassword,
-  });
-
+  Future<void> updatePassword({required String newPassword});
   Future<AuthUserModel> updateAccountDetails({String? newName, String? avatar});
-
   Future<void> deleteUser();
-
   Future<void> sendPasswordResetEmail(String email);
-
   Future<void> signOut();
-
   Future<bool> isUserSignedIn();
-
   Future<AuthUserModel> getLoggedUser();
-
   Future<void> reauthenticateAUser(String email, String password);
+  Future<void> deleteAllData({required AuthUserModel authUser});
 }
 
 class AuthRepository extends IAuthRepository {
   AuthRepository(
-      {required super.authSocialNetworkGateway, required super.authGateway});
+      {required super.authSocialNetworkGateway,
+      required super.authGateway,
+      required super.remoteStorageAdapter});
 
   @override
   void addAuthUserToStream(AuthUserModel? authUserModel) =>
@@ -86,9 +81,13 @@ class AuthRepository extends IAuthRepository {
   }
 
   @override
-  @override
   Future<void> deleteUser() async {
     authGateway.deleteUser();
+  }
+
+  @override
+  Future<void> deleteAllData({required AuthUserModel authUser}) async {
+    await remoteStorageAdapter.deleteAllData(userId: authUser.userId);
   }
 
   @override

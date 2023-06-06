@@ -10,6 +10,8 @@ sealed class IRemoteStorageAdapter {
   });
 
   Future<String> getUrl({required String userId, required String reference});
+
+  Future<void> deleteAllData({required String userId});
 }
 
 class FirebaseStorageAdapter extends IRemoteStorageAdapter {
@@ -30,5 +32,10 @@ class FirebaseStorageAdapter extends IRemoteStorageAdapter {
   Future<String> getUrl(
       {required String userId, required String reference}) async {
     return storage.ref(userId).child(reference).getDownloadURL();
+  }
+
+  @override
+  Future<void> deleteAllData({required String userId}) async {
+    await storage.ref(userId).delete();
   }
 }

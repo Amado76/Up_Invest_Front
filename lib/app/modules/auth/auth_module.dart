@@ -23,7 +23,8 @@ class AuthModule extends Module {
     Bind.singleton<IAuthRepository>(
         (i) => AuthRepository(
             authGateway: i.get<IAuthGateway>(),
-            authSocialNetworkGateway: i.get<IAuthSocialNetworkGateway>()),
+            authSocialNetworkGateway: i.get<IAuthSocialNetworkGateway>(),
+            remoteStorageAdapter: i.get<IRemoteStorageAdapter>()),
         export: true),
     Bind.singleton<IAuthSocialNetworkGateway>(
         (i) => SocialNetworkGateway(googleSignIn: i.get<GoogleSignIn>()),
