@@ -130,12 +130,17 @@ void main() async {
                 //Arrange
                 when(() => authGatewayMock.updatePhoto('avatar'))
                     .thenAnswer((_) => Future.value()),
+                when(() =>
+                        authGatewayMock.updateAccountDetails(avatar: 'avatar'))
+                    .thenAnswer((invocation) async => AuthUserModelMock()),
 
                 //Act
-                await authRepository.updatePhoto('avatar'),
+                await authRepository.updateAccountDetails(avatar: 'avatar'),
 
                 //Assert
-                verify(() => authGatewayMock.updatePhoto('avatar')).called(1)
+                verify(() =>
+                        authGatewayMock.updateAccountDetails(avatar: 'avatar'))
+                    .called(1)
               });
     });
     group('updatePassword', () {

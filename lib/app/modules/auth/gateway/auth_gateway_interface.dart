@@ -14,7 +14,7 @@ sealed class IAuthGateway {
       String email, String password, String displayName, String avatar);
 
   Future<AuthUserModel> updateAccountDetails(
-      String? displayName, String? avatar);
+      {String? displayName, String? avatar});
 
   Future<void> updatePassword(String newPassword);
   @visibleForTesting
@@ -145,7 +145,7 @@ class FireBaseGateway implements IAuthGateway {
   /// Update the username, if it doesn't return any exception, it was successful.
   @override
   Future<AuthUserModel> updateAccountDetails(
-      String? displayName, String? avatar) async {
+      {String? displayName, String? avatar}) async {
     if (displayName != null) {
       await updateDisplayName(displayName);
     }

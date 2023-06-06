@@ -227,5 +227,44 @@ Future<void> main() async {
         verify(() => userMock.reauthenticateWithCredential(any())).called(1);
       });
     });
+    group('[updateAccountDetails]', () {
+      test(
+          'should call [FirebaseAuth.currentUser!.updatePhoto and return [AuthUser]',
+          () async {
+        //Assert
+        when(() => firebaseAuthMock.currentUser!.updatePhotoURL('photoURL'))
+            .thenAnswer((_) => Future.value(null));
+        when(() => firebaseAuthMock.currentUser).thenAnswer((_) => UserMock());
+        //Act
+        AuthUserModel authUser =
+            await firebaseGateway.updateAccountDetails(avatar: 'photoURL');
+        //Assert
+
+        verify(() => firebaseAuthMock.currentUser!.updatePhotoURL(any()))
+            .callCount;
+        verifyNever(
+            () => firebaseAuthMock.currentUser!.updateDisplayName(any()));
+
+        expect(authUser, isA<AuthUserModel>());
+      });
+      test(
+          'should call [FirebaseAuth.currentUser!.updateDisplayName and return [AuthUser]',
+          () async {
+        //Assert
+        when(() => firebaseAuthMock.currentUser!.updateDisplayName('name'))
+            .thenAnswer((_) => Future.value(null));
+        when(() => firebaseAuthMock.currentUser).thenAnswer((_) => UserMock());
+        //Act
+        AuthUserModel authUser =
+            await firebaseGateway.updateAccountDetails(displayName: 'name');
+        //Assert
+
+        verify(() => firebaseAuthMock.currentUser!.updateDisplayName(any()))
+            .callCount;
+        verifyNever(() => firebaseAuthMock.currentUser!.updatePhotoURL(any()));
+
+        expect(authUser, isA<AuthUserModel>());
+      });
+    });
   });
 }

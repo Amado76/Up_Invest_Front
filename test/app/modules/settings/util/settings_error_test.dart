@@ -32,5 +32,19 @@ void main() async {
     test('supports value comparisons', () {
       expect(SettingsErrorOnSave(), SettingsErrorOnSave());
     });
+    test(
+        'should return an instance of [SettingsErrorOpeningExternalLink] if the error from Exception is [error-opening-external-link]',
+        () {
+      // Arrange
+      final exception = Exception('error-opening-external-link');
+      // Act
+      final authError = SettingsError.from(exception);
+      //Assert
+      expect(authError, isA<SettingsErrorOpeningExternalLink>());
+    });
+    test('supports value comparisons', () {
+      expect(SettingsErrorOpeningExternalLink(),
+          SettingsErrorOpeningExternalLink());
+    });
   });
 }

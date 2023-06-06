@@ -79,8 +79,8 @@ class AuthRepository extends IAuthRepository {
   @override
   Future<AuthUserModel> updateAccountDetails(
       {String? newName, String? avatar}) async {
-    AuthUserModel authUser =
-        await authGateway.updateAccountDetails(newName, avatar);
+    AuthUserModel authUser = await authGateway.updateAccountDetails(
+        displayName: newName, avatar: avatar);
 
     return authUser;
   }

@@ -11,11 +11,14 @@ import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_list.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
+import 'package:up_invest_front/app/modules/auth/repository/avatar_model_repository.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 
 import '../../../../../mocks/auth/gateway/auth_gateway_mock.dart';
 import '../../../../../mocks/auth/model/auth_user_model_mock.dart';
 import '../../../../../mocks/auth/repository/auth_repository_mock.dart';
+import '../../../../../mocks/auth/repository/avatar_repository_mock.dart';
+import '../../../../../mocks/core/adapter/remote_storage_mock.dart';
 
 void main() async {
   await IntlStrings.load(const Locale.fromSubtags(languageCode: 'es'));
@@ -26,12 +29,17 @@ void main() async {
     late SignUpBloc signUpBloc;
     late AuthUserModel authUserMock;
     AvatarList avatarList = AvatarList();
+    late IAvatarRepository avatarRepository;
 
     setUp(() {
       authRepositoryMock = AuthRepositoryMock(authGateway: AuthGatewayMock());
       authUserMock = AuthUserModelMock();
+      avatarRepository =
+          AvatarRepositoryMock(storageAdapter: RemoteStorageAdapterMock());
 
-      signUpBloc = SignUpBloc(authRepository: authRepositoryMock);
+      signUpBloc = SignUpBloc(
+          authRepository: authRepositoryMock,
+          avatarRepository: avatarRepository);
     });
 
     test('initial state is [AuthStateIdle]', () {
@@ -110,7 +118,7 @@ void main() async {
 
     group('when [AuthEventcreateAccount] is added', () {
       blocTest<SignUpBloc, SignUpState>(
-        'and the account is succesfull create',
+        'and the account is succesfull create with [StandardAvatar]',
         setUp: () async {
           when(() => authRepositoryMock.createAccount(
                   email: any(named: 'email'),
@@ -128,6 +136,44 @@ void main() async {
             displayName: 'Ash Ketchum')),
         expect: () => <SignUpState>[
           SignUpLoading(avatar: avatarList.avatars[7]!, avatarList: avatarList),
+        ],
+      );
+      blocTest<SignUpBloc, SignUpState>(
+        'and the account is succesfull create with [CustomAvatar]',
+        setUp: () async {
+          registerFallbackValue(authUserMock);
+          registerFallbackValue(const CustomAvatar(id: 1, path: '', url: ''));
+          when(() => avatarRepository.uploadAvatar(
+                  authUser: any(named: 'authUser'),
+                  avatarModel: any(named: 'avatarModel')))
+              .thenAnswer((_) => Future.value(null));
+          when(() => authRepositoryMock.createAccount(
+                  email: any(named: 'email'),
+                  password: any(named: 'password'),
+                  displayName: any(named: 'displayName'),
+                  avatar: any(named: 'avatar')))
+              .thenAnswer((_) async => authUserMock);
+          when(() => authRepositoryMock.updateAccountDetails(
+                  newName: any(named: 'newName'), avatar: any(named: 'avatar')))
+              .thenAnswer((_) async => authUserMock);
+          when(() => avatarRepository.getUrlFromRemoteStorage(
+                  avatarModel: any(named: 'avatarModel'),
+                  authUser: any(named: 'authUser')))
+              .thenAnswer((invocation) async =>
+                  const CustomAvatar(id: 9, path: 'path', url: 'url'));
+        },
+        build: () => signUpBloc,
+        seed: () => SignUpIdle(
+            avatar: const CustomAvatar(id: 9, path: 'path', url: 'url'),
+            avatarList: avatarList),
+        act: (bloc) => bloc.add(const SignUpCreateAccount(
+            email: 'ash@pallet.com',
+            password: 'Teste123!',
+            displayName: 'Ash Ketchum')),
+        expect: () => <SignUpState>[
+          SignUpLoading(
+              avatar: const CustomAvatar(id: 9, path: 'path', url: 'url'),
+              avatarList: avatarList),
         ],
       );
       blocTest<SignUpBloc, SignUpState>(
