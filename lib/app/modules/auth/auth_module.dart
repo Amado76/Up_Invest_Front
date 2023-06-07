@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:up_invest_front/app/core/adapter/cache_adapter/cache_adapter.dart';
 import 'package:up_invest_front/app/core/adapter/remote_storage/remote_storage_adapter.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/recovery_password/recover_password_bloc.dart';
@@ -34,7 +35,9 @@ class AuthModule extends Module {
         export: true),
     Bind.factory<GoogleSignIn>((i) => GoogleSignIn(), export: true),
     BlocBind.singleton(
-        (i) => AuthBloc(authRepository: i.get<IAuthRepository>()),
+        (i) => AuthBloc(
+            authRepository: i.get<IAuthRepository>(),
+            cacheAdapter: i.get<ICacheAdapter>()),
         export: true),
     BlocBind.singleton((i) => SignUpBloc(
         authRepository: i.get<IAuthRepository>(),

@@ -1,5 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:up_invest_front/app/core/adapter/cache_adapter/cache_adapter.dart';
 import 'package:up_invest_front/app/core/adapter/local_storage_adapter/local_storage_adapter_interface.dart';
 import 'package:up_invest_front/app/core/adapter/remote_storage/remote_storage_adapter.dart';
 import 'package:up_invest_front/app/modules/home/home_module.dart';
@@ -18,6 +20,8 @@ class AppModule extends Module {
     Bind.lazySingleton<IRemoteStorageAdapter>(
         (i) => FirebaseStorageAdapter(storage: i.get<FirebaseStorage>())),
     Bind.lazySingleton<FirebaseStorage>((i) => FirebaseStorage.instance),
+    Bind.singleton<ICacheAdapter>(
+        (i) => FlutterCacheManager(defaultCacheManager: DefaultCacheManager()))
   ];
 
   @override

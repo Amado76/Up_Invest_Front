@@ -4,8 +4,6 @@ import 'dart:math' show Random;
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart' show immutable;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cache_manager/file.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
 import 'package:up_invest_front/app/modules/auth/repository/avatar_model_repository.dart';
@@ -102,11 +100,5 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       return newId;
     }
     return currentId;
-  }
-
-  Future<File> _getAvatar(String url) async {
-    final file = await DefaultCacheManager().getSingleFile(url);
-
-    return file;
   }
 }

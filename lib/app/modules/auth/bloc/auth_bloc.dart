@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/file.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:up_invest_front/app/core/adapter/cache_adapter/cache_adapter.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';
@@ -14,7 +14,8 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository authRepository;
-  AuthBloc({required this.authRepository})
+  final ICacheAdapter cacheAdapter;
+  AuthBloc({required this.cacheAdapter, required this.authRepository})
       : super(
           AuthLoggedOut(),
         ) {
@@ -44,7 +45,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthLoggedOut());
         return;
       }
-      final avatar = await _getAvatar(user.avatar);
+      final avatar = await cacheAdapter.getSingleFile(user.avatar);
       emit(AuthLoggedIn(authUser: user, avatar: avatar));
     });
   }
@@ -54,7 +55,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       AuthUserModel authUser =
           await authRepository.signInWithEmailAndPassword(email, password);
-      final avatar = await _getAvatar(authUser.avatar);
+      final avatar = await cacheAdapter.getSingleFile(authUser.avatar);
       emit(AuthLoggedIn(authUser: authUser, avatar: avatar));
     } on Exception catch (e) {
       emit(AuthErrorState(authError: AuthError.from(e)));
@@ -66,7 +67,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       AuthUserModel authUser =
           await authRepository.signInWithSocialNetwork(socialNetwork);
-      final avatar = await _getAvatar(authUser.avatar);
+      final avatar = await cacheAdapter.getSingleFile(authUser.avatar);
       emit(AuthLoggedIn(authUser: authUser, avatar: avatar));
     } on Exception catch (e) {
       emit(AuthErrorState(authError: AuthError.from(e)));
@@ -77,7 +78,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     bool isLogged = await authRepository.isUserSignedIn();
     if (isLogged) {
       final authUser = await authRepository.getLoggedUser();
-      final avatar = await _getAvatar(authUser.avatar);
+      final avatar = await cacheAdapter.getSingleFile(authUser.avatar);
       emit(AuthLoggedIn(authUser: authUser, avatar: avatar));
     }
     if (!isLogged) {
@@ -101,7 +102,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await authRepository.deleteUser();
       emit(AuthLoggedOut());
     } on Exception catch (e) {
-      final avatar = await _getAvatar(currentUser.avatar);
+      final avatar = await cacheAdapter.getSingleFile(currentUser.avatar);
       emit(AuthErrorState(authError: AuthError.from(e)));
       emit(AuthLoggedIn(authUser: currentUser, avatar: avatar));
     }
@@ -110,7 +111,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void _updatePassword(String oldPassword, String newPassword) async {
     final currentState = state as AuthLoggedIn;
     final currentUser = currentState.authUser;
-    final avatar = await _getAvatar(currentUser.avatar);
+    final avatar = await cacheAdapter.getSingleFile(currentUser.avatar);
     emit(AuthLoading());
     try {
       await authRepository.reauthenticateAUser(currentUser.email, oldPassword);
@@ -121,11 +122,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthErrorState(authError: AuthError.from(e)));
       emit(AuthLoggedIn(authUser: currentUser, avatar: avatar));
     }
-  }
-
-  Future<File> _getAvatar(String url) async {
-    final file = await DefaultCacheManager().getSingleFile(url);
-
-    return file;
   }
 }

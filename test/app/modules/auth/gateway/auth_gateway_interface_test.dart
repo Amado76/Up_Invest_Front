@@ -46,8 +46,8 @@ Future<void> main() async {
             password: 'password')).thenAnswer((_) async => userCredentialMock);
 
         //Act
-        AuthUserModel newAccount = await firebaseGateway.createAccount(
-            'email', 'password', 'displayName', 'avatar');
+        AuthUserModel newAccount =
+            await firebaseGateway.createAccount('email', 'password');
 
         //Assert
         expect(newAccount, const TypeMatcher<AuthUserModel>());

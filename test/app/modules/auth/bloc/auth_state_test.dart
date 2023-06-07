@@ -8,14 +8,17 @@ import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';
 
 import '../../../../mocks/auth/model/auth_user_model_mock.dart';
+import '../../../../mocks/file_mock.dart';
 
 void main() async {
   await IntlStrings.load(const Locale.fromSubtags(languageCode: 'en'));
   final authUserModelMock = AuthUserModelMock();
+  final file = FileMock();
+
   group('[AuthLoggedIn]', () {
     test('supports value comparisonso', () {
-      expect(AuthLoggedIn(authUser: authUserModelMock),
-          AuthLoggedIn(authUser: authUserModelMock));
+      expect(AuthLoggedIn(authUser: authUserModelMock, avatar: file),
+          AuthLoggedIn(authUser: authUserModelMock, avatar: file));
     });
   });
   group('[AuthLoggedOut]', () {

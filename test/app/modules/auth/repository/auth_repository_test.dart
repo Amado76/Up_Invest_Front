@@ -34,10 +34,7 @@ void main() async {
           () async {
         //Act
         AuthUserModel expectUser = await authRepository.createAccount(
-            email: 'email',
-            password: 'password',
-            displayName: 'displayName',
-            avatar: 'avatarPicture');
+            email: 'email', password: 'password');
         //Assert
         expect(expectUser, const TypeMatcher<AuthUserModel>());
       });

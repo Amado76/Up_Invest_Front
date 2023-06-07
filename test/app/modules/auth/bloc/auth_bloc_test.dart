@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show PlatformException;
+import 'package:flutter_cache_manager/file.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:up_invest_front/app/core/adapter/cache_adapter/cache_adapter.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
@@ -16,21 +18,30 @@ import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 import '../../../../mocks/auth/gateway/auth_gateway_mock.dart';
 import '../../../../mocks/auth/model/auth_user_model_mock.dart';
 import '../../../../mocks/auth/repository/auth_repository_mock.dart';
+import '../../../../mocks/core/adapter/cache_adapter_mock.dart';
+import '../../../../mocks/file_mock.dart';
 
 void main() async {
   await IntlStrings.load(const Locale.fromSubtags(languageCode: 'es'));
+  WidgetsFlutterBinding.ensureInitialized();
   group('AuthBloc', () {
     late AuthBloc authBloc;
     late AuthRepository authRepositoryMock;
     late AuthUserModel authUserMock;
+    late ICacheAdapter cacheAdapterMock;
+    late File fileMock;
     setUp(() {
       authRepositoryMock = AuthRepositoryMock(authGateway: AuthGatewayMock());
-      authBloc = AuthBloc(authRepository: authRepositoryMock);
+      cacheAdapterMock = CacheAdapterMock();
+      authBloc = AuthBloc(
+          authRepository: authRepositoryMock, cacheAdapter: cacheAdapterMock);
       authUserMock = AuthUserModelMock();
+      fileMock = FileMock();
     });
 
     // Initial state test
-    test('initial state is [AuthStateIdle]', () {
+
+    test('initial state is [AuthLoggedOut]', () {
       expect(authBloc.state, AuthLoggedOut());
     });
 
@@ -42,7 +53,7 @@ void main() async {
           when(() => authRepositoryMock.isUserSignedIn())
               .thenAnswer((invocation) async => false);
         },
-        seed: () => AuthLoggedIn(authUser: authUserMock),
+        seed: () => AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
         build: () => authBloc,
         act: (bloc) => bloc.add(const AuthIsLoggedIn()),
         expect: () => <AuthState>[AuthLoggedOut()],
@@ -54,11 +65,14 @@ void main() async {
               .thenAnswer((invocation) async => true);
           when(() => authRepositoryMock.getLoggedUser())
               .thenAnswer((invocation) async => authUserMock);
+          when(() => cacheAdapterMock.getSingleFile(any()))
+              .thenAnswer((invocation) async => fileMock);
         },
         seed: () => AuthLoggedOut(),
         build: () => authBloc,
         act: (bloc) => bloc.add(const AuthIsLoggedIn()),
-        expect: () => <AuthState>[AuthLoggedIn(authUser: authUserMock)],
+        expect: () =>
+            <AuthState>[AuthLoggedIn(authUser: authUserMock, avatar: fileMock)],
       );
     });
 
@@ -70,13 +84,15 @@ void main() async {
           when(() =>
                   authRepositoryMock.signInWithEmailAndPassword(any(), any()))
               .thenAnswer((invocation) async => authUserMock);
+          when(() => cacheAdapterMock.getSingleFile(any()))
+              .thenAnswer((invocation) async => fileMock);
         },
         build: () => authBloc,
         act: (bloc) => bloc.add(const AuthSignInWithEmailAndPassword(
             email: 'any', password: 'any')),
         expect: () => <AuthState>[
           AuthLoading(),
-          AuthLoggedIn(authUser: authUserMock),
+          AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
         ],
       );
       blocTest<AuthBloc, AuthState>(
@@ -117,13 +133,15 @@ void main() async {
           setUp: () {
             when(() => authRepositoryMock.signInWithSocialNetwork('google'))
                 .thenAnswer((_) async => authUserMock);
+            when(() => cacheAdapterMock.getSingleFile(any()))
+                .thenAnswer((invocation) async => fileMock);
           },
           build: () => authBloc,
           act: (bloc) => bloc
               .add(const AuthSignInWithSocialNetwork(socialNetwork: 'google')),
           expect: () => <AuthState>[
                 AuthLoading(),
-                AuthLoggedIn(authUser: authUserMock),
+                AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
               ]);
       blocTest<AuthBloc, AuthState>('and it fails emits [AuthLoggedOut]',
           setUp: () {
@@ -161,9 +179,8 @@ void main() async {
               .thenAnswer((_) => Future.value());
         },
         build: () => authBloc,
-        seed: () => AuthLoggedIn(
-          authUser: AuthUserModelMock(),
-        ),
+        seed: () =>
+            AuthLoggedIn(authUser: AuthUserModelMock(), avatar: fileMock),
         act: (bloc) =>
             bloc.add(const AuthDeleteAccount(email: 'any', password: 'any')),
         expect: () => <AuthState>[
@@ -178,17 +195,17 @@ void main() async {
               .thenThrow(FirebaseAuthException(code: 'user-mismatch'));
           when(() => authRepositoryMock.reauthenticateAUser(any(), any()))
               .thenAnswer((_) => Future.value());
+          when(() => cacheAdapterMock.getSingleFile(any()))
+              .thenAnswer((invocation) async => fileMock);
         },
         build: () => authBloc,
-        seed: () => AuthLoggedIn(
-          authUser: authUserMock,
-        ),
+        seed: () => AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
         act: (bloc) =>
             bloc.add(const AuthDeleteAccount(email: 'any', password: 'any')),
         expect: () => <AuthState>[
           AuthLoading(),
           AuthErrorState(authError: AuthErrorUserMismatch()),
-          AuthLoggedIn(authUser: authUserMock)
+          AuthLoggedIn(authUser: authUserMock, avatar: fileMock)
         ],
       );
       blocTest<AuthBloc, AuthState>(
@@ -198,17 +215,17 @@ void main() async {
               .thenThrow(PlatformException(code: 'weak-password'));
           when(() => authRepositoryMock.reauthenticateAUser(any(), any()))
               .thenAnswer((_) => Future.value());
+          when(() => cacheAdapterMock.getSingleFile(any()))
+              .thenAnswer((invocation) async => fileMock);
         },
         build: () => authBloc,
-        seed: () => AuthLoggedIn(
-          authUser: authUserMock,
-        ),
+        seed: () => AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
         act: (bloc) =>
             bloc.add(const AuthDeleteAccount(email: 'any', password: 'any')),
         expect: () => <AuthState>[
           AuthLoading(),
           AuthErrorState(authError: AuthErrorWeakPassword()),
-          AuthLoggedIn(authUser: authUserMock)
+          AuthLoggedIn(authUser: authUserMock, avatar: fileMock)
         ],
       );
     });
@@ -222,17 +239,17 @@ void main() async {
             when(() => authRepositoryMock.updatePassword(
                     newPassword: any(named: 'newPassword')))
                 .thenAnswer((_) => Future.value());
+            when(() => cacheAdapterMock.getSingleFile(any()))
+                .thenAnswer((invocation) async => fileMock);
           },
           build: () => authBloc,
-          seed: () => AuthLoggedIn(
-                authUser: authUserMock,
-              ),
+          seed: () => AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
           act: (bloc) => bloc.add(const AuthUpdatePassword(
               oldPassword: 'oldPassword', newPassword: 'newPassword')),
           expect: () => <AuthState>[
                 AuthLoading(),
                 AuthSuccessState(authSucess: AuthSuccessSetNewPassword()),
-                AuthLoggedIn(authUser: authUserMock),
+                AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
               ]);
       blocTest<AuthBloc, AuthState>(
           'and it fails emits [AuthLoggedIn] with error',
@@ -243,17 +260,17 @@ void main() async {
                     newPassword: any(named: 'newPassword')))
                 .thenThrow(
                     FirebaseAuthException(code: 'requires-recent-login'));
+            when(() => cacheAdapterMock.getSingleFile(any()))
+                .thenAnswer((invocation) async => fileMock);
           },
           build: () => authBloc,
-          seed: () => AuthLoggedIn(
-                authUser: authUserMock,
-              ),
+          seed: () => AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
           act: (bloc) => bloc.add(const AuthUpdatePassword(
               oldPassword: 'oldPassword', newPassword: 'newPassword')),
           expect: () => <AuthState>[
                 AuthLoading(),
                 AuthErrorState(authError: AuthErrorRequiresRecentLogin()),
-                AuthLoggedIn(authUser: authUserMock),
+                AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
               ]);
       blocTest<AuthBloc, AuthState>(
           'and it fails emits [AuthLoggedIn] with error',
@@ -263,17 +280,17 @@ void main() async {
             when(() => authRepositoryMock.updatePassword(
                     newPassword: any(named: 'newPassword')))
                 .thenThrow(PlatformException(code: 'user-not-found'));
+            when(() => cacheAdapterMock.getSingleFile(any()))
+                .thenAnswer((invocation) async => fileMock);
           },
           build: () => authBloc,
-          seed: () => AuthLoggedIn(
-                authUser: authUserMock,
-              ),
+          seed: () => AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
           act: (bloc) => bloc.add(const AuthUpdatePassword(
               oldPassword: 'oldPassword', newPassword: 'newPassword')),
           expect: () => <AuthState>[
                 AuthLoading(),
                 AuthErrorState(authError: AuthErrorUserNotFound()),
-                AuthLoggedIn(authUser: authUserMock),
+                AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
               ]);
     });
     // AuthLogOut test
@@ -285,7 +302,7 @@ void main() async {
               .thenAnswer((_) => Future.value());
         },
         build: () => authBloc,
-        seed: () => AuthLoggedIn(authUser: authUserMock),
+        seed: () => AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
         act: (bloc) => bloc.add(
           const AuthLogOut(),
         ),

@@ -11,7 +11,7 @@ class AuthUserModelMock extends Mock implements AuthUserModel {
   @override
   String get displayName => 'Chandler Bing';
   @override
-  String get avatar => 'default';
+  String get avatar => 'https://i.ibb.co/m6NHwyd/kitty.png';
   @override
   String get signInMethod => 'facebook';
   @override

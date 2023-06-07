@@ -120,12 +120,24 @@ void main() async {
       blocTest<SignUpBloc, SignUpState>(
         'and the account is succesfull create with [StandardAvatar]',
         setUp: () async {
+          registerFallbackValue(authUserMock);
+          registerFallbackValue(const StandardAvatar(id: 1, path: '', url: ''));
           when(() => authRepositoryMock.createAccount(
-                  email: any(named: 'email'),
-                  password: any(named: 'password'),
-                  displayName: any(named: 'displayName'),
-                  avatar: any(named: 'avatar')))
-              .thenAnswer((invocation) async => authUserMock);
+                email: any(named: 'email'),
+                password: any(named: 'password'),
+              )).thenAnswer((_) async => authUserMock);
+          when(() => avatarRepository.uploadAvatar(
+                  authUser: any(named: 'authUser'),
+                  avatarModel: any(named: 'avatarModel')))
+              .thenAnswer((_) => Future.value(null));
+          when(() =>
+              avatarRepository.getUrlFromRemoteStorage(
+                  authUser: any(named: 'authUser'),
+                  avatarModel: any(named: 'avatarModel'))).thenAnswer(
+              (_) async => const CustomAvatar(id: 1, path: 'path', url: 'url'));
+          when(() => authRepositoryMock.updateAccountDetails(
+                  newName: any(named: 'newName'), avatar: any(named: 'avatar')))
+              .thenAnswer((_) async => authUserMock);
         },
         build: () => signUpBloc,
         seed: () =>
@@ -148,11 +160,9 @@ void main() async {
                   avatarModel: any(named: 'avatarModel')))
               .thenAnswer((_) => Future.value(null));
           when(() => authRepositoryMock.createAccount(
-                  email: any(named: 'email'),
-                  password: any(named: 'password'),
-                  displayName: any(named: 'displayName'),
-                  avatar: any(named: 'avatar')))
-              .thenAnswer((_) async => authUserMock);
+                email: any(named: 'email'),
+                password: any(named: 'password'),
+              )).thenAnswer((_) async => authUserMock);
           when(() => authRepositoryMock.updateAccountDetails(
                   newName: any(named: 'newName'), avatar: any(named: 'avatar')))
               .thenAnswer((_) async => authUserMock);
@@ -180,11 +190,9 @@ void main() async {
         'and throw [FirebaseAuthException]',
         setUp: () {
           when(() => authRepositoryMock.createAccount(
-                  email: any(named: 'email'),
-                  password: any(named: 'password'),
-                  displayName: any(named: 'displayName'),
-                  avatar: any(named: 'avatar')))
-              .thenThrow(FirebaseAuthException(code: 'email-already-in-use'));
+                email: any(named: 'email'),
+                password: any(named: 'password'),
+              )).thenThrow(FirebaseAuthException(code: 'email-already-in-use'));
         },
         build: () => signUpBloc,
         seed: () =>
@@ -208,11 +216,9 @@ void main() async {
         'and throw [PlatformException]',
         setUp: () {
           when(() => authRepositoryMock.createAccount(
-                  email: any(named: 'email'),
-                  password: any(named: 'password'),
-                  displayName: any(named: 'displayName'),
-                  avatar: any(named: 'avatar')))
-              .thenThrow(PlatformException(code: 'too-many-requests'));
+                email: any(named: 'email'),
+                password: any(named: 'password'),
+              )).thenThrow(PlatformException(code: 'too-many-requests'));
         },
         build: () => signUpBloc,
         seed: () =>

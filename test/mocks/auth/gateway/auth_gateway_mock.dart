@@ -7,8 +7,7 @@ import '../model/auth_user_model_mock.dart';
 
 class AuthGatewayMock extends Mock implements FireBaseGateway {
   @override
-  Future<AuthUserModel> createAccount(
-      String email, String password, String displayName, String avatar) async {
+  Future<AuthUserModel> createAccount(String email, String password) async {
     return AuthUserModelMock();
   }
 
