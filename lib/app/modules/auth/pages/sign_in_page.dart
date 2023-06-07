@@ -36,111 +36,118 @@ class _SignInState extends State<SignInPage> {
 
     final customBar = CustomSnackBar();
 
-    return Scaffold(
-      backgroundColor: colorScheme.background,
-      body: BlocListener<AuthBloc, AuthState>(
-        bloc: authBloc,
-        listener: (context, state) {
-          final hideLoading = LoadingScreen.instance().hide();
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: colorScheme.background,
+        body: BlocListener<AuthBloc, AuthState>(
+          bloc: authBloc,
+          listener: (context, state) {
+            final hideLoading = LoadingScreen.instance().hide();
 
-          return switch (state) {
-            AuthLoggedIn() => {Modular.to.navigate('/home/'), hideLoading},
-            AuthLoggedOut() => hideLoading,
-            AuthLoading() => LoadingScreen.instance()
-                .show(context: context, text: intlString.loading),
-            AuthErrorState(authError: final authError) => {
-                customBar.showBottomErrorSnackBar(
-                    authError.dialogTitle, authError.dialogText, context)
-              },
-            AuthSuccessState(authSucess: final authSucess) => {
-                customBar.showBottomSuccessSnackBar(
-                    authSucess.dialogTitle, authSucess.dialogText, context)
-              }
-          };
-        },
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
-              child: SizedBox(
-                height: size.height - systemBarSize - bottomBarSize,
-                width: size.width,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 90,
-                    ),
-                    Image.asset(
-                      currentTheme == ThemeMode.light
-                          ? 'assets/images/logo_up_invest.png'
-                          : (currentTheme == ThemeMode.system &&
-                                  systemBrightness == Brightness.light)
-                              ? 'assets/images/logo_up_invest.png'
-                              : 'assets/images/logo_up_invest_dark_mode.png',
-                      alignment: Alignment.center,
-                    ),
-                    const SizedBox(height: 50),
-                    const _SignInForm(),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            color: colorScheme.onBackground,
-                            height: 2,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15),
-                          child: Text(
-                            intlString.signInWith,
-                            style: TextStyle(
+            return switch (state) {
+              AuthLoggedIn() => {Modular.to.navigate('/home/'), hideLoading},
+              AuthLoggedOut() => hideLoading,
+              AuthLoading() => LoadingScreen.instance()
+                  .show(context: context, text: intlString.loading),
+              AuthErrorState(authError: final authError) => {
+                  customBar.showBottomErrorSnackBar(
+                      authError.dialogTitle, authError.dialogText, context)
+                },
+              AuthSuccessState(authSucess: final authSucess) => {
+                  customBar.showBottomSuccessSnackBar(
+                      authSucess.dialogTitle, authSucess.dialogText, context)
+                }
+            };
+          },
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30, right: 30),
+                child: SizedBox(
+                  height: size.height - systemBarSize - bottomBarSize,
+                  width: size.width,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 90,
+                      ),
+                      Image.asset(
+                        currentTheme == ThemeMode.light
+                            ? 'assets/images/logo_up_invest.png'
+                            : (currentTheme == ThemeMode.system &&
+                                    systemBrightness == Brightness.light)
+                                ? 'assets/images/logo_up_invest.png'
+                                : 'assets/images/logo_up_invest_dark_mode.png',
+                        alignment: Alignment.center,
+                      ),
+                      const SizedBox(height: 50),
+                      const _SignInForm(),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
                               color: colorScheme.onBackground,
+                              height: 2,
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            color: colorScheme.onBackground,
-                            height: 2,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15, right: 15),
+                            child: Text(
+                              intlString.signInWith,
+                              style: TextStyle(
+                                color: colorScheme.onBackground,
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: Image.asset('assets/images/logo_facebook.png'),
-                          iconSize: 55,
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            authBloc.add(const AuthSignInWithSocialNetwork(
-                                socialNetwork: 'google'));
-                          },
-                          icon: Image.asset('assets/images/logo_google.png'),
-                          iconSize: 55,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Text(
-                        intlString.signInDoNotHaveAccount,
-                        style: TextStyle(color: colorScheme.onBackground),
+                          Expanded(
+                            child: Container(
+                              color: colorScheme.onBackground,
+                              height: 2,
+                            ),
+                          ),
+                        ],
                       ),
-                      TextButton(
-                        child: Text(
-                          intlString.signInSignUp,
-                          style: TextStyle(color: colorScheme.primary),
-                        ),
-                        onPressed: () => Modular.to.navigate('/auth/sign_up'),
-                      )
-                    ])
-                  ],
+                      const SizedBox(height: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon:
+                                Image.asset('assets/images/logo_facebook.png'),
+                            iconSize: 55,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              authBloc.add(const AuthSignInWithSocialNetwork(
+                                  socialNetwork: 'google'));
+                            },
+                            icon: Image.asset('assets/images/logo_google.png'),
+                            iconSize: 55,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              intlString.signInDoNotHaveAccount,
+                              style: TextStyle(color: colorScheme.onBackground),
+                            ),
+                            TextButton(
+                              child: Text(
+                                intlString.signInSignUp,
+                                style: TextStyle(color: colorScheme.primary),
+                              ),
+                              onPressed: () =>
+                                  Modular.to.navigate('/auth/sign_up'),
+                            )
+                          ])
+                    ],
+                  ),
                 ),
               ),
             ),

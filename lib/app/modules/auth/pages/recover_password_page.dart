@@ -56,63 +56,66 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
               }
           };
         },
-        child: CustomAuthScaffold(
-          onPressed: () => Modular.to.navigate('/auth/'),
-          widget: Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30),
-            child: SingleChildScrollView(
-              child: SizedBox(
-                height:
-                    size.height - appBarSize - bottomBarSize - systemBarSize,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: SizedBox(
-                            height: 220,
-                            child: Image.asset(
-                                'assets/images/forgot_password.png')),
-                      ),
-                      Text(
-                        intlString.forgotPassword,
-                        style: TextStyle(
-                            color: colorScheme.onBackground,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      const SizedBox(height: 25),
-                      Text(
-                        intlString.recoverPasswordBody,
-                        style: TextStyle(
-                            color: colorScheme.onBackground, fontSize: 20),
-                      ),
-                      const Expanded(child: SizedBox()),
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            CustomTextFormField(
-                                controller: _emailController,
-                                keyBoardType: TextInputType.emailAddress,
-                                hintText: intlString.emailHintText,
-                                validator: (email) {
-                                  return _validator.emailValidator(email);
-                                }),
-                            const SizedBox(height: 15),
-                            CustomElevatedButton(
-                                text: intlString.submitButton,
-                                onPressed: () => {
-                                      if (_formKey.currentState!.validate())
-                                        _recoverPasswordBloc.add(
-                                            RecoverPasswordSendEmail(
-                                                email: _emailController.text))
-                                    }),
-                          ],
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: CustomAuthScaffold(
+            onPressed: () => Modular.to.navigate('/auth/'),
+            widget: Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  height:
+                      size.height - appBarSize - bottomBarSize - systemBarSize,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: SizedBox(
+                              height: 220,
+                              child: Image.asset(
+                                  'assets/images/forgot_password.png')),
                         ),
-                      ),
-                      const SizedBox(height: 100),
-                    ]),
+                        Text(
+                          intlString.forgotPassword,
+                          style: TextStyle(
+                              color: colorScheme.onBackground,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(height: 25),
+                        Text(
+                          intlString.recoverPasswordBody,
+                          style: TextStyle(
+                              color: colorScheme.onBackground, fontSize: 20),
+                        ),
+                        const Expanded(child: SizedBox()),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              CustomTextFormField(
+                                  controller: _emailController,
+                                  keyBoardType: TextInputType.emailAddress,
+                                  hintText: intlString.emailHintText,
+                                  validator: (email) {
+                                    return _validator.emailValidator(email);
+                                  }),
+                              const SizedBox(height: 15),
+                              CustomElevatedButton(
+                                  text: intlString.submitButton,
+                                  onPressed: () => {
+                                        if (_formKey.currentState!.validate())
+                                          _recoverPasswordBloc.add(
+                                              RecoverPasswordSendEmail(
+                                                  email: _emailController.text))
+                                      }),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 100),
+                      ]),
+                ),
               ),
             ),
           ),

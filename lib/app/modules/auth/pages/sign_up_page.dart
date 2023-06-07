@@ -65,38 +65,41 @@ class _SingUpPageState extends State<SingUpPage> {
         },
         builder: (context, state) {
           avatar = state.avatar;
-          return CustomAuthScaffold(
-            onPressed: () => Modular.to.navigate('/auth/'),
-            widget: (Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
-              child: SizedBox(
-                height:
-                    size.height - appBarSize - bottomBarSize - systemBarSize,
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(intlString.signUpTitle,
-                          style: TextStyle(
-                              color: colorScheme.onBackground,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold)),
-                      Text(intlString.signUpSubTitle,
-                          style: TextStyle(
-                              color: colorScheme.onBackground,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 25),
-                      _ChooseYourAvatarWidget(
-                        avatar: avatar,
-                      ),
-                      const SizedBox(height: 10),
-                      const _SingUpForm(),
-                    ],
+          return GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: CustomAuthScaffold(
+              onPressed: () => Modular.to.navigate('/auth/'),
+              widget: (Padding(
+                padding: const EdgeInsets.only(left: 30, right: 30),
+                child: SizedBox(
+                  height:
+                      size.height - appBarSize - bottomBarSize - systemBarSize,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(intlString.signUpTitle,
+                            style: TextStyle(
+                                color: colorScheme.onBackground,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold)),
+                        Text(intlString.signUpSubTitle,
+                            style: TextStyle(
+                                color: colorScheme.onBackground,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 25),
+                        _ChooseYourAvatarWidget(
+                          avatar: avatar,
+                        ),
+                        const SizedBox(height: 10),
+                        const _SingUpForm(),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )),
+              )),
+            ),
           );
         },
       ),

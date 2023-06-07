@@ -33,6 +33,7 @@ class _CustomPasswordFormFieldState extends State<CustomPasswordFormField> {
         controller: widget.controller,
         validator: widget.validator,
         obscureText: obscureText,
+        textInputAction: TextInputAction.next,
         style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w400,

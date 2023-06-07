@@ -29,6 +29,7 @@ class CustomTextFormField extends StatelessWidget {
         controller: controller,
         validator: validator,
         obscureText: obscureText,
+        textInputAction: TextInputAction.next,
         style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w400,
