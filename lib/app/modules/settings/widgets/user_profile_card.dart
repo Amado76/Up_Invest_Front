@@ -16,7 +16,7 @@ class UserProfileCard extends StatelessWidget {
         CircleAvatar(
             backgroundColor: colorScheme.tertiary,
             radius: 50,
-            backgroundImage: NetworkImage(currentAuthState.authUser.avatar)),
+            backgroundImage: FileImage(currentAuthState.avatar)),
         const SizedBox(width: 10),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
@@ -38,7 +38,9 @@ class UserProfileCard extends StatelessWidget {
         ]),
         const Expanded(child: SizedBox()),
         IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Modular.to.pushNamed('/settings/details');
+            },
             icon: ImageIcon(
               color: colorScheme.onBackground,
               const AssetImage('assets/icons/short_right.png'),

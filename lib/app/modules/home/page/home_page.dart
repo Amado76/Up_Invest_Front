@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       email: '',
       token: 'token',
       displayName: 'displayName',
-      avatar: 'avatarPicture',
+      avatar: 'url',
       signInMethod: 'signInMethod',
       isEmailVerified: true,
     );
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                 child: const Text('Loggout')),
             TextButton(
                 onPressed: () {
-                  Modular.to.pushNamed('/settings');
+                  Modular.to.pushNamed('/settings/');
                 },
                 child: const Text('Go to Settings')),
             Form(

@@ -1,8 +1,10 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart' show immutable;
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/file.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';
@@ -37,12 +39,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       _updatePassword(event.oldPassword, event.newPassword);
     });
 
-    authRepository.authUser.listen((user) {
+    authRepository.authUser.listen((user) async {
       if (user == null) {
         emit(AuthLoggedOut());
         return;
       }
-      emit(AuthLoggedIn(authUser: user));
+      final avatar = await _getAvatar(user.avatar);
+      emit(AuthLoggedIn(authUser: user, avatar: avatar));
     });
   }
 
@@ -51,7 +54,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       AuthUserModel authUser =
           await authRepository.signInWithEmailAndPassword(email, password);
-      emit(AuthLoggedIn(authUser: authUser));
+      final avatar = await _getAvatar(authUser.avatar);
+      emit(AuthLoggedIn(authUser: authUser, avatar: avatar));
     } on Exception catch (e) {
       emit(AuthErrorState(authError: AuthError.from(e)));
     }
@@ -62,7 +66,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       AuthUserModel authUser =
           await authRepository.signInWithSocialNetwork(socialNetwork);
-      emit(AuthLoggedIn(authUser: authUser));
+      final avatar = await _getAvatar(authUser.avatar);
+      emit(AuthLoggedIn(authUser: authUser, avatar: avatar));
     } on Exception catch (e) {
       emit(AuthErrorState(authError: AuthError.from(e)));
     }
@@ -72,9 +77,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     bool isLogged = await authRepository.isUserSignedIn();
     if (isLogged) {
       final authUser = await authRepository.getLoggedUser();
-      emit(AuthLoggedIn(
-        authUser: authUser,
-      ));
+      final avatar = await _getAvatar(authUser.avatar);
+      emit(AuthLoggedIn(authUser: authUser, avatar: avatar));
     }
     if (!isLogged) {
       emit(AuthLoggedOut());
@@ -89,6 +93,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void _deleteAccount(String email, String password) async {
     final currentState = state as AuthLoggedIn;
     final currentUser = currentState.authUser;
+
     emit(AuthLoading());
 
     try {
@@ -96,23 +101,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await authRepository.deleteUser();
       emit(AuthLoggedOut());
     } on Exception catch (e) {
+      final avatar = await _getAvatar(currentUser.avatar);
       emit(AuthErrorState(authError: AuthError.from(e)));
-      emit(AuthLoggedIn(authUser: currentUser));
+      emit(AuthLoggedIn(authUser: currentUser, avatar: avatar));
     }
   }
 
   void _updatePassword(String oldPassword, String newPassword) async {
     final currentState = state as AuthLoggedIn;
     final currentUser = currentState.authUser;
+    final avatar = await _getAvatar(currentUser.avatar);
     emit(AuthLoading());
     try {
       await authRepository.reauthenticateAUser(currentUser.email, oldPassword);
       await authRepository.updatePassword(newPassword: newPassword);
       emit(AuthSuccessState(authSucess: AuthSuccess.from('set-new-password')));
-      emit(AuthLoggedIn(authUser: currentUser));
+      emit(AuthLoggedIn(authUser: currentUser, avatar: avatar));
     } on Exception catch (e) {
       emit(AuthErrorState(authError: AuthError.from(e)));
-      emit(AuthLoggedIn(authUser: currentUser));
+      emit(AuthLoggedIn(authUser: currentUser, avatar: avatar));
     }
+  }
+
+  Future<File> _getAvatar(String url) async {
+    final file = await DefaultCacheManager().getSingleFile(url);
+
+    return file;
   }
 }

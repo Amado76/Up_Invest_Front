@@ -4,6 +4,8 @@ import 'dart:math' show Random;
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart' show immutable;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/file.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
 import 'package:up_invest_front/app/modules/auth/repository/avatar_model_repository.dart';
@@ -42,34 +44,26 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       {required String password,
       required String email,
       required String displayName}) async {
-    AvatarModel currentAvatar = state.avatar;
+    AvatarModel avatar = state.avatar;
     AvatarList currentAvatarList = state.avatarList;
 
-    emit(SignUpLoading(avatar: currentAvatar, avatarList: currentAvatarList));
+    emit(SignUpLoading(avatar: avatar, avatarList: currentAvatarList));
 
     try {
-      AuthUserModel authUser = await authRepository.createAccount(
-          displayName: displayName,
-          email: email,
-          password: password,
-          avatar: currentAvatar.url);
-
-      if (currentAvatar is CustomAvatar) {
-        await avatarRepository.uploadAvatar(
-            avatarModel: currentAvatar, authUser: authUser);
-        AvatarModel updatedAvatar =
-            await avatarRepository.getUrlFromRemoteStorage(
-                avatarModel: currentAvatar, authUser: authUser);
-        authUser = await authRepository.updateAccountDetails(
-            avatar: updatedAvatar.url);
-        authRepository.addAuthUserToStream(authUser);
-      }
+      AuthUserModel authUser =
+          await authRepository.createAccount(email: email, password: password);
+      await avatarRepository.uploadAvatar(
+          avatarModel: avatar, authUser: authUser);
+      AvatarModel updatedAvatar = await avatarRepository
+          .getUrlFromRemoteStorage(avatarModel: avatar, authUser: authUser);
+      authUser = await authRepository.updateAccountDetails(
+          avatar: updatedAvatar.url, newName: displayName);
 
       authRepository.addAuthUserToStream(authUser);
     } on Exception catch (e) {
       emit(SignUpError(
           avatarList: currentAvatarList,
-          avatar: currentAvatar,
+          avatar: avatar,
           authError: AuthError.from(e)));
     }
   }
@@ -108,5 +102,11 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       return newId;
     }
     return currentId;
+  }
+
+  Future<File> _getAvatar(String url) async {
+    final file = await DefaultCacheManager().getSingleFile(url);
+
+    return file;
   }
 }

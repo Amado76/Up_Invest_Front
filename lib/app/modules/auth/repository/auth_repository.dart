@@ -26,11 +26,10 @@ sealed class IAuthRepository {
       String email, String password);
 
   Future<AuthUserModel> signInWithSocialNetwork(String socialNetwork);
-  Future<AuthUserModel> createAccount(
-      {required String email,
-      required String password,
-      required String displayName,
-      required String avatar});
+  Future<AuthUserModel> createAccount({
+    required String email,
+    required String password,
+  });
 
   Future<void> updatePassword({required String newPassword});
   Future<AuthUserModel> updateAccountDetails({String? newName, String? avatar});
@@ -61,13 +60,11 @@ class AuthRepository extends IAuthRepository {
       StreamController<AuthUserModel?>.broadcast();
 
   @override
-  Future<AuthUserModel> createAccount(
-      {required String email,
-      required String password,
-      required String displayName,
-      required String avatar}) async {
-    AuthUserModel authUser =
-        await authGateway.createAccount(email, password, displayName, avatar);
+  Future<AuthUserModel> createAccount({
+    required String email,
+    required String password,
+  }) async {
+    AuthUserModel authUser = await authGateway.createAccount(email, password);
     return authUser;
   }
 

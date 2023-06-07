@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart' show visibleForTesting;
+import 'package:flutter/material.dart';
 import 'package:up_invest_front/app/modules/auth/util/credential_dto.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 
@@ -10,8 +10,7 @@ sealed class IAuthGateway {
   Future<AuthUserModel> signInWithSocialNetwork(
       String socialNetwork, CredentialDTO credentialDTO);
 
-  Future<AuthUserModel> createAccount(
-      String email, String password, String displayName, String avatar);
+  Future<AuthUserModel> createAccount(String email, String password);
 
   Future<AuthUserModel> updateAccountDetails(
       {String? displayName, String? avatar});
@@ -45,11 +44,8 @@ class FireBaseGateway implements IAuthGateway {
   @override
 
   /// Create a new account using e-mail and password
-  Future<AuthUserModel> createAccount(
-      String email, String password, String displayName, String avatar) async {
+  Future<AuthUserModel> createAccount(String email, String password) async {
     await auth.createUserWithEmailAndPassword(email: email, password: password);
-    await updatePhoto(avatar);
-    await updateDisplayName(displayName);
     AuthUserModel authUser = await getLoggedUser();
 
     return authUser;
@@ -200,7 +196,8 @@ class FireBaseGateway implements IAuthGateway {
         email: userCredential.user?.email ?? '',
         token: await userCredential.user?.getIdToken() ?? '',
         displayName: userCredential.user?.displayName ?? '',
-        avatar: userCredential.user?.photoURL ?? 'default',
+        avatar:
+            userCredential.user?.photoURL ?? 'https://i.ibb.co/XXP0Kd5/dog.png',
         signInMethod: userCredential.credential?.signInMethod ?? '',
         isEmailVerified: userCredential.user?.emailVerified ?? false);
     return authUser;
@@ -213,7 +210,7 @@ class FireBaseGateway implements IAuthGateway {
         email: user?.email ?? '',
         token: await user?.getIdToken() ?? '',
         displayName: user?.displayName ?? '',
-        avatar: user?.photoURL ?? 'default',
+        avatar: user?.photoURL ?? 'https://i.ibb.co/XXP0Kd5/dog.png',
         signInMethod: user?.providerData[0].providerId ?? '',
         isEmailVerified: user?.emailVerified ?? false);
     return authUser;

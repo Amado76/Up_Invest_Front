@@ -3,6 +3,7 @@ import 'dart:io' show File;
 import 'package:up_invest_front/app/core/adapter/remote_storage/remote_storage_adapter.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
+import 'package:up_invest_front/app/modules/auth/util/asset_to_file.dart';
 
 sealed class IAvatarRepository {
   final IRemoteStorageAdapter storageAdapter;
@@ -22,7 +23,13 @@ class AvatarRepository extends IAvatarRepository {
   Future<void> uploadAvatar(
       {required AvatarModel avatarModel,
       required AuthUserModel authUser}) async {
-    File file = File(avatarModel.path);
+    late File file;
+    if (avatarModel is StandardAvatar) {
+      file = await getImageFileFromAssets(avatarModel.path);
+    }
+    if (avatarModel is CustomAvatar) {
+      file = File(avatarModel.path);
+    }
     String userId = authUser.userId;
     String fileName = 'avatar.jpg';
 

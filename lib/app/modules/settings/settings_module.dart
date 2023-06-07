@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 import 'package:up_invest_front/app/core/adapter/local_storage_adapter/local_storage_adapter_interface.dart';
+import 'package:up_invest_front/app/modules/settings/page/account_details_page.dart';
 import 'package:up_invest_front/app/modules/settings/page/settings_page.dart';
 import 'package:up_invest_front/app/modules/settings/repository/settings_repository.dart';
 
@@ -21,5 +22,6 @@ class SettingsModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, args) => const SettingsPage()),
+    ChildRoute('/details', child: (_, args) => const AccountDetailsPage()),
   ];
 }

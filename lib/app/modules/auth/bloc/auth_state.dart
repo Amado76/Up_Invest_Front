@@ -8,7 +8,9 @@ sealed class AuthState extends Equatable {
 @immutable
 final class AuthLoggedIn extends AuthState {
   final AuthUserModel authUser;
+  final File avatar;
   const AuthLoggedIn({
+    required this.avatar,
     required this.authUser,
   });
   @override
