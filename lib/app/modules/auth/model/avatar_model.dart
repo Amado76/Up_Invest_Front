@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 sealed class AvatarModel extends Equatable {
-  final int id;
+  final int? id;
   final String path;
   final String url;
 
@@ -16,12 +16,19 @@ class StandardAvatar extends AvatarModel {
   const StandardAvatar(
       {required super.id, required super.path, required super.url});
   @override
-  List<Object> get props => [super.id, super.path, super.url];
+  List<Object?> get props => [super.id, super.path, super.url];
 }
 
 class CustomAvatar extends AvatarModel {
   const CustomAvatar(
       {required super.id, required super.path, required super.url});
   @override
-  List<Object> get props => [super.id, super.path, super.url];
+  List<Object?> get props => [super.id, super.path, super.url];
+}
+
+class NetworkAvatar extends AvatarModel {
+  const NetworkAvatar(
+      {required super.id, required super.path, required super.url});
+  @override
+  List<Object?> get props => [super.id, super.path, super.url];
 }

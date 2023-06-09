@@ -1,11 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
 class AuthUserModel extends Equatable {
   final String userId;
   final String email;
   final String token;
   final String displayName;
-  final String avatar;
+  final AvatarModel avatar;
   final String signInMethod;
   final bool isEmailVerified;
 

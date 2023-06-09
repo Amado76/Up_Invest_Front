@@ -89,7 +89,7 @@ class _SingUpPageState extends State<SingUpPage> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold)),
                         const SizedBox(height: 25),
-                        _ChooseYourAvatarWidget(
+                        _ChooseAvatarWidget(
                           avatar: avatar,
                         ),
                         const SizedBox(height: 10),
@@ -107,19 +107,18 @@ class _SingUpPageState extends State<SingUpPage> {
   }
 }
 
-class _ChooseYourAvatarWidget extends StatefulWidget {
+class _ChooseAvatarWidget extends StatefulWidget {
   final AvatarModel avatar;
-  const _ChooseYourAvatarWidget({
+  const _ChooseAvatarWidget({
     Key? key,
     required this.avatar,
   }) : super(key: key);
 
   @override
-  State<_ChooseYourAvatarWidget> createState() =>
-      _ChooseYourAvatarWidgetState();
+  State<_ChooseAvatarWidget> createState() => _ChooseAvatarWidgetState();
 }
 
-class _ChooseYourAvatarWidgetState extends State<_ChooseYourAvatarWidget> {
+class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 import 'package:up_invest_front/app/modules/auth/util/credential_dto.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 
@@ -181,12 +182,13 @@ class FirebaseAuthAdapter implements IAuthAdapter {
   /// Get the AuthUserModel from a User
   @visibleForTesting
   Future<AuthUserModel> getAuthUserModelFromUser(User? user) async {
+    final String url = user?.photoURL ?? 'https://i.ibb.co/XXP0Kd5/dog.png';
     AuthUserModel authUser = AuthUserModel(
         userId: user?.uid ?? '',
         email: user?.email ?? '',
         token: await user?.getIdToken() ?? '',
         displayName: user?.displayName ?? '',
-        avatar: user?.photoURL ?? 'https://i.ibb.co/XXP0Kd5/dog.png',
+        avatar: NetworkAvatar(id: null, path: url, url: url),
         signInMethod: user?.providerData[0].providerId ?? '',
         isEmailVerified: user?.emailVerified ?? false);
     return authUser;

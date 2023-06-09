@@ -41,6 +41,14 @@ class AvatarList {
 
   Map<int, AvatarModel> get avatars => _avatarList;
 
+  void addNetworkAvatar(String avatarPath) {
+    int id = _avatarList.length + 1;
+    final networkAvatarMap = <int, AvatarModel>{
+      id: NetworkAvatar(id: id, path: avatarPath, url: avatarPath)
+    };
+    _avatarList.addEntries(networkAvatarMap.entries);
+  }
+
   void addCustomAvatar(String avatarPath, String avatarUrl) {
     int id = _avatarList.length + 1;
     final customAvatarMap = <int, AvatarModel>{
@@ -49,59 +57,3 @@ class AvatarList {
     _avatarList.addEntries(customAvatarMap.entries);
   }
 }
-
-
-// class AvatarModel extends Equatable {
-//   final int _id;
-
-//   AvatarModel({required id}) : _id = id;
-
-//   int get id => _id;
-
-//   Map<int, String> get avatarList {
-//     final Map<int, String> mergedAvatarList = {
-//       ..._avatarMap,
-//       ..._customAvatarMap,
-//     };
-//     return mergedAvatarList;
-//   }
-
-//   String get avatarGetUrl =>
-//       _avatarURLMap[_id] ?? 'https://i.ibb.co/prV9mQ0/fox.png';
-
-//   get avatarPath => _avatarMap[_id] ?? 'assets/avatars/fox.png';
-
-//   String? get customAvatarPath => _customAvatarMap[_id];
-
-//   final Map<int, String> _avatarURLMap = {
-//     1: 'https://i.ibb.co/m6NHwyd/kitty.png',
-//     2: 'https://i.ibb.co/XXP0Kd5/dog.png',
-//     3: 'https://i.ibb.co/YWLh289/man.png',
-//     4: 'https://i.ibb.co/WtxRv1F/unicorn.png',
-//     5: 'https://i.ibb.co/mBPMysL/woman.png',
-//     6: 'https://i.ibb.co/1Q0jJMC/crocodile.png',
-//     7: 'https://i.ibb.co/prV9mQ0/fox.png',
-//     8: 'https://i.ibb.co/4S6cYZS/kid.png',
-//   };
-
-//   final Map<int, String> _avatarMap = {
-//     1: 'assets/avatars/kitty.png',
-//     2: 'assets/avatars/dog.png',
-//     3: 'assets/avatars/man.png',
-//     4: 'assets/avatars/unicorn.png',
-//     5: 'assets/avatars/woman.png',
-//     6: 'assets/avatars/crocodile.png',
-//     7: 'assets/avatars/fox.png',
-//     8: 'assets/avatars/kid.png',
-//   };
-
-//   final Map<int, String> _customAvatarMap = {};
-
-//   void addCustomAvatar(String avatarPath) {
-//     final id = _avatarMap.length + 1;
-//     _customAvatarMap[id] = avatarPath;
-//   }
-
-//   @override
-//   List<Object?> get props => [id, _customAvatarMap];
-// }

@@ -45,3 +45,14 @@ final class AuthErrorState extends AuthState {
   @override
   List<Object?> get props => [authError];
 }
+
+extension GetUser on AuthState {
+  AuthUserModel? get authUser {
+    final cls = this;
+    if (cls is AuthLoggedIn) {
+      return cls.authUser;
+    } else {
+      return null;
+    }
+  }
+}

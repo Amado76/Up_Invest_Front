@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
 import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_field.dart';
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       email: '',
       token: 'token',
       displayName: 'displayName',
-      avatar: 'url',
+      avatar: CustomAvatar(id: 9, path: 'path', url: 'url'),
       signInMethod: 'signInMethod',
       isEmailVerified: true,
     );

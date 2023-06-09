@@ -76,7 +76,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   void _onChangeAvatar(String avatarNavigation) {
     AvatarModel currentAvatar = state.avatar;
     AvatarList currentAvatarList = state.avatarList;
-    int currentId = currentAvatar.id;
+    int currentId = currentAvatar.id!;
     int listLength = currentAvatarList.avatars.length;
     int newId = _selectAvatar(avatarNavigation, currentId, listLength);
     AvatarModel newAvatar = currentAvatarList.avatars[newId]!;
