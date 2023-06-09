@@ -244,6 +244,8 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                             if (image == null) {
                               return;
                             }
+                            editDetailsBloc.add(
+                                EditDetailsUploadPhoto(imagePath: image.path));
                           },
                           icon: Icon(
                             Icons.photo,

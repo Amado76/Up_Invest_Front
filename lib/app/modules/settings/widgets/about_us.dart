@@ -22,9 +22,13 @@ class AboutUs extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                      title: Text(
-                        'UpInvest - Quem somos nós!',
-                        style: TextStyle(color: colorScheme.onBackground),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      title: Center(
+                        child: Text(
+                          intlStrings.settingsAboutUs,
+                          style: TextStyle(color: colorScheme.onBackground),
+                        ),
                       ),
                       content: const AboutMeText()));
             },
@@ -56,6 +60,13 @@ class _AboutMeTextState extends State<AboutMeText> {
     return SingleChildScrollView(
       child: Column(
         children: [
+          Divider(
+            height: 1,
+            color: colorScheme.outline,
+          ),
+          const SizedBox(
+            height: 18,
+          ),
           Text(
             intlStrings.aboutUsTextOne,
             style: TextStyle(color: colorScheme.onBackground),
