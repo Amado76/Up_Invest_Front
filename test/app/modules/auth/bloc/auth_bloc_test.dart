@@ -15,7 +15,7 @@ import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart
 import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
-import '../../../../mocks/auth/gateway/auth_gateway_mock.dart';
+import '../../../../mocks/auth/adapter/auth_adapter_mock.dart';
 import '../../../../mocks/auth/model/auth_user_model_mock.dart';
 import '../../../../mocks/auth/repository/auth_repository_mock.dart';
 import '../../../../mocks/core/adapter/cache_adapter_mock.dart';
@@ -31,7 +31,7 @@ void main() async {
     late ICacheAdapter cacheAdapterMock;
     late File fileMock;
     setUp(() {
-      authRepositoryMock = AuthRepositoryMock(authGateway: AuthGatewayMock());
+      authRepositoryMock = AuthRepositoryMock(authAdapter: AuthAdapterMock());
       cacheAdapterMock = CacheAdapterMock();
       authBloc = AuthBloc(
           authRepository: authRepositoryMock, cacheAdapter: cacheAdapterMock);

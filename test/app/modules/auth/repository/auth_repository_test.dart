@@ -5,22 +5,22 @@ import 'package:mocktail/mocktail.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
 
-import '../../../../mocks/auth/gateway/auth_gateway_mock.dart';
-import '../../../../mocks/auth/gateway/auth_social_network_gateway_mock.dart';
+import '../../../../mocks/auth/adapter/auth_adapter_mock.dart';
+import '../../../../mocks/auth/adapter/auth_social_network_adapter_mock.dart';
 import '../../../../mocks/auth/model/auth_user_model_mock.dart';
 import '../../../../mocks/core/adapter/remote_storage_mock.dart';
-import '../gateway/auth_gateway_interface_test.dart';
+import '../adapter/auth_adapter_interface_test.dart';
 
 class MockStreamController<T> extends Mock implements StreamController<T> {}
 
 void main() async {
   group('[AuthRepository]', () {
-    final authGatewayMock = AuthGatewayMock();
-    final authSocialNetworkGateway = AuthSocialNetworkGatewayMock();
+    final authAdapterMock = AuthAdapterMock();
+    final authSocialNetworkAdapter = AuthSocialNetworkAdapterMock();
     final remoteStorageAdapter = RemoteStorageAdapterMock();
     final authRepository = AuthRepository(
-        authGateway: authGatewayMock,
-        authSocialNetworkGateway: authSocialNetworkGateway,
+        authAdapter: authAdapterMock,
+        authSocialNetworkAdapter: authSocialNetworkAdapter,
         remoteStorageAdapter: remoteStorageAdapter);
 
     test('test stream', () {
@@ -53,7 +53,7 @@ void main() async {
     group('[signInWithSocialNetwork]', () {
       test('should return an [AuthUser] when logging with [google]', () async {
         //Arrange
-        when(() => authSocialNetworkGateway.getCredential('google'))
+        when(() => authSocialNetworkAdapter.getCredential('google'))
             .thenAnswer((_) async => CredentialDTOMock());
 
         //Act
@@ -65,22 +65,22 @@ void main() async {
     });
     group('deleteUser', () {
       test(
-          'should call authGateway.deleteUser',
+          'should call authAdapter.deleteUser',
           () async => {
                 //Arrange
-                when(() => authGatewayMock.deleteUser())
+                when(() => authAdapterMock.deleteUser())
                     .thenAnswer((_) => Future.value()),
 
                 //Act
                 await authRepository.deleteUser(),
 
                 //Assert
-                verify(() => authGatewayMock.deleteUser()).called(1)
+                verify(() => authAdapterMock.deleteUser()).called(1)
               });
     });
     group('[deleteUserAllData]', () {
       test(
-          'should call [authGateway.deleteUser]',
+          'should call [authAdapter.deleteUser]',
           () async => {
                 //Arrange
                 when(() => remoteStorageAdapter.deleteAllData(
@@ -98,59 +98,59 @@ void main() async {
     });
     group('isUserSignedIn', () {
       test(
-          'should call authGateway.isUserSignedIn',
+          'should call authAdapter.isUserSignedIn',
           () async => {
                 //Arrange
-                when(() => authGatewayMock.isUserSignedIn())
+                when(() => authAdapterMock.isUserSignedIn())
                     .thenAnswer((_) async => true),
 
                 //Act
                 await authRepository.isUserSignedIn(),
 
                 //Assert
-                verify(() => authGatewayMock.isUserSignedIn()).called(1)
+                verify(() => authAdapterMock.isUserSignedIn()).called(1)
               });
     });
     group('sendPasswordResetEmail', () {
       test(
-          'should call authGateway.sendPasswordResetEmail',
+          'should call authAdapter.sendPasswordResetEmail',
           () async => {
                 //Arrange
-                when(() => authGatewayMock.sendPasswordResetEmail('email'))
+                when(() => authAdapterMock.sendPasswordResetEmail('email'))
                     .thenAnswer((_) => Future.value()),
 
                 //Act
                 await authRepository.sendPasswordResetEmail('email'),
 
                 //Assert
-                verify(() => authGatewayMock.sendPasswordResetEmail('email'))
+                verify(() => authAdapterMock.sendPasswordResetEmail('email'))
                     .called(1)
               });
     });
     group('signOut', () {
       test(
-          'should call authGateway.signOut',
+          'should call authAdapter.signOut',
           () async => {
                 //Arrange
-                when(() => authGatewayMock.signOut())
+                when(() => authAdapterMock.signOut())
                     .thenAnswer((_) => Future.value()),
 
                 //Act
                 await authRepository.signOut(),
 
                 //Assert
-                verify(() => authGatewayMock.signOut()).called(1)
+                verify(() => authAdapterMock.signOut()).called(1)
               });
     });
     group('updatePhoto', () {
       test(
-          'should call authGateway.updatePhoto',
+          'should call authAdapter.updatePhoto',
           () async => {
                 //Arrange
-                when(() => authGatewayMock.updatePhoto('avatar'))
+                when(() => authAdapterMock.updatePhoto('avatar'))
                     .thenAnswer((_) => Future.value()),
                 when(() =>
-                        authGatewayMock.updateAccountDetails(avatar: 'avatar'))
+                        authAdapterMock.updateAccountDetails(avatar: 'avatar'))
                     .thenAnswer((invocation) async => AuthUserModelMock()),
 
                 //Act
@@ -158,54 +158,54 @@ void main() async {
 
                 //Assert
                 verify(() =>
-                        authGatewayMock.updateAccountDetails(avatar: 'avatar'))
+                        authAdapterMock.updateAccountDetails(avatar: 'avatar'))
                     .called(1)
               });
     });
     group('updatePassword', () {
       test(
-          'should call authGateway.updatePassword',
+          'should call authAdapter.updatePassword',
           () async => {
                 //Arrange
-                when(() => authGatewayMock.updatePassword('newPassword'))
+                when(() => authAdapterMock.updatePassword('newPassword'))
                     .thenAnswer((_) => Future.value()),
 
                 //Act
                 await authRepository.updatePassword(newPassword: 'newPassword'),
 
                 //Assert
-                verify(() => authGatewayMock.updatePassword('newPassword'))
+                verify(() => authAdapterMock.updatePassword('newPassword'))
                     .called(1)
               });
     });
     group('getLoggedUser', () {
       test(
-          'should call authGateway.getLoggedUser',
+          'should call authAdapter.getLoggedUser',
           () async => {
                 //Arrange
-                when(() => authGatewayMock.getLoggedUser())
+                when(() => authAdapterMock.getLoggedUser())
                     .thenAnswer((_) async => AuthUserModelMock()),
 
                 //Act
                 await authRepository.getLoggedUser(),
 
                 //Assert
-                verify(() => authGatewayMock.getLoggedUser()).called(1)
+                verify(() => authAdapterMock.getLoggedUser()).called(1)
               });
     });
     group('reauthenticateAUser', () {
       test(
-          'should call authGateway.reauthenticateAUser',
+          'should call authAdapter.reauthenticateAUser',
           () async => {
                 //Arrange
-                when(() => authGatewayMock.reauthenticateAUser(
+                when(() => authAdapterMock.reauthenticateAUser(
                     'email', 'password')).thenAnswer((_) => Future.value()),
 
                 //Act
                 await authRepository.reauthenticateAUser('email', 'password'),
 
                 //Assert
-                verify(() => authGatewayMock.reauthenticateAUser(
+                verify(() => authAdapterMock.reauthenticateAUser(
                     'email', 'password')).called(1)
               });
     });

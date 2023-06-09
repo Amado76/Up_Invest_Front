@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:up_invest_front/app/modules/auth/util/credential_dto.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 
-sealed class IAuthGateway {
+sealed class IAuthAdapter {
   Future<AuthUserModel> signInWithEmailAndPassword(
       String email, String password);
 
@@ -34,16 +34,14 @@ sealed class IAuthGateway {
   Future<void> reauthenticateAUser(String email, String password);
 }
 
-class FireBaseGateway implements IAuthGateway {
+class FirebaseAuthAdapter implements IAuthAdapter {
   FirebaseAuth auth;
 
-  FireBaseGateway({
+  FirebaseAuthAdapter({
     required this.auth,
   });
 
   @override
-
-  /// Create a new account using e-mail and password
   Future<AuthUserModel> createAccount(String email, String password) async {
     await auth.createUserWithEmailAndPassword(email: email, password: password);
     AuthUserModel authUser = await getLoggedUser();
@@ -52,18 +50,16 @@ class FireBaseGateway implements IAuthGateway {
   }
 
   @override
-
-  /// Sing In usigin the e-mail and password method
   Future<AuthUserModel> signInWithEmailAndPassword(
       String email, String password) async {
     UserCredential userCredential =
         await auth.signInWithEmailAndPassword(email: email, password: password);
     AuthUserModel authUserModel =
-        await geAuthtUserModelFromUserCredential(userCredential);
+        await getAuthUserModelFromUser(userCredential.user);
     return authUserModel;
   }
 
-  /// Sign in using a social network method. The gateway will select the right social network to use.
+  /// Sign in using a social network method. The adapter will select the right social network to use.
   ///
   /// Parameters:
   /// - socialNetwork: The social network to sign in with ('facebook' or 'google').
@@ -83,7 +79,6 @@ class FireBaseGateway implements IAuthGateway {
     }
   }
 
-  /// Specific rules to sing in with Facebook
   @visibleForTesting
   Future<AuthUserModel> signInWithFacebook(CredentialDTO credentialDTO) async {
     final OAuthCredential facebookAuthCredential;
@@ -91,10 +86,9 @@ class FireBaseGateway implements IAuthGateway {
         FacebookAuthProvider.credential(credentialDTO.acessToken);
     UserCredential userCredential =
         await auth.signInWithCredential(facebookAuthCredential);
-    return await geAuthtUserModelFromUserCredential(userCredential);
+    return await getAuthUserModelFromUser(userCredential.user);
   }
 
-  /// Specific rules to sing in with Google
   @visibleForTesting
   Future<AuthUserModel> signInWithGoogle(CredentialDTO credentialDTO) async {
     final OAuthCredential googleAuthCredential;
@@ -102,7 +96,7 @@ class FireBaseGateway implements IAuthGateway {
         accessToken: credentialDTO.acessToken, idToken: credentialDTO.idToken);
     UserCredential userCredential =
         await auth.signInWithCredential(googleAuthCredential);
-    return await geAuthtUserModelFromUserCredential(userCredential);
+    return await getAuthUserModelFromUser(userCredential.user);
   }
 
   /// Delete and logout the user, this method requires a recent login for security.
@@ -138,7 +132,6 @@ class FireBaseGateway implements IAuthGateway {
     await auth.signOut();
   }
 
-  /// Update the username, if it doesn't return any exception, it was successful.
   @override
   Future<AuthUserModel> updateAccountDetails(
       {String? displayName, String? avatar}) async {
@@ -158,7 +151,6 @@ class FireBaseGateway implements IAuthGateway {
     await auth.currentUser!.updateDisplayName(newDisplayName);
   }
 
-  /// Update the Avatar Picture, if it doesn't return any exception, it was successful.
   @override
   Future<void> updatePhoto(String newAvatar) async {
     await auth.currentUser!.updatePhotoURL(newAvatar);
@@ -170,8 +162,7 @@ class FireBaseGateway implements IAuthGateway {
     await auth.currentUser?.updatePassword(newPassword);
   }
 
-  /// Re Authenticate the user to generate a recent login
-
+  /// ReAuthenticate the user to generate a recent login
   @override
   Future<void> reauthenticateAUser(String email, String password) async {
     AuthCredential credential =
@@ -187,22 +178,7 @@ class FireBaseGateway implements IAuthGateway {
     return authUserModel;
   }
 
-  /// Convert the UserCredential (Firebase Object) to AuthUserModel
-  @visibleForTesting
-  Future<AuthUserModel> geAuthtUserModelFromUserCredential(
-      UserCredential userCredential) async {
-    AuthUserModel authUser = AuthUserModel(
-        userId: userCredential.user?.uid ?? '',
-        email: userCredential.user?.email ?? '',
-        token: await userCredential.user?.getIdToken() ?? '',
-        displayName: userCredential.user?.displayName ?? '',
-        avatar:
-            userCredential.user?.photoURL ?? 'https://i.ibb.co/XXP0Kd5/dog.png',
-        signInMethod: userCredential.credential?.signInMethod ?? '',
-        isEmailVerified: userCredential.user?.emailVerified ?? false);
-    return authUser;
-  }
-
+  /// Get the AuthUserModel from a User
   @visibleForTesting
   Future<AuthUserModel> getAuthUserModelFromUser(User? user) async {
     AuthUserModel authUser = AuthUserModel(

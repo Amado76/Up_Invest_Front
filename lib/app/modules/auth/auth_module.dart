@@ -7,8 +7,8 @@ import 'package:up_invest_front/app/core/adapter/remote_storage/remote_storage_a
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/recovery_password/recover_password_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/sign_up/sign_up_bloc.dart';
-import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
-import 'package:up_invest_front/app/modules/auth/gateway/auth_social_network_gateway_interface.dart';
+import 'package:up_invest_front/app/modules/auth/adapter/auth_adapter_interface.dart';
+import 'package:up_invest_front/app/modules/auth/adapter/auth_social_network_adapter_interface.dart';
 import 'package:up_invest_front/app/modules/auth/pages/recover_password_page.dart';
 import 'package:up_invest_front/app/modules/auth/pages/sign_in_page.dart';
 import 'package:up_invest_front/app/modules/auth/pages/sign_up_page.dart';
@@ -23,15 +23,15 @@ class AuthModule extends Module {
         export: true),
     Bind.singleton<IAuthRepository>(
         (i) => AuthRepository(
-            authGateway: i.get<IAuthGateway>(),
-            authSocialNetworkGateway: i.get<IAuthSocialNetworkGateway>(),
+            authAdapter: i.get<IAuthAdapter>(),
+            authSocialNetworkAdapter: i.get<IAuthSocialNetworkAdapter>(),
             remoteStorageAdapter: i.get<IRemoteStorageAdapter>()),
         export: true),
-    Bind.singleton<IAuthSocialNetworkGateway>(
-        (i) => SocialNetworkGateway(googleSignIn: i.get<GoogleSignIn>()),
+    Bind.singleton<IAuthSocialNetworkAdapter>(
+        (i) => SocialNetworkAdapter(googleSignIn: i.get<GoogleSignIn>()),
         export: true),
-    Bind.singleton<IAuthGateway>(
-        (i) => FireBaseGateway(auth: i.get<FirebaseAuth>()),
+    Bind.singleton<IAuthAdapter>(
+        (i) => FirebaseAuthAdapter(auth: i.get<FirebaseAuth>()),
         export: true),
     Bind.factory<GoogleSignIn>((i) => GoogleSignIn(), export: true),
     BlocBind.singleton(

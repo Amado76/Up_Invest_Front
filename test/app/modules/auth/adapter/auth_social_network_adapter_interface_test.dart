@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:up_invest_front/app/modules/auth/gateway/auth_social_network_gateway_interface.dart';
+import 'package:up_invest_front/app/modules/auth/adapter/auth_social_network_adapter_interface.dart';
 import 'package:up_invest_front/app/modules/auth/util/credential_dto.dart';
 
 import '../../../../mocks/auth/google_sign_in/google_sign_in_mocks.dart';
 
 void main() async {
-  late SocialNetworkGateway socialNetworkGateway;
+  late SocialNetworkAdapter authSocialNetworkAdapter;
   late CredentialDTO credentialDTO;
   WidgetsFlutterBinding.ensureInitialized();
 
-  group('[SocialNetworkGateway]', () {
-    setUp(() => socialNetworkGateway =
-        SocialNetworkGateway(googleSignIn: GoogleSignInMock()));
+  group('[SocialNetworkAdapter]', () {
+    setUp(() => authSocialNetworkAdapter =
+        SocialNetworkAdapter(googleSignIn: GoogleSignInMock()));
     group('[getCredential]', () {
       setUp(() {});
       test(
@@ -22,7 +22,7 @@ void main() async {
 
                 //Act
                 credentialDTO =
-                    await socialNetworkGateway.getCredential('google'),
+                    await authSocialNetworkAdapter.getCredential('google'),
                 //Assert
                 expect(credentialDTO.acessToken, 'test'),
                 expect(credentialDTO.idToken, 'idToken'),
@@ -31,7 +31,7 @@ void main() async {
           'when receive a invalid[socialNetwork] ',
           () async => {
                 //Act and Assert
-                expect(() => socialNetworkGateway.getCredential(''),
+                expect(() => authSocialNetworkAdapter.getCredential(''),
                     throwsException)
               });
     });

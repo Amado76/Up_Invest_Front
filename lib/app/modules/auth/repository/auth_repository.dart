@@ -2,22 +2,22 @@ import 'dart:async';
 
 import 'package:flutter/material.dart' show visibleForTesting;
 import 'package:up_invest_front/app/core/adapter/remote_storage/remote_storage_adapter.dart';
-import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
-import 'package:up_invest_front/app/modules/auth/gateway/auth_social_network_gateway_interface.dart';
+import 'package:up_invest_front/app/modules/auth/adapter/auth_adapter_interface.dart';
+import 'package:up_invest_front/app/modules/auth/adapter/auth_social_network_adapter_interface.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 
 import '../util/credential_dto.dart';
 
 sealed class IAuthRepository {
-  final IAuthGateway authGateway;
+  final IAuthAdapter authAdapter;
 
-  final IAuthSocialNetworkGateway authSocialNetworkGateway;
+  final IAuthSocialNetworkAdapter authSocialNetworkAdapter;
 
   final IRemoteStorageAdapter remoteStorageAdapter;
 
   IAuthRepository(
-      {required this.authSocialNetworkGateway,
-      required this.authGateway,
+      {required this.authSocialNetworkAdapter,
+      required this.authAdapter,
       required this.remoteStorageAdapter});
 
   void addAuthUserToStream(AuthUserModel? authUserModel);
@@ -44,8 +44,8 @@ sealed class IAuthRepository {
 
 class AuthRepository extends IAuthRepository {
   AuthRepository(
-      {required super.authSocialNetworkGateway,
-      required super.authGateway,
+      {required super.authSocialNetworkAdapter,
+      required super.authAdapter,
       required super.remoteStorageAdapter});
 
   @override
@@ -64,14 +64,14 @@ class AuthRepository extends IAuthRepository {
     required String email,
     required String password,
   }) async {
-    AuthUserModel authUser = await authGateway.createAccount(email, password);
+    AuthUserModel authUser = await authAdapter.createAccount(email, password);
     return authUser;
   }
 
   @override
   Future<AuthUserModel> updateAccountDetails(
       {String? newName, String? avatar}) async {
-    AuthUserModel authUser = await authGateway.updateAccountDetails(
+    AuthUserModel authUser = await authAdapter.updateAccountDetails(
         displayName: newName, avatar: avatar);
 
     return authUser;
@@ -79,7 +79,7 @@ class AuthRepository extends IAuthRepository {
 
   @override
   Future<void> deleteUser() async {
-    authGateway.deleteUser();
+    authAdapter.deleteUser();
   }
 
   @override
@@ -89,19 +89,19 @@ class AuthRepository extends IAuthRepository {
 
   @override
   Future<bool> isUserSignedIn() async {
-    return await authGateway.isUserSignedIn();
+    return await authAdapter.isUserSignedIn();
   }
 
   @override
   Future<void> sendPasswordResetEmail(String email) async {
-    await authGateway.sendPasswordResetEmail(email);
+    await authAdapter.sendPasswordResetEmail(email);
   }
 
   @override
   Future<AuthUserModel> signInWithEmailAndPassword(
       String email, String password) async {
     AuthUserModel user =
-        await authGateway.signInWithEmailAndPassword(email, password);
+        await authAdapter.signInWithEmailAndPassword(email, password);
     return user;
   }
 
@@ -112,35 +112,35 @@ class AuthRepository extends IAuthRepository {
 
     credential = await getGoogleCredential();
     authUser =
-        await authGateway.signInWithSocialNetwork(socialNetwork, credential);
+        await authAdapter.signInWithSocialNetwork(socialNetwork, credential);
 
     return authUser;
   }
 
   Future<CredentialDTO> getGoogleCredential() async {
     final CredentialDTO googleCredential;
-    googleCredential = await authSocialNetworkGateway.getCredential('google');
+    googleCredential = await authSocialNetworkAdapter.getCredential('google');
     return googleCredential;
   }
 
   @override
   Future<void> signOut() async {
-    authGateway.signOut();
+    authAdapter.signOut();
   }
 
   @override
   @visibleForTesting
   Future<void> updatePassword({required String newPassword}) async {
-    await authGateway.updatePassword(newPassword);
+    await authAdapter.updatePassword(newPassword);
   }
 
   @override
   Future<AuthUserModel> getLoggedUser() async {
-    return await authGateway.getLoggedUser();
+    return await authAdapter.getLoggedUser();
   }
 
   @override
   Future<void> reauthenticateAUser(String email, String password) async {
-    await authGateway.reauthenticateAUser(email, password);
+    await authAdapter.reauthenticateAUser(email, password);
   }
 }

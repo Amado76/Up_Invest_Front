@@ -10,7 +10,7 @@ import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';
 
-import '../../../../../mocks/auth/gateway/auth_gateway_mock.dart';
+import '../../../../../mocks/auth/adapter/auth_adapter_mock.dart';
 import '../../../../../mocks/auth/repository/auth_repository_mock.dart';
 
 void main() async {
@@ -19,7 +19,7 @@ void main() async {
   late RecoverPasswordBloc recoverPasswordBloc;
 
   setUp(() {
-    authRepositoryMock = AuthRepositoryMock(authGateway: AuthGatewayMock());
+    authRepositoryMock = AuthRepositoryMock(authAdapter: AuthAdapterMock());
     recoverPasswordBloc =
         RecoverPasswordBloc(authRepository: authRepositoryMock);
   });

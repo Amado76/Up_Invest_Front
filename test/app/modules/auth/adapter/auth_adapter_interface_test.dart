@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:up_invest_front/app/modules/auth/gateway/auth_gateway_interface.dart';
+import 'package:up_invest_front/app/modules/auth/adapter/auth_adapter_interface.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/util/credential_dto.dart';
 import '../../../../mocks/auth/firebase/firebase_auth_mocks.dart';
@@ -9,31 +9,31 @@ import '../../../../mocks/auth/firebase/firebase_auth_mocks.dart';
 class CredentialDTOMock extends Mock implements CredentialDTO {}
 
 Future<void> main() async {
-  group('[AuthGateway]', () {
+  group('[AuthAdapter]', () {
     late UserMock userMock;
     late FirebaseAuthMock firebaseAuthMock;
     late UserCredentialMock userCredentialMock;
-    late FireBaseGateway firebaseGateway;
+    late FirebaseAuthAdapter firebaseAdapter;
 
     setUp(() {
       userMock = UserMock();
       firebaseAuthMock = FirebaseAuthMock();
       userCredentialMock = UserCredentialMock();
-      firebaseGateway = FireBaseGateway(auth: firebaseAuthMock);
+      firebaseAdapter = FirebaseAuthAdapter(auth: firebaseAuthMock);
 
       when(() => firebaseAuthMock.currentUser!).thenReturn(userMock);
     });
 
-    group('IAuthGateway', () {
+    group('IAuthAdapter', () {
       test('should initialize with the provided auth', () {
         // Arrange
         FirebaseAuthMock auth = FirebaseAuthMock();
 
         // Act
-        final authGateway = FireBaseGateway(auth: auth);
+        final authAdapter = FirebaseAuthAdapter(auth: auth);
 
         // Assert
-        expect(authGateway.auth, equals(auth));
+        expect(authAdapter.auth, equals(auth));
       });
     });
 
@@ -47,7 +47,7 @@ Future<void> main() async {
 
         //Act
         AuthUserModel newAccount =
-            await firebaseGateway.createAccount('email', 'password');
+            await firebaseAdapter.createAccount('email', 'password');
 
         //Assert
         expect(newAccount, const TypeMatcher<AuthUserModel>());
@@ -64,7 +64,7 @@ Future<void> main() async {
             password: 'password')).thenAnswer((_) async => userCredentialMock);
 
         //Act
-        AuthUserModel signInWithEmailAndPassword = await firebaseGateway
+        AuthUserModel signInWithEmailAndPassword = await firebaseAdapter
             .signInWithEmailAndPassword('email', 'password');
 
         //Assert
@@ -78,7 +78,7 @@ Future<void> main() async {
           () async {
         //Act
         AuthUserModel signInWithGoogle =
-            await firebaseGateway.signInWithSocialNetwork(
+            await firebaseAdapter.signInWithSocialNetwork(
                 'google', CredentialDTO(acessToken: 'acessToken', idToken: ''));
 
         //Assert
@@ -90,7 +90,7 @@ Future<void> main() async {
           () async {
         //Act
         AuthUserModel signInWithGoogle =
-            await firebaseGateway.signInWithSocialNetwork(
+            await firebaseAdapter.signInWithSocialNetwork(
                 'facebook', CredentialDTO(acessToken: 'acessToken'));
 
         //Assert
@@ -102,7 +102,7 @@ Future<void> main() async {
           () async {
         //Act
         try {
-          await firebaseGateway.signInWithSocialNetwork(
+          await firebaseAdapter.signInWithSocialNetwork(
               'orkut', CredentialDTO(acessToken: 'acessToken'));
         } catch (e) {
           //Assert
@@ -116,7 +116,7 @@ Future<void> main() async {
           'should return an [AuthUserModel] after requesting the [logged-in user]',
           () async {
         //Act
-        AuthUserModel signedInUser = await firebaseGateway.getLoggedUser();
+        AuthUserModel signedInUser = await firebaseAdapter.getLoggedUser();
 
         //Assert
         expect(signedInUser, const TypeMatcher<AuthUserModel>());
@@ -129,7 +129,7 @@ Future<void> main() async {
         when(() => firebaseAuthMock.authStateChanges())
             .thenAnswer((_) => Stream.fromIterable([null]));
         //Act
-        bool isSignedIn = await firebaseGateway.isUserSignedIn();
+        bool isSignedIn = await firebaseAdapter.isUserSignedIn();
         //Assert
         expect(isSignedIn, false);
       });
@@ -141,19 +141,18 @@ Future<void> main() async {
             .thenAnswer((_) => Stream.fromIterable([null]));
 
         //Act
-        isSignedIn = await firebaseGateway.isUserSignedIn();
+        isSignedIn = await firebaseAdapter.isUserSignedIn();
         //Assert
         expect(isSignedIn, false);
       });
 
       test('should return [true] when the user is logged', () async {
         //Arrange
-
         when(() => firebaseAuthMock.authStateChanges())
             .thenAnswer((_) => Stream.fromIterable([userMock]));
 
         //Act
-        bool isSignedIn = await firebaseGateway.isUserSignedIn();
+        bool isSignedIn = await firebaseAdapter.isUserSignedIn();
         //Assert
         expect(isSignedIn, true);
       });
@@ -162,12 +161,10 @@ Future<void> main() async {
     group('[deleteUser]', () {
       test('should call [FirebaseAuth.currentuser!.delete()', () async {
         //Assert
-
         when(() => userMock.delete()).thenAnswer((_) => Future.value());
         //Act
-        firebaseGateway.deleteUser();
+        firebaseAdapter.deleteUser();
         //Assert
-
         verify(() => userMock.delete()).called(1);
       });
     });
@@ -178,7 +175,7 @@ Future<void> main() async {
         when(() => firebaseAuthMock.sendPasswordResetEmail(email: 'email'))
             .thenAnswer((_) => Future.value());
         //Act
-        firebaseGateway.sendPasswordResetEmail('email');
+        firebaseAdapter.sendPasswordResetEmail('email');
         //Assert
 
         verify(() => firebaseAuthMock.sendPasswordResetEmail(email: 'email'))
@@ -192,7 +189,7 @@ Future<void> main() async {
         when(() => firebaseAuthMock.signOut())
             .thenAnswer((_) => Future.value());
         //Act
-        firebaseGateway.signOut();
+        firebaseAdapter.signOut();
         //Assert
 
         verify(() => firebaseAuthMock.signOut()).called(1);
@@ -205,7 +202,7 @@ Future<void> main() async {
         when(() => userMock.updatePassword('new'))
             .thenAnswer((_) => Future.value());
         //Act
-        firebaseGateway.updatePassword('new');
+        firebaseAdapter.updatePassword('new');
         //Assert
 
         verify(() => firebaseAuthMock.currentUser!.updatePassword('new'))
@@ -221,7 +218,7 @@ Future<void> main() async {
         when(() => userMock.reauthenticateWithCredential(any()))
             .thenAnswer((_) async => userCredentialMock);
         //Act
-        firebaseGateway.reauthenticateAUser('password', 'email');
+        firebaseAdapter.reauthenticateAUser('password', 'email');
         //Assert
 
         verify(() => userMock.reauthenticateWithCredential(any())).called(1);
@@ -237,7 +234,7 @@ Future<void> main() async {
         when(() => firebaseAuthMock.currentUser).thenAnswer((_) => UserMock());
         //Act
         AuthUserModel authUser =
-            await firebaseGateway.updateAccountDetails(avatar: 'photoURL');
+            await firebaseAdapter.updateAccountDetails(avatar: 'photoURL');
         //Assert
 
         verify(() => firebaseAuthMock.currentUser!.updatePhotoURL(any()))
@@ -256,7 +253,7 @@ Future<void> main() async {
         when(() => firebaseAuthMock.currentUser).thenAnswer((_) => UserMock());
         //Act
         AuthUserModel authUser =
-            await firebaseGateway.updateAccountDetails(displayName: 'name');
+            await firebaseAdapter.updateAccountDetails(displayName: 'name');
         //Assert
 
         verify(() => firebaseAuthMock.currentUser!.updateDisplayName(any()))

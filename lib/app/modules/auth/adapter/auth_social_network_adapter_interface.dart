@@ -1,12 +1,12 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:up_invest_front/app/modules/auth/util/credential_dto.dart';
 
-sealed class IAuthSocialNetworkGateway {
+sealed class IAuthSocialNetworkAdapter {
   Future<CredentialDTO> getCredential(String socialNetwork);
 }
 
-class SocialNetworkGateway extends IAuthSocialNetworkGateway {
-  SocialNetworkGateway({required this.googleSignIn});
+class SocialNetworkAdapter extends IAuthSocialNetworkAdapter {
+  SocialNetworkAdapter({required this.googleSignIn});
   final GoogleSignIn googleSignIn;
 
   @override

@@ -14,7 +14,7 @@ import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart
 import 'package:up_invest_front/app/modules/auth/repository/avatar_model_repository.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 
-import '../../../../../mocks/auth/gateway/auth_gateway_mock.dart';
+import '../../../../../mocks/auth/adapter/auth_adapter_mock.dart';
 import '../../../../../mocks/auth/model/auth_user_model_mock.dart';
 import '../../../../../mocks/auth/repository/auth_repository_mock.dart';
 import '../../../../../mocks/auth/repository/avatar_repository_mock.dart';
@@ -32,7 +32,7 @@ void main() async {
     late IAvatarRepository avatarRepository;
 
     setUp(() {
-      authRepositoryMock = AuthRepositoryMock(authGateway: AuthGatewayMock());
+      authRepositoryMock = AuthRepositoryMock(authAdapter: AuthAdapterMock());
       authUserMock = AuthUserModelMock();
       avatarRepository =
           AvatarRepositoryMock(storageAdapter: RemoteStorageAdapterMock());
