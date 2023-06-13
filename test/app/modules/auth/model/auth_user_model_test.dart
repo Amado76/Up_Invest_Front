@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
+import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
 void main() {
   group('AuthUserModel', () {
@@ -7,7 +8,10 @@ void main() {
     String email = 'mock-email';
     String token = 'mock-token';
     String displayName = 'mock-displayName';
-    String avatar = 'mock-avatar';
+    AvatarModel avatar = const StandardAvatar(
+        id: 1,
+        path: 'assets/avatars/kitty.png',
+        url: 'https://i.ibb.co/m6NHwyd/kitty.png');
     String signInMethod = 'signInMethod-token';
     bool isEmailVerified = true;
     test('supports value comparisons', () {

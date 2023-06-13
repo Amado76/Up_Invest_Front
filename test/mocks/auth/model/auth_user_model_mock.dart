@@ -1,5 +1,6 @@
 import 'package:mocktail/mocktail.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
+import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
 class AuthUserModelMock extends Mock implements AuthUserModel {
   @override
@@ -11,7 +12,10 @@ class AuthUserModelMock extends Mock implements AuthUserModel {
   @override
   String get displayName => 'Chandler Bing';
   @override
-  String get avatar => 'https://i.ibb.co/m6NHwyd/kitty.png';
+  AvatarModel get avatar => const StandardAvatar(
+      id: 1,
+      path: 'assets/avatars/kitty.png',
+      url: 'https://i.ibb.co/m6NHwyd/kitty.png');
   @override
   String get signInMethod => 'facebook';
   @override
