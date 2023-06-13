@@ -134,14 +134,22 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
           children: [
             if (widget.avatar is StandardAvatar)
               CircleAvatar(
-                  backgroundColor: colorScheme.tertiary,
-                  radius: 90,
-                  backgroundImage: AssetImage(widget.avatar.path)),
+                radius: 92,
+                backgroundColor: colorScheme.tertiary,
+                child: CircleAvatar(
+                    backgroundColor: colorScheme.tertiary,
+                    radius: 90,
+                    backgroundImage: AssetImage(widget.avatar.path)),
+              ),
             if (widget.avatar is CustomAvatar)
               CircleAvatar(
-                  backgroundColor: colorScheme.tertiary,
-                  radius: 90,
-                  backgroundImage: FileImage(File(widget.avatar.path))),
+                radius: 92,
+                backgroundColor: colorScheme.tertiary,
+                child: CircleAvatar(
+                    backgroundColor: colorScheme.tertiary,
+                    radius: 90,
+                    backgroundImage: FileImage(File(widget.avatar.path))),
+              ),
             Positioned(
               left: 130,
               child: Container(

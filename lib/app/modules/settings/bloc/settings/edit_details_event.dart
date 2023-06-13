@@ -2,9 +2,6 @@ part of 'edit_details_bloc.dart';
 
 sealed class EditDetailsEvent extends Equatable {
   const EditDetailsEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
 @immutable

@@ -6,9 +6,6 @@ sealed class EditDetailsState extends Equatable {
   final AuthUserModel authUser;
   const EditDetailsState(
       {required this.avatar, required this.avatarList, required this.authUser});
-
-  @override
-  List<Object> get props => [];
 }
 
 @immutable

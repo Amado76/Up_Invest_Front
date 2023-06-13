@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'avatar_model.dart';
 
-class AvatarList {
+class AvatarList extends Equatable {
   final Map<int, AvatarModel> _avatarList;
 
   AvatarList()
@@ -56,4 +58,7 @@ class AvatarList {
     };
     _avatarList.addEntries(customAvatarMap.entries);
   }
+
+  @override
+  List<Object?> get props => [_avatarList];
 }

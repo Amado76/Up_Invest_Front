@@ -14,9 +14,13 @@ class UserProfileCard extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-            backgroundColor: colorScheme.tertiary,
-            radius: 50,
-            backgroundImage: FileImage(currentAuthState.avatar)),
+          radius: 51,
+          backgroundColor: colorScheme.tertiary,
+          child: CircleAvatar(
+              backgroundColor: colorScheme.tertiary,
+              radius: 50,
+              backgroundImage: FileImage(currentAuthState.avatar)),
+        ),
         const SizedBox(width: 10),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
