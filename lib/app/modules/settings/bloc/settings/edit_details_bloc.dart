@@ -8,6 +8,7 @@ import 'package:up_invest_front/app/modules/auth/model/avatar_list.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
+import 'package:up_invest_front/app/modules/settings/util/settings_success.dart';
 
 part 'edit_details_event.dart';
 part 'edit_details_state.dart';
@@ -29,7 +30,7 @@ class EditDetailsBloc extends Bloc<EditDetailsEvent, EditDetailsState> {
     on<EditDetailsChangeAvatar>((event, emit) {
       _onChangeAvatar(event.avatarNavigation);
     });
-    on<EditDetailsUploadPhoto>((event, emit) {
+    on<EditDetailsAddAvatarFromGallery>((event, emit) {
       _onUploadPhoto(event.imagePath);
     });
   }

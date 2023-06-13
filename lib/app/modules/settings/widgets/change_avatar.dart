@@ -25,6 +25,7 @@ class ChangeAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final IntlStrings intlStrings = IntlStrings.current;
     return Positioned(
         right: 20,
         bottom: 0,
@@ -47,7 +48,7 @@ class ChangeAvatar extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50.0)),
                         title: Center(
                             child: Text(
-                          'Choose Your Avatar',
+                          intlStrings.editDetailsChooseAvatar,
                           style: TextStyle(color: colorScheme.onBackground),
                         )),
                         content: const SizedBox(
@@ -72,13 +73,13 @@ class ChangeAvatar extends StatelessWidget {
                                     Navigator.of(context).pop();
                                   },
                                   icon: const Icon(Icons.cancel_outlined),
-                                  label: const Text('Cancel')),
+                                  label: Text(intlStrings.cancelButton)),
                               OutlinedButton.icon(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                   icon: const Icon(Icons.save_alt_outlined),
-                                  label: const Text('Save')),
+                                  label: Text(intlStrings.saveButton)),
                             ],
                           )
                         ],
@@ -126,6 +127,11 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
               },
             EditDetailsLoading() => LoadingScreen.instance()
                 .show(context: context, text: intlString.loading),
+            EditDetailsSucess(settingsSuccess: final settingsSuccess) => {
+                hideLoading,
+                customBar.showBottomSuccessSnackBar(settingsSuccess.dialogTitle,
+                    settingsSuccess.dialogText, context)
+              }
           };
         },
         builder: (context, state) {
@@ -184,8 +190,8 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                             if (image == null) {
                               return;
                             }
-                            editDetailsBloc.add(
-                                EditDetailsUploadPhoto(imagePath: image.path));
+                            editDetailsBloc.add(EditDetailsAddAvatarFromGallery(
+                                imagePath: image.path));
                           },
                           icon: Icon(
                             Icons.photo,

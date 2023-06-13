@@ -40,3 +40,16 @@ final class EditDetailsError extends EditDetailsState {
   List<Object> get props =>
       [authError, super.avatar, super.avatarList, super.authUser];
 }
+
+@immutable
+final class EditDetailsSucess extends EditDetailsState {
+  final SettingsSuccess settingsSuccess;
+  const EditDetailsSucess(
+      {required super.avatar,
+      required super.avatarList,
+      required super.authUser,
+      required this.settingsSuccess});
+  @override
+  List<Object> get props =>
+      [settingsSuccess, avatar, avatarList, super.authUser];
+}

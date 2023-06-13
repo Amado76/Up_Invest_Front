@@ -108,8 +108,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sua senha possui menos de 6 caracteres!"),
         "authValidatorValidEmail": MessageLookupByLibrary.simpleMessage(
             "Por favor, digite um e-mail válido"),
+        "cancelButton": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "confirmYourPasswordHintText":
             MessageLookupByLibrary.simpleMessage("Confirme sua senha"),
+        "editDetailsAppBarTitle":
+            MessageLookupByLibrary.simpleMessage("Editar Perfil"),
+        "editDetailsChooseAvatar":
+            MessageLookupByLibrary.simpleMessage("Escolha um avatar"),
         "emailHintText": MessageLookupByLibrary.simpleMessage("E-mail"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
@@ -133,6 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Erro desconhecido, tente novamente"),
         "remoteStorageErrorUnknownTitle":
             MessageLookupByLibrary.simpleMessage("Erro desconhecido"),
+        "saveButton": MessageLookupByLibrary.simpleMessage("Salvar"),
         "settingsAboutUs": MessageLookupByLibrary.simpleMessage("Sobre nós"),
         "settingsAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Configurações"),
@@ -152,6 +158,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "settingsLight": MessageLookupByLibrary.simpleMessage("Claro"),
         "settingsPortuguese": MessageLookupByLibrary.simpleMessage("Portugues"),
         "settingsSpanish": MessageLookupByLibrary.simpleMessage("Espanhol"),
+        "settingsSuccessChangeAvatarMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "Seu avatar foi alterado com sucesso!"),
+        "settingsSuccessChangeAvatarTitle":
+            MessageLookupByLibrary.simpleMessage(
+                "Avatar alterado com sucesso!"),
+        "settingsSuccessUnknownMessage":
+            MessageLookupByLibrary.simpleMessage("Requisição bem-sucedida!"),
+        "settingsSuccessUnknownTitle":
+            MessageLookupByLibrary.simpleMessage("Successo!"),
         "signInDoNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("Ainda não tem uma conta?"),
         "signInSignUp": MessageLookupByLibrary.simpleMessage("Cadastre-se!"),

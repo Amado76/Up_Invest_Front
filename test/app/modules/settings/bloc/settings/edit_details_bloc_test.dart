@@ -60,20 +60,20 @@ void main() async {
                   avatarList: avatarListWithNewAvatar)
             ]);
   });
-  group('[EditDetailsUploadPhoto]', () {
+  group('[EditDetailsAddAvatarFromGallery]', () {
     setUp(() {
       avatarListWithNewAvatar = AvatarList();
       avatarListWithNewAvatar.addCustomAvatar('newImagePath', 'newImagePath');
     });
     blocTest<EditDetailsBloc, EditDetailsState>(
-        'when [EditDetailsUploadPhoto] is added, return [EditDetailsIdle] with new avatar',
+        'when [EditDetailsAddAvatarFromGallery] is added, return [EditDetailsIdle] with new avatar',
         build: () => editDetailsBloc,
         seed: () => EditDetailsIdle(
             authUser: authUserMock,
             avatar: standardAvatarMock,
             avatarList: avatarList),
-        act: (bloc) =>
-            bloc.add(const EditDetailsUploadPhoto(imagePath: 'newImagePath')),
+        act: (bloc) => bloc.add(
+            const EditDetailsAddAvatarFromGallery(imagePath: 'newImagePath')),
         expect: () => <EditDetailsState>[
               EditDetailsIdle(
                   authUser: authUserMock,

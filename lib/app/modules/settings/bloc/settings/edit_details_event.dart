@@ -17,10 +17,10 @@ final class EditDetailsChangeAvatar extends EditDetailsEvent {
 }
 
 @immutable
-final class EditDetailsUploadPhoto extends EditDetailsEvent {
+final class EditDetailsAddAvatarFromGallery extends EditDetailsEvent {
   final String imagePath;
 
-  const EditDetailsUploadPhoto({
+  const EditDetailsAddAvatarFromGallery({
     required this.imagePath,
   });
 
@@ -39,3 +39,15 @@ final class EditDetailsAddToAvatarList extends EditDetailsEvent {
   @override
   List<Object> get props => [imagePath];
 }
+
+// @immutable
+// final class EditDetailsUploadPhoto extends EditDetailsEvent {
+//   final String imagePath;
+
+//   const EditDetailsUploadPhoto({
+//     required this.imagePath,
+//   });
+
+//   @override
+//   List<Object> get props => [imagePath];
+// }

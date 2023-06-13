@@ -5,7 +5,7 @@ import 'package:up_invest_front/app/modules/settings/util/settings_error.dart';
 
 void main() async {
   await IntlStrings.load(const Locale.fromSubtags(languageCode: 'en'));
-  group('SettingsErrorUnknown', () {
+  group('[SettingsError]', () {
     test(
         'should return an instance of [SettingsErrorUnknown] if the error from Exception is [unknown or not mapped]',
         () {

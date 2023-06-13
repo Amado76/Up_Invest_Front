@@ -17,8 +17,8 @@ void main() {
   group('[EditDetailsUploadPhoto]', () {
     test('supports value comparisons', () {
       expect(
-        EditDetailsUploadPhoto(imagePath: imagePath),
-        EditDetailsUploadPhoto(imagePath: imagePath),
+        EditDetailsAddAvatarFromGallery(imagePath: imagePath),
+        EditDetailsAddAvatarFromGallery(imagePath: imagePath),
       );
     });
   });

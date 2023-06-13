@@ -26,6 +26,7 @@ class _EditDetailsState extends State<EditDetailsPage> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     String avatarFilePath = currentAuthState.avatar.path;
+    final IntlStrings intlStrings = IntlStrings.current;
 
     final customBar = CustomSnackBar();
     final hideLoading = LoadingScreen.instance().hide();
@@ -52,13 +53,18 @@ class _EditDetailsState extends State<EditDetailsPage> {
               },
             EditDetailsLoading() => LoadingScreen.instance()
                 .show(context: context, text: intlString.loading),
+            EditDetailsSucess(settingsSuccess: final settingsSuccess) => {
+                hideLoading,
+                customBar.showBottomSuccessSnackBar(settingsSuccess.dialogTitle,
+                    settingsSuccess.dialogText, context)
+              }
           };
         },
         builder: (context, state) {
           return GestureDetector(
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: SettingsScaffold(
-                appBarTitle: 'Account Details',
+                appBarTitle: intlStrings.editDetailsAppBarTitle,
                 widget: Column(
                   children: [
                     const SizedBox(height: 25),

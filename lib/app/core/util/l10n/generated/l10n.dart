@@ -120,6 +120,26 @@ class IntlStrings {
     );
   }
 
+  /// `Cancel!`
+  String get cancelButton {
+    return Intl.message(
+      'Cancel!',
+      name: 'cancelButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save!`
+  String get saveButton {
+    return Intl.message(
+      'Save!',
+      name: 'saveButton',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Track your assets and \njourney to financial success!`
   String get splashScreenText {
     return Intl.message(
@@ -680,6 +700,46 @@ class IntlStrings {
     );
   }
 
+  /// `Success!`
+  String get settingsSuccessUnknownTitle {
+    return Intl.message(
+      'Success!',
+      name: 'settingsSuccessUnknownTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successful request!`
+  String get settingsSuccessUnknownMessage {
+    return Intl.message(
+      'Successful request!',
+      name: 'settingsSuccessUnknownMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Avatar changed successfully!`
+  String get settingsSuccessChangeAvatarTitle {
+    return Intl.message(
+      'Avatar changed successfully!',
+      name: 'settingsSuccessChangeAvatarTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your avatar has been changed successfully!`
+  String get settingsSuccessChangeAvatarMessage {
+    return Intl.message(
+      'Your avatar has been changed successfully!',
+      name: 'settingsSuccessChangeAvatarMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Settings`
   String get settingsAppBarTitle {
     return Intl.message(
@@ -775,6 +835,26 @@ class IntlStrings {
     return Intl.message(
       'Thank you for using UpInvest and for being a part of my journey of development and learning in Flutter!',
       name: 'aboutUsTextTwo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Profile`
+  String get editDetailsAppBarTitle {
+    return Intl.message(
+      'Edit Profile',
+      name: 'editDetailsAppBarTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose your avatar`
+  String get editDetailsChooseAvatar {
+    return Intl.message(
+      'Choose your avatar',
+      name: 'editDetailsChooseAvatar',
       desc: '',
       args: [],
     );

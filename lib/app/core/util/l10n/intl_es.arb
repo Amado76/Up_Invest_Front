@@ -6,6 +6,8 @@
     "forgotPassword": "¿Olvidaste tu contraseña?",
     "loading": "Cargando!",
     "submitButton":"Enviar!",    
+    "cancelButton":"Cancelar",
+    "saveButton":"Guardar",
 
     "splashScreenText": "¡Haga un seguimiento de tus activos y vuela hacia el éxito financiero!",
 
@@ -69,6 +71,12 @@
     "settingsErrorOnSaveMessage": "Se produjo un error al guardar la configuración, por favor intente nuevamente",
     "settingsErrorExternalLinkTitle": "Error al abrir un enlace externo",
     "settingsErrorExternalLinkMessage": "Ocurrió un error al abrir un enlace externo, ¡inténtalo de nuevo!",
+
+    "settingsSuccessUnknownTitle": "¡Éxito!",
+    "settingsSuccessUnknownMessage": "¡Solicitud exitosa!", 
+    "settingsSuccessChangeAvatarTitle": "¡Avatar cambiado con éxito!",
+    "settingsSuccessChangeAvatarMessage": "¡Tu avatar ha sido cambiado con éxito!",
+
     "settingsAppBarTitle": "Configuraciones",
     "settingsLanguage": "Idioma",    
     "settingsEnglish":"Inglés",
@@ -79,6 +87,9 @@
     "settingsAboutUs": "Acerca de nosotros",
     "aboutUsTextOne": "Mi nombre es Bruno Amado, soy un desarrollador móvil y creé UpInvest como un proyecto personal, combinando dos pasiones: el desarrollo de aplicaciones móviles y las inversiones financieras. UpInvest es una aplicación que desarrollé para mejorar mis habilidades en Flutter.\n\nMe encantaría saber si tienes alguna sugerencia, crítica o cumplido. No dudes en contactarme a través de los siguientes canales:",
     "aboutUsTextTwo":"¡Gracias por usar UpInvest y por ser parte de mi viaje de desarrollo y aprendizaje en Flutter!",
+
+    "editDetailsAppBarTitle": "Editar Perfil",
+    "editDetailsChooseAvatar": "Elige tu avatar",
     
 
     "remoteStorageErrorUnknownTitle": "Error Desconocido",
