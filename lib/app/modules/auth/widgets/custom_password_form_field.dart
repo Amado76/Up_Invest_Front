@@ -39,6 +39,7 @@ class _CustomPasswordFormFieldState extends State<CustomPasswordFormField> {
             fontWeight: FontWeight.w400,
             color: colarScheme.onSecondaryContainer),
         decoration: InputDecoration(
+            errorStyle: const TextStyle(fontSize: 0.01),
             fillColor: colarScheme.secondaryContainer,
             filled: true,
             hintText: widget.hintText,
@@ -49,7 +50,9 @@ class _CustomPasswordFormFieldState extends State<CustomPasswordFormField> {
             focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
                 borderRadius: BorderRadius.all(Radius.circular(10))),
-            floatingLabelBehavior: FloatingLabelBehavior.never,
+            errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: colarScheme.error),
+                borderRadius: const BorderRadius.all(Radius.circular(10))),
             border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
                 borderRadius: BorderRadius.all(Radius.circular(10))),

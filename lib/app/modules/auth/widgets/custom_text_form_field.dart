@@ -35,21 +35,26 @@ class CustomTextFormField extends StatelessWidget {
             fontWeight: FontWeight.w400,
             color: colarScheme.onSecondaryContainer),
         decoration: InputDecoration(
-            prefixIcon: icon,
-            fillColor: colarScheme.secondaryContainer,
-            filled: true,
-            hintText: hintText,
-            hintStyle: TextStyle(color: colarScheme.outline),
-            enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent),
-                borderRadius: BorderRadius.all(Radius.circular(10)))),
+          errorStyle: const TextStyle(fontSize: 0.01),
+          prefixIcon: icon,
+          fillColor: colarScheme.secondaryContainer,
+          filled: true,
+          hintText: hintText,
+          hintStyle: TextStyle(color: colarScheme.outline),
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          border: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: colarScheme.error),
+              borderRadius: const BorderRadius.all(Radius.circular(10))),
+        ),
       ),
     );
   }
