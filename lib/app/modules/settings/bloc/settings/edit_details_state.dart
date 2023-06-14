@@ -30,26 +30,27 @@ final class EditDetailsLoading extends EditDetailsState {
 
 @immutable
 final class EditDetailsError extends EditDetailsState {
-  final AuthError authError;
+  final AuthError? authError;
+  final SettingsError? settingsError;
   const EditDetailsError(
       {required super.avatar,
       required super.avatarList,
       required super.authUser,
-      required this.authError});
+      this.authError,
+      this.settingsError});
   @override
-  List<Object> get props =>
-      [authError, super.avatar, super.avatarList, super.authUser];
+  List<Object> get props => [super.avatar, super.avatarList, super.authUser];
 }
 
 @immutable
-final class EditDetailsSucess extends EditDetailsState {
+final class EditDetailsSuccess extends EditDetailsState {
   final SettingsSuccess settingsSuccess;
-  const EditDetailsSucess(
+  const EditDetailsSuccess(
       {required super.avatar,
       required super.avatarList,
       required super.authUser,
       required this.settingsSuccess});
   @override
   List<Object> get props =>
-      [settingsSuccess, avatar, avatarList, super.authUser];
+      [settingsSuccess, super.avatar, super.avatarList, super.authUser];
 }

@@ -9,8 +9,8 @@ void main() {
   group('[EditDetailsChangeAvatar]', () {
     test('supports value comparisons', () {
       expect(
-        EditDetailsChangeAvatar(avatarNavigation: avatarNavigation),
-        EditDetailsChangeAvatar(avatarNavigation: avatarNavigation),
+        EditDetailsChangeDisplayAvatar(avatarNavigation: avatarNavigation),
+        EditDetailsChangeDisplayAvatar(avatarNavigation: avatarNavigation),
       );
     });
   });
@@ -22,11 +22,28 @@ void main() {
       );
     });
   });
-  group('[EditDetailsChangeAvatar]', () {
+
+  group('[EditDetailsUpdateAccountDetails]', () {
     test('supports value comparisons', () {
       expect(
-        EditDetailsAddToAvatarList(imagePath: imagePath),
-        EditDetailsAddToAvatarList(imagePath: imagePath),
+        EditDetailsUpdateAvatar(),
+        EditDetailsUpdateAvatar(),
+      );
+    });
+  });
+  group('[EditDetailsCleanAvatarList]', () {
+    test('supports value comparisons', () {
+      expect(
+        EditDetailsCleanAvatarList(),
+        EditDetailsCleanAvatarList(),
+      );
+    });
+  });
+  group('[EditDetailsCancelAvatarEdit]', () {
+    test('supports value comparisons', () {
+      expect(
+        EditDetailsCancelAvatarEdit(),
+        EditDetailsCancelAvatarEdit(),
       );
     });
   });

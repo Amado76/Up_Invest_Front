@@ -6,6 +6,7 @@ import 'package:up_invest_front/app/modules/auth/model/avatar_list.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 import 'package:up_invest_front/app/modules/auth/util/auth_error.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings/edit_details_bloc.dart';
+import 'package:up_invest_front/app/modules/settings/util/settings_success.dart';
 
 import '../../../../../mocks/auth/model/auth_user_model_mock.dart';
 
@@ -15,6 +16,7 @@ void main() async {
   final AvatarList avatarList = AvatarList();
   final AuthUserModel authUser = AuthUserModelMock();
   final AuthError authError = AuthErrorNetworkError();
+  final SettingsSuccess settingsSuccess = SettingsSuccessAvatarChanged();
 
   group('[EditDetailsIdle]', () {
     test('supports value comparisons', () {
@@ -49,6 +51,22 @@ void main() async {
             avatar: avatar,
             avatarList: avatarList,
             authError: authError),
+      );
+    });
+  });
+  group('[EditDetailsSuccess]', () {
+    test('supports value comparisons', () {
+      expect(
+        EditDetailsSuccess(
+            authUser: authUser,
+            avatar: avatar,
+            avatarList: avatarList,
+            settingsSuccess: settingsSuccess),
+        EditDetailsSuccess(
+            authUser: authUser,
+            avatar: avatar,
+            avatarList: avatarList,
+            settingsSuccess: settingsSuccess),
       );
     });
   });

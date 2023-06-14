@@ -29,17 +29,17 @@ void main() async {
     late SignUpBloc signUpBloc;
     late AuthUserModel authUserMock;
     AvatarList avatarList = AvatarList();
-    late IAvatarRepository avatarRepository;
+    late IAvatarRepository avatarRepositoryMock;
 
     setUp(() {
       authRepositoryMock = AuthRepositoryMock(authAdapter: AuthAdapterMock());
       authUserMock = AuthUserModelMock();
-      avatarRepository =
+      avatarRepositoryMock =
           AvatarRepositoryMock(storageAdapter: RemoteStorageAdapterMock());
 
       signUpBloc = SignUpBloc(
           authRepository: authRepositoryMock,
-          avatarRepository: avatarRepository);
+          avatarRepository: avatarRepositoryMock);
     });
 
     test('initial state is [AuthStateIdle]', () {
@@ -126,12 +126,12 @@ void main() async {
                 email: any(named: 'email'),
                 password: any(named: 'password'),
               )).thenAnswer((_) async => authUserMock);
-          when(() => avatarRepository.uploadAvatar(
+          when(() => avatarRepositoryMock.uploadAvatar(
                   authUser: any(named: 'authUser'),
                   avatarModel: any(named: 'avatarModel')))
               .thenAnswer((_) => Future.value(null));
           when(() =>
-              avatarRepository.getUrlFromRemoteStorage(
+              avatarRepositoryMock.getUrlFromRemoteStorage(
                   authUser: any(named: 'authUser'),
                   avatarModel: any(named: 'avatarModel'))).thenAnswer(
               (_) async => const CustomAvatar(id: 1, path: 'path', url: 'url'));
@@ -155,7 +155,7 @@ void main() async {
         setUp: () async {
           registerFallbackValue(authUserMock);
           registerFallbackValue(const CustomAvatar(id: 1, path: '', url: ''));
-          when(() => avatarRepository.uploadAvatar(
+          when(() => avatarRepositoryMock.uploadAvatar(
                   authUser: any(named: 'authUser'),
                   avatarModel: any(named: 'avatarModel')))
               .thenAnswer((_) => Future.value(null));
@@ -166,7 +166,7 @@ void main() async {
           when(() => authRepositoryMock.updateAccountDetails(
                   newName: any(named: 'newName'), avatar: any(named: 'avatar')))
               .thenAnswer((_) async => authUserMock);
-          when(() => avatarRepository.getUrlFromRemoteStorage(
+          when(() => avatarRepositoryMock.getUrlFromRemoteStorage(
                   avatarModel: any(named: 'avatarModel'),
                   authUser: any(named: 'authUser')))
               .thenAnswer((invocation) async =>

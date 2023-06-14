@@ -25,5 +25,5 @@ class StandardAvatarMock extends Mock implements StandardAvatar {
   @override
   String get path => 'assets/avatars/kitty.png';
   @override
-  String get url => 'https://i.ibb.co/m6NHwyd/kitty.png';
+  String get url => 'url';
 }

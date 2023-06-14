@@ -5,10 +5,10 @@ sealed class EditDetailsEvent extends Equatable {
 }
 
 @immutable
-final class EditDetailsChangeAvatar extends EditDetailsEvent {
+final class EditDetailsChangeDisplayAvatar extends EditDetailsEvent {
   final String avatarNavigation;
 
-  const EditDetailsChangeAvatar({
+  const EditDetailsChangeDisplayAvatar({
     required this.avatarNavigation,
   });
 
@@ -29,25 +29,25 @@ final class EditDetailsAddAvatarFromGallery extends EditDetailsEvent {
 }
 
 @immutable
-final class EditDetailsAddToAvatarList extends EditDetailsEvent {
-  final String imagePath;
-
-  const EditDetailsAddToAvatarList({
-    required this.imagePath,
-  });
+final class EditDetailsUpdateAvatar extends EditDetailsEvent {
+  const EditDetailsUpdateAvatar();
 
   @override
-  List<Object> get props => [imagePath];
+  List<Object?> get props => [];
 }
 
-// @immutable
-// final class EditDetailsUploadPhoto extends EditDetailsEvent {
-//   final String imagePath;
+@immutable
+final class EditDetailsCleanAvatarList extends EditDetailsEvent {
+  const EditDetailsCleanAvatarList();
 
-//   const EditDetailsUploadPhoto({
-//     required this.imagePath,
-//   });
+  @override
+  List<Object?> get props => [];
+}
 
-//   @override
-//   List<Object> get props => [imagePath];
-// }
+@immutable
+final class EditDetailsCancelAvatarEdit extends EditDetailsEvent {
+  const EditDetailsCancelAvatarEdit();
+
+  @override
+  List<Object?> get props => [];
+}

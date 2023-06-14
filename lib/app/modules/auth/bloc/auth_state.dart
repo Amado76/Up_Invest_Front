@@ -14,7 +14,7 @@ final class AuthLoggedIn extends AuthState {
     required this.authUser,
   });
   @override
-  List<Object> get props => [authUser];
+  List<Object> get props => [authUser, avatar];
 }
 
 @immutable

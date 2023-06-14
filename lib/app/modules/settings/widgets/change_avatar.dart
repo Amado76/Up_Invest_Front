@@ -14,18 +14,14 @@ import 'package:up_invest_front/app/modules/settings/bloc/settings/edit_details_
 class ChangeAvatar extends StatelessWidget {
   const ChangeAvatar({
     super.key,
-    required this.colorScheme,
-    required this.editDetailsBloc,
-    required this.avatarFilePath,
   });
-
-  final ColorScheme colorScheme;
-  final EditDetailsBloc editDetailsBloc;
-  final String avatarFilePath;
 
   @override
   Widget build(BuildContext context) {
+    final editDetailsBloc = Modular.get<EditDetailsBloc>();
     final IntlStrings intlStrings = IntlStrings.current;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return Positioned(
         right: 20,
         bottom: 0,
@@ -37,11 +33,11 @@ class ChangeAvatar extends StatelessWidget {
               color: colorScheme.tertiaryContainer),
           child: IconButton(
               onPressed: () {
-                editDetailsBloc
-                    .add(EditDetailsAddToAvatarList(imagePath: avatarFilePath));
                 showDialog(
+                    barrierDismissible: false,
                     context: context,
                     builder: (context) {
+                      editDetailsBloc.add(const EditDetailsCleanAvatarList());
                       return AlertDialog(
                         backgroundColor: colorScheme.background,
                         shape: RoundedRectangleBorder(
@@ -70,12 +66,16 @@ class ChangeAvatar extends StatelessWidget {
                             children: [
                               OutlinedButton.icon(
                                   onPressed: () {
+                                    editDetailsBloc.add(
+                                        const EditDetailsCancelAvatarEdit());
                                     Navigator.of(context).pop();
                                   },
                                   icon: const Icon(Icons.cancel_outlined),
                                   label: Text(intlStrings.cancelButton)),
                               OutlinedButton.icon(
                                   onPressed: () {
+                                    editDetailsBloc
+                                        .add(const EditDetailsUpdateAvatar());
                                     Navigator.of(context).pop();
                                   },
                                   icon: const Icon(Icons.save_alt_outlined),
@@ -107,7 +107,7 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
     final colorScheme = theme.colorScheme;
     final imagePicker = ImagePicker();
     final editDetailsBloc = Modular.get<EditDetailsBloc>();
-    AvatarModel avatar;
+    AvatarModel avatar = editDetailsBloc.state.avatar;
     final customBar = CustomSnackBar();
     final hideLoading = LoadingScreen.instance().hide();
     final intlString = IntlStrings.of(context);
@@ -116,26 +116,39 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
         bloc: editDetailsBloc,
         listener: (context, state) {
           return switch (state) {
-            EditDetailsIdle(avatar: final avatar) => {
+            EditDetailsIdle(avatar: final newAvatar) => {
                 hideLoading,
-                avatar.path,
+                avatar = newAvatar,
               },
-            EditDetailsError(authError: final authError) => {
+            EditDetailsError(
+              authError: final authError,
+              settingsError: final settingsError
+            ) =>
+              {
                 hideLoading,
-                customBar.showBottomErrorSnackBar(
-                    authError.dialogTitle, authError.dialogText, context)
+                if (authError != null)
+                  {
+                    customBar.showBottomErrorSnackBar(
+                        authError.dialogTitle, authError.dialogText, context)
+                  }
+                else if (settingsError != null)
+                  {
+                    customBar.showBottomErrorSnackBar(settingsError.dialogTitle,
+                        settingsError.dialogText, context)
+                  }
               },
             EditDetailsLoading() => LoadingScreen.instance()
                 .show(context: context, text: intlString.loading),
-            EditDetailsSucess(settingsSuccess: final settingsSuccess) => {
+            EditDetailsSuccess(settingsSuccess: final settingsSuccesss) => {
                 hideLoading,
-                customBar.showBottomSuccessSnackBar(settingsSuccess.dialogTitle,
-                    settingsSuccess.dialogText, context)
+                customBar.showBottomSuccessSnackBar(
+                    settingsSuccesss.dialogTitle,
+                    settingsSuccesss.dialogText,
+                    context)
               }
           };
         },
         builder: (context, state) {
-          avatar = state.avatar;
           return Expanded(
             child: Container(
               constraints: const BoxConstraints(maxWidth: 300, maxHeight: 300),
@@ -145,7 +158,7 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                   if (avatar is StandardAvatar)
                     Center(
                       child: CircleAvatar(
-                        radius: 101,
+                        radius: 103,
                         backgroundColor: colorScheme.tertiary,
                         child: CircleAvatar(
                             backgroundColor: colorScheme.tertiary,
@@ -156,7 +169,7 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                   if (avatar is CustomAvatar)
                     Center(
                       child: CircleAvatar(
-                        radius: 101,
+                        radius: 103,
                         backgroundColor: colorScheme.tertiary,
                         child: CircleAvatar(
                             backgroundColor: colorScheme.tertiary,
@@ -167,12 +180,12 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                   if (avatar is NetworkAvatar)
                     Center(
                       child: CircleAvatar(
-                        radius: 101,
+                        radius: 103,
                         backgroundColor: colorScheme.tertiary,
                         child: CircleAvatar(
                             backgroundColor: colorScheme.tertiary,
                             radius: 100,
-                            backgroundImage: FileImage(File(avatar.path))),
+                            backgroundImage: NetworkImage(avatar.url)),
                       ),
                     ),
                   Positioned(
@@ -209,8 +222,9 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                               colorScheme.tertiaryContainer.withOpacity(0.9)),
                       child: IconButton(
                           onPressed: () {
-                            editDetailsBloc.add(const EditDetailsChangeAvatar(
-                                avatarNavigation: 'BackButton'));
+                            editDetailsBloc.add(
+                                const EditDetailsChangeDisplayAvatar(
+                                    avatarNavigation: 'BackButton'));
                           },
                           icon: Icon(
                             Icons.arrow_back_ios_rounded,
@@ -228,8 +242,9 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                               colorScheme.tertiaryContainer.withOpacity(0.7)),
                       child: IconButton(
                           onPressed: () {
-                            editDetailsBloc.add(const EditDetailsChangeAvatar(
-                                avatarNavigation: 'FowardButton'));
+                            editDetailsBloc.add(
+                                const EditDetailsChangeDisplayAvatar(
+                                    avatarNavigation: 'FowardButton'));
                           },
                           icon: Icon(
                             Icons.arrow_forward_ios_rounded,
