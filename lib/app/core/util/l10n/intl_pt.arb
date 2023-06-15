@@ -91,7 +91,16 @@
     "editDetailsAppBarTitle": "Editar Perfil",
     "editDetailsChooseAvatar": "Escolha um avatar",
     "editDetailsProfilePicture": "FOTO DE PERFIL",
-    
+    "editDetailsChangeDisplayName": "Alterar nome de exibição",
+    "editDetailsChangeEmail": "Alterar email",
+    "editDetailsNewEmailHintText": "Digite seu novo email",
+    "editDetailsChangePassword": "Alterar senha",
+    "editDetailsNewPasswordHintText": "Digite sua nova senha",
+    "editDetailsConfirmNewPasswordHintText": "Confirme sua nova senha",
+    "editDetailsDeleteAccount": "Excluir conta",
+    "editDetailsSadToSeeYouGo": "Sentiremos sua falta!",
+    "editDetailsDeleteAccoutnWarningPersonalData": "Ao excluir sua conta, todos os seus dados serão excluídos.",
+    "editDetailsDeleteAccountWarning": "Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita!",
     
     "remoteStorageErrorUnknownTitle" : "Erro desconhecido",
     "remoteStorageErrorUnknownMessage" : "Erro desconhecido, tente novamente",

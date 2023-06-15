@@ -38,11 +38,7 @@ class ChangeAvatar extends StatelessWidget {
                 editDetailsBloc.add(const EditDetailsCleanAvatarList());
                 showCustomDialog(
                   context: context,
-                  title: Center(
-                      child: Text(
-                    intlStrings.editDetailsChooseAvatar,
-                    style: TextStyle(color: colorScheme.onBackground),
-                  )),
+                  title: intlStrings.editDetailsChooseAvatar,
                   content: const _ChooseAvatarWidget(),
                   actions: CustomDialogActions(onCancel: () {
                     editDetailsBloc.add(const EditDetailsCancelAvatarEdit());
@@ -117,14 +113,10 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
         },
         builder: (context, state) {
           return SizedBox(
-            height: 300,
+            height: 220,
             width: 300,
             child: Column(
               children: [
-                const Divider(
-                  color: Colors.grey,
-                  height: 4.0,
-                ),
                 Expanded(
                   child: Container(
                     constraints:
@@ -167,8 +159,8 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                             ),
                           ),
                         Positioned(
-                          right: 60,
-                          top: 50,
+                          right: 45,
+                          top: 10,
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
@@ -192,8 +184,8 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                           ),
                         ),
                         Positioned(
-                          bottom: 40,
-                          left: 60,
+                          bottom: 20,
+                          left: 40,
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
@@ -212,8 +204,8 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                           ),
                         ),
                         Positioned(
-                          bottom: 40,
-                          right: 60,
+                          bottom: 20,
+                          right: 40,
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),

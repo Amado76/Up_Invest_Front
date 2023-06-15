@@ -870,6 +870,106 @@ class IntlStrings {
     );
   }
 
+  /// `Change your user name`
+  String get editDetailsChangeDisplayName {
+    return Intl.message(
+      'Change your user name',
+      name: 'editDetailsChangeDisplayName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change your email`
+  String get editDetailsChangeEmail {
+    return Intl.message(
+      'Change your email',
+      name: 'editDetailsChangeEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New email`
+  String get editDetailsNewEmailHintText {
+    return Intl.message(
+      'New email',
+      name: 'editDetailsNewEmailHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change your password`
+  String get editDetailsChangePassword {
+    return Intl.message(
+      'Change your password',
+      name: 'editDetailsChangePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New password`
+  String get editDetailsNewPasswordHintText {
+    return Intl.message(
+      'New password',
+      name: 'editDetailsNewPasswordHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm your new password`
+  String get editDetailsConfirmNewPasswordHintText {
+    return Intl.message(
+      'Confirm your new password',
+      name: 'editDetailsConfirmNewPasswordHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete your account`
+  String get editDetailsDeleteAccount {
+    return Intl.message(
+      'Delete your account',
+      name: 'editDetailsDeleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sad to See You Go`
+  String get editDetailsSadToSeeYouGo {
+    return Intl.message(
+      'Sad to See You Go',
+      name: 'editDetailsSadToSeeYouGo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deleting your profile will remove all personal data!`
+  String get editDetailsDeleteAccoutnWarningPersonalData {
+    return Intl.message(
+      'Deleting your profile will remove all personal data!',
+      name: 'editDetailsDeleteAccoutnWarningPersonalData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete your account? This action cannot be undone!`
+  String get editDetailsDeleteAccountWarning {
+    return Intl.message(
+      'Are you sure you want to delete your account? This action cannot be undone!',
+      name: 'editDetailsDeleteAccountWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Unknown Error`
   String get remoteStorageErrorUnknownTitle {
     return Intl.message(

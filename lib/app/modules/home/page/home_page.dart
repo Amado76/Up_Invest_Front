@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:up_invest_front/app/core/widgets/custom_password_form_field.dart';
+import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
-import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
-import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_field.dart';
-import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
+import 'package:up_invest_front/app/core/util/validator.dart';
 
 import '../../auth/model/auth_user_model.dart';
 import '../../../core/widgets/custom_elevated_button.dart';
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     final passwordController = TextEditingController();
     final newPasswordController = TextEditingController();
     final passwordController2 = TextEditingController();
-    final validator = AuthFormValidator();
+    final validator = Validator();
     final customBar = CustomSnackBar();
 
     AuthUserModel? authUser = authBloc.state is AuthLoggedIn

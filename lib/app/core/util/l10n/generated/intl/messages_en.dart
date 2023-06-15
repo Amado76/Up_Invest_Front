@@ -113,10 +113,31 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm your password"),
         "editDetailsAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Edit Profile"),
+        "editDetailsChangeDisplayName":
+            MessageLookupByLibrary.simpleMessage("Change your user name"),
+        "editDetailsChangeEmail":
+            MessageLookupByLibrary.simpleMessage("Change your email"),
+        "editDetailsChangePassword":
+            MessageLookupByLibrary.simpleMessage("Change your password"),
         "editDetailsChooseAvatar":
             MessageLookupByLibrary.simpleMessage("Choose your avatar"),
+        "editDetailsConfirmNewPasswordHintText":
+            MessageLookupByLibrary.simpleMessage("Confirm your new password"),
+        "editDetailsDeleteAccount":
+            MessageLookupByLibrary.simpleMessage("Delete your account"),
+        "editDetailsDeleteAccountWarning": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete your account? This action cannot be undone!"),
+        "editDetailsDeleteAccoutnWarningPersonalData":
+            MessageLookupByLibrary.simpleMessage(
+                "Deleting your profile will remove all personal data!"),
+        "editDetailsNewEmailHintText":
+            MessageLookupByLibrary.simpleMessage("New email"),
+        "editDetailsNewPasswordHintText":
+            MessageLookupByLibrary.simpleMessage("New password"),
         "editDetailsProfilePicture":
             MessageLookupByLibrary.simpleMessage("PROFILE PICTURE"),
+        "editDetailsSadToSeeYouGo":
+            MessageLookupByLibrary.simpleMessage("Sad to See You Go"),
         "emailHintText": MessageLookupByLibrary.simpleMessage("Email"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot your password?"),

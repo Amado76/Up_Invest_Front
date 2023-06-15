@@ -114,10 +114,31 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirma tu contraseña"),
         "editDetailsAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Editar Perfil"),
+        "editDetailsChangeDisplayName":
+            MessageLookupByLibrary.simpleMessage("Cambiar nombre de usuario"),
+        "editDetailsChangeEmail":
+            MessageLookupByLibrary.simpleMessage("Cambiar correo electrónico"),
+        "editDetailsChangePassword":
+            MessageLookupByLibrary.simpleMessage("Cambiar contraseña"),
         "editDetailsChooseAvatar":
             MessageLookupByLibrary.simpleMessage("Elige tu avatar"),
+        "editDetailsConfirmNewPasswordHintText":
+            MessageLookupByLibrary.simpleMessage("Confirmar nueva contraseña"),
+        "editDetailsDeleteAccount":
+            MessageLookupByLibrary.simpleMessage("Eliminar cuenta"),
+        "editDetailsDeleteAccountWarning": MessageLookupByLibrary.simpleMessage(
+            "¿Está seguro de que desea eliminar su cuenta? ¡Esta acción no se puede deshacer!"),
+        "editDetailsDeleteAccoutnWarningPersonalData":
+            MessageLookupByLibrary.simpleMessage(
+                "Al eliminar su cuenta, todos sus datos se eliminarán."),
+        "editDetailsNewEmailHintText":
+            MessageLookupByLibrary.simpleMessage("Nuevo correo electrónico"),
+        "editDetailsNewPasswordHintText":
+            MessageLookupByLibrary.simpleMessage("Nueva contraseña"),
         "editDetailsProfilePicture":
             MessageLookupByLibrary.simpleMessage("FOTO DE PERFIL"),
+        "editDetailsSadToSeeYouGo":
+            MessageLookupByLibrary.simpleMessage("¡Triste de verte ir!"),
         "emailHintText":
             MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "forgotPassword":

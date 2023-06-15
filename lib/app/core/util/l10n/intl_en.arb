@@ -9,6 +9,7 @@
     "cancelButton":"Cancel!",
     "saveButton":"Save!",
 
+
     "splashScreenText": "Track your assets and \njourney to financial success!",
     
     "getStartedText": "Take off towards your\nFinancial Independence" ,     
@@ -91,6 +92,16 @@
     "editDetailsAppBarTitle": "Edit Profile",
     "editDetailsChooseAvatar": "Choose your avatar",
     "editDetailsProfilePicture": "PROFILE PICTURE",
+    "editDetailsChangeDisplayName": "Change your user name",
+    "editDetailsChangeEmail": "Change your email",
+    "editDetailsNewEmailHintText": "New email",
+    "editDetailsChangePassword": "Change your password",
+    "editDetailsNewPasswordHintText": "New password",
+    "editDetailsConfirmNewPasswordHintText": "Confirm your new password",
+    "editDetailsDeleteAccount": "Delete your account",
+    "editDetailsSadToSeeYouGo": "Sad to See You Go",
+    "editDetailsDeleteAccoutnWarningPersonalData": "Deleting your profile will remove all personal data!",
+    "editDetailsDeleteAccountWarning": "Are you sure you want to delete your account? This action cannot be undone!",
     
  
     "remoteStorageErrorUnknownTitle": "Unknown Error",

@@ -22,7 +22,7 @@ class AboutUs extends StatelessWidget {
             onPressed: () {
               showCustomDialog(
                   context: context,
-                  title: Center(child: Text(intlStrings.settingsAboutUs)),
+                  title: intlStrings.settingsAboutUs,
                   content: const AboutMeText(),
                   barrierDismissible: true);
             },
@@ -54,13 +54,6 @@ class _AboutMeTextState extends State<AboutMeText> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Divider(
-            height: 1,
-            color: colorScheme.outline,
-          ),
-          const SizedBox(
-            height: 18,
-          ),
           Text(
             intlStrings.aboutUsTextOne,
             style: TextStyle(color: colorScheme.onBackground),

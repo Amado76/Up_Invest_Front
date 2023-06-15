@@ -91,6 +91,16 @@
     "editDetailsAppBarTitle": "Editar Perfil",
     "editDetailsChooseAvatar": "Elige tu avatar",
     "editDetailsProfilePicture": "FOTO DE PERFIL",
+    "editDetailsChangeDisplayName": "Cambiar nombre de usuario",
+    "editDetailsChangeEmail": "Cambiar correo electrónico",
+    "editDetailsNewEmailHintText": "Nuevo correo electrónico",
+    "editDetailsChangePassword": "Cambiar contraseña",
+    "editDetailsNewPasswordHintText": "Nueva contraseña",
+    "editDetailsConfirmNewPasswordHintText": "Confirmar nueva contraseña",
+    "editDetailsDeleteAccount": "Eliminar cuenta",
+    "editDetailsSadToSeeYouGo": "¡Triste de verte ir!",
+    "editDetailsDeleteAccoutnWarningPersonalData": "Al eliminar su cuenta, todos sus datos se eliminarán.",
+    "editDetailsDeleteAccountWarning": "¿Está seguro de que desea eliminar su cuenta? ¡Esta acción no se puede deshacer!",
     
 
     "remoteStorageErrorUnknownTitle": "Error Desconocido",

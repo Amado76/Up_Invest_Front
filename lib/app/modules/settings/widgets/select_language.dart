@@ -58,7 +58,7 @@ class _SelectLanguageButtonState extends State<_SelectLanguageButton> {
               const SizedBox(width: 5),
               Text(
                 intlStrings.settingsEnglish,
-                style: TextStyle(color: colorScheme.onBackground, fontSize: 16),
+                style: TextStyle(color: colorScheme.outline, fontSize: 16),
               ),
             ],
           ),
@@ -75,7 +75,7 @@ class _SelectLanguageButtonState extends State<_SelectLanguageButton> {
               const SizedBox(width: 5),
               Text(
                 intlStrings.settingsPortuguese,
-                style: TextStyle(color: colorScheme.onBackground, fontSize: 16),
+                style: TextStyle(color: colorScheme.outline, fontSize: 16),
               ),
             ],
           ),
@@ -92,7 +92,7 @@ class _SelectLanguageButtonState extends State<_SelectLanguageButton> {
               const SizedBox(width: 5),
               Text(
                 intlStrings.settingsSpanish,
-                style: TextStyle(color: colorScheme.onBackground, fontSize: 16),
+                style: TextStyle(color: colorScheme.outline, fontSize: 16),
               ),
             ],
           ),

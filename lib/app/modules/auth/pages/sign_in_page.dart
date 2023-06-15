@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:up_invest_front/app/core/widgets/custom_password_form_field.dart';
+import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
-import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
+import 'package:up_invest_front/app/core/util/validator.dart';
 import 'package:up_invest_front/app/core/widgets/custom_elevated_button.dart';
-import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_field.dart';
-import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
 
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
@@ -169,7 +169,7 @@ class SignInFormState extends State<_SignInForm> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _validator = AuthFormValidator();
+  final _validator = Validator();
 
   @override
   Widget build(BuildContext context) {

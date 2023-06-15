@@ -1,6 +1,6 @@
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
-class AuthFormValidator {
+class Validator {
   final intlStrings = IntlStrings.current;
 
   String? emailValidator(String? email) {

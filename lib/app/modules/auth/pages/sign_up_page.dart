@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:up_invest_front/app/core/widgets/custom_password_form_field.dart';
+import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/sign_up/sign_up_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
-import 'package:up_invest_front/app/modules/auth/util/auth_form_validator.dart';
+import 'package:up_invest_front/app/core/util/validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_auth_scaffold.dart';
 import 'package:up_invest_front/app/core/widgets/custom_elevated_button.dart';
-import 'package:up_invest_front/app/modules/auth/widgets/custom_password_form_field.dart';
-import 'package:up_invest_front/app/modules/auth/widgets/custom_text_form_field.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 class SingUpPage extends StatefulWidget {
@@ -232,7 +232,7 @@ class _SingUpFormState extends State<_SingUpForm> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _signUpBloc = Modular.get<SignUpBloc>();
-  final _validator = AuthFormValidator();
+  final _validator = Validator();
 
   @override
   Widget build(BuildContext context) {

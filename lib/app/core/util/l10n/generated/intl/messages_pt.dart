@@ -113,10 +113,31 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirme sua senha"),
         "editDetailsAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Editar Perfil"),
+        "editDetailsChangeDisplayName":
+            MessageLookupByLibrary.simpleMessage("Alterar nome de exibição"),
+        "editDetailsChangeEmail":
+            MessageLookupByLibrary.simpleMessage("Alterar email"),
+        "editDetailsChangePassword":
+            MessageLookupByLibrary.simpleMessage("Alterar senha"),
         "editDetailsChooseAvatar":
             MessageLookupByLibrary.simpleMessage("Escolha um avatar"),
+        "editDetailsConfirmNewPasswordHintText":
+            MessageLookupByLibrary.simpleMessage("Confirme sua nova senha"),
+        "editDetailsDeleteAccount":
+            MessageLookupByLibrary.simpleMessage("Excluir conta"),
+        "editDetailsDeleteAccountWarning": MessageLookupByLibrary.simpleMessage(
+            "Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita!"),
+        "editDetailsDeleteAccoutnWarningPersonalData":
+            MessageLookupByLibrary.simpleMessage(
+                "Ao excluir sua conta, todos os seus dados serão excluídos."),
+        "editDetailsNewEmailHintText":
+            MessageLookupByLibrary.simpleMessage("Digite seu novo email"),
+        "editDetailsNewPasswordHintText":
+            MessageLookupByLibrary.simpleMessage("Digite sua nova senha"),
         "editDetailsProfilePicture":
             MessageLookupByLibrary.simpleMessage("FOTO DE PERFIL"),
+        "editDetailsSadToSeeYouGo":
+            MessageLookupByLibrary.simpleMessage("Sentiremos sua falta!"),
         "emailHintText": MessageLookupByLibrary.simpleMessage("E-mail"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
