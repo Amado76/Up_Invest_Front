@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
 import 'package:up_invest_front/app/modules/settings/util/settings_error.dart';
+import 'package:up_invest_front/app/core/widgets/custom_alert_dialog.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/settings_options_row.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,18 +20,11 @@ class AboutUs extends StatelessWidget {
         text: intlStrings.settingsAboutUs,
         button: IconButton(
             onPressed: () {
-              showDialog(
+              showCustomDialog(
                   context: context,
-                  builder: (context) => AlertDialog(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      title: Center(
-                        child: Text(
-                          intlStrings.settingsAboutUs,
-                          style: TextStyle(color: colorScheme.onBackground),
-                        ),
-                      ),
-                      content: const AboutMeText()));
+                  title: Center(child: Text(intlStrings.settingsAboutUs)),
+                  content: const AboutMeText(),
+                  barrierDismissible: true);
             },
             icon: ImageIcon(
               color: colorScheme.onBackground,
@@ -47,7 +41,7 @@ class AboutMeText extends StatefulWidget {
 }
 
 class _AboutMeTextState extends State<AboutMeText> {
-  String linkedinUrl = 'https://www.linkedin.com/in/bruno-amado-1b4b1610a/';
+  String linkedinUrl = 'https://www.linkedin.com/in/brunoamado76';
   String githubUrl = 'https://github.com/Amado76';
   String email = 'amado.bruno@gmail.com';
 

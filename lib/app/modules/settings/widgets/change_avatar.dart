@@ -5,11 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
+import 'package:up_invest_front/app/core/widgets/custom_alert_dialog.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
 import 'package:up_invest_front/app/modules/settings/bloc/settings/edit_details_bloc.dart';
+import 'package:up_invest_front/app/modules/settings/widgets/custom_dialog_actions.dart';
 
 class ChangeAvatar extends StatelessWidget {
   const ChangeAvatar({
@@ -33,58 +35,23 @@ class ChangeAvatar extends StatelessWidget {
               color: colorScheme.tertiaryContainer),
           child: IconButton(
               onPressed: () {
-                showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (context) {
-                      editDetailsBloc.add(const EditDetailsCleanAvatarList());
-                      return AlertDialog(
-                        backgroundColor: colorScheme.background,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0)),
-                        title: Center(
-                            child: Text(
-                          intlStrings.editDetailsChooseAvatar,
-                          style: TextStyle(color: colorScheme.onBackground),
-                        )),
-                        content: const SizedBox(
-                          height: 300,
-                          width: 300,
-                          child: Column(
-                            children: [
-                              Divider(
-                                color: Colors.grey,
-                                height: 4.0,
-                              ),
-                              _ChooseAvatarWidget(),
-                            ],
-                          ),
-                        ),
-                        actions: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              OutlinedButton.icon(
-                                  onPressed: () {
-                                    editDetailsBloc.add(
-                                        const EditDetailsCancelAvatarEdit());
-                                    Navigator.of(context).pop();
-                                  },
-                                  icon: const Icon(Icons.cancel_outlined),
-                                  label: Text(intlStrings.cancelButton)),
-                              OutlinedButton.icon(
-                                  onPressed: () {
-                                    editDetailsBloc
-                                        .add(const EditDetailsUpdateAvatar());
-                                    Navigator.of(context).pop();
-                                  },
-                                  icon: const Icon(Icons.save_alt_outlined),
-                                  label: Text(intlStrings.saveButton)),
-                            ],
-                          )
-                        ],
-                      );
-                    });
+                editDetailsBloc.add(const EditDetailsCleanAvatarList());
+                showCustomDialog(
+                  context: context,
+                  title: Center(
+                      child: Text(
+                    intlStrings.editDetailsChooseAvatar,
+                    style: TextStyle(color: colorScheme.onBackground),
+                  )),
+                  content: const _ChooseAvatarWidget(),
+                  actions: CustomDialogActions(onCancel: () {
+                    editDetailsBloc.add(const EditDetailsCancelAvatarEdit());
+                    Navigator.of(context).pop();
+                  }, onSave: () {
+                    editDetailsBloc.add(const EditDetailsUpdateAvatar());
+                    Navigator.of(context).pop();
+                  }),
+                );
               },
               icon: const Icon(Icons.edit)),
         ));
@@ -149,111 +116,126 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
           };
         },
         builder: (context, state) {
-          return Expanded(
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: 300, maxHeight: 300),
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  if (avatar is StandardAvatar)
-                    Center(
-                      child: CircleAvatar(
-                        radius: 103,
-                        backgroundColor: colorScheme.tertiary,
-                        child: CircleAvatar(
-                            backgroundColor: colorScheme.tertiary,
-                            radius: 100,
-                            backgroundImage: AssetImage(avatar.path)),
-                      ),
-                    ),
-                  if (avatar is CustomAvatar)
-                    Center(
-                      child: CircleAvatar(
-                        radius: 103,
-                        backgroundColor: colorScheme.tertiary,
-                        child: CircleAvatar(
-                            backgroundColor: colorScheme.tertiary,
-                            radius: 100,
-                            backgroundImage: FileImage(File(avatar.path))),
-                      ),
-                    ),
-                  if (avatar is NetworkAvatar)
-                    Center(
-                      child: CircleAvatar(
-                        radius: 103,
-                        backgroundColor: colorScheme.tertiary,
-                        child: CircleAvatar(
-                            backgroundColor: colorScheme.tertiary,
-                            radius: 100,
-                            backgroundImage: NetworkImage(avatar.url)),
-                      ),
-                    ),
-                  Positioned(
-                    right: 60,
-                    top: 50,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color:
-                              colorScheme.tertiaryContainer.withOpacity(0.9)),
-                      child: IconButton(
-                          onPressed: () async {
-                            final image = await imagePicker.pickImage(
-                                source: ImageSource.gallery);
-                            if (image == null) {
-                              return;
-                            }
-                            editDetailsBloc.add(EditDetailsAddAvatarFromGallery(
-                                imagePath: image.path));
-                          },
-                          icon: Icon(
-                            Icons.photo,
-                            color: colorScheme.onBackground,
-                          )),
+          return SizedBox(
+            height: 300,
+            width: 300,
+            child: Column(
+              children: [
+                const Divider(
+                  color: Colors.grey,
+                  height: 4.0,
+                ),
+                Expanded(
+                  child: Container(
+                    constraints:
+                        const BoxConstraints(maxWidth: 300, maxHeight: 300),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        if (avatar is StandardAvatar)
+                          Center(
+                            child: CircleAvatar(
+                              radius: 103,
+                              backgroundColor: colorScheme.tertiary,
+                              child: CircleAvatar(
+                                  backgroundColor: colorScheme.tertiary,
+                                  radius: 100,
+                                  backgroundImage: AssetImage(avatar.path)),
+                            ),
+                          ),
+                        if (avatar is CustomAvatar)
+                          Center(
+                            child: CircleAvatar(
+                              radius: 103,
+                              backgroundColor: colorScheme.tertiary,
+                              child: CircleAvatar(
+                                  backgroundColor: colorScheme.tertiary,
+                                  radius: 100,
+                                  backgroundImage:
+                                      FileImage(File(avatar.path))),
+                            ),
+                          ),
+                        if (avatar is NetworkAvatar)
+                          Center(
+                            child: CircleAvatar(
+                              radius: 103,
+                              backgroundColor: colorScheme.tertiary,
+                              child: CircleAvatar(
+                                  backgroundColor: colorScheme.tertiary,
+                                  radius: 100,
+                                  backgroundImage: NetworkImage(avatar.url)),
+                            ),
+                          ),
+                        Positioned(
+                          right: 60,
+                          top: 50,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: colorScheme.tertiaryContainer
+                                    .withOpacity(0.9)),
+                            child: IconButton(
+                                onPressed: () async {
+                                  final image = await imagePicker.pickImage(
+                                      source: ImageSource.gallery);
+                                  if (image == null) {
+                                    return;
+                                  }
+                                  editDetailsBloc.add(
+                                      EditDetailsAddAvatarFromGallery(
+                                          imagePath: image.path));
+                                },
+                                icon: Icon(
+                                  Icons.photo,
+                                  color: colorScheme.onBackground,
+                                )),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 40,
+                          left: 60,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: colorScheme.tertiaryContainer
+                                    .withOpacity(0.9)),
+                            child: IconButton(
+                                onPressed: () {
+                                  editDetailsBloc.add(
+                                      const EditDetailsChangeDisplayAvatar(
+                                          avatarNavigation: 'BackButton'));
+                                },
+                                icon: Icon(
+                                  Icons.arrow_back_ios_rounded,
+                                  color: colorScheme.onBackground,
+                                )),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 40,
+                          right: 60,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: colorScheme.tertiaryContainer
+                                    .withOpacity(0.7)),
+                            child: IconButton(
+                                onPressed: () {
+                                  editDetailsBloc.add(
+                                      const EditDetailsChangeDisplayAvatar(
+                                          avatarNavigation: 'FowardButton'));
+                                },
+                                icon: Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  color: colorScheme.onBackground,
+                                )),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 40,
-                    left: 60,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color:
-                              colorScheme.tertiaryContainer.withOpacity(0.9)),
-                      child: IconButton(
-                          onPressed: () {
-                            editDetailsBloc.add(
-                                const EditDetailsChangeDisplayAvatar(
-                                    avatarNavigation: 'BackButton'));
-                          },
-                          icon: Icon(
-                            Icons.arrow_back_ios_rounded,
-                            color: colorScheme.onBackground,
-                          )),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 40,
-                    right: 60,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color:
-                              colorScheme.tertiaryContainer.withOpacity(0.7)),
-                      child: IconButton(
-                          onPressed: () {
-                            editDetailsBloc.add(
-                                const EditDetailsChangeDisplayAvatar(
-                                    avatarNavigation: 'FowardButton'));
-                          },
-                          icon: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            color: colorScheme.onBackground,
-                          )),
-                    ),
-                  )
-                ],
-              ),
+                ),
+              ],
             ),
           );
         });

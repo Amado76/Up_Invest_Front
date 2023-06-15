@@ -4,8 +4,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 class SettingsScaffold extends StatelessWidget {
   final String appBarTitle;
   final Widget widget;
+  final double leftPadding;
+  final double rightPadding;
+
   const SettingsScaffold(
-      {super.key, required this.appBarTitle, required this.widget});
+      {super.key,
+      required this.appBarTitle,
+      required this.widget,
+      this.leftPadding = 30,
+      this.rightPadding = 30});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +48,8 @@ class SettingsScaffold extends StatelessWidget {
         ),
         body: SafeArea(
             child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30),
+                padding:
+                    EdgeInsets.only(left: leftPadding, right: rightPadding),
                 child: SizedBox(
                   height: size.height - systemBarSize - bottomBarSize,
                   width: size.width,

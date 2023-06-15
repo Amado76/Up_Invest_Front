@@ -75,52 +75,118 @@ class _EditDetailsState extends State<EditDetailsPage> {
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: SettingsScaffold(
+              rightPadding: 0,
+              leftPadding: 0,
               appBarTitle: intlStrings.editDetailsAppBarTitle,
               widget: Column(
                 children: [
-                  const SizedBox(height: 25),
-                  Stack(
-                    children: [
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 103,
-                            backgroundColor: colorScheme.tertiary,
-                            child: CircleAvatar(
-                                backgroundColor: colorScheme.tertiary,
-                                radius: 100,
-                                backgroundImage: Image.network(
-                                  displayAvatar.url,
-                                  loadingBuilder: (BuildContext context,
-                                      Widget child,
-                                      ImageChunkEvent? loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    }
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        value: loadingProgress
-                                                    .expectedTotalBytes !=
-                                                null
-                                            ? loadingProgress
-                                                    .cumulativeBytesLoaded /
-                                                loadingProgress
-                                                    .expectedTotalBytes!
-                                            : null,
-                                      ),
-                                    );
-                                  },
-                                ).image),
-                          ),
-                        ],
-                      ),
-                      const ChangeAvatar()
-                    ],
+                  Container(
+                    color: colorScheme.outline.withOpacity(0.2),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 25),
+                        Stack(
+                          children: [
+                            Column(
+                              children: [
+                                CircleAvatar(
+                                  radius: 100,
+                                  backgroundColor: colorScheme.tertiary,
+                                  child: CircleAvatar(
+                                      backgroundColor: colorScheme.tertiary,
+                                      radius: 100,
+                                      backgroundImage: Image.network(
+                                        displayAvatar.url,
+                                      ).image),
+                                ),
+                              ],
+                            ),
+                            const ChangeAvatar()
+                          ],
+                        ),
+                        const SizedBox(height: 25),
+                        Text(
+                          intlStrings.editDetailsProfilePicture,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: colorScheme.onBackground),
+                        ),
+                        const SizedBox(height: 25),
+                      ],
+                    ),
                   ),
+                  const SizedBox(height: 25),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30, right: 30),
+                    child: Column(
+                      children: [
+                        EditDetailsPageRow(
+                          title: intlString.nameHintText.toUpperCase(),
+                          content: 'Bruno Amado',
+                        ),
+                        const SizedBox(height: 25),
+                        EditDetailsPageRow(
+                          title: intlString.emailHintText.toUpperCase(),
+                          content: 'amado.bruno@gmail.com',
+                        ),
+                        const SizedBox(height: 25),
+                        EditDetailsPageRow(
+                          title: intlString.passwordHintText.toUpperCase(),
+                          content: '*********',
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               )),
         );
       },
+    );
+  }
+}
+
+class EditDetailsPageRow extends StatelessWidget {
+  final String title;
+  final String content;
+
+  const EditDetailsPageRow({
+    super.key,
+    required this.title,
+    required this.content,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    return Row(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                color: colorScheme.onBackground,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              content,
+              style: TextStyle(
+                color: colorScheme.onBackground,
+                fontSize: 18,
+              ),
+            ),
+          ],
+        ),
+        const Expanded(child: SizedBox()),
+        IconButton(onPressed: () {}, icon: const Icon(Icons.edit))
+      ],
     );
   }
 }

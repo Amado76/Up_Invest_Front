@@ -115,6 +115,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "editDetailsChooseAvatar":
             MessageLookupByLibrary.simpleMessage("Choose your avatar"),
+        "editDetailsProfilePicture":
+            MessageLookupByLibrary.simpleMessage("PROFILE PICTURE"),
         "emailHintText": MessageLookupByLibrary.simpleMessage("Email"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot your password?"),

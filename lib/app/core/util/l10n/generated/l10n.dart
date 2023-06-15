@@ -860,6 +860,16 @@ class IntlStrings {
     );
   }
 
+  /// `PROFILE PICTURE`
+  String get editDetailsProfilePicture {
+    return Intl.message(
+      'PROFILE PICTURE',
+      name: 'editDetailsProfilePicture',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Unknown Error`
   String get remoteStorageErrorUnknownTitle {
     return Intl.message(
