@@ -65,4 +65,15 @@ void main() {
       );
     });
   });
+
+  group('[EditDetailsUpdateEmail]', () {
+    test('supports value comparisons', () {
+      expect(
+        EditDetailsUpdateEmail(
+            password: 'password', newEmail: 'newEmail', email: 'email'),
+        EditDetailsUpdateEmail(
+            password: 'password', newEmail: 'newEmail', email: 'email'),
+      );
+    });
+  });
 }

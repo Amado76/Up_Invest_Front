@@ -14,6 +14,9 @@ import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings/edit_details_bloc.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/change_avatar.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/custom_dialog_actions.dart';
+import 'package:up_invest_front/app/modules/settings/widgets/edit_details_row.dart';
+import 'package:up_invest_front/app/modules/settings/widgets/edit_name_widget.dart';
+import 'package:up_invest_front/app/modules/settings/widgets/edit_password_widget.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/settings_scaffold.dart';
 
 class EditDetailsPage extends StatefulWidget {
@@ -128,7 +131,7 @@ class _EditDetailsState extends State<EditDetailsPage> {
                       padding: const EdgeInsets.only(left: 30, right: 30),
                       child: Column(
                         children: [
-                          _EditNameWidget(
+                          EditNameWidget(
                             name: authBloc.state.authUser!.displayName,
                           ),
                           const SizedBox(height: 10),
@@ -140,7 +143,7 @@ class _EditDetailsState extends State<EditDetailsPage> {
                           const SizedBox(height: 10),
                           const Divider(color: Colors.grey, height: 4.0),
                           const SizedBox(height: 10),
-                          const _EditPasswordWidget(),
+                          const EditPasswordWidget(),
                           const SizedBox(height: 10),
                           const Divider(color: Colors.grey, height: 4.0),
                           const SizedBox(height: 10),
@@ -157,129 +160,6 @@ class _EditDetailsState extends State<EditDetailsPage> {
   }
 }
 
-class EditDetailsPageRow extends StatelessWidget {
-  final String title;
-  final String content;
-  final IconData icon;
-  final void Function() onPressed;
-
-  const EditDetailsPageRow(
-      {super.key,
-      required this.title,
-      required this.content,
-      required this.onPressed,
-      required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    return Row(
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  height: 25,
-                  width: 25,
-                  decoration: BoxDecoration(
-                    color: colorScheme.outline.withOpacity(0.1),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(40),
-                    ),
-                  ),
-                  child: Icon(
-                    size: 20,
-                    icon,
-                    color: colorScheme.tertiary,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: colorScheme.outline,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Text(
-              content,
-              style: TextStyle(
-                color: colorScheme.outline,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
-        const Expanded(child: SizedBox()),
-        IconButton(onPressed: onPressed, icon: const Icon(Icons.edit))
-      ],
-    );
-  }
-}
-
-class _EditNameWidget extends StatefulWidget {
-  final String name;
-  const _EditNameWidget({required this.name});
-
-  @override
-  State<_EditNameWidget> createState() => _EditNameWidgetState();
-}
-
-class _EditNameWidgetState extends State<_EditNameWidget> {
-  @override
-  Widget build(BuildContext context) {
-    final IntlStrings intlStrings = IntlStrings.current;
-    final TextEditingController nameController = TextEditingController();
-    final Validator validator = Validator();
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    final editDetailsBloc = Modular.get<EditDetailsBloc>();
-    return EditDetailsPageRow(
-      icon: Icons.person_2_outlined,
-      title: intlStrings.nameHintText.toUpperCase(),
-      content: widget.name,
-      onPressed: () {
-        showCustomDialog(
-            context: context,
-            title: intlStrings.editDetailsChangeDisplayName,
-            content: SizedBox(
-              height: 110,
-              width: 300,
-              child: Form(
-                key: formKey,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomTextFormField(
-                          hintText: intlStrings.nameHintText,
-                          validator: (name) {
-                            return validator.minNameLengthValidator(name);
-                          },
-                          controller: nameController)
-                    ]),
-              ),
-            ),
-            barrierDismissible: true,
-            actions: CustomDialogActions(onCancel: () {
-              Navigator.of(context).pop();
-            }, onSave: () {
-              if (formKey.currentState!.validate()) {
-                editDetailsBloc.add(
-                    EditDetailsUpdateDisplayName(newName: nameController.text));
-                Navigator.of(context).pop();
-              }
-            }));
-      },
-    );
-  }
-}
-
 class _EditEmailWidget extends StatefulWidget {
   final String email;
   const _EditEmailWidget({required this.email});
@@ -291,6 +171,7 @@ class _EditEmailWidget extends StatefulWidget {
 class _EditEmailWidgetState extends State<_EditEmailWidget> {
   @override
   Widget build(BuildContext context) {
+    final editDetailsBloc = Modular.get<EditDetailsBloc>();
     final IntlStrings intlStrings = IntlStrings.current;
     final TextEditingController currentEmailController =
         TextEditingController();
@@ -342,93 +223,13 @@ class _EditEmailWidgetState extends State<_EditEmailWidget> {
               ),
             ),
             barrierDismissible: true,
-            actions: CustomDialogActions(
-                onCancel: () {},
-                onSave: () {
-                  if (formKey.currentState!.validate()) {}
-                }));
-      },
-    );
-  }
-}
-
-class _EditPasswordWidget extends StatefulWidget {
-  const _EditPasswordWidget();
-
-  @override
-  State<_EditPasswordWidget> createState() => _EditPasswordWidgetState();
-}
-
-class _EditPasswordWidgetState extends State<_EditPasswordWidget> {
-  @override
-  Widget build(BuildContext context) {
-    final editDetailsBloc = Modular.get<EditDetailsBloc>();
-    final IntlStrings intlStrings = IntlStrings.current;
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController newPasswordController = TextEditingController();
-    final TextEditingController confirmNewPasswordController =
-        TextEditingController();
-    final Validator validator = Validator();
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    return EditDetailsPageRow(
-      icon: Icons.lock_outline,
-      title: intlStrings.passwordHintText.toUpperCase(),
-      content: '*********',
-      onPressed: () {
-        showCustomDialog(
-            context: context,
-            title: intlStrings.editDetailsChangePassword,
-            content: SizedBox(
-              height: 380,
-              width: 300,
-              child: Form(
-                key: formKey,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomTextFormField(
-                          icon: const Icon(Icons.email_outlined),
-                          hintText: intlStrings.emailHintText,
-                          keyBoardType: TextInputType.emailAddress,
-                          validator: (email) {
-                            return validator.emailValidator(email);
-                          },
-                          controller: emailController),
-                      const SizedBox(height: 10),
-                      CustomPasswordFormField(
-                          hintText: intlStrings.passwordHintText,
-                          validator: (password) {
-                            return validator.signInPasswordValidator(password);
-                          },
-                          controller: passwordController),
-                      const SizedBox(height: 10),
-                      CustomPasswordFormField(
-                          hintText: intlStrings.editDetailsNewPasswordHintText,
-                          validator: (password) {
-                            return validator.signUpPasswordValidator(password);
-                          },
-                          controller: newPasswordController),
-                      const SizedBox(height: 10),
-                      CustomPasswordFormField(
-                          hintText:
-                              intlStrings.editDetailsConfirmNewPasswordHintText,
-                          validator: (password) {
-                            return validator.confirmPasswordValidator(
-                                newPasswordController.text, password);
-                          },
-                          controller: confirmNewPasswordController)
-                    ]),
-              ),
-            ),
-            barrierDismissible: true,
             actions: CustomDialogActions(onCancel: () {
               Navigator.of(context).pop();
             }, onSave: () {
               if (formKey.currentState!.validate()) {
-                editDetailsBloc.add(EditDetailsUpdatePassword(
-                    email: emailController.text,
-                    newPassword: newPasswordController.text,
+                editDetailsBloc.add(EditDetailsUpdateEmail(
+                    newEmail: newEmailController.text,
+                    email: currentEmailController.text,
                     password: passwordController.text));
                 Navigator.of(context).pop();
               }

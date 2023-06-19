@@ -53,6 +53,39 @@ class EditDetailsBloc extends Bloc<EditDetailsEvent, EditDetailsState> {
           password: event.password,
           newPassword: event.newPassword);
     });
+    on<EditDetailsUpdateEmail>((event, emit) {
+      _onUpdateEmail(
+          email: event.email,
+          password: event.password,
+          newEmail: event.newEmail);
+    });
+  }
+
+  void _onUpdateEmail(
+      {required String email,
+      required String password,
+      required String newEmail}) async {
+    emit(EditDetailsLoading(
+        avatar: state.avatar,
+        avatarList: state.avatarList,
+        authUser: state.authUser));
+    try {
+      await authRepository.reauthenticateAUser(email, password);
+      await authRepository.updateEmail(newEmail: newEmail);
+      AuthUserModel updatedUser = await authRepository.getLoggedUser();
+      authRepository.addAuthUserToStream(updatedUser);
+      emit(EditDetailsSuccess(
+          avatar: state.avatar,
+          avatarList: state.avatarList,
+          authUser: updatedUser,
+          settingsSuccess: SettingsSuccess.from('email-changed')));
+    } on Exception catch (e) {
+      emit(EditDetailsError(
+          avatar: state.avatar,
+          avatarList: state.avatarList,
+          authUser: state.authUser,
+          authError: AuthError.from(e)));
+    }
   }
 
   void _onUpdatePassword(
@@ -71,7 +104,7 @@ class EditDetailsBloc extends Bloc<EditDetailsEvent, EditDetailsState> {
           avatarList: state.avatarList,
           authUser: state.authUser,
           settingsSuccess: SettingsSuccess.from('password-changed')));
-    } on FirebaseAuthException catch (e) {
+    } on Exception catch (e) {
       emit(EditDetailsError(
           avatar: state.avatar,
           avatarList: state.avatarList,
@@ -94,7 +127,7 @@ class EditDetailsBloc extends Bloc<EditDetailsEvent, EditDetailsState> {
           avatar: state.avatar,
           avatarList: state.avatarList,
           settingsSuccess: SettingsSuccess.from('name-updated')));
-    } on FirebaseAuthException catch (e) {
+    } on Exception catch (e) {
       emit(EditDetailsError(
           avatar: state.avatar,
           avatarList: state.avatarList,

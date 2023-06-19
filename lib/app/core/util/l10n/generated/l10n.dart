@@ -780,6 +780,26 @@ class IntlStrings {
     );
   }
 
+  /// `Email changed successfully!`
+  String get settingsSuccessUpdateEmaiTitle {
+    return Intl.message(
+      'Email changed successfully!',
+      name: 'settingsSuccessUpdateEmaiTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your email has been changed successfully!`
+  String get settingsSuccessUpdateEmaiMessage {
+    return Intl.message(
+      'Your email has been changed successfully!',
+      name: 'settingsSuccessUpdateEmaiMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Settings`
   String get settingsAppBarTitle {
     return Intl.message(

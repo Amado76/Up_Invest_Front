@@ -81,6 +81,8 @@
     "settingsSuccessNameUpdatedMessage": "Your user name has been changed successfully!",
     "settingsSuccessPasswordChangedTitle": "Password changed successfully!",
     "settingsSuccessPasswordChangedMessage": "Your password has been changed successfully!",
+    "settingsSuccessUpdateEmaiTitle": "Email changed successfully!",
+    "settingsSuccessUpdateEmaiMessage": "Your email has been changed successfully!",
 
     "settingsAppBarTitle": "Settings",
     "settingsLanguage": "Language",

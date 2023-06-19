@@ -7,32 +7,23 @@ import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 sealed class IAuthAdapter {
   Future<AuthUserModel> signInWithEmailAndPassword(
       String email, String password);
-
   Future<AuthUserModel> signInWithSocialNetwork(
       String socialNetwork, CredentialDTO credentialDTO);
-
   Future<AuthUserModel> createAccount(String email, String password);
-
   Future<AuthUserModel> updateAccountDetails(
       {String? displayName, String? avatar});
-
   Future<void> updatePassword(String newPassword);
   @visibleForTesting
   Future<void> updatePhoto(String newAvatar);
   @visibleForTesting
   Future<void> updateDisplayName(String newDisplayName);
-
   Future<void> deleteUser();
-
   Future<void> sendPasswordResetEmail(String email);
-
   Future<void> signOut();
-
   Future<bool> isUserSignedIn();
-
   Future<AuthUserModel> getLoggedUser();
-
   Future<void> reauthenticateAUser(String email, String password);
+  Future<void> updateEmail(String newEmail);
 }
 
 class FirebaseAuthAdapter implements IAuthAdapter {
@@ -145,6 +136,11 @@ class FirebaseAuthAdapter implements IAuthAdapter {
     AuthUserModel authUser = await getLoggedUser();
 
     return authUser;
+  }
+
+  @override
+  Future<void> updateEmail(String newEmail) async {
+    await auth.currentUser!.updateEmail(newEmail);
   }
 
   @override

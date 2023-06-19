@@ -6,6 +6,7 @@ Map<String, SettingsSuccess> settingsSuccesssMapping = {
   'avatar-changed-successfully': SettingsSuccessAvatarChanged(),
   'name-updated': SettingsSuccessNameUpdated(),
   'password-changed': SettingsSuccessPasswordChanged(),
+  'update-email': SettingsSuccessUpdateEmail()
 };
 
 @immutable
@@ -71,6 +72,17 @@ class SettingsSuccessPasswordChanged extends SettingsSuccess {
       : super(
           dialogTitle: IntlStrings.current.settingsSuccessPasswordChangedTitle,
           dialogText: IntlStrings.current.settingsSuccessPasswordChangedMessage,
+        );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
+}
+
+@immutable
+class SettingsSuccessUpdateEmail extends SettingsSuccess {
+  SettingsSuccessUpdateEmail()
+      : super(
+          dialogTitle: IntlStrings.current.settingsSuccessUpdateEmaiTitle,
+          dialogText: IntlStrings.current.settingsSuccessUpdateEmaiMessage,
         );
   @override
   List<Object?> get props => [super.dialogText, super.dialogTitle];

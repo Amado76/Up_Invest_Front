@@ -40,6 +40,7 @@ sealed class IAuthRepository {
   Future<AuthUserModel> getLoggedUser();
   Future<void> reauthenticateAUser(String email, String password);
   Future<void> deleteAllData({required AuthUserModel authUser});
+  Future<void> updateEmail({required String newEmail});
 }
 
 class AuthRepository extends IAuthRepository {
@@ -129,9 +130,13 @@ class AuthRepository extends IAuthRepository {
   }
 
   @override
-  @visibleForTesting
   Future<void> updatePassword({required String newPassword}) async {
     await authAdapter.updatePassword(newPassword);
+  }
+
+  @override
+  Future<void> updateEmail({required String newEmail}) async {
+    await authAdapter.updateEmail(newEmail);
   }
 
   @override

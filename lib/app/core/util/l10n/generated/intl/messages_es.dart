@@ -204,6 +204,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("¡Solicitud exitosa!"),
         "settingsSuccessUnknownTitle":
             MessageLookupByLibrary.simpleMessage("¡Éxito!"),
+        "settingsSuccessUpdateEmaiMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "¡Tu correo electrónico ha sido cambiado con éxito!"),
+        "settingsSuccessUpdateEmaiTitle": MessageLookupByLibrary.simpleMessage(
+            "¡Correo electrónico cambiado con éxito!"),
         "signInDoNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("¿No tienes una cuenta?"),
         "signInSignUp": MessageLookupByLibrary.simpleMessage("¡Regístrate!"),
