@@ -59,6 +59,30 @@ class EditDetailsBloc extends Bloc<EditDetailsEvent, EditDetailsState> {
           password: event.password,
           newEmail: event.newEmail);
     });
+    on<EditDetailsDeleteAccount>((event, emit) {
+      _onDeleteAccount(email: event.email, password: event.password);
+    });
+  }
+
+  void _onDeleteAccount(
+      {required String email, required String password}) async {
+    emit(EditDetailsLoading(
+        avatar: state.avatar,
+        avatarList: state.avatarList,
+        authUser: state.authUser));
+    try {
+      await authRepository.reauthenticateAUser(email, password);
+      await authRepository.deleteAllData(authUser: authUser);
+      await authRepository.deleteUser();
+      await authRepository.signOut();
+      authRepository.addAuthUserToStream(null);
+    } on Exception catch (e) {
+      emit(EditDetailsError(
+          avatar: state.avatar,
+          avatarList: state.avatarList,
+          authUser: state.authUser,
+          authError: AuthError.from(e)));
+    }
   }
 
   void _onUpdateEmail(

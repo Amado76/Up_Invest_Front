@@ -36,6 +36,9 @@ class FirebaseStorageAdapter extends IRemoteStorageAdapter {
 
   @override
   Future<void> deleteAllData({required String userId}) async {
-    await storage.ref(userId).delete();
+    final folderContents = await storage.ref(userId).listAll();
+    for (final item in folderContents.items) {
+      await item.delete();
+    }
   }
 }

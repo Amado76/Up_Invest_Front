@@ -7,7 +7,8 @@ import 'package:up_invest_front/app/core/widgets/custom_password_form_field.dart
 import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings/edit_details_bloc.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/custom_dialog_actions.dart';
-import 'package:up_invest_front/app/modules/settings/widgets/edit_details_row.dart';
+
+import 'package:up_invest_front/app/modules/settings/widgets/edit_page_widgets/edit_details_row.dart';
 
 class EditPasswordWidget extends StatefulWidget {
   const EditPasswordWidget({super.key});

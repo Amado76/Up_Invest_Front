@@ -12,11 +12,11 @@ import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
 import 'package:up_invest_front/app/modules/settings/bloc/settings/edit_details_bloc.dart';
-import 'package:up_invest_front/app/modules/settings/widgets/change_avatar.dart';
+import 'package:up_invest_front/app/modules/settings/widgets/edit_page_widgets/change_avatar.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/custom_dialog_actions.dart';
-import 'package:up_invest_front/app/modules/settings/widgets/edit_details_row.dart';
-import 'package:up_invest_front/app/modules/settings/widgets/edit_name_widget.dart';
-import 'package:up_invest_front/app/modules/settings/widgets/edit_password_widget.dart';
+import 'package:up_invest_front/app/modules/settings/widgets/edit_page_widgets/edit_email_widget.dart';
+import 'package:up_invest_front/app/modules/settings/widgets/edit_page_widgets/edit_name_widget.dart';
+import 'package:up_invest_front/app/modules/settings/widgets/edit_page_widgets/edit_password_widget.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/settings_scaffold.dart';
 
 class EditDetailsPage extends StatefulWidget {
@@ -137,7 +137,7 @@ class _EditDetailsState extends State<EditDetailsPage> {
                           const SizedBox(height: 10),
                           const Divider(color: Colors.grey, height: 4.0),
                           const SizedBox(height: 10),
-                          _EditEmailWidget(
+                          EditEmailWidget(
                             email: authBloc.state.authUser!.email,
                           ),
                           const SizedBox(height: 10),
@@ -160,85 +160,6 @@ class _EditDetailsState extends State<EditDetailsPage> {
   }
 }
 
-class _EditEmailWidget extends StatefulWidget {
-  final String email;
-  const _EditEmailWidget({required this.email});
-
-  @override
-  State<_EditEmailWidget> createState() => _EditEmailWidgetState();
-}
-
-class _EditEmailWidgetState extends State<_EditEmailWidget> {
-  @override
-  Widget build(BuildContext context) {
-    final editDetailsBloc = Modular.get<EditDetailsBloc>();
-    final IntlStrings intlStrings = IntlStrings.current;
-    final TextEditingController currentEmailController =
-        TextEditingController();
-    final TextEditingController newEmailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    final Validator validator = Validator();
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    return EditDetailsPageRow(
-      icon: Icons.email_outlined,
-      title: intlStrings.emailHintText.toUpperCase(),
-      content: widget.email,
-      onPressed: () {
-        showCustomDialog(
-            context: context,
-            title: intlStrings.editDetailsChangeEmail,
-            content: SizedBox(
-              height: 300,
-              width: 300,
-              child: Form(
-                key: formKey,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomTextFormField(
-                          icon: const Icon(Icons.email_outlined),
-                          hintText: intlStrings.emailHintText,
-                          keyBoardType: TextInputType.emailAddress,
-                          validator: (email) {
-                            return validator.emailValidator(email);
-                          },
-                          controller: currentEmailController),
-                      const SizedBox(height: 10),
-                      CustomTextFormField(
-                          icon: const Icon(Icons.email_outlined),
-                          hintText: intlStrings.editDetailsNewEmailHintText,
-                          keyBoardType: TextInputType.emailAddress,
-                          validator: (email) {
-                            return validator.emailValidator(email);
-                          },
-                          controller: newEmailController),
-                      const SizedBox(height: 10),
-                      CustomPasswordFormField(
-                          hintText: intlStrings.passwordHintText,
-                          validator: (password) {
-                            return validator.signInPasswordValidator(password);
-                          },
-                          controller: passwordController)
-                    ]),
-              ),
-            ),
-            barrierDismissible: true,
-            actions: CustomDialogActions(onCancel: () {
-              Navigator.of(context).pop();
-            }, onSave: () {
-              if (formKey.currentState!.validate()) {
-                editDetailsBloc.add(EditDetailsUpdateEmail(
-                    newEmail: newEmailController.text,
-                    email: currentEmailController.text,
-                    password: passwordController.text));
-                Navigator.of(context).pop();
-              }
-            }));
-      },
-    );
-  }
-}
-
 class _DeleteAccount extends StatefulWidget {
   const _DeleteAccount();
 
@@ -249,6 +170,7 @@ class _DeleteAccount extends StatefulWidget {
 class __DeleteAccountState extends State<_DeleteAccount> {
   @override
   Widget build(BuildContext context) {
+    final editDetailsBloc = Modular.get<EditDetailsBloc>();
     final IntlStrings intlStrings = IntlStrings.current;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -327,9 +249,16 @@ class __DeleteAccountState extends State<_DeleteAccount> {
                     onSaveIcon:
                         Icon(Icons.delete_forever, color: colorScheme.error),
                     onCancelIcon: Icon(Icons.check, color: colorScheme.primary),
-                    onCancel: () {},
+                    onCancel: () {
+                      Navigator.of(context).pop();
+                    },
                     onSave: () {
-                      if (formKey.currentState!.validate()) {}
+                      if (formKey.currentState!.validate()) {
+                        editDetailsBloc.add(EditDetailsDeleteAccount(
+                            email: emailController.text,
+                            password: passwordController.text));
+                      }
+                      Navigator.of(context).pop();
                     }));
           },
           icon: Icon(Icons.delete_forever, color: colorScheme.error),

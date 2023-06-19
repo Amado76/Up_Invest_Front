@@ -84,3 +84,13 @@ final class EditDetailsUpdateEmail extends EditDetailsEvent {
   @override
   List<Object?> get props => [newEmail, password, email];
 }
+
+@immutable
+final class EditDetailsDeleteAccount extends EditDetailsEvent {
+  final String password;
+  final String email;
+  const EditDetailsDeleteAccount({required this.email, required this.password});
+
+  @override
+  List<Object?> get props => [password, email];
+}
