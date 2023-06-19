@@ -77,6 +77,10 @@
     "settingsSuccessUnknownMessage": "Successful request!", 
     "settingsSuccessChangeAvatarTitle": "Avatar changed successfully!",
     "settingsSuccessChangeAvatarMessage": "Your avatar has been changed successfully!",
+    "settingsSuccessNameUpdatedTitle": "User Name changed successfully!",
+    "settingsSuccessNameUpdatedMessage": "Your user name has been changed successfully!",
+    "settingsSuccessPasswordChangedTitle": "Password changed successfully!",
+    "settingsSuccessPasswordChangedMessage": "Your password has been changed successfully!",
 
     "settingsAppBarTitle": "Settings",
     "settingsLanguage": "Language",

@@ -44,6 +44,63 @@ class EditDetailsBloc extends Bloc<EditDetailsEvent, EditDetailsState> {
     on<EditDetailsCancelAvatarEdit>((event, emit) {
       _onCancelAvatarEdit();
     });
+    on<EditDetailsUpdateDisplayName>((event, emit) {
+      _onUpdateDisplayName(event.newName);
+    });
+    on<EditDetailsUpdatePassword>((event, emit) {
+      _onUpdatePassword(
+          email: event.email,
+          password: event.password,
+          newPassword: event.newPassword);
+    });
+  }
+
+  void _onUpdatePassword(
+      {required String newPassword,
+      required String password,
+      required String email}) async {
+    emit(EditDetailsLoading(
+        avatar: state.avatar,
+        avatarList: state.avatarList,
+        authUser: state.authUser));
+    try {
+      await authRepository.reauthenticateAUser(email, password);
+      await authRepository.updatePassword(newPassword: newPassword);
+      emit(EditDetailsSuccess(
+          avatar: state.avatar,
+          avatarList: state.avatarList,
+          authUser: state.authUser,
+          settingsSuccess: SettingsSuccess.from('password-changed')));
+    } on FirebaseAuthException catch (e) {
+      emit(EditDetailsError(
+          avatar: state.avatar,
+          avatarList: state.avatarList,
+          authUser: state.authUser,
+          authError: AuthError.from(e)));
+    }
+  }
+
+  void _onUpdateDisplayName(String newName) async {
+    emit(EditDetailsLoading(
+        avatar: state.avatar,
+        avatarList: state.avatarList,
+        authUser: state.authUser));
+    try {
+      AuthUserModel updatedAuthUser =
+          await authRepository.updateAccountDetails(newName: newName);
+      authRepository.addAuthUserToStream(updatedAuthUser);
+      emit(EditDetailsSuccess(
+          authUser: updatedAuthUser,
+          avatar: state.avatar,
+          avatarList: state.avatarList,
+          settingsSuccess: SettingsSuccess.from('name-updated')));
+    } on FirebaseAuthException catch (e) {
+      emit(EditDetailsError(
+          avatar: state.avatar,
+          avatarList: state.avatarList,
+          authUser: state.authUser,
+          authError: AuthError.from(e)));
+    }
   }
 
   void _onUpdateAvatar() async {

@@ -36,10 +36,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       _deleteAccount(event.email, event.password);
     });
 
-    on<AuthUpdatePassword>((event, emit) {
-      _updatePassword(event.oldPassword, event.newPassword);
-    });
-
     authRepository.authUser.listen((user) async {
       if (user == null) {
         emit(AuthLoggedOut());
@@ -103,22 +99,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoggedOut());
     } on Exception catch (e) {
       final avatar = await cacheAdapter.getSingleFile(currentUser.avatar.url);
-      emit(AuthErrorState(authError: AuthError.from(e)));
-      emit(AuthLoggedIn(authUser: currentUser, avatar: avatar));
-    }
-  }
-
-  void _updatePassword(String oldPassword, String newPassword) async {
-    final currentState = state as AuthLoggedIn;
-    final currentUser = currentState.authUser;
-    final avatar = await cacheAdapter.getSingleFile(currentUser.avatar.url);
-    emit(AuthLoading());
-    try {
-      await authRepository.reauthenticateAUser(currentUser.email, oldPassword);
-      await authRepository.updatePassword(newPassword: newPassword);
-      emit(AuthSuccessState(authSucess: AuthSuccess.from('set-new-password')));
-      emit(AuthLoggedIn(authUser: currentUser, avatar: avatar));
-    } on Exception catch (e) {
       emit(AuthErrorState(authError: AuthError.from(e)));
       emit(AuthLoggedIn(authUser: currentUser, avatar: avatar));
     }

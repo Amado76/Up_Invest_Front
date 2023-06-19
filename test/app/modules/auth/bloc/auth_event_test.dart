@@ -32,12 +32,7 @@ void main() {
       expect(AuthLogOut(), AuthLogOut());
     });
   });
-  group('[AuthUpdatePassword]', () {
-    test('supports value comparisons', () {
-      expect(AuthUpdatePassword(oldPassword: password, newPassword: password),
-          AuthUpdatePassword(oldPassword: password, newPassword: password));
-    });
-  });
+
   group('[AuthIsLoggedIn]', () {
     test('supports value comparisons', () {
       expect(AuthIsLoggedIn(), AuthIsLoggedIn());

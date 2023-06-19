@@ -47,4 +47,22 @@ void main() {
       );
     });
   });
+  group('[EditDetailsUpdateDisplayName]', () {
+    test('supports value comparisons', () {
+      expect(
+        EditDetailsUpdateDisplayName(newName: 'newName'),
+        EditDetailsUpdateDisplayName(newName: 'newName'),
+      );
+    });
+  });
+  group('[EditDetailsUpdatePassword]', () {
+    test('supports value comparisons', () {
+      expect(
+        EditDetailsUpdatePassword(
+            password: 'password', newPassword: 'newPassword', email: 'email'),
+        EditDetailsUpdatePassword(
+            password: 'password', newPassword: 'newPassword', email: 'email'),
+      );
+    });
+  });
 }

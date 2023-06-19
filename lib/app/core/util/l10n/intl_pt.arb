@@ -76,6 +76,10 @@
     "settingsSuccessUnknownMessage": "Requisição bem-sucedida!", 
     "settingsSuccessChangeAvatarTitle": "Avatar alterado com sucesso!",
     "settingsSuccessChangeAvatarMessage": "Seu avatar foi alterado com sucesso!",
+    "settingsSuccessNameUpdatedTitle": "Nome alterado com sucesso!",
+    "settingsSuccessNameUpdatedMessage": "Seu nome foi alterado com sucesso!",
+    "settingsSuccessPasswordChangedTitle": "Senha alterada com sucesso!",
+    "settingsSuccessPasswordChangedMessage": "Sua senha foi alterada com sucesso!",
 
     "settingsAppBarTitle": "Configurações",
     "settingsLanguage": "Idioma",

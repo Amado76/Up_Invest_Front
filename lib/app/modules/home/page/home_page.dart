@@ -140,19 +140,6 @@ class _HomePageState extends State<HomePage> {
                         validator: (password) {
                           return validator.signInPasswordValidator(password);
                         }),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    CustomElevatedButton(
-                      text: 'Change Password ',
-                      onPressed: () {
-                        if (formKey2.currentState!.validate()) {
-                          authBloc.add(AuthUpdatePassword(
-                              newPassword: newPasswordController.text,
-                              oldPassword: passwordController2.text));
-                        }
-                      },
-                    ),
                     const SizedBox(height: 10),
                   ],
                 ))

@@ -740,6 +740,46 @@ class IntlStrings {
     );
   }
 
+  /// `User Name changed successfully!`
+  String get settingsSuccessNameUpdatedTitle {
+    return Intl.message(
+      'User Name changed successfully!',
+      name: 'settingsSuccessNameUpdatedTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your user name has been changed successfully!`
+  String get settingsSuccessNameUpdatedMessage {
+    return Intl.message(
+      'Your user name has been changed successfully!',
+      name: 'settingsSuccessNameUpdatedMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password changed successfully!`
+  String get settingsSuccessPasswordChangedTitle {
+    return Intl.message(
+      'Password changed successfully!',
+      name: 'settingsSuccessPasswordChangedTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your password has been changed successfully!`
+  String get settingsSuccessPasswordChangedMessage {
+    return Intl.message(
+      'Your password has been changed successfully!',
+      name: 'settingsSuccessPasswordChangedMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Settings`
   String get settingsAppBarTitle {
     return Intl.message(

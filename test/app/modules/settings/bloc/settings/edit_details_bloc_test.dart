@@ -51,6 +51,118 @@ void main() async {
     expect(editDetailsBloc.state, isA<EditDetailsIdle>());
   });
 
+  group('[EditDetailsUpdatePassword]', () {
+    blocTest<EditDetailsBloc, EditDetailsState>(
+        'when [EditDetailsUpdatePassword] is added and operation is successful return [EditDetailsSuccess] with the updated AuthUser',
+        setUp: () {
+          when(() =>
+                  authRepositoryMock.reauthenticateAUser('email', 'password'))
+              .thenAnswer((_) => Future.value(null));
+          when(() => authRepositoryMock.updatePassword(
+                newPassword: 'newPassword',
+              )).thenAnswer((_) => Future.value(null));
+        },
+        build: () => editDetailsBloc,
+        seed: () => EditDetailsIdle(
+            authUser: authUserMock,
+            avatar: standardAvatarMock,
+            avatarList: avatarList),
+        act: (bloc) => bloc.add(const EditDetailsUpdatePassword(
+            password: 'password', newPassword: 'newPassword', email: 'email')),
+        expect: () => <EditDetailsState>[
+              EditDetailsLoading(
+                  authUser: authUserMock,
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList),
+              EditDetailsSuccess(
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList,
+                  authUser: authUserMock,
+                  settingsSuccess: SettingsSuccessPasswordChanged())
+            ]);
+    blocTest<EditDetailsBloc, EditDetailsState>(
+        'when [EditDetailsUpdatePassword] is added and operation throw FirebaseAuthException return [EditDetailsError]',
+        setUp: () {
+          when(() =>
+                  authRepositoryMock.reauthenticateAUser('email', 'password'))
+              .thenAnswer((_) => Future.value(null));
+          when(() => authRepositoryMock.updatePassword(
+                newPassword: 'newPassword',
+              )).thenThrow(FirebaseAuthException(code: 'code'));
+        },
+        build: () => editDetailsBloc,
+        seed: () => EditDetailsIdle(
+            authUser: authUserMock,
+            avatar: standardAvatarMock,
+            avatarList: avatarList),
+        act: (bloc) => bloc.add(const EditDetailsUpdatePassword(
+            password: 'password', newPassword: 'newPassword', email: 'email')),
+        expect: () => <EditDetailsState>[
+              EditDetailsLoading(
+                  authUser: authUserMock,
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList),
+              EditDetailsError(
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList,
+                  authUser: authUserMock,
+                  authError: AuthErrorUnknown())
+            ]);
+  });
+
+  group('[EditDetailsUpdateName]', () {
+    blocTest<EditDetailsBloc, EditDetailsState>(
+        'when [EditDetailsUpdateName] is added and operation is successful return [EditDetailsSuccess] with the updated AuthUser',
+        setUp: () {
+          when(() => authRepositoryMock.updateAccountDetails(
+                  newName: any(named: 'newName'), avatar: any(named: 'avatar')))
+              .thenAnswer((_) async => authUserMock);
+        },
+        build: () => editDetailsBloc,
+        seed: () => EditDetailsIdle(
+            authUser: authUserMock,
+            avatar: standardAvatarMock,
+            avatarList: avatarList),
+        act: (bloc) =>
+            bloc.add(const EditDetailsUpdateDisplayName(newName: 'newName')),
+        expect: () => <EditDetailsState>[
+              EditDetailsLoading(
+                  authUser: authUserMock,
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList),
+              EditDetailsSuccess(
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList,
+                  authUser: authUserMock,
+                  settingsSuccess: SettingsSuccessNameUpdated())
+            ]);
+    blocTest<EditDetailsBloc, EditDetailsState>(
+        'when [EditDetailsUpdateName] is added and operation throw FirebaseAuthException return [EditDetailsError]',
+        setUp: () {
+          when(() => authRepositoryMock.updateAccountDetails(
+                  newName: any(named: 'newName'), avatar: any(named: 'avatar')))
+              .thenThrow(FirebaseAuthException(code: 'code'));
+        },
+        build: () => editDetailsBloc,
+        seed: () => EditDetailsIdle(
+            authUser: authUserMock,
+            avatar: standardAvatarMock,
+            avatarList: avatarList),
+        act: (bloc) =>
+            bloc.add(const EditDetailsUpdateDisplayName(newName: 'newName')),
+        expect: () => <EditDetailsState>[
+              EditDetailsLoading(
+                  authUser: authUserMock,
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList),
+              EditDetailsError(
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList,
+                  authUser: authUserMock,
+                  authError: AuthErrorUnknown())
+            ]);
+  });
+
   group('[EditDetailsUpdateAvatar]', () {
     late NetworkAvatar newAvatar;
     late AvatarList newAvatarList;

@@ -12,7 +12,6 @@ import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
-import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 import '../../../../mocks/auth/adapter/auth_adapter_mock.dart';
@@ -229,70 +228,7 @@ void main() async {
         ],
       );
     });
-    // AuthUpdatePassword test
-    group('when [AuthUpdatePassword] is added', () {
-      blocTest<AuthBloc, AuthState>(
-          'and it is successfull updated emits [AuthLoggedIn]',
-          setUp: () {
-            when(() => authRepositoryMock.reauthenticateAUser(any(), any()))
-                .thenAnswer((_) => Future.value());
-            when(() => authRepositoryMock.updatePassword(
-                    newPassword: any(named: 'newPassword')))
-                .thenAnswer((_) => Future.value());
-            when(() => cacheAdapterMock.getSingleFile(any()))
-                .thenAnswer((invocation) async => fileMock);
-          },
-          build: () => authBloc,
-          seed: () => AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
-          act: (bloc) => bloc.add(const AuthUpdatePassword(
-              oldPassword: 'oldPassword', newPassword: 'newPassword')),
-          expect: () => <AuthState>[
-                AuthLoading(),
-                AuthSuccessState(authSucess: AuthSuccessSetNewPassword()),
-                AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
-              ]);
-      blocTest<AuthBloc, AuthState>(
-          'and it fails emits [AuthLoggedIn] with error',
-          setUp: () {
-            when(() => authRepositoryMock.reauthenticateAUser(any(), any()))
-                .thenAnswer((_) => Future.value());
-            when(() => authRepositoryMock.updatePassword(
-                    newPassword: any(named: 'newPassword')))
-                .thenThrow(
-                    FirebaseAuthException(code: 'requires-recent-login'));
-            when(() => cacheAdapterMock.getSingleFile(any()))
-                .thenAnswer((invocation) async => fileMock);
-          },
-          build: () => authBloc,
-          seed: () => AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
-          act: (bloc) => bloc.add(const AuthUpdatePassword(
-              oldPassword: 'oldPassword', newPassword: 'newPassword')),
-          expect: () => <AuthState>[
-                AuthLoading(),
-                AuthErrorState(authError: AuthErrorRequiresRecentLogin()),
-                AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
-              ]);
-      blocTest<AuthBloc, AuthState>(
-          'and it fails emits [AuthLoggedIn] with error',
-          setUp: () {
-            when(() => authRepositoryMock.reauthenticateAUser(any(), any()))
-                .thenAnswer((_) => Future.value());
-            when(() => authRepositoryMock.updatePassword(
-                    newPassword: any(named: 'newPassword')))
-                .thenThrow(PlatformException(code: 'user-not-found'));
-            when(() => cacheAdapterMock.getSingleFile(any()))
-                .thenAnswer((invocation) async => fileMock);
-          },
-          build: () => authBloc,
-          seed: () => AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
-          act: (bloc) => bloc.add(const AuthUpdatePassword(
-              oldPassword: 'oldPassword', newPassword: 'newPassword')),
-          expect: () => <AuthState>[
-                AuthLoading(),
-                AuthErrorState(authError: AuthErrorUserNotFound()),
-                AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
-              ]);
-    });
+
     // AuthLogOut test
     group('when [AuthLogOut] is added', () {
       blocTest<AuthBloc, AuthState>(

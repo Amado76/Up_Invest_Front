@@ -51,3 +51,24 @@ final class EditDetailsCancelAvatarEdit extends EditDetailsEvent {
   @override
   List<Object?> get props => [];
 }
+
+@immutable
+final class EditDetailsUpdateDisplayName extends EditDetailsEvent {
+  final String newName;
+  const EditDetailsUpdateDisplayName({required this.newName});
+
+  @override
+  List<Object?> get props => [newName];
+}
+
+@immutable
+final class EditDetailsUpdatePassword extends EditDetailsEvent {
+  final String password;
+  final String newPassword;
+  final String email;
+  const EditDetailsUpdatePassword(
+      {required this.password, required this.newPassword, required this.email});
+
+  @override
+  List<Object?> get props => [password, newPassword, email];
+}

@@ -50,19 +50,6 @@ final class AuthLogOut extends AuthEvent {
 }
 
 @immutable
-final class AuthUpdatePassword extends AuthEvent {
-  final String oldPassword;
-  final String newPassword;
-
-  const AuthUpdatePassword({
-    required this.oldPassword,
-    required this.newPassword,
-  });
-  @override
-  List<Object?> get props => [oldPassword, newPassword];
-}
-
-@immutable
 final class AuthIsLoggedIn extends AuthEvent {
   const AuthIsLoggedIn();
   @override

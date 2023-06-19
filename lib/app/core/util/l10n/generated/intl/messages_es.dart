@@ -189,6 +189,17 @@ class MessageLookup extends MessageLookupByLibrary {
                 "¡Tu avatar ha sido cambiado con éxito!"),
         "settingsSuccessChangeAvatarTitle":
             MessageLookupByLibrary.simpleMessage("¡Avatar cambiado con éxito!"),
+        "settingsSuccessNameUpdatedMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "¡Tu nombre ha sido cambiado con éxito!"),
+        "settingsSuccessNameUpdatedTitle":
+            MessageLookupByLibrary.simpleMessage("¡Nombre cambiado con éxito!"),
+        "settingsSuccessPasswordChangedMessage":
+            MessageLookupByLibrary.simpleMessage(
+                "¡Tu contraseña ha sido cambiada con éxito!"),
+        "settingsSuccessPasswordChangedTitle":
+            MessageLookupByLibrary.simpleMessage(
+                "¡Contraseña cambiada con éxito!"),
         "settingsSuccessUnknownMessage":
             MessageLookupByLibrary.simpleMessage("¡Solicitud exitosa!"),
         "settingsSuccessUnknownTitle":

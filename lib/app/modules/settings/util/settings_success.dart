@@ -4,6 +4,8 @@ import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
 Map<String, SettingsSuccess> settingsSuccesssMapping = {
   'avatar-changed-successfully': SettingsSuccessAvatarChanged(),
+  'name-updated': SettingsSuccessNameUpdated(),
+  'password-changed': SettingsSuccessPasswordChanged(),
 };
 
 @immutable
@@ -47,6 +49,28 @@ class SettingsSuccessAvatarChanged extends SettingsSuccess {
       : super(
           dialogTitle: IntlStrings.current.settingsSuccessChangeAvatarTitle,
           dialogText: IntlStrings.current.settingsSuccessChangeAvatarMessage,
+        );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
+}
+
+@immutable
+class SettingsSuccessNameUpdated extends SettingsSuccess {
+  SettingsSuccessNameUpdated()
+      : super(
+          dialogTitle: IntlStrings.current.settingsSuccessNameUpdatedTitle,
+          dialogText: IntlStrings.current.settingsSuccessNameUpdatedMessage,
+        );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
+}
+
+@immutable
+class SettingsSuccessPasswordChanged extends SettingsSuccess {
+  SettingsSuccessPasswordChanged()
+      : super(
+          dialogTitle: IntlStrings.current.settingsSuccessPasswordChangedTitle,
+          dialogText: IntlStrings.current.settingsSuccessPasswordChangedMessage,
         );
   @override
   List<Object?> get props => [super.dialogText, super.dialogTitle];

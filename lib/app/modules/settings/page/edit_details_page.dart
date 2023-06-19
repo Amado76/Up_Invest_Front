@@ -239,6 +239,7 @@ class _EditNameWidgetState extends State<_EditNameWidget> {
     final TextEditingController nameController = TextEditingController();
     final Validator validator = Validator();
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    final editDetailsBloc = Modular.get<EditDetailsBloc>();
     return EditDetailsPageRow(
       icon: Icons.person_2_outlined,
       title: intlStrings.nameHintText.toUpperCase(),
@@ -265,11 +266,15 @@ class _EditNameWidgetState extends State<_EditNameWidget> {
               ),
             ),
             barrierDismissible: true,
-            actions: CustomDialogActions(
-                onCancel: () {},
-                onSave: () {
-                  if (formKey.currentState!.validate()) {}
-                }));
+            actions: CustomDialogActions(onCancel: () {
+              Navigator.of(context).pop();
+            }, onSave: () {
+              if (formKey.currentState!.validate()) {
+                editDetailsBloc.add(
+                    EditDetailsUpdateDisplayName(newName: nameController.text));
+                Navigator.of(context).pop();
+              }
+            }));
       },
     );
   }
@@ -357,9 +362,9 @@ class _EditPasswordWidget extends StatefulWidget {
 class _EditPasswordWidgetState extends State<_EditPasswordWidget> {
   @override
   Widget build(BuildContext context) {
+    final editDetailsBloc = Modular.get<EditDetailsBloc>();
     final IntlStrings intlStrings = IntlStrings.current;
-    final TextEditingController currentEmailController =
-        TextEditingController();
+    final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController newPasswordController = TextEditingController();
     final TextEditingController confirmNewPasswordController =
@@ -389,7 +394,7 @@ class _EditPasswordWidgetState extends State<_EditPasswordWidget> {
                           validator: (email) {
                             return validator.emailValidator(email);
                           },
-                          controller: currentEmailController),
+                          controller: emailController),
                       const SizedBox(height: 10),
                       CustomPasswordFormField(
                           hintText: intlStrings.passwordHintText,
@@ -417,11 +422,17 @@ class _EditPasswordWidgetState extends State<_EditPasswordWidget> {
               ),
             ),
             barrierDismissible: true,
-            actions: CustomDialogActions(
-                onCancel: () {},
-                onSave: () {
-                  if (formKey.currentState!.validate()) {}
-                }));
+            actions: CustomDialogActions(onCancel: () {
+              Navigator.of(context).pop();
+            }, onSave: () {
+              if (formKey.currentState!.validate()) {
+                editDetailsBloc.add(EditDetailsUpdatePassword(
+                    email: emailController.text,
+                    newPassword: newPasswordController.text,
+                    password: passwordController.text));
+                Navigator.of(context).pop();
+              }
+            }));
       },
     );
   }
