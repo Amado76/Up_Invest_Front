@@ -35,9 +35,9 @@ class _EditDetailsState extends State<EditDetailsPage> {
     final colorScheme = theme.colorScheme;
     final IntlStrings intlStrings = IntlStrings.current;
     AvatarModel displayAvatar = authBloc.state.authUser!.avatar;
-
+    String displayName = authBloc.state.authUser!.displayName;
+    String displayEmail = authBloc.state.authUser!.email;
     final customBar = CustomSnackBar();
-
     final intlString = IntlStrings.of(context);
 
     return BlocConsumer<EditDetailsBloc, EditDetailsState>(
@@ -72,6 +72,8 @@ class _EditDetailsState extends State<EditDetailsPage> {
             avatar: final avatar
           ) =>
             {
+              displayEmail = state.authUser.email,
+              displayName = state.authUser.displayName,
               displayAvatar = avatar,
               hideLoading,
               customBar.showBottomSuccessSnackBar(settingsSuccess.dialogTitle,
@@ -132,13 +134,13 @@ class _EditDetailsState extends State<EditDetailsPage> {
                       child: Column(
                         children: [
                           EditNameWidget(
-                            name: authBloc.state.authUser!.displayName,
+                            name: displayName,
                           ),
                           const SizedBox(height: 10),
                           const Divider(color: Colors.grey, height: 4.0),
                           const SizedBox(height: 10),
                           EditEmailWidget(
-                            email: authBloc.state.authUser!.email,
+                            email: displayEmail,
                           ),
                           const SizedBox(height: 10),
                           const Divider(color: Colors.grey, height: 4.0),

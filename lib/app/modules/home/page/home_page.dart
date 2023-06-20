@@ -6,8 +6,6 @@ import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
-import 'package:up_invest_front/app/core/util/validator.dart';
-
 import '../../auth/model/auth_user_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,13 +19,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final authBloc = Modular.get<AuthBloc>();
-    final formKey = GlobalKey<FormState>();
-    final formKey2 = GlobalKey<FormState>();
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-    final newPasswordController = TextEditingController();
-    final passwordController2 = TextEditingController();
-    final validator = Validator();
+
     final customBar = CustomSnackBar();
 
     AuthUserModel? authUser = authBloc.state is AuthLoggedIn
