@@ -2,7 +2,7 @@
     package="com.example.up_invest_front">
    
    <application   
-        android:label="up_invest_front"
+        android:label="UpInvest"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">        
 
