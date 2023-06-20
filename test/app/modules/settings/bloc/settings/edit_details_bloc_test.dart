@@ -318,7 +318,7 @@ void main() async {
             ]);
   });
 
-  group('[EditDetailsCleanAvatarList]', () {
+  group('[EditDetailsCleanAvatarList] is added', () {
     late NetworkAvatar avatarWithNullId;
     late NetworkAvatar avatarWithId;
     late NetworkAvatar newAvatar;
@@ -331,7 +331,7 @@ void main() async {
       avatarListWithNewAvatar.addNetworkAvatar('url');
     });
     blocTest<EditDetailsBloc, EditDetailsState>(
-        'when [EditDetailsCleanAvatarList] is added and [avatar.id == null], return [EditDetailsIdle] with new avatarList]',
+        'and [avatar.id == null], return [EditDetailsIdle] with new avatarList]',
         build: () => editDetailsBloc,
         seed: () => EditDetailsIdle(
             authUser: authUserMock,
@@ -345,7 +345,7 @@ void main() async {
                   avatarList: avatarListWithNewAvatar)
             ]);
     blocTest<EditDetailsBloc, EditDetailsState>(
-        'when [EditDetailsCleanAvatarList] is added and [avatar.id != null], return [EditDetailsIdle] with new avatarList]',
+        'a  nd [avatar.id != null], return [EditDetailsIdle] with new avatarList]',
         build: () => editDetailsBloc,
         seed: () => EditDetailsIdle(
             authUser: authUserMock,
@@ -357,6 +357,123 @@ void main() async {
                   authUser: authUserMock,
                   avatar: newAvatar,
                   avatarList: avatarListWithNewAvatar)
+            ]);
+  });
+
+  group('when [EditDetailsUpdateEmail] is added', () {
+    AuthUserModel updatedUser = AuthUserModel(
+        userId: 'userId',
+        email: 'email',
+        token: 'token',
+        displayName: 'displayName',
+        avatar: CustomAvatarMock(),
+        signInMethod: 'signInMethod',
+        isEmailVerified: true);
+    setUp(() {
+      when(() => authRepositoryMock.reauthenticateAUser('email', 'password'))
+          .thenAnswer((_) => Future.value(null));
+      when(() => authRepositoryMock.getLoggedUser())
+          .thenAnswer((_) async => updatedUser);
+    });
+    blocTest<EditDetailsBloc, EditDetailsState>(
+        'and it is successful, emit EditDetailsSuccess with updated user',
+        setUp: () =>
+            when(() => authRepositoryMock.updateEmail(newEmail: 'newEmail'))
+                .thenAnswer((_) => Future.value(null)),
+        build: () => editDetailsBloc,
+        seed: () => EditDetailsIdle(
+            authUser: authUserMock,
+            avatar: standardAvatarMock,
+            avatarList: avatarList),
+        act: (bloc) => bloc.add(const EditDetailsUpdateEmail(
+            email: 'email', newEmail: 'newEmail', password: 'password')),
+        expect: () => <EditDetailsState>[
+              EditDetailsLoading(
+                  authUser: authUserMock,
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList),
+              EditDetailsSuccess(
+                  authUser: updatedUser,
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList,
+                  settingsSuccess: SettingsSuccessUpdateEmail())
+            ]);
+    blocTest<EditDetailsBloc, EditDetailsState>(
+        'and it throw FirebaseAuthException, emit EditDetailsFailure with error message',
+        setUp: () =>
+            when(() => authRepositoryMock.updateEmail(newEmail: 'newEmail'))
+                .thenThrow(FirebaseAuthException(code: 'code')),
+        build: () => editDetailsBloc,
+        seed: () => EditDetailsIdle(
+            authUser: authUserMock,
+            avatar: standardAvatarMock,
+            avatarList: avatarList),
+        act: (bloc) => bloc.add(const EditDetailsUpdateEmail(
+            email: 'email', newEmail: 'newEmail', password: 'password')),
+        expect: () => <EditDetailsState>[
+              EditDetailsLoading(
+                  authUser: authUserMock,
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList),
+              EditDetailsError(
+                  authUser: authUserMock,
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList,
+                  authError: AuthErrorUnknown())
+            ]);
+  });
+
+  group('when [EditDetailsDeleteAccount] is added ', () {
+    setUp(() {
+      when(() => authRepositoryMock.reauthenticateAUser('email', 'password'))
+          .thenAnswer((_) => Future.value(null));
+      when(() => authRepositoryMock.deleteAllData(authUser: authUserMock))
+          .thenAnswer((_) => Future.value(null));
+      when(() => authRepositoryMock.signOut())
+          .thenAnswer((invocation) => Future.value(null));
+    });
+    blocTest<EditDetailsBloc, EditDetailsState>(
+      'and the account is successfully deleted, add a null to AuthUser stream on repository',
+      setUp: () => when(() => authRepositoryMock.deleteUser())
+          .thenAnswer((_) => Future.value(null)),
+      build: () => editDetailsBloc,
+      seed: () => EditDetailsIdle(
+          authUser: authUserMock,
+          avatar: standardAvatarMock,
+          avatarList: avatarList),
+      act: (bloc) => bloc.add(
+          const EditDetailsDeleteAccount(email: 'email', password: 'password')),
+      expect: () => <EditDetailsState>[
+        EditDetailsLoading(
+            authUser: authUserMock,
+            avatar: standardAvatarMock,
+            avatarList: avatarList),
+      ],
+      verify: (bloc) =>
+          verify(() => authRepositoryMock.addAuthUserToStream(null)).called(1),
+    );
+
+    blocTest<EditDetailsBloc, EditDetailsState>(
+        'and the account throw FirebaseAuthException, return [EditDetailsError] with [AuthError]',
+        setUp: () => when(() => authRepositoryMock.deleteUser())
+            .thenThrow(FirebaseAuthException(code: 'code')),
+        build: () => editDetailsBloc,
+        seed: () => EditDetailsIdle(
+            authUser: authUserMock,
+            avatar: standardAvatarMock,
+            avatarList: avatarList),
+        act: (bloc) => bloc.add(const EditDetailsDeleteAccount(
+            email: 'email', password: 'password')),
+        expect: () => <EditDetailsState>[
+              EditDetailsLoading(
+                  authUser: authUserMock,
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList),
+              EditDetailsError(
+                  authUser: authUserMock,
+                  avatar: standardAvatarMock,
+                  avatarList: avatarList,
+                  authError: AuthErrorUnknown())
             ]);
   });
 

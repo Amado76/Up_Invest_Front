@@ -76,4 +76,13 @@ void main() {
       );
     });
   });
+
+  group('[EditDetailsDeleteAccount]', () {
+    test('supports value comparisons', () {
+      expect(
+        EditDetailsDeleteAccount(password: 'password', email: 'email'),
+        EditDetailsDeleteAccount(password: 'password', email: 'email'),
+      );
+    });
+  });
 }

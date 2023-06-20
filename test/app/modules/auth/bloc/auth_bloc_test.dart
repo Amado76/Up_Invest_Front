@@ -126,7 +126,7 @@ void main() async {
       );
     });
     // AuthSignInWithSocialNetwork
-    group('whe [AuthSignInWithSocialNetwork', () {
+    group('when [AuthSignInWithSocialNetwork] is added', () {
       blocTest<AuthBloc, AuthState>(
           'and it is successfull emits [AuthLoggedIn]',
           setUp: () {

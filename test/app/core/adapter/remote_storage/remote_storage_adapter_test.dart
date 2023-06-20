@@ -19,7 +19,17 @@ class UploadTaskMock extends Mock implements UploadTask {
   }
 }
 
-class ReferenceMock extends Mock implements Reference {}
+class ReferenceMock extends Mock implements Reference {
+  @override
+  Future<void> delete() async {
+    return;
+  }
+}
+
+class ReferenceListResultMock extends Mock implements ListResult {
+  @override
+  List<Reference> get items => [ReferenceMock()];
+}
 
 class TaskSnapshotMock extends Mock implements TaskSnapshot {}
 
@@ -70,10 +80,13 @@ void main() async {
       final referenceMock = ReferenceMock();
       when(() => firebaseStorageMock.ref(userId))
           .thenAnswer((_) => referenceMock);
-      when(() => referenceMock.delete()).thenAnswer((_) => Future.value());
+
+      when(() => referenceMock.listAll())
+          .thenAnswer((_) async => ReferenceListResultMock());
 
       await remoteStorageAdapter.deleteAllData(userId: userId);
-      verify(() => referenceMock.delete());
+
+      verify(() => referenceMock.listAll());
     });
   });
 }

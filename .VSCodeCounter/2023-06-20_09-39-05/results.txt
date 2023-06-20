@@ -1,0 +1,155 @@
+Date : 2023-06-20 09:39:05
+Directory : /home/brunoamado/StudioProjects/up_invest_front/lib/app
+Total : 81 files,  6930 codes, 227 comments, 790 blanks, all 7947 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |         78 |      6,618 |        227 |        743 |      7,588 |
+| JSON     |          3 |        312 |          0 |         47 |        359 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                            | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                               |         81 |      6,930 |        227 |        790 |      7,947 |
+| . (Files)                                                                                                                       |          2 |         78 |          0 |         11 |         89 |
+| core                                                                                                                            |         22 |      2,493 |        160 |        278 |      2,931 |
+| core/adapter                                                                                                                    |          4 |        116 |          8 |         33 |        157 |
+| core/adapter/cache_adapter                                                                                                      |          1 |         19 |          0 |          7 |         26 |
+| core/adapter/local_storage_adapter                                                                                              |          1 |         21 |          0 |          5 |         26 |
+| core/adapter/remote_storage                                                                                                     |          2 |         76 |          8 |         21 |        105 |
+| core/themes                                                                                                                     |          2 |         84 |          0 |          6 |         90 |
+| core/util                                                                                                                       |          9 |      1,917 |        152 |        204 |      2,273 |
+| core/util (Files)                                                                                                               |          1 |         52 |          2 |          9 |         63 |
+| core/util/l10n                                                                                                                  |          8 |      1,865 |        150 |        195 |      2,210 |
+| core/util/l10n (Files)                                                                                                          |          3 |        312 |          0 |         47 |        359 |
+| core/util/l10n/generated                                                                                                        |          5 |      1,553 |        150 |        148 |      1,851 |
+| core/util/l10n/generated (Files)                                                                                                |          1 |        874 |        110 |        117 |      1,101 |
+| core/util/l10n/generated/intl                                                                                                   |          4 |        679 |         40 |         31 |        750 |
+| core/widgets                                                                                                                    |          7 |        376 |          0 |         35 |        411 |
+| core/widgets (Files)                                                                                                            |          4 |        191 |          0 |         16 |        207 |
+| core/widgets/loading                                                                                                            |          2 |        105 |          0 |         15 |        120 |
+| core/widgets/snackbar                                                                                                           |          1 |         80 |          0 |          4 |         84 |
+| modules                                                                                                                         |         57 |      4,359 |         67 |        501 |      4,927 |
+| modules/auth                                                                                                                    |         25 |      1,869 |         48 |        255 |      2,172 |
+| modules/auth (Files)                                                                                                            |          1 |         55 |          0 |          3 |         58 |
+| modules/auth/adapter                                                                                                            |          2 |        182 |         15 |         31 |        228 |
+| modules/auth/bloc                                                                                                               |          9 |        419 |          4 |         78 |        501 |
+| modules/auth/bloc (Files)                                                                                                       |          3 |        192 |          1 |         31 |        224 |
+| modules/auth/bloc/recovery_password                                                                                             |          3 |         75 |          2 |         15 |         92 |
+| modules/auth/bloc/sign_up                                                                                                       |          3 |        152 |          1 |         32 |        185 |
+| modules/auth/model                                                                                                              |          3 |        115 |          0 |         18 |        133 |
+| modules/auth/pages                                                                                                              |          3 |        661 |          0 |         41 |        702 |
+| modules/auth/repository                                                                                                         |          2 |        163 |          0 |         41 |        204 |
+| modules/auth/util                                                                                                               |          4 |        239 |         29 |         40 |        308 |
+| modules/auth/widgets                                                                                                            |          1 |         35 |          0 |          3 |         38 |
+| modules/get_started                                                                                                             |          2 |        160 |          0 |         13 |        173 |
+| modules/home                                                                                                                    |          2 |         87 |          0 |         10 |         97 |
+| modules/home (Files)                                                                                                            |          1 |         10 |          0 |          3 |         13 |
+| modules/home/page                                                                                                               |          1 |         77 |          0 |          7 |         84 |
+| modules/settings                                                                                                                |         25 |      2,135 |         19 |        211 |      2,365 |
+| modules/settings (Files)                                                                                                        |          1 |         33 |          0 |          5 |         38 |
+| modules/settings/bloc                                                                                                           |          6 |        490 |          3 |         70 |        563 |
+| modules/settings/bloc (Files)                                                                                                   |          3 |        113 |          2 |         22 |        137 |
+| modules/settings/bloc/settings                                                                                                  |          3 |        377 |          1 |         48 |        426 |
+| modules/settings/model                                                                                                          |          1 |         16 |          1 |          7 |         24 |
+| modules/settings/page                                                                                                           |          2 |        310 |          0 |         18 |        328 |
+| modules/settings/repository                                                                                                     |          1 |         65 |          0 |          9 |         74 |
+| modules/settings/util                                                                                                           |          2 |        120 |         14 |         23 |        157 |
+| modules/settings/widgets                                                                                                        |         12 |      1,101 |          1 |         79 |      1,181 |
+| modules/settings/widgets (Files)                                                                                                |          7 |        553 |          1 |         49 |        603 |
+| modules/settings/widgets/edit_page_widgets                                                                                      |          5 |        548 |          0 |         30 |        578 |
+| modules/splash_screen                                                                                                           |          2 |         99 |          0 |          9 |        108 |
+| modules/user                                                                                                                    |          1 |          9 |          0 |          3 |         12 |
++---------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                        | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/app_module.dart                                                         | Dart     |         42 |          0 |          5 |         47 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/adapter/cache_adapter/cache_adapter.dart                           | Dart     |         19 |          0 |          7 |         26 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/adapter/local_storage_adapter/local_storage_adapter_interface.dart | Dart     |         21 |          0 |          5 |         26 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/adapter/remote_storage/remote_storage_adapter.dart                 | Dart     |         35 |          0 |         10 |         45 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/adapter/remote_storage/remote_storage_error.dart                   | Dart     |         41 |          8 |         11 |         60 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/themes/color_scheme.dart                                           | Dart     |         67 |          0 |          3 |         70 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/themes/themes.dart                                                 | Dart     |         17 |          0 |          3 |         20 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/util/l10n/generated/intl/messages_all.dart                         | Dart     |         52 |         10 |         10 |         72 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/util/l10n/generated/intl/messages_en.dart                          | Dart     |        210 |         10 |          7 |        227 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/util/l10n/generated/intl/messages_es.dart                          | Dart     |        210 |         10 |          7 |        227 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/util/l10n/generated/intl/messages_pt.dart                          | Dart     |        207 |         10 |          7 |        224 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/util/l10n/generated/l10n.dart                                      | Dart     |        874 |        110 |        117 |      1,101 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/util/l10n/intl_en.arb                                              | JSON     |        104 |          0 |         20 |        124 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/util/l10n/intl_es.arb                                              | JSON     |        104 |          0 |         14 |        118 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/util/l10n/intl_pt.arb                                              | JSON     |        104 |          0 |         13 |        117 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/util/validator.dart                                                | Dart     |         52 |          2 |          9 |         63 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/widgets/custom_alert_dialog.dart                                   | Dart     |         34 |          0 |          2 |         36 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/widgets/custom_elevated_button.dart                                | Dart     |         31 |          0 |          4 |         35 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/widgets/custom_password_form_field.dart                            | Dart     |         68 |          0 |          6 |         74 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/widgets/custom_text_form_field.dart                                | Dart     |         58 |          0 |          4 |         62 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/widgets/loading/loading_screen.dart                                | Dart     |         93 |          0 |         11 |        104 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/widgets/loading/loading_screen_controller.dart                     | Dart     |         12 |          0 |          4 |         16 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/core/widgets/snackbar/custom_snack_bar.dart                             | Dart     |         80 |          0 |          4 |         84 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/adapter/auth_adapter_interface.dart                        | Dart     |        156 |         12 |         25 |        193 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/adapter/auth_social_network_adapter_interface.dart         | Dart     |         26 |          3 |          6 |         35 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/auth_module.dart                                           | Dart     |         55 |          0 |          3 |         58 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/bloc/auth_bloc.dart                                        | Dart     |         94 |          1 |         12 |        107 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/bloc/auth_event.dart                                       | Dart     |         48 |          0 |         10 |         58 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/bloc/auth_state.dart                                       | Dart     |         50 |          0 |          9 |         59 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/bloc/recovery_password/recover_password_bloc.dart          | Dart     |         30 |          1 |          5 |         36 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/bloc/recovery_password/recover_password_event.dart         | Dart     |         13 |          0 |          4 |         17 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/bloc/recovery_password/recover_password_state.dart         | Dart     |         32 |          1 |          6 |         39 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/bloc/sign_up/sign_up_bloc.dart                             | Dart     |         89 |          1 |         15 |        105 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/bloc/sign_up/sign_up_event.dart                            | Dart     |         35 |          0 |         11 |         46 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/bloc/sign_up/sign_up_state.dart                            | Dart     |         28 |          0 |          6 |         34 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/model/auth_user_model.dart                                 | Dart     |         29 |          0 |          4 |         33 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/model/avatar_list.dart                                     | Dart     |         57 |          0 |          8 |         65 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/model/avatar_model.dart                                    | Dart     |         29 |          0 |          6 |         35 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/pages/recover_password_page.dart                           | Dart     |        118 |          0 |          8 |        126 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/pages/sign_in_page.dart                                    | Dart     |        225 |          0 |         15 |        240 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/pages/sign_up_page.dart                                    | Dart     |        318 |          0 |         18 |        336 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/repository/auth_repository.dart                            | Dart     |        121 |          0 |         31 |        152 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/repository/avatar_model_repository.dart                    | Dart     |         42 |          0 |         10 |         52 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/util/asset_to_file.dart                                    | Dart     |         12 |          0 |          5 |         17 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/util/auth_error.dart                                       | Dart     |        173 |         19 |         24 |        216 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/util/auth_sucess.dart                                      | Dart     |         48 |         10 |          9 |         67 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/util/credential_dto.dart                                   | Dart     |          6 |          0 |          2 |          8 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/auth/widgets/custom_auth_scaffold.dart                          | Dart     |         35 |          0 |          3 |         38 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/get_started/get_started_module.dart                             | Dart     |         10 |          0 |          3 |         13 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/get_started/get_started_page.dart                               | Dart     |        150 |          0 |         10 |        160 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/home/home_module.dart                                           | Dart     |         10 |          0 |          3 |         13 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/home/page/home_page.dart                                        | Dart     |         77 |          0 |          7 |         84 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/bloc/settings/edit_details_bloc.dart                   | Dart     |        251 |          1 |         20 |        272 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/bloc/settings/edit_details_event.dart                  | Dart     |         75 |          0 |         22 |         97 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/bloc/settings/edit_details_state.dart                  | Dart     |         51 |          0 |          6 |         57 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/bloc/settings_bloc.dart                                | Dart     |         75 |          1 |         12 |         88 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/bloc/settings_event.dart                               | Dart     |         25 |          0 |          5 |         30 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/bloc/settings_state.dart                               | Dart     |         13 |          1 |          5 |         19 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/model/settings_model.dart                              | Dart     |         16 |          1 |          7 |         24 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/page/edit_details_page.dart                            | Dart     |        258 |          0 |         12 |        270 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/page/settings_page.dart                                | Dart     |         52 |          0 |          6 |         58 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/repository/settings_repository.dart                    | Dart     |         65 |          0 |          9 |         74 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/settings_module.dart                                   | Dart     |         33 |          0 |          5 |         38 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/util/settings_error.dart                               | Dart     |         49 |          6 |         12 |         67 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/util/settings_success.dart                             | Dart     |         71 |          8 |         11 |         90 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/widgets/about_us.dart                                  | Dart     |        118 |          0 |          9 |        127 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/widgets/change_theme.dart                              | Dart     |        149 |          1 |         15 |        165 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/widgets/custom_dialog_actions.dart                     | Dart     |         33 |          0 |          4 |         37 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/widgets/edit_page_widgets/change_avatar.dart           | Dart     |        227 |          0 |          9 |        236 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/widgets/edit_page_widgets/edit_details_row.dart        | Dart     |         65 |          0 |          4 |         69 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/widgets/edit_page_widgets/edit_email_widget.dart       | Dart     |         86 |          0 |          5 |         91 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/widgets/edit_page_widgets/edit_name_widget.dart        | Dart     |         62 |          0 |          4 |         66 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/widgets/edit_page_widgets/edit_password_widget.dart    | Dart     |        108 |          0 |          8 |        116 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/widgets/select_language.dart                           | Dart     |         96 |          0 |          8 |        104 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/widgets/settings_options_row.dart                      | Dart     |         49 |          0 |          5 |         54 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/widgets/settings_scaffold.dart                         | Dart     |         55 |          0 |          5 |         60 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/settings/widgets/user_profile_card.dart                         | Dart     |         53 |          0 |          3 |         56 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/splash_screen/splash_screen.dart                                | Dart     |         89 |          0 |          6 |         95 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/splash_screen/splash_screen_module.dart                         | Dart     |         10 |          0 |          3 |         13 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/modules/user/user_model.dart                                            | Dart     |          9 |          0 |          3 |         12 |
+| /home/brunoamado/StudioProjects/up_invest_front/lib/app/my_app.dart                                                             | Dart     |         36 |          0 |          6 |         42 |
+| Total                                                                                                                           |          |      6,930 |        227 |        790 |      7,947 |
++---------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

@@ -263,5 +263,20 @@ Future<void> main() async {
         expect(authUser, isA<AuthUserModel>());
       });
     });
+
+    group('[updateEmail]', () {
+      test('shoud call [FirebaseAuth.currentUser!.updateEmail]', () async {
+        //Assert
+        when(() => userMock.updateEmail('email'))
+            .thenAnswer((_) => Future.value(null));
+
+        //Act
+        await firebaseAdapter.updateEmail('email');
+        //Assert
+
+        verify(() => firebaseAuthMock.currentUser!.updateEmail('email'))
+            .called(1);
+      });
+    });
   });
 }

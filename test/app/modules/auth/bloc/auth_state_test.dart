@@ -43,4 +43,16 @@ void main() async {
           AuthErrorState(authError: AuthErrorInvalidEmail()));
     });
   });
+
+  group('[GetUser]', () {
+    test('should return null when AuthState is not AuthLoggedIn', () {
+      final authState = AuthLoggedOut();
+      expect(authState.authUser, null);
+    });
+    test('should return AuthUserModel when AuthState is AuthLoggedIn', () {
+      final AuthState authState =
+          AuthLoggedIn(authUser: authUserModelMock, avatar: file);
+      expect(authState.authUser, authUserModelMock);
+    });
+  });
 }

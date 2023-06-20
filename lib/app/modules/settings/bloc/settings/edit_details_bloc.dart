@@ -102,7 +102,7 @@ class EditDetailsBloc extends Bloc<EditDetailsEvent, EditDetailsState> {
           avatar: state.avatar,
           avatarList: state.avatarList,
           authUser: updatedUser,
-          settingsSuccess: SettingsSuccess.from('email-changed')));
+          settingsSuccess: SettingsSuccess.from('update-email')));
     } on Exception catch (e) {
       emit(EditDetailsError(
           avatar: state.avatar,

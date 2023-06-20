@@ -64,8 +64,7 @@ void main() async {
         expect(authError, isA<SettingsSuccessPasswordChanged>());
       });
       test('supports value comparisons', () {
-        expect(
-            SettingsSuccessPasswordChanged(), SettingsSuccessPasswordChanged());
+        expect(SettingsSuccessUpdateEmail(), SettingsSuccessUpdateEmail());
       });
     });
   });
