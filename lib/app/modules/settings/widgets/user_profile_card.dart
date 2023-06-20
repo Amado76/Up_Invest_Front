@@ -10,21 +10,24 @@ class UserProfileCard extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final authBloc = context.watch<AuthBloc>((bloc) => bloc.stream);
-    final currentAuthState = authBloc.state as AuthLoggedIn;
+
     return Row(
       children: [
         CircleAvatar(
           radius: 51,
           backgroundColor: colorScheme.tertiary,
           child: CircleAvatar(
-              backgroundColor: colorScheme.tertiary,
-              radius: 50,
-              backgroundImage: FileImage(currentAuthState.avatar)),
+            backgroundColor: colorScheme.tertiary,
+            radius: 50,
+            backgroundImage: authBloc.state is AuthLoggedIn
+                ? FileImage((authBloc.state as AuthLoggedIn).avatar)
+                : null,
+          ),
         ),
         const SizedBox(width: 10),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
-            currentAuthState.authUser.displayName,
+            authBloc.state.authUser?.displayName ?? '',
             style: TextStyle(
                 color: colorScheme.onBackground,
                 fontSize: 18,
@@ -32,7 +35,7 @@ class UserProfileCard extends StatelessWidget {
                 fontWeight: FontWeight.w600),
           ),
           Text(
-            currentAuthState.authUser.email,
+            authBloc.state.authUser?.email ?? '',
             style: TextStyle(
                 color: colorScheme.outline,
                 fontSize: 12,

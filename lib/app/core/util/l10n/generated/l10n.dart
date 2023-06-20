@@ -870,6 +870,36 @@ class IntlStrings {
     );
   }
 
+  /// `Logout`
+  String get settingsLogout {
+    return Intl.message(
+      'Logout',
+      name: 'settingsLogout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get settingsLogoutButton {
+    return Intl.message(
+      'Logout',
+      name: 'settingsLogoutButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to logout?`
+  String get settingsLogoutWarningMessage {
+    return Intl.message(
+      'Are you sure you want to logout?',
+      name: 'settingsLogoutWarningMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `About us`
   String get settingsAboutUs {
     return Intl.message(
@@ -995,6 +1025,16 @@ class IntlStrings {
     return Intl.message(
       'Delete your account',
       name: 'editDetailsDeleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get editDetailsDelete {
+    return Intl.message(
+      'Delete',
+      name: 'editDetailsDelete',
       desc: '',
       args: [],
     );

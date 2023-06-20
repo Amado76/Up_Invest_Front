@@ -123,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Escolha um avatar"),
         "editDetailsConfirmNewPasswordHintText":
             MessageLookupByLibrary.simpleMessage("Confirme sua nova senha"),
+        "editDetailsDelete": MessageLookupByLibrary.simpleMessage("Excluir"),
         "editDetailsDeleteAccount":
             MessageLookupByLibrary.simpleMessage("Excluir conta"),
         "editDetailsDeleteAccountWarning": MessageLookupByLibrary.simpleMessage(
@@ -179,6 +180,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Erro desconhecido!"),
         "settingsLanguage": MessageLookupByLibrary.simpleMessage("Idioma"),
         "settingsLight": MessageLookupByLibrary.simpleMessage("Claro"),
+        "settingsLogout": MessageLookupByLibrary.simpleMessage("Sair da conta"),
+        "settingsLogoutButton": MessageLookupByLibrary.simpleMessage("Sair"),
+        "settingsLogoutWarningMessage": MessageLookupByLibrary.simpleMessage(
+            "Você será desconectado da sua conta atual.\nDeseja continuar?"),
         "settingsPortuguese": MessageLookupByLibrary.simpleMessage("Portugues"),
         "settingsSpanish": MessageLookupByLibrary.simpleMessage("Espanhol"),
         "settingsSuccessChangeAvatarMessage":

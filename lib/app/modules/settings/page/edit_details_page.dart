@@ -247,7 +247,12 @@ class __DeleteAccountState extends State<_DeleteAccount> {
                   ),
                 ),
                 actions: CustomDialogActions(
-                    onSaveText: 'Delete',
+                    onSaveText: Text(
+                      intlStrings.editDetailsDelete,
+                      style: TextStyle(
+                          color: colorScheme.error,
+                          fontWeight: FontWeight.bold),
+                    ),
                     onSaveIcon:
                         Icon(Icons.delete_forever, color: colorScheme.error),
                     onCancelIcon: Icon(Icons.check, color: colorScheme.primary),

@@ -91,6 +91,9 @@
     "settingsDark": "Oscuro",
     "settingsLight": "Claro",
     "settingsAboutUs": "Acerca de nosotros",
+    "settingsLogout": "Cerrar sesión",
+    "settingsLogoutWarningMessage": "¿Estás seguro de que deseas cerrar sesión?",
+    "settingsLogoutButton" : "Cerrar",
     "aboutUsTextOne": "Mi nombre es Bruno Amado, soy un desarrollador móvil y creé UpInvest como un proyecto personal, combinando dos pasiones: el desarrollo de aplicaciones móviles y las inversiones financieras. UpInvest es una aplicación que desarrollé para mejorar mis habilidades en Flutter.\n\nMe encantaría saber si tienes alguna sugerencia, crítica o cumplido. No dudes en contactarme a través de los siguientes canales:",
     "aboutUsTextTwo":"¡Gracias por usar UpInvest y por ser parte de mi viaje de desarrollo y aprendizaje en Flutter!",
 
@@ -104,6 +107,7 @@
     "editDetailsNewPasswordHintText": "Nueva contraseña",
     "editDetailsConfirmNewPasswordHintText": "Confirmar nueva contraseña",
     "editDetailsDeleteAccount": "Eliminar cuenta",
+    "editDetailsDelete": "Eliminar",
     "editDetailsSadToSeeYouGo": "¡Triste de verte ir!",
     "editDetailsDeleteAccoutnWarningPersonalData": "Al eliminar su cuenta, todos sus datos se eliminarán.",
     "editDetailsDeleteAccountWarning": "¿Está seguro de que desea eliminar su cuenta? ¡Esta acción no se puede deshacer!",

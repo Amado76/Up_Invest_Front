@@ -51,10 +51,12 @@ class _SignInState extends State<SignInPage> {
               AuthLoading() => LoadingScreen.instance()
                   .show(context: context, text: intlString.loading),
               AuthErrorState(authError: final authError) => {
+                  hideLoading,
                   customBar.showBottomErrorSnackBar(
                       authError.dialogTitle, authError.dialogText, context)
                 },
               AuthSuccessState(authSucess: final authSucess) => {
+                  hideLoading,
                   customBar.showBottomSuccessSnackBar(
                       authSucess.dialogTitle, authSucess.dialogText, context)
                 }

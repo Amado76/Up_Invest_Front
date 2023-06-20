@@ -5,16 +5,17 @@ class CustomDialogActions extends StatelessWidget {
   final void Function() onCancel;
   final Icon? onCancelIcon;
   final void Function() onSave;
-  final String? onSaveText;
+  final Widget? onSaveText;
   final Icon? onSaveIcon;
 
-  const CustomDialogActions(
-      {super.key,
-      required this.onCancel,
-      required this.onSave,
-      this.onSaveText,
-      this.onSaveIcon,
-      this.onCancelIcon});
+  const CustomDialogActions({
+    super.key,
+    required this.onCancel,
+    required this.onSave,
+    this.onSaveText,
+    this.onSaveIcon,
+    this.onCancelIcon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class CustomDialogActions extends StatelessWidget {
         OutlinedButton.icon(
             onPressed: onSave,
             icon: onSaveIcon ?? const Icon(Icons.save_alt_outlined),
-            label: Text(onSaveText ?? intlStrings.saveButton)),
+            label: onSaveText ?? Text(intlStrings.saveButton)),
       ],
     );
   }
