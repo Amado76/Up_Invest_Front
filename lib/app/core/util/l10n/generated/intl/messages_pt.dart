@@ -80,10 +80,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Por favor, verifique seu email e senha e tente novamente."),
         "authErrorWrongPasswordTitle":
             MessageLookupByLibrary.simpleMessage("Email ou senha incorretos"),
+        "authSuccessEmailSentTitle": MessageLookupByLibrary.simpleMessage(
+            "Email de verificação enviado!"),
         "authSuccessResetPasswordMessage": MessageLookupByLibrary.simpleMessage(
             "Enviamos um email com instruções para redefinir sua senha!"),
         "authSuccessResetPasswordTitle":
             MessageLookupByLibrary.simpleMessage("Email Enviado!"),
+        "authSuccessSetEmailSentMessage": MessageLookupByLibrary.simpleMessage(
+            "Verifique sua caixa de entrada e siga as instruções para concluir o processo de verificação."),
         "authSuccessSetNewPasswordMessage":
             MessageLookupByLibrary.simpleMessage(
                 "Sua senha foi alterada com sucesso!"),
@@ -167,6 +171,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "settingsAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Configurações"),
         "settingsDark": MessageLookupByLibrary.simpleMessage("Escuro"),
+        "settingsEmailIsNotVerified": MessageLookupByLibrary.simpleMessage(
+            "Seu email ainda não foi verificado!"),
         "settingsEnglish": MessageLookupByLibrary.simpleMessage("Ingles"),
         "settingsErrorExternalLinkMessage": MessageLookupByLibrary.simpleMessage(
             "Ocorreu um erro ao abrir um link externo, por favor, tente novamente!"),

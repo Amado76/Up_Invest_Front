@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 import 'package:up_invest_front/app/core/util/validator.dart';
 import 'package:up_invest_front/app/core/widgets/custom_alert_dialog.dart';
@@ -7,7 +8,6 @@ import 'package:up_invest_front/app/core/widgets/custom_password_form_field.dart
 import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings/edit_details_bloc.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/custom_dialog_actions.dart';
-
 import 'package:up_invest_front/app/modules/settings/widgets/edit_page_widgets/edit_details_row.dart';
 
 class EditEmailWidget extends StatefulWidget {

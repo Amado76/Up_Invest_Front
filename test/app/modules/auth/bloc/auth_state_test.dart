@@ -33,8 +33,8 @@ void main() async {
   });
   group('[AuthSuccessState]', () {
     test('supports value comparisons', () {
-      expect(AuthSuccessState(authSucess: AuthSuccessSetNewPassword()),
-          AuthSuccessState(authSucess: AuthSuccessSetNewPassword()));
+      expect(AuthSuccessState(authSuccess: AuthSuccessSetNewPassword()),
+          AuthSuccessState(authSuccess: AuthSuccessSetNewPassword()));
     });
   });
   group('[AuthErrorState]', () {

@@ -55,3 +55,10 @@ final class AuthIsLoggedIn extends AuthEvent {
   @override
   List<Object?> get props => [];
 }
+
+@immutable
+final class AuthSendEmailVerification extends AuthEvent {
+  const AuthSendEmailVerification();
+  @override
+  List<Object?> get props => [];
+}

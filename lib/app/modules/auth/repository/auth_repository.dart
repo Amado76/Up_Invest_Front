@@ -41,6 +41,7 @@ sealed class IAuthRepository {
   Future<void> reauthenticateAUser(String email, String password);
   Future<void> deleteAllData({required AuthUserModel authUser});
   Future<void> updateEmail({required String newEmail});
+  Future<void> sendEmailVerification();
 }
 
 class AuthRepository extends IAuthRepository {
@@ -147,5 +148,10 @@ class AuthRepository extends IAuthRepository {
   @override
   Future<void> reauthenticateAUser(String email, String password) async {
     await authAdapter.reauthenticateAUser(email, password);
+  }
+
+  @override
+  Future<void> sendEmailVerification() async {
+    await authAdapter.sendEmailVerification();
   }
 }

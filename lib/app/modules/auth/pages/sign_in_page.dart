@@ -55,7 +55,7 @@ class _SignInState extends State<SignInPage> {
                   customBar.showBottomErrorSnackBar(
                       authError.dialogTitle, authError.dialogText, context)
                 },
-              AuthSuccessState(authSucess: final authSucess) => {
+              AuthSuccessState(authSuccess: final authSucess) => {
                   hideLoading,
                   customBar.showBottomSuccessSnackBar(
                       authSucess.dialogTitle, authSucess.dialogText, context)

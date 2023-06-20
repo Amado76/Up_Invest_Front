@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:up_invest_front/app/modules/settings/widgets/custom_settings_icon.dart';
+import 'package:up_invest_front/app/modules/settings/widgets/settings_page_widgets/custom_settings_icon.dart';
 
 class SettingsOptionsRow extends StatelessWidget {
   final IconData icon;

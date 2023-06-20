@@ -1,5 +1,7 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +17,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository authRepository;
   final ICacheAdapter cacheAdapter;
+  StreamSubscription<AuthUserModel?>? userChangesSubscription;
   AuthBloc({required this.cacheAdapter, required this.authRepository})
       : super(
           AuthLoggedOut(),
@@ -34,6 +37,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<AuthDeleteAccount>((event, emit) async {
       _deleteAccount(event.email, event.password);
+    });
+
+    on<AuthSendEmailVerification>((event, emit) async {
+      _sendEmailVerification();
     });
 
     authRepository.authUser.listen((user) async {
@@ -101,6 +108,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final avatar = await cacheAdapter.getSingleFile(currentUser.avatar.url);
       emit(AuthErrorState(authError: AuthError.from(e)));
       emit(AuthLoggedIn(authUser: currentUser, avatar: avatar));
+    }
+  }
+
+  void _sendEmailVerification() async {
+    final currentState = state as AuthLoggedIn;
+    final currentUser = currentState.authUser;
+    final avatar = currentState.avatar;
+    emit(AuthLoading());
+    try {
+      await authRepository.sendEmailVerification();
+      emit(AuthSuccessState(authSuccess: AuthSuccess.from('email-sent')));
+      emit(AuthLoggedIn(avatar: avatar, authUser: currentUser));
+    } on Exception catch (e) {
+      emit(AuthErrorState(authError: AuthError.from(e)));
+      emit(AuthLoggedIn(avatar: avatar, authUser: currentUser));
     }
   }
 }

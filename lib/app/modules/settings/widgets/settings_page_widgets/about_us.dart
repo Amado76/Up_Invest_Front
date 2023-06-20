@@ -3,7 +3,7 @@ import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
 import 'package:up_invest_front/app/modules/settings/util/settings_error.dart';
 import 'package:up_invest_front/app/core/widgets/custom_alert_dialog.dart';
-import 'package:up_invest_front/app/modules/settings/widgets/settings_options_row.dart';
+import 'package:up_invest_front/app/modules/settings/widgets/settings_page_widgets/settings_options_row.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutUs extends StatelessWidget {

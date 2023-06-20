@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
-import 'package:up_invest_front/app/modules/settings/widgets/settings_options_row.dart';
+import 'package:up_invest_front/app/modules/settings/widgets/settings_page_widgets/settings_options_row.dart';
 
 class SelectLanguage extends StatelessWidget {
   const SelectLanguage({super.key});

@@ -31,10 +31,10 @@ final class AuthLoading extends AuthState {
 
 @immutable
 final class AuthSuccessState extends AuthState {
-  final AuthSuccess authSucess;
-  const AuthSuccessState({required this.authSucess});
+  final AuthSuccess authSuccess;
+  const AuthSuccessState({required this.authSuccess});
   @override
-  List<Object?> get props => [authSucess];
+  List<Object?> get props => [authSuccess];
 }
 
 @immutable

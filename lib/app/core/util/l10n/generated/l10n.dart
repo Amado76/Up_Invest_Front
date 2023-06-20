@@ -640,6 +640,26 @@ class IntlStrings {
     );
   }
 
+  /// `Verification email sent!`
+  String get authSuccessEmailSentTitle {
+    return Intl.message(
+      'Verification email sent!',
+      name: 'authSuccessEmailSentTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check your inbox and follow the instructions to complete the email verification process.`
+  String get authSuccessSetEmailSentMessage {
+    return Intl.message(
+      'Please check your inbox and follow the instructions to complete the email verification process.',
+      name: 'authSuccessSetEmailSentMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Unknown error!`
   String get settingsErrorUnknownTitle {
     return Intl.message(
@@ -895,6 +915,16 @@ class IntlStrings {
     return Intl.message(
       'Are you sure you want to logout?',
       name: 'settingsLogoutWarningMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your email is not verified!`
+  String get settingsEmailIsNotVerified {
+    return Intl.message(
+      'Your email is not verified!',
+      name: 'settingsEmailIsNotVerified',
       desc: '',
       args: [],
     );

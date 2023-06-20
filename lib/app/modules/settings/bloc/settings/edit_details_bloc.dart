@@ -97,7 +97,7 @@ class EditDetailsBloc extends Bloc<EditDetailsEvent, EditDetailsState> {
       await authRepository.reauthenticateAUser(email, password);
       await authRepository.updateEmail(newEmail: newEmail);
       AuthUserModel updatedUser = await authRepository.getLoggedUser();
-      authRepository.addAuthUserToStream(updatedUser);
+
       emit(EditDetailsSuccess(
           avatar: state.avatar,
           avatarList: state.avatarList,

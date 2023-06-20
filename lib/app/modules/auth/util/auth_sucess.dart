@@ -6,6 +6,7 @@ import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 Map<String, AuthSuccess> authSucessMapping = {
   'reset-password': AuthSuccessResetPassword(),
   'set-new-password': AuthSuccessSetNewPassword(),
+  'email-sent': AuthSuccessEmailSent(),
 };
 
 @immutable
@@ -60,6 +61,17 @@ class AuthSuccessSetNewPassword extends AuthSuccess {
       : super(
           dialogTitle: IntlStrings.current.authSuccessSetNewPasswordTitle,
           dialogText: IntlStrings.current.authSuccessSetNewPasswordMessage,
+        );
+  @override
+  List<Object?> get props => [super.dialogText, super.dialogTitle];
+}
+
+@immutable
+class AuthSuccessEmailSent extends AuthSuccess {
+  AuthSuccessEmailSent()
+      : super(
+          dialogTitle: IntlStrings.current.authSuccessEmailSentTitle,
+          dialogText: IntlStrings.current.authSuccessSetEmailSentMessage,
         );
   @override
   List<Object?> get props => [super.dialogText, super.dialogTitle];

@@ -24,6 +24,7 @@ sealed class IAuthAdapter {
   Future<AuthUserModel> getLoggedUser();
   Future<void> reauthenticateAUser(String email, String password);
   Future<void> updateEmail(String newEmail);
+  Future<void> sendEmailVerification();
 }
 
 class FirebaseAuthAdapter implements IAuthAdapter {
@@ -171,6 +172,7 @@ class FirebaseAuthAdapter implements IAuthAdapter {
   Future<AuthUserModel> getLoggedUser() async {
     AuthUserModel authUserModel;
     User? firebaseUser = auth.currentUser;
+    firebaseUser!.reload();
     authUserModel = await getAuthUserModelFromUser(firebaseUser);
     return authUserModel;
   }
@@ -188,5 +190,10 @@ class FirebaseAuthAdapter implements IAuthAdapter {
         signInMethod: user?.providerData[0].providerId ?? '',
         isEmailVerified: user?.emailVerified ?? false);
     return authUser;
+  }
+
+  @override
+  Future<void> sendEmailVerification() async {
+    await auth.currentUser!.sendEmailVerification();
   }
 }

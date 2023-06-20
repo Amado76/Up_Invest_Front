@@ -65,6 +65,8 @@
     "authSuccessResetPasswordMessage":"We have sent an email with instructions to reset your password!",
     "authSuccessSetNewPasswordTitle": "Password Successfully Changed!",
     "authSuccessSetNewPasswordMessage":"Your password has been changed successfully!", 
+    "authSuccessEmailSentTitle": "Verification email sent!",
+    "authSuccessSetEmailSentMessage": "Please check your inbox and follow the instructions to complete the email verification process.",
 
     "settingsErrorUnknownTitle": "Unknown error!",
     "settingsErrorUnknownMessage":"An unknown error occurred.",
@@ -94,6 +96,8 @@
     "settingsLogout": "Logout",
     "settingsLogoutButton" : "Logout",
     "settingsLogoutWarningMessage": "Are you sure you want to logout?",
+    "settingsEmailIsNotVerified": "Your email is not verified!",
+   
     "settingsAboutUs": "About us",    
     "aboutUsTextOne": "My name is Bruno Amado, I am a mobile developer, and I created UpInvest as a personal project, combining two passions: mobile app development and financial investments.\n\nI would be delighted to hear from you if you have any suggestions, criticisms, or compliments! Please feel free to get in touch with me through the following channels:",
     "aboutUsTextTwo":"Thank you for using UpInvest and for being a part of my journey of development and learning in Flutter!",
