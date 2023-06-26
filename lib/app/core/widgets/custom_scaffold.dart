@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/widgets/custom_bottom_navigator_bar.dart';
 
 class SettingsScaffold extends StatelessWidget {
@@ -7,13 +6,17 @@ class SettingsScaffold extends StatelessWidget {
   final Widget widget;
   final double leftPadding;
   final double rightPadding;
+  final Color backgroundColor;
+  final Color textColor;
 
   const SettingsScaffold(
       {super.key,
       required this.appBarTitle,
       required this.widget,
       this.leftPadding = 30,
-      this.rightPadding = 30});
+      this.rightPadding = 30,
+      required this.backgroundColor,
+      required this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -25,28 +28,15 @@ class SettingsScaffold extends StatelessWidget {
 
     return Scaffold(
         bottomNavigationBar: const CustomBottomNavigatorBar(),
+        drawer: const CustomDrawer(),
         appBar: AppBar(
-          centerTitle: true,
           title: Text(
             appBarTitle,
             style: TextStyle(
-                color: colorScheme.onBackground,
-                fontSize: 25,
-                fontWeight: FontWeight.w400),
+                color: textColor, fontSize: 25, fontWeight: FontWeight.w400),
           ),
-          backgroundColor: colorScheme.background,
+          backgroundColor: backgroundColor,
           elevation: 0,
-          leading: FittedBox(
-            fit: BoxFit.cover,
-            child: IconButton(
-                onPressed: () {
-                  Modular.to.pop();
-                },
-                icon: ImageIcon(
-                  color: colorScheme.onBackground,
-                  const AssetImage('assets/icons/short_left.png'),
-                )),
-          ),
         ),
         body: SafeArea(
             child: Padding(
@@ -57,5 +47,16 @@ class SettingsScaffold extends StatelessWidget {
                   width: size.width,
                   child: widget,
                 ))));
+  }
+}
+
+class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const NavigationDrawer(
+      children: [],
+    );
   }
 }

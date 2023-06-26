@@ -11,7 +11,7 @@ import 'package:up_invest_front/app/core/widgets/custom_elevated_button.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 
-import '../../../core/widgets/snackbar/custom_snack_bar.dart';
+import '../../../core/widgets/custom_snack_bar.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);

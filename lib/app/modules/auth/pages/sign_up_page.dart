@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:up_invest_front/app/core/widgets/custom_password_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
-import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
+import 'package:up_invest_front/app/core/widgets/custom_snack_bar.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/sign_up/sign_up_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';

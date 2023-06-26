@@ -4,7 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
-import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
+import 'package:up_invest_front/app/core/widgets/custom_snack_bar.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings/edit_details_bloc.dart';
@@ -87,42 +87,38 @@ class _EditDetailsState extends State<EditDetailsPage> {
               widget: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      color: colorScheme.tertiaryContainer.withOpacity(0.6),
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 25),
-                          Stack(
-                            children: [
-                              Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 102,
-                                    backgroundColor: colorScheme.tertiary,
-                                    child: CircleAvatar(
-                                        backgroundColor: colorScheme.tertiary,
-                                        radius: 100,
-                                        backgroundImage: Image.network(
-                                          displayAvatar.url,
-                                        ).image),
-                                  ),
-                                ],
-                              ),
-                              const ChangeAvatar()
-                            ],
-                          ),
-                          const SizedBox(height: 25),
-                          Text(
-                            intlStrings.editDetailsProfilePicture,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: colorScheme.onBackground),
-                          ),
-                          const SizedBox(height: 25),
-                        ],
-                      ),
+                    Column(
+                      children: [
+                        const SizedBox(height: 25),
+                        Stack(
+                          children: [
+                            Column(
+                              children: [
+                                CircleAvatar(
+                                  radius: 102,
+                                  backgroundColor: colorScheme.tertiary,
+                                  child: CircleAvatar(
+                                      backgroundColor: colorScheme.tertiary,
+                                      radius: 100,
+                                      backgroundImage: Image.network(
+                                        displayAvatar.url,
+                                      ).image),
+                                ),
+                              ],
+                            ),
+                            const ChangeAvatar()
+                          ],
+                        ),
+                        const SizedBox(height: 25),
+                        Text(
+                          intlStrings.editDetailsProfilePicture,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: colorScheme.onBackground),
+                        ),
+                        const SizedBox(height: 25),
+                      ],
                     ),
                     const SizedBox(height: 25),
                     Padding(

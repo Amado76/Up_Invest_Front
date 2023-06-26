@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 import 'package:up_invest_front/app/core/widgets/custom_alert_dialog.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
-import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
+import 'package:up_invest_front/app/core/widgets/custom_snack_bar.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
 import 'package:up_invest_front/app/modules/settings/bloc/settings/edit_details_bloc.dart';

@@ -46,7 +46,7 @@ class UserProfileCard extends StatelessWidget {
         const Expanded(child: SizedBox()),
         IconButton(
             onPressed: () {
-              Modular.to.pushNamed('/settings/details');
+              Modular.to.pushNamed('/settings/details', arguments: 4);
             },
             icon: ImageIcon(
               color: colorScheme.onBackground,

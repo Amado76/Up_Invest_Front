@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
-import 'package:up_invest_front/app/core/widgets/snackbar/custom_snack_bar.dart';
+import 'package:up_invest_front/app/core/widgets/custom_snack_bar.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/recovery_password/recover_password_bloc.dart';
 
