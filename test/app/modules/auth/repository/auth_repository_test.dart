@@ -209,5 +209,35 @@ void main() async {
                     'email', 'password')).called(1)
               });
     });
+    group('updateEmail', () {
+      test(
+          'should call authAdapter.updateEmail',
+          () async => {
+                //Arrange
+                when(() => authAdapterMock.updateEmail('email'))
+                    .thenAnswer((_) => Future.value()),
+
+                //Act
+                await authRepository.updateEmail(newEmail: 'email'),
+
+                //Assert
+                verify(() => authAdapterMock.updateEmail('email')).called(1)
+              });
+    });
+    group('sendEmailVerification', () {
+      test(
+          'should call authAdapter.sendEmailVerification',
+          () async => {
+                //Arrange
+                when(() => authAdapterMock.sendEmailVerification())
+                    .thenAnswer((_) => Future.value()),
+
+                //Act
+                await authRepository.sendEmailVerification(),
+
+                //Assert
+                verify(() => authAdapterMock.sendEmailVerification()).called(1)
+              });
+    });
   });
 }

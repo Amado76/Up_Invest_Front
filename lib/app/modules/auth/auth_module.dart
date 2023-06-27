@@ -14,12 +14,15 @@ import 'package:up_invest_front/app/modules/auth/pages/sign_in_page.dart';
 import 'package:up_invest_front/app/modules/auth/pages/sign_up_page.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
 import 'package:up_invest_front/app/modules/auth/repository/avatar_model_repository.dart';
+import 'package:up_invest_front/app/modules/auth/util/asset_to_file.dart';
 
 class AuthModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.lazySingleton<IAvatarRepository>(
-        (i) => AvatarRepository(storageAdapter: i.get<IRemoteStorageAdapter>()),
+        (i) => AvatarRepository(
+            storageAdapter: i.get<IRemoteStorageAdapter>(),
+            localFileHelper: LocalFileHelper()),
         export: true),
     Bind.singleton<IAuthRepository>(
         (i) => AuthRepository(

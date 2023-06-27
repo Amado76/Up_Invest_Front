@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:up_invest_front/app/core/widgets/custom_bottom_navigator_bar.dart';
+import 'package:up_invest_front/app/core/widgets/custom_scaffold.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,9 +12,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: const CustomBottomNavigatorBar(),
-      body: Column(
+    final colorScheme = Theme.of(context).colorScheme;
+    return CustomScaffold(
+      appBarTitle: 'Home',
+      backgroundColor: colorScheme.primaryContainer,
+      textColor: colorScheme.onPrimary,
+      widget: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextButton(

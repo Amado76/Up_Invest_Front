@@ -7,17 +7,20 @@ import 'package:up_invest_front/app/modules/auth/util/asset_to_file.dart';
 
 sealed class IAvatarRepository {
   final IRemoteStorageAdapter storageAdapter;
+  final LocalFileHelper localFileHelper;
   Future<void> uploadAvatar(
       {required AvatarModel avatarModel, required AuthUserModel authUser});
 
   Future<AvatarModel> getUrlFromRemoteStorage(
       {required AvatarModel avatarModel, required AuthUserModel authUser});
 
-  IAvatarRepository({required this.storageAdapter});
+  IAvatarRepository(
+      {required this.storageAdapter, required this.localFileHelper});
 }
 
 class AvatarRepository extends IAvatarRepository {
-  AvatarRepository({required super.storageAdapter});
+  AvatarRepository(
+      {required super.storageAdapter, required super.localFileHelper});
 
   @override
   Future<void> uploadAvatar(
@@ -25,7 +28,7 @@ class AvatarRepository extends IAvatarRepository {
       required AuthUserModel authUser}) async {
     late File file;
     if (avatarModel is StandardAvatar) {
-      file = await getImageFileFromAssets(avatarModel.path);
+      file = await localFileHelper.getImageFileFromAssets(avatarModel.path);
     }
     if (avatarModel is CustomAvatar) {
       file = File(avatarModel.path);

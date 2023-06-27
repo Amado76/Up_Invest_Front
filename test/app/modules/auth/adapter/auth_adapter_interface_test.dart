@@ -44,6 +44,7 @@ Future<void> main() async {
         when(() => firebaseAuthMock.createUserWithEmailAndPassword(
             email: 'email',
             password: 'password')).thenAnswer((_) async => userCredentialMock);
+        when(() => userMock.reload()).thenAnswer((_) => Future.value(null));
 
         //Act
         AuthUserModel newAccount =
@@ -115,6 +116,8 @@ Future<void> main() async {
       test(
           'should return an [AuthUserModel] after requesting the [logged-in user]',
           () async {
+        //Assert
+        when(() => userMock.reload()).thenAnswer((_) => Future.value(null));
         //Act
         AuthUserModel signedInUser = await firebaseAdapter.getLoggedUser();
 
@@ -231,7 +234,8 @@ Future<void> main() async {
         //Assert
         when(() => firebaseAuthMock.currentUser!.updatePhotoURL('photoURL'))
             .thenAnswer((_) => Future.value(null));
-        when(() => firebaseAuthMock.currentUser).thenAnswer((_) => UserMock());
+        when(() => firebaseAuthMock.currentUser).thenAnswer((_) => userMock);
+        when(() => userMock.reload()).thenAnswer((_) => Future.value(null));
         //Act
         AuthUserModel authUser =
             await firebaseAdapter.updateAccountDetails(avatar: 'photoURL');
@@ -250,7 +254,8 @@ Future<void> main() async {
         //Assert
         when(() => firebaseAuthMock.currentUser!.updateDisplayName('name'))
             .thenAnswer((_) => Future.value(null));
-        when(() => firebaseAuthMock.currentUser).thenAnswer((_) => UserMock());
+        when(() => firebaseAuthMock.currentUser).thenAnswer((_) => userMock);
+        when(() => userMock.reload()).thenAnswer((_) => Future.value(null));
         //Act
         AuthUserModel authUser =
             await firebaseAdapter.updateAccountDetails(displayName: 'name');
@@ -275,6 +280,21 @@ Future<void> main() async {
         //Assert
 
         verify(() => firebaseAuthMock.currentUser!.updateEmail('email'))
+            .called(1);
+      });
+    });
+    group('[sendEmailVerification]', () {
+      test('shoud call [FirebaseAuth.currentUser!.sendEmailVerification]',
+          () async {
+        //Assert
+        when(() => userMock.sendEmailVerification())
+            .thenAnswer((_) => Future.value(null));
+
+        //Act
+        await firebaseAdapter.sendEmailVerification();
+        //Assert
+
+        verify(() => firebaseAuthMock.currentUser!.sendEmailVerification())
             .called(1);
       });
     });

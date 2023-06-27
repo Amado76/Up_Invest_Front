@@ -54,5 +54,20 @@ void main() async {
         expect(AuthSuccessSetNewPassword(), AuthSuccessSetNewPassword());
       });
     });
+    group('[AuthSuccessEmailSent]', () {
+      test(
+          'should return an instance of [AuthSuccessEmailSent] if the [message] is email-sent',
+          () {
+        //Arrange
+        String message = 'email-sent';
+        //Act
+        final authSucess = AuthSuccess.from(message);
+        //Assert
+        expect(authSucess, isA<AuthSuccessEmailSent>());
+      });
+      test('supports value comparisons', () {
+        expect(AuthSuccessEmailSent(), AuthSuccessEmailSent());
+      });
+    });
   });
 }

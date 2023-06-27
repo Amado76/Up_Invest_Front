@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/widgets/custom_bottom_navigator_bar.dart';
+import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 
-class SettingsScaffold extends StatelessWidget {
+class CustomScaffold extends StatelessWidget {
   final String appBarTitle;
   final Widget widget;
   final double leftPadding;
@@ -9,7 +11,7 @@ class SettingsScaffold extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
 
-  const SettingsScaffold(
+  const CustomScaffold(
       {super.key,
       required this.appBarTitle,
       required this.widget,
@@ -55,8 +57,27 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const NavigationDrawer(
-      children: [],
+    final colorScheme = Theme.of(context).colorScheme;
+    final authBloc = Modular.get<AuthBloc>();
+    return NavigationDrawer(
+      backgroundColor: colorScheme.primaryContainer,
+      children: [
+        Column(
+          children: [
+            CircleAvatar(
+              radius: 51,
+              backgroundColor: colorScheme.tertiary,
+              child: CircleAvatar(
+                backgroundColor: colorScheme.tertiary,
+                radius: 50,
+                backgroundImage: authBloc.state is AuthLoggedIn
+                    ? FileImage((authBloc.state as AuthLoggedIn).avatar)
+                    : null,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

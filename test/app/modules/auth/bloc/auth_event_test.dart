@@ -38,4 +38,10 @@ void main() {
       expect(AuthIsLoggedIn(), AuthIsLoggedIn());
     });
   });
+
+  group('[AuthSendEmailVerification]', () {
+    test('supports value comparisons', () {
+      expect(AuthSendEmailVerification(), AuthSendEmailVerification());
+    });
+  });
 }

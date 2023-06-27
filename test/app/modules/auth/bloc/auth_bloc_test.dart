@@ -13,6 +13,7 @@ import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/model/auth_user_model.dart';
 import 'package:up_invest_front/app/modules/auth/repository/auth_repository.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
+import 'package:up_invest_front/app/modules/auth/util/auth_sucess.dart';
 
 import '../../../../mocks/auth/adapter/auth_adapter_mock.dart';
 import '../../../../mocks/auth/model/auth_user_model_mock.dart';
@@ -244,6 +245,43 @@ void main() async {
         ),
         expect: () => <AuthState>[
           AuthLoggedOut(),
+        ],
+      );
+    });
+
+    group('when [AuthSendEmailVerification] is added', () {
+      blocTest<AuthBloc, AuthState>(
+        'and the email is successfully sent out emits [AuthSuccessState].',
+        setUp: () {
+          when(() => authRepositoryMock.sendEmailVerification())
+              .thenAnswer((_) => Future.value());
+        },
+        build: () => authBloc,
+        seed: () => AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
+        act: (bloc) => bloc.add(
+          const AuthSendEmailVerification(),
+        ),
+        expect: () => <AuthState>[
+          AuthLoading(),
+          AuthSuccessState(authSuccess: AuthSuccess.from('email-sent')),
+          AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
+        ],
+      );
+      blocTest<AuthBloc, AuthState>(
+        'and the email is not sent out emits [AuthSuccessError].',
+        setUp: () {
+          when(() => authRepositoryMock.sendEmailVerification())
+              .thenThrow(FirebaseAuthException(code: 'code'));
+        },
+        build: () => authBloc,
+        seed: () => AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
+        act: (bloc) => bloc.add(
+          const AuthSendEmailVerification(),
+        ),
+        expect: () => <AuthState>[
+          AuthLoading(),
+          AuthErrorState(authError: AuthErrorUnknown()),
+          AuthLoggedIn(authUser: authUserMock, avatar: fileMock),
         ],
       );
     });
