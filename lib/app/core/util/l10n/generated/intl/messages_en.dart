@@ -20,6 +20,12 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(valueInUSD) => "${valueInUSD}";
+
+  static String m1(valueInBRL) => "${valueInBRL}";
+
+  static String m2(firstName) => "Welcome, ${firstName}!";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutUsTextOne": MessageLookupByLibrary.simpleMessage(
@@ -162,6 +168,27 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Begin your journey"),
         "getStartedText": MessageLookupByLibrary.simpleMessage(
             "Take off towards your\nFinancial Independence"),
+        "homeCurrentBalance":
+            MessageLookupByLibrary.simpleMessage("Current Balance"),
+        "homeDashboardTitle": MessageLookupByLibrary.simpleMessage("Dashboard"),
+        "homeGoalCardTitle": MessageLookupByLibrary.simpleMessage(
+            "Journey to Financial Independence"),
+        "homeInvestedAmount":
+            MessageLookupByLibrary.simpleMessage("Invested Amount"),
+        "homeLastMonthDividendsValue":
+            MessageLookupByLibrary.simpleMessage("Last Month Dividends"),
+        "homeMonthDividendsGoal":
+            MessageLookupByLibrary.simpleMessage("Month Dividends Goal"),
+        "homeOperationTitle":
+            MessageLookupByLibrary.simpleMessage("Transaction"),
+        "homePortfolioTitle": MessageLookupByLibrary.simpleMessage("Portfolio"),
+        "homeSearchBarHint":
+            MessageLookupByLibrary.simpleMessage("Search for a asset..."),
+        "homeValueInDollar": m0,
+        "homeValueInReais": m1,
+        "homeWelcomeMessage":
+            MessageLookupByLibrary.simpleMessage("Let\'s start investing!"),
+        "homeWelcomeTitle": m2,
         "loading": MessageLookupByLibrary.simpleMessage("Loading!"),
         "loginForm": MessageLookupByLibrary.simpleMessage("Sign in"),
         "nameHintText": MessageLookupByLibrary.simpleMessage("Name"),

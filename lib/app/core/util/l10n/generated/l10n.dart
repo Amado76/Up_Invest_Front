@@ -1219,6 +1219,150 @@ class IntlStrings {
       args: [],
     );
   }
+
+  /// `Welcome, {firstName}!`
+  String homeWelcomeTitle(Object firstName) {
+    return Intl.message(
+      'Welcome, $firstName!',
+      name: 'homeWelcomeTitle',
+      desc: 'Welcome message on the Home screen',
+      args: [firstName],
+    );
+  }
+
+  /// `{valueInUSD}`
+  String homeValueInDollar(double valueInUSD) {
+    final NumberFormat valueInUSDNumberFormat = NumberFormat.currency(
+        locale: Intl.getCurrentLocale(),
+        decimalDigits: 2,
+        name: 'USD',
+        symbol: '\$');
+    final String valueInUSDString = valueInUSDNumberFormat.format(valueInUSD);
+
+    return Intl.message(
+      '$valueInUSDString',
+      name: 'homeValueInDollar',
+      desc: 'Balance value on the Home screen',
+      args: [valueInUSDString],
+    );
+  }
+
+  /// `{valueInBRL}`
+  String homeValueInReais(double valueInBRL) {
+    final NumberFormat valueInBRLNumberFormat = NumberFormat.currency(
+        locale: Intl.getCurrentLocale(),
+        decimalDigits: 2,
+        name: 'BRL',
+        symbol: 'R\$');
+    final String valueInBRLString = valueInBRLNumberFormat.format(valueInBRL);
+
+    return Intl.message(
+      '$valueInBRLString',
+      name: 'homeValueInReais',
+      desc: 'Balance value on the Home screen',
+      args: [valueInBRLString],
+    );
+  }
+
+  /// `Let's start investing!`
+  String get homeWelcomeMessage {
+    return Intl.message(
+      'Let\'s start investing!',
+      name: 'homeWelcomeMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for a asset...`
+  String get homeSearchBarHint {
+    return Intl.message(
+      'Search for a asset...',
+      name: 'homeSearchBarHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dashboard`
+  String get homeDashboardTitle {
+    return Intl.message(
+      'Dashboard',
+      name: 'homeDashboardTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transaction`
+  String get homeOperationTitle {
+    return Intl.message(
+      'Transaction',
+      name: 'homeOperationTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Portfolio`
+  String get homePortfolioTitle {
+    return Intl.message(
+      'Portfolio',
+      name: 'homePortfolioTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Balance`
+  String get homeCurrentBalance {
+    return Intl.message(
+      'Current Balance',
+      name: 'homeCurrentBalance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invested Amount`
+  String get homeInvestedAmount {
+    return Intl.message(
+      'Invested Amount',
+      name: 'homeInvestedAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Journey to Financial Independence`
+  String get homeGoalCardTitle {
+    return Intl.message(
+      'Journey to Financial Independence',
+      name: 'homeGoalCardTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Month Dividends Goal`
+  String get homeMonthDividendsGoal {
+    return Intl.message(
+      'Month Dividends Goal',
+      name: 'homeMonthDividendsGoal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Month Dividends`
+  String get homeLastMonthDividendsValue {
+    return Intl.message(
+      'Last Month Dividends',
+      name: 'homeLastMonthDividendsValue',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<IntlStrings> {

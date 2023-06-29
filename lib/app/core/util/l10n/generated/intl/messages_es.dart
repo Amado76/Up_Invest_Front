@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'es';
 
+  static String m2(firstName) => "¡Bienvenido, ${firstName}!";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutUsTextOne": MessageLookupByLibrary.simpleMessage(
@@ -166,6 +168,26 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Empieza tu viaje"),
         "getStartedText": MessageLookupByLibrary.simpleMessage(
             "Vuela hacia tu \nindependencia financiera"),
+        "homeCurrentBalance":
+            MessageLookupByLibrary.simpleMessage("Saldo actual"),
+        "homeDashboardTitle": MessageLookupByLibrary.simpleMessage("Dashboard"),
+        "homeGoalCardTitle": MessageLookupByLibrary.simpleMessage(
+            "Jornada Hacia la Independencia\nFinanciera"),
+        "homeInvestedAmount":
+            MessageLookupByLibrary.simpleMessage("Monto invertido"),
+        "homeLastMonthDividendsValue":
+            MessageLookupByLibrary.simpleMessage("Dividendos del Último Mes"),
+        "homeMonthDividendsGoal": MessageLookupByLibrary.simpleMessage(
+            "Meta de Dividendos Mensuales"),
+        "homeOperationTitle":
+            MessageLookupByLibrary.simpleMessage("Operaciones"),
+        "homePortfolioTitle":
+            MessageLookupByLibrary.simpleMessage("Portafolio"),
+        "homeSearchBarHint":
+            MessageLookupByLibrary.simpleMessage("Buscar un activo..."),
+        "homeWelcomeMessage":
+            MessageLookupByLibrary.simpleMessage("¡Empecemos a invertir!"),
+        "homeWelcomeTitle": m2,
         "loading": MessageLookupByLibrary.simpleMessage("Cargando!"),
         "loginForm": MessageLookupByLibrary.simpleMessage("Iniciar sesión"),
         "nameHintText": MessageLookupByLibrary.simpleMessage("Nombre"),

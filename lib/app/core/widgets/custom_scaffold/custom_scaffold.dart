@@ -7,8 +7,9 @@ class CustomScaffold extends StatelessWidget {
   final Widget widget;
   final double leftPadding;
   final double rightPadding;
-  final Color backgroundColor;
+  final Color appBarbackgroundColor;
   final Color textColor;
+  final Color scaffoldBackgroundColor;
 
   const CustomScaffold(
       {super.key,
@@ -16,7 +17,8 @@ class CustomScaffold extends StatelessWidget {
       required this.widget,
       this.leftPadding = 30,
       this.rightPadding = 30,
-      required this.backgroundColor,
+      required this.scaffoldBackgroundColor,
+      required this.appBarbackgroundColor,
       required this.textColor});
 
   @override
@@ -26,15 +28,17 @@ class CustomScaffold extends StatelessWidget {
     final bottomBarSize = MediaQuery.viewPaddingOf(context).bottom;
 
     return Scaffold(
+        backgroundColor: scaffoldBackgroundColor,
         bottomNavigationBar: const CustomBottomNavigatorBar(),
         drawer: const CustomDrawer(),
+        drawerScrimColor: Colors.black.withOpacity(0.5),
         appBar: AppBar(
           title: Text(
             appBarTitle,
             style: TextStyle(
                 color: textColor, fontSize: 25, fontWeight: FontWeight.w400),
           ),
-          backgroundColor: backgroundColor,
+          backgroundColor: appBarbackgroundColor,
           elevation: 0,
         ),
         body: SafeArea(

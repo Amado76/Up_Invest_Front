@@ -130,7 +130,58 @@
     "dropDownMeuGoals": "Goals",
     "dropDownMenuAchievements": "Achievements",
     "dropDownMenuAboutUs": "About us",
-    "dropDownMenuLogout": "Logout"
+    "dropDownMenuLogout": "Logout",
+
+    "homeWelcomeTitle" : "Welcome, {firstName}!",
+    "@homeWelcomeTitle" : {
+        "description" : "Welcome message on the Home screen",
+        "placeholders": {
+            "firstName": {}
+        }
+    },
+    "homeValueInDollar" : "{valueInUSD}",
+    "@homeValueInDollar" : {
+        "description" : "Balance value on the Home screen",
+        "placeholders": {
+            "valueInUSD": {
+                "type": "double",
+                "format": "currency",
+                "example":"100.00",
+                "optionalParameters": {
+                    "decimalDigits" : 2,
+                    "name": "USD",
+                    "symbol": "$"
+                }
+            }
+        }
+    },
+    "homeValueInReais" : "{valueInBRL}",
+    "@homeValueInReais" : {
+        "description" : "Balance value on the Home screen",
+        "placeholders": {
+            "valueInBRL": {
+                "type": "double",
+                "format": "currency",
+                "example":"100,00",
+                "optionalParameters": {
+                    "decimalDigits" : 2,
+                    "name": "BRL",
+                    "symbol": "R$"
+                }
+            }
+        }
+    },        
+    "homeWelcomeMessage": "Let's start investing!",
+    "homeSearchBarHint": "Search for a asset...",
+    "homeDashboardTitle": "Dashboard",
+    "homeOperationTitle": "Transaction",
+    "homePortfolioTitle": "Portfolio",
+    "homeCurrentBalance": "Current Balance",
+    "homeInvestedAmount": "Invested Amount",
+    "homeGoalCardTitle" : "Journey to Financial Independence",
+    "homeMonthDividendsGoal": "Month Dividends Goal",
+    "homeLastMonthDividendsValue": "Last Month Dividends"
+
 
 
 

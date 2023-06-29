@@ -128,6 +128,20 @@
     "dropDownMeuGoals": "Metas",
     "dropDownMenuAchievements": "Logros",
     "dropDownMenuAboutUs": "Acerca de nosotros",
-    "dropDownMenuLogout": "Cerrar sesión"
+    "dropDownMenuLogout": "Cerrar sesión",
+
+    "homeWelcomeTitle" : "¡Bienvenido, {firstName}!",
+    "homeWelcomeMessage": "¡Empecemos a invertir!",
+    "homeSearchBarHint": "Buscar un activo...",
+    "homeDashboardTitle": "Dashboard",
+    "homeOperationTitle": "Operaciones",
+    "homePortfolioTitle": "Portafolio",
+    "homeCurrentBalance": "Saldo actual",
+    "homeInvestedAmount": "Monto invertido",
+    "homeGoalCardTitle" : "Jornada Hacia la Independencia\nFinanciera",
+    "homeMonthDividendsGoal": "Meta de Dividendos Mensuales",
+    "homeLastMonthDividendsValue": "Dividendos del Último Mes"
+    
+
 
 }
