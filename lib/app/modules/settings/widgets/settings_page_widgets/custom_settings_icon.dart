@@ -21,7 +21,7 @@ class CustomSettingsIcon extends StatelessWidget {
       ),
       child: Icon(
         icon,
-        color: iconColor ?? colorScheme.tertiary,
+        color: iconColor ?? colorScheme.primary,
       ),
     );
   }

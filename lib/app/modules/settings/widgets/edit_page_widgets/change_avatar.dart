@@ -32,7 +32,7 @@ class ChangeAvatar extends StatelessWidget {
           width: 40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
-              color: colorScheme.tertiaryContainer),
+              color: colorScheme.primaryContainer),
           child: IconButton(
               onPressed: () {
                 editDetailsBloc.add(const EditDetailsCleanAvatarList());
@@ -128,9 +128,9 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                           Center(
                             child: CircleAvatar(
                               radius: 103,
-                              backgroundColor: colorScheme.tertiary,
+                              backgroundColor: colorScheme.primaryContainer,
                               child: CircleAvatar(
-                                  backgroundColor: colorScheme.tertiary,
+                                  backgroundColor: colorScheme.primaryContainer,
                                   radius: 100,
                                   backgroundImage: AssetImage(avatar.path)),
                             ),
@@ -139,9 +139,9 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                           Center(
                             child: CircleAvatar(
                               radius: 103,
-                              backgroundColor: colorScheme.tertiary,
+                              backgroundColor: colorScheme.primaryContainer,
                               child: CircleAvatar(
-                                  backgroundColor: colorScheme.tertiary,
+                                  backgroundColor: colorScheme.primaryContainer,
                                   radius: 100,
                                   backgroundImage:
                                       FileImage(File(avatar.path))),
@@ -151,9 +151,9 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                           Center(
                             child: CircleAvatar(
                               radius: 103,
-                              backgroundColor: colorScheme.tertiary,
+                              backgroundColor: colorScheme.primaryContainer,
                               child: CircleAvatar(
-                                  backgroundColor: colorScheme.tertiary,
+                                  backgroundColor: colorScheme.primaryContainer,
                                   radius: 100,
                                   backgroundImage: NetworkImage(avatar.url)),
                             ),
@@ -164,7 +164,7 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: colorScheme.tertiaryContainer
+                                color: colorScheme.primaryContainer
                                     .withOpacity(0.9)),
                             child: IconButton(
                                 onPressed: () async {
@@ -189,7 +189,7 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: colorScheme.tertiaryContainer
+                                color: colorScheme.primaryContainer
                                     .withOpacity(0.9)),
                             child: IconButton(
                                 onPressed: () {
@@ -209,7 +209,7 @@ class _ChooseAvatarWidgetState extends State<_ChooseAvatarWidget> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: colorScheme.tertiaryContainer
+                                color: colorScheme.primaryContainer
                                     .withOpacity(0.7)),
                             child: IconButton(
                                 onPressed: () {

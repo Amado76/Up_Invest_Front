@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:up_invest_front/app/core/widgets/custom_scaffold.dart';
+
+import 'package:up_invest_front/app/core/widgets/custom_scaffold/custom_scaffold.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _HomePageState extends State<HomePage> {
     final colorScheme = Theme.of(context).colorScheme;
     return CustomScaffold(
       appBarTitle: 'Home',
-      backgroundColor: colorScheme.primaryContainer,
+      backgroundColor: colorScheme.primary,
       textColor: colorScheme.onPrimary,
       widget: Column(
         mainAxisAlignment: MainAxisAlignment.center,

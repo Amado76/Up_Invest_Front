@@ -38,7 +38,7 @@ class EditDetailsPageRow extends StatelessWidget {
                     child: Icon(
                       size: 20,
                       icon,
-                      color: colorScheme.tertiary,
+                      color: colorScheme.primary,
                     ),
                   ),
                   const SizedBox(width: 10),

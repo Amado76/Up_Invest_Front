@@ -15,9 +15,9 @@ class UserProfileCard extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 51,
-          backgroundColor: colorScheme.tertiary,
+          backgroundColor: colorScheme.primaryContainer,
           child: CircleAvatar(
-            backgroundColor: colorScheme.tertiary,
+            backgroundColor: colorScheme.primaryContainer,
             radius: 50,
             backgroundImage: authBloc.state is AuthLoggedIn
                 ? FileImage((authBloc.state as AuthLoggedIn).avatar)

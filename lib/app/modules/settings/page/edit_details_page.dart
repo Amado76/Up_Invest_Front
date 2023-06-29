@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
-import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/core/widgets/custom_snack_bar.dart';
+import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings/edit_details_bloc.dart';
@@ -96,9 +96,10 @@ class _EditDetailsState extends State<EditDetailsPage> {
                               children: [
                                 CircleAvatar(
                                   radius: 102,
-                                  backgroundColor: colorScheme.tertiary,
+                                  backgroundColor: colorScheme.primaryContainer,
                                   child: CircleAvatar(
-                                      backgroundColor: colorScheme.tertiary,
+                                      backgroundColor:
+                                          colorScheme.primaryContainer,
                                       radius: 100,
                                       backgroundImage: Image.network(
                                         displayAvatar.url,
