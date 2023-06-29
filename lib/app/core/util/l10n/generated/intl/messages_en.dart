@@ -115,6 +115,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancelButton": MessageLookupByLibrary.simpleMessage("Cancel!"),
         "confirmYourPasswordHintText":
             MessageLookupByLibrary.simpleMessage("Confirm your password"),
+        "dropDownMenuAboutUs": MessageLookupByLibrary.simpleMessage("About us"),
+        "dropDownMenuAchievements":
+            MessageLookupByLibrary.simpleMessage("Achievements"),
+        "dropDownMenuDashboard":
+            MessageLookupByLibrary.simpleMessage("Dashboard"),
+        "dropDownMenuHome": MessageLookupByLibrary.simpleMessage("Home"),
+        "dropDownMenuLogout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "dropDownMenuPortfolio":
+            MessageLookupByLibrary.simpleMessage("Portfolio"),
+        "dropDownMenuSettings":
+            MessageLookupByLibrary.simpleMessage("Settings"),
+        "dropDownMeuGoals": MessageLookupByLibrary.simpleMessage("Goals"),
         "editDetailsAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "editDetailsChangeDisplayName":

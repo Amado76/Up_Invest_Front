@@ -121,9 +121,16 @@
     "remoteStorageErrorUnknownTitle": "Unknown Error",
     "remoteStorageErrorUnknownMessage": "Unknown error, please try again.",
     "remoteStorageErrorRetryLimitExceededTitle": "Time Exceeded",
-    "remoteStorageErrorRetryLimitExceededMessage": "The operation's time limit has been exceeded, please try again."
+    "remoteStorageErrorRetryLimitExceededMessage": "The operation's time limit has been exceeded, please try again.",
 
-
+    "dropDownMenuHome": "Home",
+    "dropDownMenuSettings": "Settings",   
+    "dropDownMenuDashboard": "Dashboard",
+    "dropDownMenuPortfolio": "Portfolio",
+    "dropDownMeuGoals": "Goals",
+    "dropDownMenuAchievements": "Achievements",
+    "dropDownMenuAboutUs": "About us",
+    "dropDownMenuLogout": "Logout"
 
 
 

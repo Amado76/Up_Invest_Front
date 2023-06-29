@@ -41,6 +41,7 @@ class LoggoutWidget extends StatelessWidget {
                   },
                   onSave: () {
                     authBloc.add(const AuthLogOut());
+                    Modular.to.navigate('/auth');
                   },
                   onSaveIcon: Icon(
                     Icons.logout,

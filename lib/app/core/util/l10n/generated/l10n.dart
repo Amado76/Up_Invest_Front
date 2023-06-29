@@ -1139,6 +1139,86 @@ class IntlStrings {
       args: [],
     );
   }
+
+  /// `Home`
+  String get dropDownMenuHome {
+    return Intl.message(
+      'Home',
+      name: 'dropDownMenuHome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get dropDownMenuSettings {
+    return Intl.message(
+      'Settings',
+      name: 'dropDownMenuSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dashboard`
+  String get dropDownMenuDashboard {
+    return Intl.message(
+      'Dashboard',
+      name: 'dropDownMenuDashboard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Portfolio`
+  String get dropDownMenuPortfolio {
+    return Intl.message(
+      'Portfolio',
+      name: 'dropDownMenuPortfolio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Goals`
+  String get dropDownMeuGoals {
+    return Intl.message(
+      'Goals',
+      name: 'dropDownMeuGoals',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Achievements`
+  String get dropDownMenuAchievements {
+    return Intl.message(
+      'Achievements',
+      name: 'dropDownMenuAchievements',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About us`
+  String get dropDownMenuAboutUs {
+    return Intl.message(
+      'About us',
+      name: 'dropDownMenuAboutUs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get dropDownMenuLogout {
+    return Intl.message(
+      'Logout',
+      name: 'dropDownMenuLogout',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<IntlStrings> {

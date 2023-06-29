@@ -118,7 +118,15 @@
     "remoteStorageErrorUnknownTitle" : "Erro desconhecido",
     "remoteStorageErrorUnknownMessage" : "Erro desconhecido, tente novamente",
     "remoteStorageErrorRetryLimitExceededTitle" : "Tempo excedido",
-    "remoteStorageErrorRetryLimitExceededMessage": "O limite de tempo da operação foi excedido, tente novamente"
+    "remoteStorageErrorRetryLimitExceededMessage": "O limite de tempo da operação foi excedido, tente novamente",
     
+    "dropDownMenuHome": "Início",
+    "dropDownMenuSettings": "Configurações",   
+    "dropDownMenuDashboard": "Dashboard",
+    "dropDownMenuPortfolio": "Portfólio",
+    "dropDownMeuGoals": "Metas",
+    "dropDownMenuAchievements": "Conquistas",
+    "dropDownMenuAboutUs": "Sobre nós",
+    "dropDownMenuLogout": "Sair da conta"
 
 }

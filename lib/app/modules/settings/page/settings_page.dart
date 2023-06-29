@@ -9,7 +9,7 @@ import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/settings_page_widgets/about_us.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/settings_page_widgets/change_theme.dart';
-import 'package:up_invest_front/app/modules/settings/widgets/settings_page_widgets/logout_widget.dart';
+import 'package:up_invest_front/app/core/widgets/logout_widget.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/settings_page_widgets/select_language.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/settings_page_widgets/verified_email.dart';
 import 'package:up_invest_front/app/modules/settings/widgets/settings_scaffold.dart';
