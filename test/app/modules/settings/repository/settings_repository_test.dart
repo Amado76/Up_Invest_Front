@@ -117,7 +117,7 @@ void main() async {
           () async {
         //Arrange
         final SettingsModel settingsModel =
-            SettingsModel(themeMode: ThemeMode.dark);
+            SettingsModel(themeMode: ThemeMode.dark, currency: Currency.usd);
 
         when(() => localStorageAdapterMock.saveStringToLocalStorage(
             'theme', 'dark')).thenAnswer((_) => Future.value());
@@ -132,7 +132,7 @@ void main() async {
           () async {
         //Arrange
         final SettingsModel settingsModel =
-            SettingsModel(themeMode: ThemeMode.light);
+            SettingsModel(themeMode: ThemeMode.light, currency: Currency.usd);
 
         when(() => localStorageAdapterMock.saveStringToLocalStorage(
             'theme', 'light')).thenAnswer((_) => Future.value());
@@ -147,7 +147,7 @@ void main() async {
           () async {
         //Arrange
         final SettingsModel settingsModel =
-            SettingsModel(themeMode: ThemeMode.system);
+            SettingsModel(themeMode: ThemeMode.system, currency: Currency.usd);
 
         when(() => localStorageAdapterMock.saveStringToLocalStorage(
             'theme', 'system')).thenAnswer((_) => Future.value());
@@ -162,7 +162,9 @@ void main() async {
           () async {
         //Arrange
         final SettingsModel settingsModel = SettingsModel(
-            themeMode: ThemeMode.system, locale: const Locale('en'));
+            themeMode: ThemeMode.system,
+            locale: const Locale('en'),
+            currency: Currency.usd);
 
         when(() => localStorageAdapterMock.saveStringToLocalStorage(
             'theme', 'system')).thenAnswer((_) => Future.value());

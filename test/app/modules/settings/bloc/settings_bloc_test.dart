@@ -27,7 +27,9 @@ void main() async {
           settingsBloc =
               SettingsBloc(settingsRepository: settingsRepositoryMock),
           registerFallbackValue(SettingsModel(
-              themeMode: ThemeMode.light, locale: const Locale('en'))),
+              currency: Currency.usd,
+              themeMode: ThemeMode.light,
+              locale: const Locale('en'))),
         });
 
     //SettingsEventChangeTheme

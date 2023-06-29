@@ -18,11 +18,21 @@ class SettingsRepository extends ISettingsRepository {
         await localStorageAdapter.readStringFromLocalStorage('theme');
     String? language =
         await localStorageAdapter.readStringFromLocalStorage('language');
+    String? fetchedCurrency =
+        await localStorageAdapter.readStringFromLocalStorage('currency');
     ThemeMode themeMode = _stringToThemeMode(theme ?? 'system');
     Locale? locale = _stringToLocale(language);
+    Currency currency = _stringToCurrency(fetchedCurrency ?? 'USD');
     SettingsModel settingsModel =
-        SettingsModel(themeMode: themeMode, locale: locale);
+        SettingsModel(themeMode: themeMode, locale: locale, currency: currency);
     return settingsModel;
+  }
+
+  Currency _stringToCurrency(String currency) {
+    if (currency == 'BRL') {
+      return Currency.brl;
+    }
+    return Currency.usd;
   }
 
   ThemeMode _stringToThemeMode(String theme) {
@@ -46,12 +56,21 @@ class SettingsRepository extends ISettingsRepository {
   Future<void> saveSettingsToLocalStorage(SettingsModel settingsModel) async {
     ThemeMode themeMode = settingsModel.themeMode;
     Locale? locale = settingsModel.locale;
+    String currency = _currencyToString(settingsModel.currency);
     String theme = _themeModeToString(themeMode);
     String? language = _localeToString(locale);
     await localStorageAdapter.saveStringToLocalStorage('theme', theme);
+    await localStorageAdapter.saveStringToLocalStorage('currency', currency);
     if (language != null) {
       await localStorageAdapter.saveStringToLocalStorage('language', language);
     }
+  }
+
+  String _currencyToString(Currency currency) {
+    if (currency == Currency.brl) {
+      return 'BRL';
+    }
+    return 'USD';
   }
 
   String? _localeToString(Locale? locale) {

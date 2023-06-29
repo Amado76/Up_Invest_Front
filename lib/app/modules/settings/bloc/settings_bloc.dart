@@ -15,7 +15,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final ISettingsRepository settingsRepository;
   SettingsBloc({required this.settingsRepository})
       : super(SettingsStateGlobal(
-            settingsModel: SettingsModel(themeMode: ThemeMode.system))) {
+            settingsModel: SettingsModel(
+                themeMode: ThemeMode.system, currency: Currency.usd))) {
     on<SettingsEventChangeTheme>((event, emit) {
       _onChangeTheme(event.theme);
     });
@@ -25,6 +26,24 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingsEventFetchSavedSettings>((event, emit) async {
       _onFetchSavedSettings();
     });
+    on<SettingsEventChangeCurrency>((event, emit) async {
+      _onChangeCurrency(event.currency);
+    });
+  }
+
+  void _onChangeCurrency(Currency currency) async {
+    SettingsModel currentSettings = _getCurrentSettings();
+
+    try {
+      SettingsModel newSettings = _generateNewSettings(currentSettings);
+      newSettings.currency = currency;
+      await saveSettings(newSettings);
+      emit(SettingsStateGlobal(settingsModel: newSettings));
+    } on Exception catch (e) {
+      emit(SettingsStateGlobal(
+          settingsModel: currentSettings,
+          settingsError: SettingsError.from(e)));
+    }
   }
 
   void _onChangeTheme(String theme) async {
@@ -75,7 +94,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   SettingsModel _generateNewSettings(SettingsModel currentSettings) {
     SettingsModel newSettings = SettingsModel(
-        themeMode: currentSettings.themeMode, locale: currentSettings.locale);
+        themeMode: currentSettings.themeMode,
+        locale: currentSettings.locale,
+        currency: currentSettings.currency);
     return newSettings;
   }
 

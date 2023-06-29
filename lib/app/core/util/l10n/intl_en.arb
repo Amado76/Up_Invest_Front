@@ -97,6 +97,8 @@
     "settingsLogoutButton" : "Logout",
     "settingsLogoutWarningMessage": "Are you sure you want to logout?",
     "settingsEmailIsNotVerified": "Your email is not verified!",
+    "settingsBRL": "BRL",
+    "settingsUSD": "USD",
    
     "settingsAboutUs": "About us",    
     "aboutUsTextOne": "My name is Bruno Amado, I am a mobile developer, and I created UpInvest as a personal project, combining two passions: mobile app development and financial investments.\n\nI would be delighted to hear from you if you have any suggestions, criticisms, or compliments! Please feel free to get in touch with me through the following channels:",
@@ -149,8 +151,12 @@
                 "example":"100.00",
                 "optionalParameters": {
                     "decimalDigits" : 2,
-                    "name": "USD",
-                    "symbol": "$"
+                    "name":"USD",
+                    "symbol": "$",
+                    "customPattern": "¤#,000.00"
+
+                 
+                  
                 }
             }
         }
@@ -166,11 +172,17 @@
                 "optionalParameters": {
                     "decimalDigits" : 2,
                     "name": "BRL",
-                    "symbol": "R$"
+                    "symbol": "R$",
+                    "customPattern": "¤#,000.00"
+                   
+               
+                
                 }
             }
+           
         }
-    },        
+    },      
+      
     "homeWelcomeMessage": "Let's start investing!",
     "homeSearchBarHint": "Search for a asset...",
     "homeDashboardTitle": "Dashboard",

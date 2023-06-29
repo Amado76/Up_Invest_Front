@@ -930,6 +930,26 @@ class IntlStrings {
     );
   }
 
+  /// `BRL`
+  String get settingsBRL {
+    return Intl.message(
+      'BRL',
+      name: 'settingsBRL',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `USD`
+  String get settingsUSD {
+    return Intl.message(
+      'USD',
+      name: 'settingsUSD',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `About us`
   String get settingsAboutUs {
     return Intl.message(
@@ -1236,7 +1256,8 @@ class IntlStrings {
         locale: Intl.getCurrentLocale(),
         decimalDigits: 2,
         name: 'USD',
-        symbol: '\$');
+        symbol: '\$',
+        customPattern: '¤#,000.00');
     final String valueInUSDString = valueInUSDNumberFormat.format(valueInUSD);
 
     return Intl.message(
@@ -1253,7 +1274,8 @@ class IntlStrings {
         locale: Intl.getCurrentLocale(),
         decimalDigits: 2,
         name: 'BRL',
-        symbol: 'R\$');
+        symbol: 'R\$',
+        customPattern: '¤#,000.00');
     final String valueInBRLString = valueInBRLNumberFormat.format(valueInBRL);
 
     return Intl.message(

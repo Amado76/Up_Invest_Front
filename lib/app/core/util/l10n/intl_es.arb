@@ -140,7 +140,9 @@
     "homeInvestedAmount": "Monto invertido",
     "homeGoalCardTitle" : "Jornada Hacia la Independencia\nFinanciera",
     "homeMonthDividendsGoal": "Meta de Dividendos Mensuales",
-    "homeLastMonthDividendsValue": "Dividendos del Último Mes"
+    "homeLastMonthDividendsValue": "Dividendos del Último Mes",
+    "homeValueInDollar" : "{valueInUSD}",
+    "homeValueInReais" : "{valueInBRL}"
     
 
 

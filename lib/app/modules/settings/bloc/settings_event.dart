@@ -22,6 +22,14 @@ class SettingsEventChangeLanguage extends SettingsEvent {
 }
 
 @immutable
+class SettingsEventChangeCurrency extends SettingsEvent {
+  final Currency currency;
+  const SettingsEventChangeCurrency({required this.currency});
+  @override
+  List<Object> get props => [currency];
+}
+
+@immutable
 class SettingsEventFetchSavedSettings extends SettingsEvent {
   const SettingsEventFetchSavedSettings();
   @override

@@ -7,6 +7,8 @@ import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/home/widgets/asset_search_bar.dart';
 import 'package:up_invest_front/app/modules/home/widgets/home_main_card.dart';
 import 'package:up_invest_front/app/modules/home/widgets/home_secondary_card_row.dart';
+import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
+import 'package:up_invest_front/app/modules/settings/model/settings_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,6 +26,8 @@ class _HomePageState extends State<HomePage> {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final IntlStrings intlStrings = IntlStrings.current;
     final AuthBloc authBloc = Modular.get<AuthBloc>();
+    final SettingsBloc settingsBloc = Modular.get<SettingsBloc>();
+    final SettingsModel settings = settingsBloc.state.settingsModel;
     const double mainContainerSize = 250;
     const double homeMainCardSize = 200;
     final List<String>? nameParts =
@@ -87,82 +91,24 @@ class _HomePageState extends State<HomePage> {
                             mainContainerSize: mainContainerSize,
                             currentBalanceTitle: intlStrings.homeCurrentBalance,
                             currentBalanceValue:
-                                intlStrings.homeValueInDollar(49250.00),
+                                settings.currency == Currency.usd
+                                    ? intlStrings.homeValueInDollar(49250.00)
+                                    : intlStrings.homeValueInReais(49250.00),
                             investedAmountTitle: intlStrings.homeInvestedAmount,
                             investedAmountValue:
-                                intlStrings.homeValueInReais(44250.00),
+                                settings.currency == Currency.usd
+                                    ? intlStrings.homeValueInDollar(44250.00)
+                                    : intlStrings.homeValueInReais(44250.00),
                           ),
                           const SizedBox(height: 20),
-                          Container(
-                            height: 150,
-                            width: size.width,
-                            decoration: BoxDecoration(
-                                color: colorScheme.background,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: colorScheme.onBackground
-                                        .withOpacity(0.2),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 5),
-                                  ),
-                                ]),
-                            child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  const SizedBox(width: 30),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        intlStrings.homeGoalCardTitle,
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            color: colorScheme.onBackground,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        intlStrings.homeMonthDividendsGoal,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: colorScheme.onBackground,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      Text(
-                                        intlStrings.homeValueInDollar(4000),
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: colorScheme.outline,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        intlStrings.homeLastMonthDividendsValue,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: colorScheme.onBackground,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      Text(
-                                        intlStrings.homeValueInDollar(1500),
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: colorScheme.outline,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ],
-                                  ),
-                                  Expanded(
-                                      child: Image.asset(
-                                          'assets/images/flag.png')),
-                                  const SizedBox(width: 10),
-                                ]),
+                          GoalCard(
+                            goalDividendValue: settings.currency == Currency.usd
+                                ? intlStrings.homeValueInDollar(4250.00)
+                                : intlStrings.homeValueInReais(4250.00),
+                            lastMonthDividendValue:
+                                settings.currency == Currency.usd
+                                    ? intlStrings.homeValueInDollar(250.00)
+                                    : intlStrings.homeValueInReais(250.00),
                           )
                         ],
                       ),
@@ -178,6 +124,90 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class GoalCard extends StatelessWidget {
+  const GoalCard({
+    super.key,
+    required this.goalDividendValue,
+    required this.lastMonthDividendValue,
+  });
+
+  final String goalDividendValue;
+  final String lastMonthDividendValue;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final Size size = MediaQuery.sizeOf(context);
+    final IntlStrings intlStrings = IntlStrings.current;
+    return Container(
+      height: 150,
+      width: size.width,
+      decoration: BoxDecoration(
+          color: colorScheme.background,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: colorScheme.onBackground.withOpacity(0.2),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ]),
+      child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const SizedBox(width: 30),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                Text(
+                  intlStrings.homeGoalCardTitle,
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: colorScheme.onBackground,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  intlStrings.homeMonthDividendsGoal,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: colorScheme.onBackground,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  goalDividendValue,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: colorScheme.outline,
+                      fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  intlStrings.homeLastMonthDividendsValue,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: colorScheme.onBackground,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  lastMonthDividendValue,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: colorScheme.outline,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+            Expanded(child: Image.asset('assets/images/flag.png')),
+            const SizedBox(width: 10),
+          ]),
     );
   }
 }

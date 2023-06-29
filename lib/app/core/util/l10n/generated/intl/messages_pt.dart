@@ -20,6 +20,10 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'pt';
 
+  static String m0(valueInUSD) => "${valueInUSD}";
+
+  static String m1(valueInBRL) => "${valueInBRL}";
+
   static String m2(firstName) => "Bem-vindo, ${firstName}!";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -181,6 +185,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "homePortfolioTitle": MessageLookupByLibrary.simpleMessage("Portfólio"),
         "homeSearchBarHint":
             MessageLookupByLibrary.simpleMessage("Buscar um ativo..."),
+        "homeValueInDollar": m0,
+        "homeValueInReais": m1,
         "homeWelcomeMessage":
             MessageLookupByLibrary.simpleMessage("Vamos começar a investir!"),
         "homeWelcomeTitle": m2,

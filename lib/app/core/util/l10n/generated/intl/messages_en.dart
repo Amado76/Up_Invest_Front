@@ -208,6 +208,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "saveButton": MessageLookupByLibrary.simpleMessage("Save!"),
         "settingsAboutUs": MessageLookupByLibrary.simpleMessage("About us"),
         "settingsAppBarTitle": MessageLookupByLibrary.simpleMessage("Settings"),
+        "settingsBRL": MessageLookupByLibrary.simpleMessage("BRL"),
         "settingsDark": MessageLookupByLibrary.simpleMessage("Dark"),
         "settingsEmailIsNotVerified":
             MessageLookupByLibrary.simpleMessage("Your email is not verified!"),
@@ -259,6 +260,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Your email has been changed successfully!"),
         "settingsSuccessUpdateEmaiTitle":
             MessageLookupByLibrary.simpleMessage("Email changed successfully!"),
+        "settingsUSD": MessageLookupByLibrary.simpleMessage("USD"),
         "signInDoNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "signInSignUp": MessageLookupByLibrary.simpleMessage("Sign up!"),

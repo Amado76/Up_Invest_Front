@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
-import 'package:up_invest_front/app/modules/settings/widgets/settings_page_widgets/settings_options_row.dart';
+import 'package:up_invest_front/app/modules/settings/model/settings_model.dart'
+    show Currency;
+import 'settings_options_row.dart';
 
-class SelectLanguage extends StatelessWidget {
-  const SelectLanguage({super.key});
+class SelectCurrency extends StatelessWidget {
+  const SelectCurrency({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,40 +17,39 @@ class SelectLanguage extends StatelessWidget {
     return SettingsOptionsRow(
       icon: Icons.language,
       text: intlStrings.settingsLanguage,
-      button: const _SelectLanguageButton(),
+      button: const _SelectCurrencyButton(),
     );
   }
 }
 
-class _SelectLanguageButton extends StatefulWidget {
-  const _SelectLanguageButton();
+class _SelectCurrencyButton extends StatefulWidget {
+  const _SelectCurrencyButton();
 
   @override
-  State<_SelectLanguageButton> createState() => _SelectLanguageButtonState();
+  State<_SelectCurrencyButton> createState() => _SelectCurrencyButtonState();
 }
 
-class _SelectLanguageButtonState extends State<_SelectLanguageButton> {
-  _SelectLanguageButtonState();
+class _SelectCurrencyButtonState extends State<_SelectCurrencyButton> {
+  _SelectCurrencyButtonState();
   @override
   Widget build(BuildContext context) {
     final settingsBloc = context.watch<SettingsBloc>((bloc) => bloc.stream);
     final settignsState = settingsBloc.state;
-    String systemLangauge = Localizations.localeOf(context).languageCode;
-    String dropdownValue =
-        settignsState.settingsModel.locale?.languageCode ?? systemLangauge;
+    Currency currency = Currency.usd;
+    Currency dropdownValue = settignsState.settingsModel.currency;
 
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final intlStrings = IntlStrings.of(context);
     return DropdownButton(
       value: dropdownValue,
-      onChanged: (String? newValue) {
+      onChanged: (Currency? newValue) {
         settingsBloc
-            .add(SettingsEventChangeLanguage(language: newValue ?? 'en'));
+            .add(SettingsEventChangeCurrency(currency: newValue ?? currency));
       },
       items: [
         DropdownMenuItem(
-          value: 'en',
+          value: Currency.usd,
           child: Row(
             children: [
               Image.asset(
@@ -57,14 +59,14 @@ class _SelectLanguageButtonState extends State<_SelectLanguageButton> {
               ),
               const SizedBox(width: 5),
               Text(
-                intlStrings.settingsEnglish,
+                intlStrings.settingsUSD,
                 style: TextStyle(color: colorScheme.outline, fontSize: 16),
               ),
             ],
           ),
         ),
         DropdownMenuItem(
-          value: 'pt',
+          value: Currency.brl,
           child: Row(
             children: [
               Image.asset(
@@ -74,24 +76,7 @@ class _SelectLanguageButtonState extends State<_SelectLanguageButton> {
               ),
               const SizedBox(width: 5),
               Text(
-                intlStrings.settingsPortuguese,
-                style: TextStyle(color: colorScheme.outline, fontSize: 16),
-              ),
-            ],
-          ),
-        ),
-        DropdownMenuItem(
-          value: 'es',
-          child: Row(
-            children: [
-              Image.asset(
-                'assets/icons/spain_flag.png',
-                height: 20,
-                width: 20,
-              ),
-              const SizedBox(width: 5),
-              Text(
-                intlStrings.settingsSpanish,
+                intlStrings.settingsBRL,
                 style: TextStyle(color: colorScheme.outline, fontSize: 16),
               ),
             ],
