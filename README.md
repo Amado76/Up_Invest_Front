@@ -3,8 +3,9 @@
 
 Up Invest is a study project that combines two passions: Flutter and Investments. This application permits users to manage and keep track of their financial assets in the Brazilian Stock Market.
 
+![image](https://github.com/Amado76/up_invest_front/assets/63312497/3d562cec-be94-4814-94e1-cefa9dcf57a0)
 ![image](https://github.com/Amado76/up_invest_front/assets/63312497/b70f3173-ba95-43ef-aaa3-41ed800e9a5c)
-![image](https://github.com/Amado76/up_invest_front/assets/63312497/2d25f3a9-3a1b-4c44-92d9-f95fd75ff027)
+
 
 
 # 1. Features  
