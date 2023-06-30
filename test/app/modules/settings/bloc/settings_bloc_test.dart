@@ -119,6 +119,37 @@ void main() async {
                     settingsError: SettingsErrorOnSave())
               ]);
     });
+    group('when [SettingsEventChangeCurrency] is added', () {
+      blocTest<SettingsBloc, SettingsState>(
+          'with ["Currency.brl"] emits [SettingsStateGlobal] with [Currency.brl]',
+          setUp: () {
+            when(() => settingsRepositoryMock.saveSettingsToLocalStorage(any()))
+                .thenAnswer((_) => Future.value());
+          },
+          build: () => settingsBloc,
+          seed: () => SettingsStateGlobal(settingsModel: settingsModelMock),
+          act: (bloc) => settingsBloc
+              .add(const SettingsEventChangeCurrency(currency: Currency.brl)),
+          verify: (bloc) {
+            expect((bloc.state as SettingsStateGlobal).settingsModel.currency,
+                Currency.brl);
+          });
+      blocTest<SettingsBloc, SettingsState>(
+          'fails emits [SettingsStateGlobal] with [error)]',
+          setUp: () {
+            when(() => settingsRepositoryMock.saveSettingsToLocalStorage(any()))
+                .thenThrow(Exception('error-on-save'));
+          },
+          build: () => settingsBloc,
+          seed: () => SettingsStateGlobal(settingsModel: settingsModelMock),
+          act: (bloc) => settingsBloc
+              .add(const SettingsEventChangeCurrency(currency: Currency.usd)),
+          expect: () => <SettingsState>[
+                SettingsStateGlobal(
+                    settingsModel: settingsModelMock,
+                    settingsError: SettingsErrorOnSave())
+              ]);
+    });
     group('when [SettingsEventFetchSavedSettings] is added', () {
       blocTest<SettingsBloc, SettingsState>(
         'emits [SettingsStateGlobal] with settingsModelMock]',

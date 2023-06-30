@@ -64,6 +64,8 @@
     "authSuccessResetPasswordMessage": "Hemos enviado un correo electrónico con instrucciones para restablecer tu contraseña.",
     "authSuccessSetNewPasswordTitle": "¡Contraseña Cambiada Exitosamente!",
     "authSuccessSetNewPasswordMessage": "Tu contraseña ha sido cambiada exitosamente!",
+    "authSuccessEmailSentTitle": "¡Correo electrónico enviado!",
+    "authSuccessSetEmailSentMessage": "Revise su bandeja de entrada y siga las instrucciones para completar el proceso de verificación.",
 
     "settingsErrorUnknownTitle": "Error desconocido",
     "settingsErrorUnknownMessage": "Se produjo un error desconocido",
@@ -93,10 +95,9 @@
     "settingsAboutUs": "Acerca de nosotros",
     "settingsLogout": "Cerrar sesión",
     "settingsLogoutWarningMessage": "¿Estás seguro de que deseas cerrar sesión?",
-    "settingsEmailIsNotVerified": "Correo electrónico no verificado",
-    "authSuccessEmailSentTitle": "¡Correo electrónico enviado!",
-    "authSuccessSetEmailSentMessage": "Revise su bandeja de entrada y siga las instrucciones para completar el proceso de verificación.",
+    "settingsEmailIsNotVerified": "Correo electrónico no verificado",    
     "settingsLogoutButton" : "Cerrar",
+    "settingsCurrency": "Moneda",
     "aboutUsTextOne": "Mi nombre es Bruno Amado, soy un desarrollador móvil y creé UpInvest como un proyecto personal, combinando dos pasiones: el desarrollo de aplicaciones móviles y las inversiones financieras. UpInvest es una aplicación que desarrollé para mejorar mis habilidades en Flutter.\n\nMe encantaría saber si tienes alguna sugerencia, crítica o cumplido. No dudes en contactarme a través de los siguientes canales:",
     "aboutUsTextTwo":"¡Gracias por usar UpInvest y por ser parte de mi viaje de desarrollo y aprendizaje en Flutter!",
 

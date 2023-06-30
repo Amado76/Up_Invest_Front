@@ -16,7 +16,7 @@ class SelectCurrency extends StatelessWidget {
 
     return SettingsOptionsRow(
       icon: Icons.language,
-      text: intlStrings.settingsLanguage,
+      text: intlStrings.settingsCurrency,
       button: const _SelectCurrencyButton(),
     );
   }

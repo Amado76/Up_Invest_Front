@@ -930,6 +930,16 @@ class IntlStrings {
     );
   }
 
+  /// `Currency`
+  String get settingsCurrency {
+    return Intl.message(
+      'Currency',
+      name: 'settingsCurrency',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `BRL`
   String get settingsBRL {
     return Intl.message(
@@ -1261,7 +1271,7 @@ class IntlStrings {
     final String valueInUSDString = valueInUSDNumberFormat.format(valueInUSD);
 
     return Intl.message(
-      '$valueInUSDString',
+      valueInUSDString,
       name: 'homeValueInDollar',
       desc: 'Balance value on the Home screen',
       args: [valueInUSDString],
@@ -1279,7 +1289,7 @@ class IntlStrings {
     final String valueInBRLString = valueInBRLNumberFormat.format(valueInBRL);
 
     return Intl.message(
-      '$valueInBRLString',
+      valueInBRLString,
       name: 'homeValueInReais',
       desc: 'Balance value on the Home screen',
       args: [valueInBRLString],

@@ -215,6 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Acerca de nosotros"),
         "settingsAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Configuraciones"),
+        "settingsCurrency": MessageLookupByLibrary.simpleMessage("Moneda"),
         "settingsDark": MessageLookupByLibrary.simpleMessage("Oscuro"),
         "settingsEmailIsNotVerified": MessageLookupByLibrary.simpleMessage(
             "Correo electrónico no verificado"),

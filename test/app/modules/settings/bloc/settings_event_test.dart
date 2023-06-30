@@ -2,6 +2,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
+import 'package:up_invest_front/app/modules/settings/model/settings_model.dart';
 
 void main() {
   group('[SettingsEventChangeTheme]', () {
@@ -22,6 +23,12 @@ void main() {
     test('supports value comparisons', () {
       expect(
           SettingsEventFetchSavedSettings(), SettingsEventFetchSavedSettings());
+    });
+  });
+  group('[SettingsEventChangeCurrency]', () {
+    test('supports value comparisons', () {
+      expect(SettingsEventChangeCurrency(currency: Currency.brl),
+          SettingsEventChangeCurrency(currency: Currency.brl));
     });
   });
 }

@@ -28,6 +28,9 @@ void main() async {
         when(() =>
                 localStorageAdapterMock.readStringFromLocalStorage('language'))
             .thenAnswer((_) async => null);
+        when(() =>
+                localStorageAdapterMock.readStringFromLocalStorage('currency'))
+            .thenAnswer((_) async => null);
         final SettingsModel settings;
         //Act
         settings = await settingsRepository.fetchSettingsFromLocalStorage();
@@ -42,6 +45,9 @@ void main() async {
             .thenAnswer((_) async => 'light');
         when(() =>
                 localStorageAdapterMock.readStringFromLocalStorage('language'))
+            .thenAnswer((_) async => null);
+        when(() =>
+                localStorageAdapterMock.readStringFromLocalStorage('currency'))
             .thenAnswer((_) async => null);
         final SettingsModel settings;
         //Act
@@ -58,6 +64,9 @@ void main() async {
         when(() =>
                 localStorageAdapterMock.readStringFromLocalStorage('language'))
             .thenAnswer((_) async => null);
+        when(() =>
+                localStorageAdapterMock.readStringFromLocalStorage('currency'))
+            .thenAnswer((_) async => null);
         final SettingsModel settings;
         //Act
         settings = await settingsRepository.fetchSettingsFromLocalStorage();
@@ -73,6 +82,9 @@ void main() async {
         when(() =>
                 localStorageAdapterMock.readStringFromLocalStorage('language'))
             .thenAnswer((_) async => null);
+        when(() =>
+                localStorageAdapterMock.readStringFromLocalStorage('currency'))
+            .thenAnswer((_) async => null);
         final SettingsModel settings;
         //Act
         settings = await settingsRepository.fetchSettingsFromLocalStorage();
@@ -86,6 +98,9 @@ void main() async {
         when(() => localStorageAdapterMock.readStringFromLocalStorage('theme'))
             .thenAnswer((_) async => null);
         when(() =>
+                localStorageAdapterMock.readStringFromLocalStorage('currency'))
+            .thenAnswer((_) async => null);
+        when(() =>
                 localStorageAdapterMock.readStringFromLocalStorage('language'))
             .thenAnswer((_) async => 'en');
         final SettingsModel settings;
@@ -95,6 +110,42 @@ void main() async {
         expect(settings.locale, const Locale('en'));
       });
       test(
+          'should return [SettingsModel] with [Currency.brl] when [LocalStorageAdapter] return [BRL]',
+          () async {
+        //Arrange
+        when(() => localStorageAdapterMock.readStringFromLocalStorage('theme'))
+            .thenAnswer((_) async => null);
+        when(() =>
+                localStorageAdapterMock.readStringFromLocalStorage('language'))
+            .thenAnswer((_) async => null);
+        when(() =>
+                localStorageAdapterMock.readStringFromLocalStorage('currency'))
+            .thenAnswer((_) async => 'BRL');
+        final SettingsModel settings;
+        //Act
+        settings = await settingsRepository.fetchSettingsFromLocalStorage();
+        //Assert
+        expect(settings.currency, Currency.brl);
+      });
+      test(
+          'should return [SettingsModel] with [Currency.usd] when [LocalStorageAdapter] return [USD]',
+          () async {
+        //Arrange
+        when(() => localStorageAdapterMock.readStringFromLocalStorage('theme'))
+            .thenAnswer((_) async => null);
+        when(() =>
+                localStorageAdapterMock.readStringFromLocalStorage('language'))
+            .thenAnswer((_) async => null);
+        when(() =>
+                localStorageAdapterMock.readStringFromLocalStorage('currency'))
+            .thenAnswer((_) async => 'USD');
+        final SettingsModel settings;
+        //Act
+        settings = await settingsRepository.fetchSettingsFromLocalStorage();
+        //Assert
+        expect(settings.currency, Currency.usd);
+      });
+      test(
           'should return [SettingsModel] with [null] when [LocalStorageAdapter] return [null]',
           () async {
         //Arrange
@@ -102,6 +153,9 @@ void main() async {
             .thenAnswer((_) async => null);
         when(() =>
                 localStorageAdapterMock.readStringFromLocalStorage('language'))
+            .thenAnswer((_) async => null);
+        when(() =>
+                localStorageAdapterMock.readStringFromLocalStorage('currency'))
             .thenAnswer((_) async => null);
         final SettingsModel settings;
         //Act
@@ -120,7 +174,13 @@ void main() async {
             SettingsModel(themeMode: ThemeMode.dark, currency: Currency.usd);
 
         when(() => localStorageAdapterMock.saveStringToLocalStorage(
-            'theme', 'dark')).thenAnswer((_) => Future.value());
+              'theme',
+              'dark',
+            )).thenAnswer((_) => Future.value(null));
+        when(() => localStorageAdapterMock.saveStringToLocalStorage(
+              'currency',
+              'USD',
+            )).thenAnswer((_) => Future.value(null));
         //Act
         await settingsRepository.saveSettingsToLocalStorage(settingsModel);
         //Assert
@@ -133,6 +193,10 @@ void main() async {
         //Arrange
         final SettingsModel settingsModel =
             SettingsModel(themeMode: ThemeMode.light, currency: Currency.usd);
+        when(() => localStorageAdapterMock.saveStringToLocalStorage(
+              'currency',
+              'USD',
+            )).thenAnswer((_) => Future.value(null));
 
         when(() => localStorageAdapterMock.saveStringToLocalStorage(
             'theme', 'light')).thenAnswer((_) => Future.value());
@@ -147,10 +211,14 @@ void main() async {
           () async {
         //Arrange
         final SettingsModel settingsModel =
-            SettingsModel(themeMode: ThemeMode.system, currency: Currency.usd);
+            SettingsModel(themeMode: ThemeMode.system, currency: Currency.brl);
 
         when(() => localStorageAdapterMock.saveStringToLocalStorage(
             'theme', 'system')).thenAnswer((_) => Future.value());
+        when(() => localStorageAdapterMock.saveStringToLocalStorage(
+              'currency',
+              'BRL',
+            )).thenAnswer((_) => Future.value(null));
         //Act
         await settingsRepository.saveSettingsToLocalStorage(settingsModel);
         //Assert
@@ -165,7 +233,10 @@ void main() async {
             themeMode: ThemeMode.system,
             locale: const Locale('en'),
             currency: Currency.usd);
-
+        when(() => localStorageAdapterMock.saveStringToLocalStorage(
+              'currency',
+              'USD',
+            )).thenAnswer((_) => Future.value(null));
         when(() => localStorageAdapterMock.saveStringToLocalStorage(
             'theme', 'system')).thenAnswer((_) => Future.value());
         when(() => localStorageAdapterMock.saveStringToLocalStorage(
