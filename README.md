@@ -11,21 +11,27 @@ Up Invest is a study project that combines two passions: Flutter and Investments
 # 1. Features  
 
 
-1.Authentication with email, Facebook, Google, or Apple.  
-2.Record purchase and sale transactions of financial assets.  
-3.Follow the trading prices of financial assets in the user's portfolio.  
-4.Follow up portfolio performance indicators.  
-5.Define and track dividend earnings goals.
+1. Authentication with email, Facebook, Google, or Apple.  
+2. Record purchase and sale transactions of financial assets.  
+3. Follow the trading prices of financial assets in the user's portfolio.  
+4. Follow up portfolio performance indicators.  
+5. Define and track dividend earnings goals.
 
 # 2. Patterns and Packages
 
-1. Bloc Pattern -> state managment (using flutter_bloc)
-2. Modular -> Modularized routes and Modularized Dependecy Injection
+1. Bloc Pattern -> state management (using flutter_bloc)
+2. Modular -> Modularized routes and Modularized Dependency Injection
 3. Firebase -> Authentication Process
-4. Responsive Framework -> Helps with the resized of Texts Widgets in different devices and sizes.
+4. Responsive Framework -> Helps with resizing Texts Widgets in different devices and sizes.
 5. Google Fonts -> Use it to get the Poppins font family.
 6. Mocktail -> Use it to create mocks for tests.
 7. Bloc Test -> Use it to create bloc tests.
 8. Modular Tests -> Use it to create tests with the modular package.
+9. Intl/ Localizations -> Use it to translate the app into 3 languages: Portuguese, Spanish, and English.
+10. Equatable -> Use it to support value comparisons.
+11. SharedPreferences -> Use it to save the user preferences.
+12. FlutterCacheManager -> Use it to save in-cache images and avoid unnecessary calls on Firebase.
+13. Image Picker -> Use it to pick an image from the gallery.
+14. Path Provider -> Use it to get the device directory to save files.
 
 
