@@ -15,8 +15,6 @@ currencyToString(Currency value) {
   if (value == Currency.brl) {
     return 'brl';
   }
-  if (value == Currency.usd) {
-    return 'usd';
-  }
-  throw Exception('invalid-currency');
+
+  return 'usd';
 }

@@ -56,6 +56,16 @@ void main() {
         expect(copy, isA<UserAssetModel>());
         expect(copy.currentPrice, 2.0);
       });
+      test(
+          'should return a copy of the model changing only the dividendHistory ',
+          () {
+        //act
+        final UserAssetModel copy =
+            userAssetModel.copyWith(dividendHistory: []);
+        //assert
+        expect(copy, isA<UserAssetModel>());
+        expect(copy.dividendHistory, []);
+      });
     });
     group('[fromJson]', () {
       final XpmlUserAssetModelMock xpmlUserAssetModelMock =
