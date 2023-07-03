@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/adapter/cache_adapter/cache_adapter.dart';
+import 'package:up_invest_front/app/core/adapter/http/http_client_adapter.dart';
 import 'package:up_invest_front/app/core/adapter/local_storage_adapter/local_storage_adapter_interface.dart';
 import 'package:up_invest_front/app/core/adapter/remote_storage/remote_storage_adapter.dart';
 import 'package:up_invest_front/app/modules/home/home_module.dart';
@@ -16,6 +18,9 @@ class AppModule extends Module {
   final List<Bind> binds = [
     Bind.singleton<ILocalStorageAdapter>(
       (i) => SharedPreferencesAdapter(),
+    ),
+    Bind.singleton<IHttpClientAdapter>(
+      (i) => DioAdapter(dio: i.get<Dio>()),
     ),
     Bind.lazySingleton<IRemoteStorageAdapter>(
         (i) => FirebaseStorageAdapter(storage: i.get<FirebaseStorage>())),
