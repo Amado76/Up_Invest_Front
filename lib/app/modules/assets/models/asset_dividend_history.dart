@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:up_invest_front/app/modules/assets/util/convert_asset_helper.dart';
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart'
     show Currency;
 
@@ -24,18 +25,32 @@ class AssetDividendHistory extends Equatable {
   final Currency currency;
 
   factory AssetDividendHistory.fromJson(Map<String, dynamic> json) {
-    return AssetDividendHistory(
-      id: json['id'],
-      assetId: json['assetId'],
-      exDividendDate: DateTime.parse(json['exDividendDate']),
-      paymentDate: DateTime.parse(json['paymentDate']),
-      dividendAmount: json['dividendAmount'],
-      totalDividendAmount: json['totalDividendAmount'],
-      quantity: json['quantity'],
-      currency: json['currency'],
-    );
-  }
+    switch (json) {
+      case {
+          'id': int id,
+          'assetId': int assetId,
+          'exDividendDate': String exDividendDate,
+          'paymentDate': String paymentDate,
+          'dividendAmount': double dividendAmount,
+          'totalDividendAmount': double totalDividendAmount,
+          'quantity': double quantity,
+          'currency': String currency
+        }:
+        return AssetDividendHistory(
+          id: id,
+          assetId: assetId,
+          exDividendDate: DateTime.parse(exDividendDate),
+          paymentDate: DateTime.parse(paymentDate),
+          dividendAmount: dividendAmount,
+          totalDividendAmount: totalDividendAmount,
+          quantity: quantity,
+          currency: stringToCurrency(currency),
+        );
 
+      default:
+        throw Exception('invalid-json');
+    }
+  }
   @override
   List<Object?> get props => [
         id,

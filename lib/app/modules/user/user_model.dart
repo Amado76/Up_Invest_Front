@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:up_invest_front/app/modules/assets/models/asset_model.dart';
+import 'package:up_invest_front/app/modules/assets/models/user_asset_model.dart';
 
 class UserModel extends Equatable {
   final int id;
-  final List<AssetModel> assets;
+  final List<UserAssetModel> assets;
 
   const UserModel({
     required this.id,
@@ -11,14 +11,20 @@ class UserModel extends Equatable {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> assetsJson = json['assets'];
-    final List<AssetModel> assets =
-        assetsJson.map((dynamic json) => AssetModel.fromJson(json)).toList();
-
-    return UserModel(
-      id: json['id'],
-      assets: assets,
-    );
+    switch (json) {
+      case {
+          'id': int id,
+          'assets': List<dynamic> assets,
+        }:
+        return UserModel(
+          id: id,
+          assets: assets
+              .map((dynamic json) => UserAssetModel.fromJson(json))
+              .toList(),
+        );
+      default:
+        throw Exception('invalid-json');
+    }
   }
 
   @override
