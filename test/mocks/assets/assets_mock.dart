@@ -30,9 +30,9 @@ class XpmlBuyTransactionMock extends Mock implements AssetTransaction {
   @override
   final assetId = 1;
   @override
-  final type = TransationType.buy;
+  final type = TransactionType.buy;
   @override
-  final date = DateTime(2023, 06, 20);
+  final transactionDate = DateTime(2023, 06, 20);
   @override
   final quantity = 10;
   @override
@@ -53,9 +53,9 @@ class XpmlSellTransactionMock extends Mock implements AssetTransaction {
   @override
   final assetId = 1;
   @override
-  final type = TransationType.sell;
+  final type = TransactionType.sell;
   @override
-  final date = DateTime(2023, 06, 20);
+  final transactionDate = DateTime(2023, 06, 20);
   @override
   final quantity = 10;
   @override
@@ -114,9 +114,9 @@ class PetrBuyTransactionMock extends Mock implements AssetTransaction {
   @override
   final assetId = 2;
   @override
-  final type = TransationType.buy;
+  final type = TransactionType.buy;
   @override
-  final date = DateTime(2023, 06, 22);
+  final transactionDate = DateTime(2023, 06, 22);
   @override
   final quantity = 100;
   @override

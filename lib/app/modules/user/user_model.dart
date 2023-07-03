@@ -27,6 +27,13 @@ class UserModel extends Equatable {
     }
   }
 
+  toJson() {
+    return {
+      'id': id,
+      'assets': assets.map((asset) => asset.toJson()).toList(),
+    };
+  }
+
   @override
   List<Object?> get props => [id, assets];
 }

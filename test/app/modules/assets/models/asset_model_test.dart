@@ -39,5 +39,21 @@ void main() {
         expect(() => AssetModel.fromJson(json2), throwsException);
       });
     });
+
+    group('[toJson]', () {
+      final AssetModel assetModel =
+          AssetModel(id: 1, currency: Currency.brl, currentPrice: 1.0);
+      final json = {
+        'id': 1,
+        'currency': 'brl',
+        'currentPrice': 1.0,
+      };
+      test('should return a valid json when the model has a valid data', () {
+        //act
+        final result = assetModel.toJson();
+        //assert
+        expect(result, json);
+      });
+    });
   });
 }

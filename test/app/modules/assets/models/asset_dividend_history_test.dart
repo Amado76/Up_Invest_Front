@@ -59,9 +59,28 @@ void main() {
         expect(result.totalDividendAmount,
             xpmlDividendHistoryMock.totalDividendAmount);
       });
+      test('should thrown a error when JSON has a invalid data', () {
+        expect(() => AssetDividendHistory.fromJson(json2), throwsException);
+      });
     });
-    test('should thrown a error when JSON has a invalid data', () {
-      expect(() => AssetDividendHistory.fromJson(json2), throwsException);
+
+    group('[toJson]', () {
+      test('should return a JSON map containing the proper data', () {
+        //arrange
+        final AssetDividendHistory xpmlDividendHistory = AssetDividendHistory(
+            id: 1,
+            assetId: 1,
+            exDividendDate: DateTime(2023, 07, 1),
+            paymentDate: DateTime(2023, 07, 15),
+            dividendAmount: 10.0,
+            totalDividendAmount: 100.0,
+            quantity: 10.0,
+            currency: Currency.brl);
+        //act
+        final result = xpmlDividendHistory.toJson();
+        //assert
+        expect(result, json);
+      });
     });
   });
 }
@@ -69,8 +88,8 @@ void main() {
 final json = {
   'id': 1,
   'assetId': 1,
-  'exDividendDate': '2023-07-01',
-  'paymentDate': '2023-07-15',
+  'exDividendDate': '2023-07-01T00:00:00.000',
+  'paymentDate': '2023-07-15T00:00:00.000',
   'dividendAmount': 10.0,
   'totalDividendAmount': 100.0,
   'quantity': 10.0,

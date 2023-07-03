@@ -105,8 +105,62 @@ void main() {
         expect(() => UserAssetModel.fromJson(json3), throwsException);
       });
     });
+
+    group('[toJson]', () {
+      test('should return a JSON map containing the proper data', () {
+        final result = userAsset.toJson();
+        expect(result, json);
+      });
+      test('should return a JSON map containing the proper data(fiagro)', () {
+        final result = userAssetFiagro.toJson();
+        expect(result, jsonFiagro);
+      });
+    });
   });
 }
+
+final userAsset = UserAssetModel(
+    id: 1,
+    ticker: 'XPML11',
+    currency: Currency.brl,
+    type: AssetType.fiis,
+    currentPrice: 150.50,
+    lastUpdate: DateTime(2021, 07, 01),
+    transactionsHistory: [
+      AssetTransaction(
+          id: 1,
+          assetId: 1,
+          type: TransactionType.buy,
+          transactionDate: DateTime(2023, 06, 20),
+          quantity: 10.0,
+          price: 145.75,
+          brokerage: 5.0,
+          total: 1457.5,
+          totalWithBrokerage: 1462.5,
+          currency: Currency.brl),
+      AssetTransaction(
+          id: 2,
+          assetId: 1,
+          type: TransactionType.sell,
+          transactionDate: DateTime(2023, 06, 20),
+          quantity: 10.0,
+          price: 145.75,
+          brokerage: 5.0,
+          total: 1457.5,
+          totalWithBrokerage: 1462.5,
+          currency: Currency.brl),
+    ],
+    dividendHistory: [
+      AssetDividendHistory(
+          id: 1,
+          assetId: 1,
+          exDividendDate: DateTime(2023, 07, 01),
+          paymentDate: DateTime(2023, 07, 15),
+          dividendAmount: 10.0,
+          totalDividendAmount: 100.0,
+          quantity: 10.0,
+          currency: Currency.brl)
+    ]);
 
 final json = {
   'id': 1,
@@ -114,12 +168,13 @@ final json = {
   'currency': 'brl',
   'type': 'fiis',
   'currentPrice': 150.50,
+  'lastUpdate': '2021-07-01T00:00:00.000',
   'transactionsHistory': [
     {
       'id': 1,
       'assetId': 1,
       'type': 'buy',
-      'date': '2023-06-20',
+      'date': '2023-06-20T00:00:00.000',
       'quantity': 10.0,
       'price': 145.75,
       'brokerage': 5.0,
@@ -131,7 +186,7 @@ final json = {
       'id': 2,
       'assetId': 1,
       'type': 'sell',
-      'date': '2023-06-20',
+      'date': '2023-06-20T00:00:00.000',
       'quantity': 10.0,
       'price': 145.75,
       'brokerage': 5.0,
@@ -144,8 +199,8 @@ final json = {
     {
       'id': 1,
       'assetId': 1,
-      'exDividendDate': '2023-07-01',
-      'paymentDate': '2023-07-15',
+      'exDividendDate': '2023-07-01T00:00:00.000',
+      'paymentDate': '2023-07-15T00:00:00.000',
       'dividendAmount': 10.0,
       'totalDividendAmount': 100.0,
       'quantity': 10.0,
@@ -183,7 +238,7 @@ final jsonFiagro = {
       'id': 1,
       'assetId': 1,
       'type': 'buy',
-      'date': '2023-06-20',
+      'date': '2023-06-20T00:00:00.000',
       'quantity': 10.0,
       'price': 145.75,
       'brokerage': 5.0,
@@ -195,7 +250,7 @@ final jsonFiagro = {
       'id': 2,
       'assetId': 1,
       'type': 'sell',
-      'date': '2023-06-20',
+      'date': '2023-06-20T00:00:00.000',
       'quantity': 10.0,
       'price': 145.75,
       'brokerage': 5.0,
@@ -208,12 +263,56 @@ final jsonFiagro = {
     {
       'id': 1,
       'assetId': 1,
-      'exDividendDate': '2023-07-01',
-      'paymentDate': '2023-07-15',
+      'exDividendDate': '2023-07-01T00:00:00.000',
+      'paymentDate': '2023-07-15T00:00:00.000',
       'dividendAmount': 10.0,
       'totalDividendAmount': 100.0,
       'quantity': 10.0,
       'currency': 'brl'
     }
-  ]
+  ],
+  'lastUpdate': '2021-07-01T00:00:00.000',
 };
+
+final userAssetFiagro = UserAssetModel(
+    id: 1,
+    ticker: 'XPML11',
+    currency: Currency.brl,
+    type: AssetType.fiagro,
+    currentPrice: 150.50,
+    lastUpdate: DateTime(2021, 07, 01),
+    transactionsHistory: [
+      AssetTransaction(
+          id: 1,
+          assetId: 1,
+          type: TransactionType.buy,
+          transactionDate: DateTime(2023, 06, 20),
+          quantity: 10.0,
+          price: 145.75,
+          brokerage: 5.0,
+          total: 1457.5,
+          totalWithBrokerage: 1462.5,
+          currency: Currency.brl),
+      AssetTransaction(
+          id: 2,
+          assetId: 1,
+          type: TransactionType.sell,
+          transactionDate: DateTime(2023, 06, 20),
+          quantity: 10.0,
+          price: 145.75,
+          brokerage: 5.0,
+          total: 1457.5,
+          totalWithBrokerage: 1462.5,
+          currency: Currency.brl),
+    ],
+    dividendHistory: [
+      AssetDividendHistory(
+          id: 1,
+          assetId: 1,
+          exDividendDate: DateTime(2023, 07, 01),
+          paymentDate: DateTime(2023, 07, 15),
+          dividendAmount: 10.0,
+          totalDividendAmount: 100.0,
+          quantity: 10.0,
+          currency: Currency.brl)
+    ]);

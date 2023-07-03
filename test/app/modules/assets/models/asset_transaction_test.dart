@@ -8,7 +8,7 @@ import '../../../../mocks/assets/assets_mock.dart';
 void main() {
   const int id = 1;
   const int assetId = 1;
-  final DateTime date = DateTime.now();
+  final DateTime date = DateTime(2023, 06, 20);
   const double quantity = 1.0;
   const double price = 1.0;
   const double brokerage = 1.0;
@@ -16,7 +16,7 @@ void main() {
   const double totalWithBrokerage = 1.0;
 
   const currency = Currency.brl;
-  const type = TransationType.buy;
+  const type = TransactionType.buy;
 
   group('[AssetModel]', () {
     test('supports value comparisons', () {
@@ -25,7 +25,7 @@ void main() {
           id: id,
           currency: currency,
           type: type,
-          date: date,
+          transactionDate: date,
           assetId: assetId,
           quantity: quantity,
           price: price,
@@ -37,7 +37,7 @@ void main() {
           id: id,
           currency: currency,
           type: type,
-          date: date,
+          transactionDate: date,
           assetId: assetId,
           quantity: quantity,
           price: price,
@@ -59,7 +59,7 @@ void main() {
         expect(result.id, xpmlBuyTransactionMock.id);
         expect(result.assetId, xpmlBuyTransactionMock.assetId);
         expect(result.type, xpmlBuyTransactionMock.type);
-        expect(result.date, xpmlBuyTransactionMock.date);
+        expect(result.transactionDate, xpmlBuyTransactionMock.transactionDate);
         expect(result.quantity, xpmlBuyTransactionMock.quantity);
         expect(result.price, xpmlBuyTransactionMock.price);
         expect(result.brokerage, xpmlBuyTransactionMock.brokerage);
@@ -74,7 +74,7 @@ void main() {
         //act
         final result = AssetTransaction.fromJson(json2);
         //assert
-        expect(result.type, TransationType.amortization);
+        expect(result.type, TransactionType.amortization);
       });
       test('should throw a Exception when the JSON has a invalid data', () {
         //assert
@@ -87,6 +87,26 @@ void main() {
         expect(() => AssetTransaction.fromJson(json4), throwsException);
       });
     });
+
+    group('[toJson]', () {
+      test('should return a JSON map containing the proper data', () {
+        //act
+        final result = AssetTransaction(
+          id: 1,
+          currency: currency,
+          type: type,
+          transactionDate: date,
+          assetId: 1,
+          quantity: 10.0,
+          price: 145.75,
+          brokerage: 5.0,
+          total: 1457.5,
+          totalWithBrokerage: 1462.5,
+        ).toJson();
+        //assert
+        expect(result, json);
+      });
+    });
   });
 }
 
@@ -94,7 +114,7 @@ final json = {
   'id': 1,
   'assetId': 1,
   'type': 'buy',
-  'date': '2023-06-20',
+  'date': '2023-06-20T00:00:00.000',
   'quantity': 10.0,
   'price': 145.75,
   'brokerage': 5.0,

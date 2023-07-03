@@ -3,14 +3,14 @@ import 'package:up_invest_front/app/modules/assets/util/convert_asset_helper.dar
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart'
     show Currency;
 
-enum TransationType { buy, sell, amortization }
+enum TransactionType { buy, sell, amortization }
 
 class AssetTransaction extends Equatable {
   const AssetTransaction({
     required this.id,
     required this.assetId,
     required this.type,
-    required this.date,
+    required this.transactionDate,
     required this.quantity,
     required this.price,
     required this.brokerage,
@@ -21,8 +21,8 @@ class AssetTransaction extends Equatable {
 
   final int id;
   final int assetId;
-  final TransationType type;
-  final DateTime date;
+  final TransactionType type;
+  final DateTime transactionDate;
   final double quantity;
   final double price;
   final double brokerage;
@@ -48,7 +48,7 @@ class AssetTransaction extends Equatable {
           id: id,
           assetId: assetId,
           type: _stringToType(type),
-          date: DateTime.parse(date),
+          transactionDate: DateTime.parse(date),
           quantity: quantity,
           price: price,
           brokerage: brokerage,
@@ -61,17 +61,42 @@ class AssetTransaction extends Equatable {
     }
   }
 
-  static TransationType _stringToType(String value) {
+  static TransactionType _stringToType(String value) {
     if (value == 'buy') {
-      return TransationType.buy;
+      return TransactionType.buy;
     }
     if (value == 'sell') {
-      return TransationType.sell;
+      return TransactionType.sell;
     }
     if (value == 'amortization') {
-      return TransationType.amortization;
+      return TransactionType.amortization;
     }
     throw Exception('invalid-transaction-type');
+  }
+
+  static String _typeToString(TransactionType value) {
+    if (value == TransactionType.buy) {
+      return 'buy';
+    }
+    if (value == TransactionType.sell) {
+      return 'sell';
+    }
+    return 'amortization';
+  }
+
+  toJson() {
+    return {
+      'id': id,
+      'assetId': assetId,
+      'type': _typeToString(type),
+      'date': transactionDate.toIso8601String(),
+      'quantity': quantity,
+      'price': price,
+      'brokerage': brokerage,
+      'total': total,
+      'totalWithBrokerage': totalWithBrokerage,
+      'currency': currencyToString(currency),
+    };
   }
 
   @override
@@ -79,7 +104,7 @@ class AssetTransaction extends Equatable {
         id,
         assetId,
         type,
-        date,
+        transactionDate,
         quantity,
         price,
         brokerage,

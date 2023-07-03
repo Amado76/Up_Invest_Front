@@ -40,51 +40,39 @@ class UserAssetModel extends Equatable {
           'dividendHistory': List<dynamic> dividendHistory,
         }:
         return UserAssetModel(
-          id: id,
-          ticker: ticker,
-          currency: stringToCurrency(currency),
-          type: _stringToAssetType(type),
-          currentPrice: currentPrice,
-          transactionsHistory: transactionsHistory
-              .map((dynamic json) => AssetTransaction.fromJson(json))
-              .toList(),
-          dividendHistory: dividendHistory
-              .map((dynamic json) => AssetDividendHistory.fromJson(json))
-              .toList(),
-        );
+            id: id,
+            ticker: ticker,
+            currency: stringToCurrency(currency),
+            type: _stringToAssetType(type),
+            currentPrice: currentPrice,
+            transactionsHistory: transactionsHistory
+                .map((dynamic json) => AssetTransaction.fromJson(json))
+                .toList(),
+            dividendHistory: dividendHistory
+                .map((dynamic json) => AssetDividendHistory.fromJson(json))
+                .toList(),
+            lastUpdate: DateTime.now());
       default:
         throw Exception('invalid-json');
     }
   }
 
-  static _stringToAssetType(String value) {
-    value = value.toLowerCase().trim();
-    if (value == 'usastock') {
-      return AssetType.usaStock;
-    }
-    if (value == 'brstock') {
-      return AssetType.brStock;
-    }
-    if (value == 'fiis') {
-      return AssetType.fiis;
-    }
-    if (value == 'fiagro') {
-      return AssetType.fiagro;
-    }
-    throw Exception('invalid-asset-type');
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'ticker': ticker,
+      'currency': currencyToString(currency),
+      'type': _assetTypeToString(type),
+      'currentPrice': currentPrice,
+      'transactionsHistory': transactionsHistory
+          .map((transaction) => transaction.toJson())
+          .toList(),
+      'dividendHistory': dividendHistory
+          .map((dividendHistory) => dividendHistory.toJson())
+          .toList(),
+      'lastUpdate': lastUpdate?.toIso8601String() ?? ''
+    };
   }
-
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'id': id,
-  //     'ticker': ticker,
-  //     'currency': currency,
-  //     'type': type,
-  //     'currentPrice': currentPrice,
-  //     'transactionsHistory': transactionsHistory,
-  //     'dividendHistory': dividendHistory,
-  //   };
-  // }
 
   copyWith({
     int? id,
@@ -104,6 +92,36 @@ class UserAssetModel extends Equatable {
       transactionsHistory: transactionsHistory ?? this.transactionsHistory,
       dividendHistory: dividendHistory ?? this.dividendHistory,
     );
+  }
+
+  static _stringToAssetType(String value) {
+    value = value.toLowerCase().trim();
+    if (value == 'usastock') {
+      return AssetType.usaStock;
+    }
+    if (value == 'brstock') {
+      return AssetType.brStock;
+    }
+    if (value == 'fiis') {
+      return AssetType.fiis;
+    }
+    if (value == 'fiagro') {
+      return AssetType.fiagro;
+    }
+    throw Exception('invalid-asset-type');
+  }
+
+  static _assetTypeToString(AssetType value) {
+    switch (value) {
+      case AssetType.usaStock:
+        return 'usastock';
+      case AssetType.brStock:
+        return 'brstock';
+      case AssetType.fiis:
+        return 'fiis';
+      case AssetType.fiagro:
+        return 'fiagro';
+    }
   }
 
   @override

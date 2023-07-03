@@ -51,6 +51,17 @@ class AssetDividendHistory extends Equatable {
         throw Exception('invalid-json');
     }
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'assetId': assetId,
+        'exDividendDate': exDividendDate.toIso8601String(),
+        'paymentDate': paymentDate.toIso8601String(),
+        'dividendAmount': dividendAmount,
+        'totalDividendAmount': totalDividendAmount,
+        'quantity': quantity,
+        'currency': currencyToString(currency),
+      };
   @override
   List<Object?> get props => [
         id,

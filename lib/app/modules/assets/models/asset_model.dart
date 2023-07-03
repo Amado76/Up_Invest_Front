@@ -32,6 +32,14 @@ class AssetModel extends Equatable {
     }
   }
 
+  toJson() {
+    return {
+      'id': id,
+      'currency': currencyToString(currency),
+      'currentPrice': currentPrice,
+    };
+  }
+
   @override
   List<Object?> get props => [id, currency, currentPrice];
 }
