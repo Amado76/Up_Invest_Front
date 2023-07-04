@@ -3,26 +3,22 @@ import 'package:dio/dio.dart';
 sealed class IHttpClientAdapter {
   Future<({dynamic data, int? statusCode})> get(
       {required String path,
-      required String authToken,
-      required String userId,
+      Map<String, dynamic>? headers,
       Map<String, dynamic>? queryParameters});
 
   Future<({dynamic data, int? statusCode})> post(
       {required String path,
-      required String authToken,
-      required String userId,
+      Map<String, dynamic>? headers,
       required Map<String, dynamic>? data});
 
   Future<({dynamic data, int? statusCode})> put(
       {required String path,
-      required String authToken,
-      required String userId,
+      required Map<String, dynamic>? headers,
       required Map<String, dynamic>? data});
 
   Future<({dynamic data, int? statusCode})> delete(
       {required String path,
-      required String authToken,
-      required String userId,
+      Map<String, dynamic>? headers,
       required Map<String, dynamic>? data});
 }
 
@@ -33,58 +29,44 @@ class DioAdapter implements IHttpClientAdapter {
   @override
   Future<({dynamic data, int? statusCode})> get({
     required String path,
-    required String authToken,
-    required String userId,
+    Map<String, dynamic>? headers,
     Map<String, dynamic>? queryParameters,
   }) async {
     return await dio
         .get(path,
             queryParameters: queryParameters,
-            options: Options(
-                headers: {'Authorization': authToken, 'UserId': userId}))
+            options: Options(headers: headers))
         .then((value) => (data: value.data, statusCode: value.statusCode));
   }
 
   @override
   Future<({dynamic data, int? statusCode})> post({
     required String path,
-    required String authToken,
-    required String userId,
+    Map<String, dynamic>? headers,
     required Map<String, dynamic>? data,
   }) async {
     return await dio
-        .post(path,
-            data: data,
-            options: Options(
-                headers: {'Authorization': authToken, 'UserId': userId}))
+        .post(path, data: data, options: Options(headers: headers))
         .then((value) => (data: value.data, statusCode: value.statusCode));
   }
 
   @override
   Future<({dynamic data, int? statusCode})> put(
       {required String path,
-      required String authToken,
-      required String userId,
+      Map<String, dynamic>? headers,
       required Map<String, dynamic>? data}) async {
     return await dio
-        .put(path,
-            data: data,
-            options: Options(
-                headers: {'Authorization': authToken, 'UserId': userId}))
+        .put(path, data: data, options: Options(headers: headers))
         .then((value) => (data: value.data, statusCode: value.statusCode));
   }
 
   @override
   Future<({dynamic data, int? statusCode})> delete(
       {required String path,
-      required String authToken,
-      required String userId,
+      Map<String, dynamic>? headers,
       required Map<String, dynamic>? data}) async {
     return await dio
-        .delete(path,
-            data: data,
-            options: Options(
-                headers: {'Authorization': authToken, 'UserId': userId}))
+        .delete(path, data: data, options: Options(headers: headers))
         .then((value) => (data: value.data, statusCode: value.statusCode));
   }
 }

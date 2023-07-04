@@ -17,7 +17,8 @@ void main() {
           options: any(named: 'options'))).thenAnswer((_) async => dioResponse);
       //Act
       final result = await dioAdapter.get(
-          path: 'path', authToken: 'authToken', userId: 'userId');
+          path: 'path',
+          headers: {'authToken': 'authToken', 'userId': 'userId'});
       //Assert
       expect(result.data, {'data': 'data'});
       expect(result.statusCode, 200);
@@ -33,7 +34,9 @@ void main() {
           options: any(named: 'options'))).thenAnswer((_) async => dioResponse);
       //Act
       final result = await dioAdapter.put(
-          path: 'path', authToken: 'authToken', userId: 'userId', data: {});
+          path: 'path',
+          headers: {'authToken': 'authToken', 'userId': 'userId'},
+          data: {});
       //Assert
       expect(result.data, {'data': 'data'});
       expect(result.statusCode, 200);
@@ -49,7 +52,9 @@ void main() {
           options: any(named: 'options'))).thenAnswer((_) async => dioResponse);
       //Act
       final result = await dioAdapter.delete(
-          path: 'path', authToken: 'authToken', userId: 'userId', data: {});
+          path: 'path',
+          headers: {'authToken': 'authToken', 'userId': 'userId'},
+          data: {});
       //Assert
       expect(result.data, {'data': 'data'});
       expect(result.statusCode, 200);
@@ -64,7 +69,9 @@ void main() {
           options: any(named: 'options'))).thenAnswer((_) async => dioResponse);
       //Act
       final result = await dioAdapter.post(
-          path: 'path', authToken: 'authToken', userId: 'userId', data: {});
+          path: 'path',
+          headers: {'authToken': 'authToken', 'userId': 'userId'},
+          data: {});
       //Assert
       expect(result.data, {'data': 'data'});
       expect(result.statusCode, 200);
