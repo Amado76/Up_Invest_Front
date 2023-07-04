@@ -98,11 +98,11 @@ void main() {
       });
 
       test('should throw a Exception when the JSON has a invalid data', () {
-        expect(() => UserAssetModel.fromJson(json2), throwsException);
+        expect(() => UserAssetModel.fromJson(invalidJson), throwsException);
       });
       test('should throw a Exception when the JSON has a invalid assettype',
           () {
-        expect(() => UserAssetModel.fromJson(json3), throwsException);
+        expect(() => UserAssetModel.fromJson(invalidTypeJson), throwsException);
       });
     });
 
@@ -208,8 +208,8 @@ final json = {
     }
   ]
 };
-final json2 = {
-  'id': 1.0,
+final invalidJson = {
+  'id': '1',
   'ticker': 'XPML11',
   'currency': 'brl',
   'type': 'fiis',
@@ -217,7 +217,7 @@ final json2 = {
   'transactionsHistory': [],
   'dividendHistory': []
 };
-final json3 = {
+final invalidTypeJson = {
   'id': 1,
   'ticker': 'XPML11',
   'currency': 'brl',

@@ -60,7 +60,8 @@ void main() {
             xpmlDividendHistoryMock.totalDividendAmount);
       });
       test('should thrown a error when JSON has a invalid data', () {
-        expect(() => AssetDividendHistory.fromJson(json2), throwsException);
+        expect(
+            () => AssetDividendHistory.fromJson(invalidJson), throwsException);
       });
     });
 
@@ -96,7 +97,7 @@ final json = {
   'currency': 'brl'
 };
 
-final json2 = {
+final invalidJson = {
   'id': 1,
   'assetId': 1,
   'exDividendDate': '2023-07-01',

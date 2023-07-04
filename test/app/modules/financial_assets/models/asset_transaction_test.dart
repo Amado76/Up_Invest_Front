@@ -72,19 +72,20 @@ void main() {
           'should return a valid model when the JSON has a valid data (amortization)',
           () {
         //act
-        final result = AssetTransaction.fromJson(json2);
+        final result = AssetTransaction.fromJson(jsonAmortizationType);
         //assert
         expect(result.type, TransactionType.amortization);
       });
       test('should throw a Exception when the JSON has a invalid data', () {
         //assert
-        expect(() => AssetTransaction.fromJson(json3), throwsException);
+        expect(() => AssetTransaction.fromJson(invalidJson), throwsException);
       });
       test(
           'should throw a Exception when the JSON has a invalid transactionData',
           () {
         //assert
-        expect(() => AssetTransaction.fromJson(json4), throwsException);
+        expect(
+            () => AssetTransaction.fromJson(invalidTypeJson), throwsException);
       });
     });
 
@@ -123,7 +124,7 @@ final json = {
   'currency': 'brl'
 };
 
-final json2 = {
+final jsonAmortizationType = {
   'id': 1,
   'assetId': 1,
   'type': 'amortization',
@@ -136,7 +137,7 @@ final json2 = {
   'currency': 'brl'
 };
 
-final json3 = {
+final invalidJson = {
   'id': '1',
   'assetId': 1,
   'type': 'buy',
@@ -149,7 +150,7 @@ final json3 = {
   'currency': 'brl'
 };
 
-final json4 = {
+final invalidTypeJson = {
   'id': 1,
   'assetId': 1,
   'type': '2321312',

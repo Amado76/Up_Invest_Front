@@ -16,16 +16,7 @@ void main() {
     group('[fromJson]', () {
       final AssetModel assetModel =
           AssetModel(id: 1, currency: Currency.brl, currentPrice: 1.0);
-      final json = {
-        'id': 1,
-        'currency': 'brl',
-        'currentPrice': 1.0,
-      };
-      final json2 = {
-        'id': 1,
-        'currency': 'brl',
-        'currentPrice': '1.0',
-      };
+
       test('should return a valid model when the JSON has a valid data', () {
         //act
         final result = AssetModel.fromJson(json);
@@ -36,18 +27,14 @@ void main() {
       });
       test('should throw a Exception when the JSON has a invalid data', () {
         //assert
-        expect(() => AssetModel.fromJson(json2), throwsException);
+        expect(() => AssetModel.fromJson(invalidJson), throwsException);
       });
     });
 
     group('[toJson]', () {
       final AssetModel assetModel =
           AssetModel(id: 1, currency: Currency.brl, currentPrice: 1.0);
-      final json = {
-        'id': 1,
-        'currency': 'brl',
-        'currentPrice': 1.0,
-      };
+
       test('should return a valid json when the model has a valid data', () {
         //act
         final result = assetModel.toJson();
@@ -57,3 +44,14 @@ void main() {
     });
   });
 }
+
+final json = {
+  'id': 1,
+  'currency': 'brl',
+  'currentPrice': 1.0,
+};
+final invalidJson = {
+  'id': 1,
+  'currency': 'brl',
+  'currentPrice': '1.0',
+};
