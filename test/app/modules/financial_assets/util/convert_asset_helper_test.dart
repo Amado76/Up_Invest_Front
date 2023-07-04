@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:up_invest_front/app/modules/assets/util/convert_asset_helper.dart';
+import 'package:up_invest_front/app/modules/financial_assets/util/convert_asset_helper.dart';
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart';
 
 void main() {

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:up_invest_front/app/modules/assets/models/asset_dividend_history.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/asset_dividend_history.dart';
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart';
 
 import '../../../../mocks/assets/assets_mock.dart';

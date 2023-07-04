@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:up_invest_front/app/modules/assets/models/user_asset_model.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/user_asset_model.dart';
 
 class UserModel extends Equatable {
   final int id;

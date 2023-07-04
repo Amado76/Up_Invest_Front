@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:up_invest_front/app/modules/assets/models/asset_model.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/asset_model.dart';
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart';
 
 void main() {
