@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:up_invest_front/app/modules/financial_assets/models/asset_dividend_history.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/asset_category_model.dart';
 import 'package:up_invest_front/app/modules/financial_assets/models/user_asset_model.dart';
-import 'package:up_invest_front/app/modules/financial_assets/models/asset_transaction.dart';
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart';
 
 import '../../../../mocks/assets/assets_mock.dart';
@@ -10,44 +9,40 @@ void main() {
   const id = 1;
   const ticker = 'ticker';
   const currency = Currency.brl;
-  const type = AssetType.brStock;
+  const category = AssetCategoryModel(
+      category: AssetCategory.fii, segment: 'papel', subSegment: 'shopping');
   const currentPrice = 1.0;
-  const List<AssetTransaction> transactionsHistory = [];
-  const List<AssetDividendHistory> dividendHistory = [];
 
   group('[AssetModel]', () {
     test('supports value comparisons', () {
       expect(
         // ignore: prefer_const_constructors
         UserAssetModel(
-            id: id,
-            ticker: ticker,
-            currency: currency,
-            type: type,
-            currentPrice: currentPrice,
-            transactionsHistory: transactionsHistory,
-            dividendHistory: dividendHistory),
+          id: id,
+          ticker: ticker,
+          currency: currency,
+          category: category,
+          currentPrice: currentPrice,
+        ),
         // ignore: prefer_const_constructors
         UserAssetModel(
-            id: id,
-            ticker: ticker,
-            currency: currency,
-            type: type,
-            currentPrice: currentPrice,
-            transactionsHistory: transactionsHistory,
-            dividendHistory: dividendHistory),
+          id: id,
+          ticker: ticker,
+          currency: currency,
+          category: category,
+          currentPrice: currentPrice,
+        ),
       );
     });
 
     group('[copyWith]', () {
       const userAssetModel = UserAssetModel(
-          id: id,
-          ticker: ticker,
-          currency: currency,
-          type: type,
-          currentPrice: currentPrice,
-          transactionsHistory: transactionsHistory,
-          dividendHistory: dividendHistory);
+        id: id,
+        ticker: ticker,
+        currency: currency,
+        category: category,
+        currentPrice: currentPrice,
+      );
       test('should return a copy of the model changing only the currentPrice',
           () {
         //act
@@ -55,16 +50,6 @@ void main() {
         //assert
         expect(copy, isA<UserAssetModel>());
         expect(copy.currentPrice, 2.0);
-      });
-      test(
-          'should return a copy of the model changing only the dividendHistory ',
-          () {
-        //act
-        final UserAssetModel copy =
-            userAssetModel.copyWith(dividendHistory: []);
-        //assert
-        expect(copy, isA<UserAssetModel>());
-        expect(copy.dividendHistory, []);
       });
     });
     group('[fromJson]', () {
@@ -76,25 +61,19 @@ void main() {
         expect(result.id, xpmlUserAssetModelMock.id);
         expect(result.ticker, xpmlUserAssetModelMock.ticker);
         expect(result.currency, xpmlUserAssetModelMock.currency);
-        expect(result.type, xpmlUserAssetModelMock.type);
+        expect(result.category, xpmlUserAssetModelMock.category);
         expect(result.currentPrice, xpmlUserAssetModelMock.currentPrice);
-        expect([
-          result.transactionsHistory[0].id,
-          result.transactionsHistory[1].id
-        ], [
-          xpmlUserAssetModelMock.transactionsHistory[0].id,
-          xpmlUserAssetModelMock.transactionsHistory[1].id
-        ]);
-        expect(
-          result.dividendHistory[0].id,
-          xpmlUserAssetModelMock.dividendHistory[0].id,
-        );
       });
       test(
           'should return a valid model when the JSON has a valid data (fiiagro)',
           () {
         final result = UserAssetModel.fromJson(jsonFiagro);
-        expect(result.type, AssetType.fiagro);
+        expect(
+            result.category,
+            const AssetCategoryModel(
+              category: AssetCategory.fiagro,
+              segment: 'papel',
+            ));
       });
 
       test('should throw a Exception when the JSON has a invalid data', () {
@@ -120,199 +99,61 @@ void main() {
 }
 
 final userAsset = UserAssetModel(
-    id: 1,
-    ticker: 'XPML11',
-    currency: Currency.brl,
-    type: AssetType.fiis,
-    currentPrice: 150.50,
-    lastUpdate: DateTime(2021, 07, 01),
-    transactionsHistory: [
-      AssetTransaction(
-          id: 1,
-          assetId: 1,
-          type: TransactionType.buy,
-          transactionDate: DateTime(2023, 06, 20),
-          quantity: 10.0,
-          price: 145.75,
-          brokerage: 5.0,
-          total: 1457.5,
-          totalWithBrokerage: 1462.5,
-          currency: Currency.brl),
-      AssetTransaction(
-          id: 2,
-          assetId: 1,
-          type: TransactionType.sell,
-          transactionDate: DateTime(2023, 06, 20),
-          quantity: 10.0,
-          price: 145.75,
-          brokerage: 5.0,
-          total: 1457.5,
-          totalWithBrokerage: 1462.5,
-          currency: Currency.brl),
-    ],
-    dividendHistory: [
-      AssetDividendHistory(
-          id: 1,
-          assetId: 1,
-          exDividendDate: DateTime(2023, 07, 01),
-          paymentDate: DateTime(2023, 07, 15),
-          dividendAmount: 10.0,
-          totalDividendAmount: 100.0,
-          quantity: 10.0,
-          currency: Currency.brl)
-    ]);
+  id: 1,
+  ticker: 'XPML11',
+  currency: Currency.brl,
+  category: const AssetCategoryModel(
+      category: AssetCategory.fii, segment: 'papel', subSegment: 'shopping'),
+  currentPrice: 150.50,
+  lastUpdate: DateTime(2021, 07, 01),
+);
 
 final json = {
   'id': 1,
   'ticker': 'XPML11',
   'currency': 'brl',
-  'type': 'fiis',
+  'category': {
+    'category': 'fii',
+    'segment': 'papel',
+    'subSegment': 'shopping',
+  },
   'currentPrice': 150.50,
   'lastUpdate': '2021-07-01T00:00:00.000',
-  'transactionsHistory': [
-    {
-      'id': 1,
-      'assetId': 1,
-      'type': 'buy',
-      'date': '2023-06-20T00:00:00.000',
-      'quantity': 10.0,
-      'price': 145.75,
-      'brokerage': 5.0,
-      'total': 1457.5,
-      'totalWithBrokerage': 1462.5,
-      'currency': 'brl'
-    },
-    {
-      'id': 2,
-      'assetId': 1,
-      'type': 'sell',
-      'date': '2023-06-20T00:00:00.000',
-      'quantity': 10.0,
-      'price': 145.75,
-      'brokerage': 5.0,
-      'total': 1457.5,
-      'totalWithBrokerage': 1462.5,
-      'currency': 'brl'
-    }
-  ],
-  'dividendHistory': [
-    {
-      'id': 1,
-      'assetId': 1,
-      'exDividendDate': '2023-07-01T00:00:00.000',
-      'paymentDate': '2023-07-15T00:00:00.000',
-      'dividendAmount': 10.0,
-      'totalDividendAmount': 100.0,
-      'quantity': 10.0,
-      'currency': 'brl'
-    }
-  ]
 };
 final invalidJson = {
   'id': '1',
   'ticker': 'XPML11',
   'currency': 'brl',
-  'type': 'fiis',
+  'category': {
+    'category': 'fii',
+    'segment': 'papel',
+    'subSegment': 'shopping',
+  },
   'currentPrice': 150.50,
-  'transactionsHistory': [],
-  'dividendHistory': []
 };
 final invalidTypeJson = {
   'id': 1,
   'ticker': 'XPML11',
   'currency': 'brl',
-  'type': 'fiisdaedae',
+  'category': 'fiisdaedae',
   'currentPrice': 150.50,
-  'transactionsHistory': [],
-  'dividendHistory': []
 };
 
 final jsonFiagro = {
   'id': 1,
   'ticker': 'XPML11',
   'currency': 'brl',
-  'type': 'fiagro',
+  'category': {'category': 'fiagro', 'segment': 'papel', 'subSegment': null},
   'currentPrice': 150.50,
-  'transactionsHistory': [
-    {
-      'id': 1,
-      'assetId': 1,
-      'type': 'buy',
-      'date': '2023-06-20T00:00:00.000',
-      'quantity': 10.0,
-      'price': 145.75,
-      'brokerage': 5.0,
-      'total': 1457.5,
-      'totalWithBrokerage': 1462.5,
-      'currency': 'brl'
-    },
-    {
-      'id': 2,
-      'assetId': 1,
-      'type': 'sell',
-      'date': '2023-06-20T00:00:00.000',
-      'quantity': 10.0,
-      'price': 145.75,
-      'brokerage': 5.0,
-      'total': 1457.5,
-      'totalWithBrokerage': 1462.5,
-      'currency': 'brl'
-    }
-  ],
-  'dividendHistory': [
-    {
-      'id': 1,
-      'assetId': 1,
-      'exDividendDate': '2023-07-01T00:00:00.000',
-      'paymentDate': '2023-07-15T00:00:00.000',
-      'dividendAmount': 10.0,
-      'totalDividendAmount': 100.0,
-      'quantity': 10.0,
-      'currency': 'brl'
-    }
-  ],
   'lastUpdate': '2021-07-01T00:00:00.000',
 };
 
 final userAssetFiagro = UserAssetModel(
-    id: 1,
-    ticker: 'XPML11',
-    currency: Currency.brl,
-    type: AssetType.fiagro,
-    currentPrice: 150.50,
-    lastUpdate: DateTime(2021, 07, 01),
-    transactionsHistory: [
-      AssetTransaction(
-          id: 1,
-          assetId: 1,
-          type: TransactionType.buy,
-          transactionDate: DateTime(2023, 06, 20),
-          quantity: 10.0,
-          price: 145.75,
-          brokerage: 5.0,
-          total: 1457.5,
-          totalWithBrokerage: 1462.5,
-          currency: Currency.brl),
-      AssetTransaction(
-          id: 2,
-          assetId: 1,
-          type: TransactionType.sell,
-          transactionDate: DateTime(2023, 06, 20),
-          quantity: 10.0,
-          price: 145.75,
-          brokerage: 5.0,
-          total: 1457.5,
-          totalWithBrokerage: 1462.5,
-          currency: Currency.brl),
-    ],
-    dividendHistory: [
-      AssetDividendHistory(
-          id: 1,
-          assetId: 1,
-          exDividendDate: DateTime(2023, 07, 01),
-          paymentDate: DateTime(2023, 07, 15),
-          dividendAmount: 10.0,
-          totalDividendAmount: 100.0,
-          quantity: 10.0,
-          currency: Currency.brl)
-    ]);
+  id: 1,
+  ticker: 'XPML11',
+  currency: Currency.brl,
+  category: const AssetCategoryModel(
+      category: AssetCategory.fiagro, segment: 'papel'),
+  currentPrice: 150.50,
+  lastUpdate: DateTime(2021, 07, 01),
+);

@@ -1,4 +1,5 @@
 import 'package:mocktail/mocktail.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/asset_category_model.dart';
 import 'package:up_invest_front/app/modules/financial_assets/models/asset_dividend_history.dart';
 import 'package:up_invest_front/app/modules/financial_assets/models/asset_transaction.dart';
 import 'package:up_invest_front/app/modules/financial_assets/models/user_asset_model.dart';
@@ -12,16 +13,10 @@ class XpmlUserAssetModelMock extends Mock implements UserAssetModel {
   @override
   final currency = Currency.brl;
   @override
-  final type = AssetType.fiis;
+  final category = const AssetCategoryModel(
+      category: AssetCategory.fii, segment: 'papel', subSegment: 'shopping');
   @override
   final currentPrice = 150.50;
-  @override
-  final transactionsHistory = [
-    XpmlBuyTransactionMock(),
-    XpmlSellTransactionMock(),
-  ];
-  @override
-  final dividendHistory = [XpmlDividendHistoryMock()];
 }
 
 class XpmlBuyTransactionMock extends Mock implements AssetTransaction {
@@ -97,15 +92,11 @@ class PetrUserAssetModelMock extends Mock implements UserAssetModel {
   @override
   final currency = Currency.brl;
   @override
-  final type = AssetType.brStock;
+  final category = const AssetCategoryModel(
+      category: AssetCategory.brStock,
+      segment: 'Petróleo, Gás e Biocombustíveis');
   @override
   final currentPrice = 28.50;
-  @override
-  final transactionsHistory = [
-    PetrBuyTransactionMock(),
-  ];
-  @override
-  final dividendHistory = [];
 }
 
 class PetrBuyTransactionMock extends Mock implements AssetTransaction {

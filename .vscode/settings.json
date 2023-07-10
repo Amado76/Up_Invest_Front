@@ -1,0 +1,7 @@
+{
+    "mock-server.settings.paths": {
+        "root": "/home/brunoamado/StudioProjects/up_invest_front/mockServer",
+        "static": "",
+        "snapshots": "/home/brunoamado/StudioProjects/up_invest_front/snapshots"
+    }
+}
