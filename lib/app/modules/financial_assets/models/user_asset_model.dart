@@ -11,7 +11,6 @@ class UserAssetModel extends Equatable {
     required this.currency,
     required this.currentPrice,
     required this.category,
-    this.lastUpdate,
   });
 
   final int id;
@@ -19,8 +18,6 @@ class UserAssetModel extends Equatable {
   final Currency currency;
   final AssetCategoryModel category;
   final double currentPrice;
-
-  final DateTime? lastUpdate;
 
   factory UserAssetModel.fromJson(Map<String, dynamic> json) {
     switch (json) {
@@ -32,12 +29,12 @@ class UserAssetModel extends Equatable {
           'category': Map<String, dynamic> category,
         }:
         return UserAssetModel(
-            id: id,
-            ticker: ticker,
-            currency: stringToCurrency(currency),
-            currentPrice: currentPrice,
-            category: AssetCategoryModel.fromJson(category),
-            lastUpdate: DateTime.now());
+          id: id,
+          ticker: ticker,
+          currency: stringToCurrency(currency),
+          currentPrice: currentPrice,
+          category: AssetCategoryModel.fromJson(category),
+        );
       default:
         throw Exception('invalid-json');
     }
@@ -50,7 +47,6 @@ class UserAssetModel extends Equatable {
       'currency': currencyToString(currency),
       'category': category.toJson(),
       'currentPrice': currentPrice,
-      'lastUpdate': lastUpdate?.toIso8601String() ?? ''
     };
   }
 
@@ -71,6 +67,5 @@ class UserAssetModel extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [id, ticker, currency, category, currentPrice, lastUpdate];
+  List<Object?> get props => [id, ticker, currency, category, currentPrice];
 }

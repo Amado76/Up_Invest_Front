@@ -19,7 +19,7 @@ sealed class IHttpClientAdapter {
   Future<({dynamic data, int? statusCode})> delete(
       {required String path,
       Map<String, dynamic>? headers,
-      required Map<String, dynamic>? data});
+      Map<String, dynamic>? data});
 }
 
 class DioAdapter implements IHttpClientAdapter {
@@ -64,7 +64,7 @@ class DioAdapter implements IHttpClientAdapter {
   Future<({dynamic data, int? statusCode})> delete(
       {required String path,
       Map<String, dynamic>? headers,
-      required Map<String, dynamic>? data}) async {
+      Map<String, dynamic>? data}) async {
     return await dio
         .delete(path, data: data, options: Options(headers: headers))
         .then((value) => (data: value.data, statusCode: value.statusCode));

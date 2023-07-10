@@ -98,14 +98,13 @@ void main() {
   });
 }
 
-final userAsset = UserAssetModel(
+const userAsset = UserAssetModel(
   id: 1,
   ticker: 'XPML11',
   currency: Currency.brl,
-  category: const AssetCategoryModel(
+  category: AssetCategoryModel(
       category: AssetCategory.fii, segment: 'papel', subSegment: 'shopping'),
   currentPrice: 150.50,
-  lastUpdate: DateTime(2021, 07, 01),
 );
 
 final json = {
@@ -118,7 +117,6 @@ final json = {
     'subSegment': 'shopping',
   },
   'currentPrice': 150.50,
-  'lastUpdate': '2021-07-01T00:00:00.000',
 };
 final invalidJson = {
   'id': '1',
@@ -145,15 +143,13 @@ final jsonFiagro = {
   'currency': 'brl',
   'category': {'category': 'fiagro', 'segment': 'papel', 'subSegment': null},
   'currentPrice': 150.50,
-  'lastUpdate': '2021-07-01T00:00:00.000',
 };
 
-final userAssetFiagro = UserAssetModel(
+const userAssetFiagro = UserAssetModel(
   id: 1,
   ticker: 'XPML11',
   currency: Currency.brl,
-  category: const AssetCategoryModel(
-      category: AssetCategory.fiagro, segment: 'papel'),
+  category:
+      AssetCategoryModel(category: AssetCategory.fiagro, segment: 'papel'),
   currentPrice: 150.50,
-  lastUpdate: DateTime(2021, 07, 01),
 );

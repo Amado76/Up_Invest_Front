@@ -1,6 +1,12 @@
 {
     "mock-server.settings.paths": {
         "root": "/home/brunoamado/StudioProjects/up_invest_front/mockServer",
+        "db": "/home/brunoamado/StudioProjects/up_invest_front/mockServer/db.json",
+        "middlewares": "/home/brunoamado/StudioProjects/up_invest_front/mockServer/middlewares.js",
+        "injectors": "/home/brunoamado/StudioProjects/up_invest_front/mockServer/injectors.json",
+        "store": "/home/brunoamado/StudioProjects/up_invest_front/mockServer/store.json",
+        "rewriters": "/home/brunoamado/StudioProjects/up_invest_front/mockServer/rewriters.json",
+        "environment": "/home/brunoamado/StudioProjects/up_invest_front/mockServer/env",
         "static": "",
         "snapshots": "/home/brunoamado/StudioProjects/up_invest_front/snapshots"
     }
