@@ -20,7 +20,7 @@ class AssetModel extends Equatable {
       case {
           'id': int id,
           'currency': String currency,
-          'currentPrice': double currentPrice,
+          'currentprice': double currentPrice,
         }:
         return AssetModel(
           id: id,
@@ -36,7 +36,7 @@ class AssetModel extends Equatable {
     return {
       'id': id,
       'currency': currencyToString(currency),
-      'currentPrice': currentPrice,
+      'currentprice': currentPrice,
     };
   }
 
