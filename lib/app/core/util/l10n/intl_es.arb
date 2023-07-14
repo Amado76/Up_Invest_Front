@@ -143,8 +143,12 @@
     "homeMonthDividendsGoal": "Meta de Dividendos Mensuales",
     "homeLastMonthDividendsValue": "Dividendos del Último Mes",
     "homeValueInDollar" : "{valueInUSD}",
-    "homeValueInReais" : "{valueInBRL}"
+    "homeValueInReais" : "{valueInBRL}",
     
+    "financialErrorUnknownTitle": "Error desconocido",
+    "financialErrorUnknownMessage": "Error desconocido, por favor inténtalo de nuevo.",
+    "financialErrorDeleteTitle": "Error al eliminar las informaciones",
+    "financialErrorDeleteMessage": "Se produjo un error al eliminar las informaciones, por favor inténtalo de nuevo."
 
 
 }

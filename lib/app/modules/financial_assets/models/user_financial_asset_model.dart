@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
-import 'package:up_invest_front/app/modules/financial_assets/models/asset_category_model.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/financial_asset_category_model.dart';
 import 'package:up_invest_front/app/modules/financial_assets/util/convert_asset_helper.dart';
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart'
     show Currency;
 
-class UserAssetModel extends Equatable {
-  const UserAssetModel({
+class FinancialUserAssetModel extends Equatable {
+  const FinancialUserAssetModel({
     required this.id,
     required this.ticker,
     required this.currency,
@@ -16,10 +16,10 @@ class UserAssetModel extends Equatable {
   final int id;
   final String ticker;
   final Currency currency;
-  final AssetCategoryModel category;
+  final FinancialAssetCategoryModel category;
   final double currentPrice;
 
-  factory UserAssetModel.fromJson(Map<String, dynamic> json) {
+  factory FinancialUserAssetModel.fromJson(Map<String, dynamic> json) {
     switch (json) {
       case {
           'id': int id,
@@ -28,12 +28,12 @@ class UserAssetModel extends Equatable {
           'currentPrice': double currentPrice,
           'category': Map<String, dynamic> category,
         }:
-        return UserAssetModel(
+        return FinancialUserAssetModel(
           id: id,
           ticker: ticker,
           currency: stringToCurrency(currency),
           currentPrice: currentPrice,
-          category: AssetCategoryModel.fromJson(category),
+          category: FinancialAssetCategoryModel.fromJson(category),
         );
       default:
         throw Exception('invalid-json');
@@ -54,10 +54,10 @@ class UserAssetModel extends Equatable {
     int? id,
     String? ticker,
     Currency? currency,
-    AssetCategoryModel? category,
+    FinancialAssetCategoryModel? category,
     double? currentPrice,
   }) {
-    return UserAssetModel(
+    return FinancialUserAssetModel(
       id: id ?? this.id,
       ticker: ticker ?? this.ticker,
       currency: currency ?? this.currency,

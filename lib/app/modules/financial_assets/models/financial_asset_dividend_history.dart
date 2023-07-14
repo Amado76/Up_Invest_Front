@@ -3,8 +3,8 @@ import 'package:up_invest_front/app/modules/financial_assets/util/convert_asset_
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart'
     show Currency;
 
-class AssetDividendHistory extends Equatable {
-  const AssetDividendHistory({
+class FinancialAssetDividendHistory extends Equatable {
+  const FinancialAssetDividendHistory({
     required this.id,
     required this.assetId,
     required this.exDividendDate,
@@ -24,7 +24,7 @@ class AssetDividendHistory extends Equatable {
   final double quantity;
   final Currency currency;
 
-  factory AssetDividendHistory.fromJson(Map<String, dynamic> json) {
+  factory FinancialAssetDividendHistory.fromJson(Map<String, dynamic> json) {
     switch (json) {
       case {
           'id': int id,
@@ -36,7 +36,7 @@ class AssetDividendHistory extends Equatable {
           'quantity': double quantity,
           'currency': String currency
         }:
-        return AssetDividendHistory(
+        return FinancialAssetDividendHistory(
           id: id,
           assetId: assetId,
           exDividendDate: DateTime.parse(exDividendDate),

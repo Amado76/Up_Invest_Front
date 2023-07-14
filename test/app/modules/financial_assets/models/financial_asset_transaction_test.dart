@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:up_invest_front/app/modules/financial_assets/models/asset_transaction.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/financial_asset_transaction.dart';
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart'
     show Currency;
 
-import '../../../../mocks/assets/assets_mock.dart';
+import '../../../../mocks/assets/financial_assets_mock.dart';
 
 void main() {
   const int id = 1;
@@ -21,7 +21,7 @@ void main() {
   group('[AssetModel]', () {
     test('supports value comparisons', () {
       expect(
-        AssetTransaction(
+        FinancialAssetTransaction(
           id: id,
           currency: currency,
           type: type,
@@ -33,7 +33,7 @@ void main() {
           total: total,
           totalWithBrokerage: totalWithBrokerage,
         ),
-        AssetTransaction(
+        FinancialAssetTransaction(
           id: id,
           currency: currency,
           type: type,
@@ -54,7 +54,7 @@ void main() {
 
       test('should return a valid model when the JSON has a valid data', () {
         //act
-        final result = AssetTransaction.fromJson(json);
+        final result = FinancialAssetTransaction.fromJson(json);
         //assert
         expect(result.id, xpmlBuyTransactionMock.id);
         expect(result.assetId, xpmlBuyTransactionMock.assetId);
@@ -72,27 +72,28 @@ void main() {
           'should return a valid model when the JSON has a valid data (amortization)',
           () {
         //act
-        final result = AssetTransaction.fromJson(jsonAmortizationType);
+        final result = FinancialAssetTransaction.fromJson(jsonAmortizationType);
         //assert
         expect(result.type, TransactionType.amortization);
       });
       test('should throw a Exception when the JSON has a invalid data', () {
         //assert
-        expect(() => AssetTransaction.fromJson(invalidJson), throwsException);
+        expect(() => FinancialAssetTransaction.fromJson(invalidJson),
+            throwsException);
       });
       test(
           'should throw a Exception when the JSON has a invalid transactionData',
           () {
         //assert
-        expect(
-            () => AssetTransaction.fromJson(invalidTypeJson), throwsException);
+        expect(() => FinancialAssetTransaction.fromJson(invalidTypeJson),
+            throwsException);
       });
     });
 
     group('[toJson]', () {
       test('should return a JSON map containing the proper data', () {
         //act
-        final result = AssetTransaction(
+        final result = FinancialAssetTransaction(
           id: 1,
           currency: currency,
           type: type,

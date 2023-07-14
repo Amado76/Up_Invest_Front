@@ -162,6 +162,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "editDetailsSadToSeeYouGo":
             MessageLookupByLibrary.simpleMessage("Sad to See You Go"),
         "emailHintText": MessageLookupByLibrary.simpleMessage("Email"),
+        "financialErrorDeleteMessage": MessageLookupByLibrary.simpleMessage(
+            "An error occurred while deleting the data, please try again."),
+        "financialErrorDeleteTitle":
+            MessageLookupByLibrary.simpleMessage("Error Deleting Data"),
+        "financialErrorUnknownMessage": MessageLookupByLibrary.simpleMessage(
+            "Unknown error, please try again."),
+        "financialErrorUnknownTitle":
+            MessageLookupByLibrary.simpleMessage("Unknown Error"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot your password?"),
         "getStartedButton":

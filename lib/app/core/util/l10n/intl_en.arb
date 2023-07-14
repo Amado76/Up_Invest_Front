@@ -194,8 +194,12 @@
     "homeInvestedAmount": "Invested Amount",
     "homeGoalCardTitle" : "Journey to Financial Independence",
     "homeMonthDividendsGoal": "Month Dividends Goal",
-    "homeLastMonthDividendsValue": "Last Month Dividends"
+    "homeLastMonthDividendsValue": "Last Month Dividends",
 
+    "financialErrorUnknownTitle": "Unknown Error",
+    "financialErrorUnknownMessage": "Unknown error, please try again.",
+    "financialErrorDeleteTitle": "Error Deleting Data",
+    "financialErrorDeleteMessage": "An error occurred while deleting the data, please try again."
 
 
 

@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:up_invest_front/app/modules/financial_assets/models/asset_dividend_history.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/financial_asset_dividend_history.dart';
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart';
 
-import '../../../../mocks/assets/assets_mock.dart';
+import '../../../../mocks/assets/financial_assets_mock.dart';
 
 void main() {
   const id = 1;
@@ -16,7 +16,7 @@ void main() {
   group('[AssetModel]', () {
     test('supports value comparisons', () {
       expect(
-          AssetDividendHistory(
+          FinancialAssetDividendHistory(
             id: id,
             assetId: assetId,
             exDividendDate: date,
@@ -26,7 +26,7 @@ void main() {
             totalDividendAmount: totalDividendAmount,
             currency: currency,
           ),
-          AssetDividendHistory(
+          FinancialAssetDividendHistory(
             id: id,
             assetId: assetId,
             exDividendDate: date,
@@ -41,10 +41,10 @@ void main() {
     group('[fromJson]', () {
       test('should return a valid model when the JSON has a valid data', () {
         //arrange
-        final AssetDividendHistory xpmlDividendHistoryMock =
+        final FinancialAssetDividendHistory xpmlDividendHistoryMock =
             XpmlDividendHistoryMock();
         //act
-        final result = AssetDividendHistory.fromJson(json);
+        final result = FinancialAssetDividendHistory.fromJson(json);
         //assert
         expect(
           result.id,
@@ -60,23 +60,24 @@ void main() {
             xpmlDividendHistoryMock.totalDividendAmount);
       });
       test('should thrown a error when JSON has a invalid data', () {
-        expect(
-            () => AssetDividendHistory.fromJson(invalidJson), throwsException);
+        expect(() => FinancialAssetDividendHistory.fromJson(invalidJson),
+            throwsException);
       });
     });
 
     group('[toJson]', () {
       test('should return a JSON map containing the proper data', () {
         //arrange
-        final AssetDividendHistory xpmlDividendHistory = AssetDividendHistory(
-            id: 1,
-            assetId: 1,
-            exDividendDate: DateTime(2023, 07, 1),
-            paymentDate: DateTime(2023, 07, 15),
-            dividendAmount: 10.0,
-            totalDividendAmount: 100.0,
-            quantity: 10.0,
-            currency: Currency.brl);
+        final FinancialAssetDividendHistory xpmlDividendHistory =
+            FinancialAssetDividendHistory(
+                id: 1,
+                assetId: 1,
+                exDividendDate: DateTime(2023, 07, 1),
+                paymentDate: DateTime(2023, 07, 15),
+                dividendAmount: 10.0,
+                totalDividendAmount: 100.0,
+                quantity: 10.0,
+                currency: Currency.brl);
         //act
         final result = xpmlDividendHistory.toJson();
         //assert

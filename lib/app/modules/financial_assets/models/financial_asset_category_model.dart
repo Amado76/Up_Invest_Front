@@ -1,21 +1,21 @@
 import 'package:equatable/equatable.dart';
 
-enum AssetCategory { usaStock, brStock, fii, fiagro }
+enum FinancialAssetCategory { usaStock, brStock, fii, fiagro }
 
-class AssetCategoryModel extends Equatable {
-  const AssetCategoryModel(
+class FinancialAssetCategoryModel extends Equatable {
+  const FinancialAssetCategoryModel(
       {required this.category, required this.segment, this.subSegment});
-  final AssetCategory category;
+  final FinancialAssetCategory category;
   final String segment;
   final String? subSegment;
 
-  factory AssetCategoryModel.fromJson(Map<String, dynamic> json) {
+  factory FinancialAssetCategoryModel.fromJson(Map<String, dynamic> json) {
     switch (json) {
       case {
           'category': String category,
           'segment': String segment,
         }:
-        return AssetCategoryModel(
+        return FinancialAssetCategoryModel(
           category: _stringToAssetCategory(category),
           segment: segment,
           subSegment: json['subSegment'],
@@ -34,40 +34,41 @@ class AssetCategoryModel extends Equatable {
   }
 
   copyWith({
-    AssetCategory? category,
+    FinancialAssetCategory? category,
     String? segment,
     String? subSegment,
   }) {
-    return AssetCategoryModel(
+    return FinancialAssetCategoryModel(
       category: category ?? this.category,
       segment: segment ?? this.segment,
       subSegment: subSegment ?? this.subSegment,
     );
   }
 
-  String categoryToString(AssetCategory category) {
+  String categoryToString(FinancialAssetCategory category) {
     switch (category) {
-      case AssetCategory.brStock:
+      case FinancialAssetCategory.brStock:
         return 'brStock';
-      case AssetCategory.fii:
+      case FinancialAssetCategory.fii:
         return 'fii';
-      case AssetCategory.usaStock:
+      case FinancialAssetCategory.usaStock:
         return 'usaStock';
-      case AssetCategory.fiagro:
+      case FinancialAssetCategory.fiagro:
         return 'fiagro';
     }
   }
 
-  static AssetCategory _stringToAssetCategory(String category) {
+  static FinancialAssetCategory _stringToAssetCategory(String category) {
+    category = category.toLowerCase().trim();
     switch (category) {
-      case 'brStock':
-        return AssetCategory.brStock;
+      case 'brstock':
+        return FinancialAssetCategory.brStock;
       case 'fii':
-        return AssetCategory.fii;
-      case 'usaStock':
-        return AssetCategory.usaStock;
+        return FinancialAssetCategory.fii;
+      case 'usastock':
+        return FinancialAssetCategory.usaStock;
       case 'fiagro':
-        return AssetCategory.fiagro;
+        return FinancialAssetCategory.fiagro;
       default:
         throw Exception('invalid-category');
     }

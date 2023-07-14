@@ -1,9 +1,9 @@
 import 'package:up_invest_front/app/core/adapter/http/http_client_adapter.dart';
-import 'package:up_invest_front/app/modules/financial_assets/models/user_asset_model.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/user_financial_asset_model.dart';
 import 'package:up_invest_front/app/core/urls.dart';
 
-sealed class IUserAssetRepository {
-  Future<List<UserAssetModel>> getUserAssets(
+sealed class IUserFinancialAssetRepository {
+  Future<List<FinancialUserAssetModel>> getUserAssets(
       {required int userId, required String authToken});
   Future<void> deleteUserAsset(
       {required int userId, required String authToken, required int assetId});
@@ -11,19 +11,19 @@ sealed class IUserAssetRepository {
       {required String authToken, required int userId});
 }
 
-class UserAssetRepository extends IUserAssetRepository {
+class UserFinancialAssetRepository extends IUserFinancialAssetRepository {
   final IHttpClientAdapter httpClientAdapter;
 
-  UserAssetRepository({required this.httpClientAdapter});
-  String baseUrl = UrlsPaths.userAssetsUrlPath;
+  UserFinancialAssetRepository({required this.httpClientAdapter});
+  String baseUrl = UrlsPaths.baseUserAssetsUrl;
 
   @override
-  Future<List<UserAssetModel>> getUserAssets(
+  Future<List<FinancialUserAssetModel>> getUserAssets(
       {required int userId, required String authToken}) async {
     final response = await httpClientAdapter.get(
         path: baseUrl, headers: {'userid': userId, 'authtoken': authToken});
     return (response.data as List)
-        .map((e) => UserAssetModel.fromJson(e))
+        .map((e) => FinancialUserAssetModel.fromJson(e))
         .toList();
   }
 

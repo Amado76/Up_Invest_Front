@@ -1271,7 +1271,7 @@ class IntlStrings {
     final String valueInUSDString = valueInUSDNumberFormat.format(valueInUSD);
 
     return Intl.message(
-      valueInUSDString,
+      '$valueInUSDString',
       name: 'homeValueInDollar',
       desc: 'Balance value on the Home screen',
       args: [valueInUSDString],
@@ -1289,7 +1289,7 @@ class IntlStrings {
     final String valueInBRLString = valueInBRLNumberFormat.format(valueInBRL);
 
     return Intl.message(
-      valueInBRLString,
+      '$valueInBRLString',
       name: 'homeValueInReais',
       desc: 'Balance value on the Home screen',
       args: [valueInBRLString],
@@ -1391,6 +1391,46 @@ class IntlStrings {
     return Intl.message(
       'Last Month Dividends',
       name: 'homeLastMonthDividendsValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown Error`
+  String get financialErrorUnknownTitle {
+    return Intl.message(
+      'Unknown Error',
+      name: 'financialErrorUnknownTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown error, please try again.`
+  String get financialErrorUnknownMessage {
+    return Intl.message(
+      'Unknown error, please try again.',
+      name: 'financialErrorUnknownMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error Deleting Data`
+  String get financialErrorDeleteTitle {
+    return Intl.message(
+      'Error Deleting Data',
+      name: 'financialErrorDeleteTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An error occurred while deleting the data, please try again.`
+  String get financialErrorDeleteMessage {
+    return Intl.message(
+      'An error occurred while deleting the data, please try again.',
+      name: 'financialErrorDeleteMessage',
       desc: '',
       args: [],
     );

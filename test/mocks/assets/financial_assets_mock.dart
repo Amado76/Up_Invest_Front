@@ -1,11 +1,11 @@
 import 'package:mocktail/mocktail.dart';
-import 'package:up_invest_front/app/modules/financial_assets/models/asset_category_model.dart';
-import 'package:up_invest_front/app/modules/financial_assets/models/asset_dividend_history.dart';
-import 'package:up_invest_front/app/modules/financial_assets/models/asset_transaction.dart';
-import 'package:up_invest_front/app/modules/financial_assets/models/user_asset_model.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/financial_asset_category_model.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/financial_asset_dividend_history.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/financial_asset_transaction.dart';
+import 'package:up_invest_front/app/modules/financial_assets/models/user_financial_asset_model.dart';
 import 'package:up_invest_front/app/modules/settings/model/settings_model.dart';
 
-class XpmlUserAssetModelMock extends Mock implements UserAssetModel {
+class XpmlUserAssetModelMock extends Mock implements FinancialUserAssetModel {
   @override
   final id = 1;
   @override
@@ -13,13 +13,15 @@ class XpmlUserAssetModelMock extends Mock implements UserAssetModel {
   @override
   final currency = Currency.brl;
   @override
-  final category = const AssetCategoryModel(
-      category: AssetCategory.fii, segment: 'papel', subSegment: 'shopping');
+  final category = const FinancialAssetCategoryModel(
+      category: FinancialAssetCategory.fii,
+      segment: 'papel',
+      subSegment: 'shopping');
   @override
   final currentPrice = 150.50;
 }
 
-class XpmlBuyTransactionMock extends Mock implements AssetTransaction {
+class XpmlBuyTransactionMock extends Mock implements FinancialAssetTransaction {
   @override
   final id = 1;
   @override
@@ -42,7 +44,8 @@ class XpmlBuyTransactionMock extends Mock implements AssetTransaction {
   final currency = Currency.brl;
 }
 
-class XpmlSellTransactionMock extends Mock implements AssetTransaction {
+class XpmlSellTransactionMock extends Mock
+    implements FinancialAssetTransaction {
   @override
   final id = 2;
   @override
@@ -65,7 +68,8 @@ class XpmlSellTransactionMock extends Mock implements AssetTransaction {
   final currency = Currency.brl;
 }
 
-class XpmlDividendHistoryMock extends Mock implements AssetDividendHistory {
+class XpmlDividendHistoryMock extends Mock
+    implements FinancialAssetDividendHistory {
   @override
   int get id => 1;
   @override
@@ -84,7 +88,7 @@ class XpmlDividendHistoryMock extends Mock implements AssetDividendHistory {
   Currency get currency => Currency.brl;
 }
 
-class PetrUserAssetModelMock extends Mock implements UserAssetModel {
+class PetrUserAssetModelMock extends Mock implements FinancialUserAssetModel {
   @override
   final id = 2;
   @override
@@ -92,14 +96,14 @@ class PetrUserAssetModelMock extends Mock implements UserAssetModel {
   @override
   final currency = Currency.brl;
   @override
-  final category = const AssetCategoryModel(
-      category: AssetCategory.brStock,
+  final category = const FinancialAssetCategoryModel(
+      category: FinancialAssetCategory.brStock,
       segment: 'Petróleo, Gás e Biocombustíveis');
   @override
   final currentPrice = 28.50;
 }
 
-class PetrBuyTransactionMock extends Mock implements AssetTransaction {
+class PetrBuyTransactionMock extends Mock implements FinancialAssetTransaction {
   @override
   final id = 3;
   @override

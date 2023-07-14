@@ -5,8 +5,8 @@ import 'package:up_invest_front/app/modules/settings/model/settings_model.dart'
 
 enum TransactionType { buy, sell, amortization }
 
-class AssetTransaction extends Equatable {
-  const AssetTransaction({
+class FinancialAssetTransaction extends Equatable {
+  const FinancialAssetTransaction({
     required this.id,
     required this.assetId,
     required this.type,
@@ -30,7 +30,7 @@ class AssetTransaction extends Equatable {
   final double totalWithBrokerage;
   final Currency currency;
 
-  factory AssetTransaction.fromJson(Map<String, dynamic> json) {
+  factory FinancialAssetTransaction.fromJson(Map<String, dynamic> json) {
     switch (json) {
       case {
           'id': int id,
@@ -44,7 +44,7 @@ class AssetTransaction extends Equatable {
           'totalWithBrokerage': double totalWithBrokerage,
           'currency': String currency
         }:
-        return AssetTransaction(
+        return FinancialAssetTransaction(
           id: id,
           assetId: assetId,
           type: _stringToType(type),
