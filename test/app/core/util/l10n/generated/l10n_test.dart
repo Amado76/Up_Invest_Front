@@ -464,5 +464,32 @@ void main() async {
         () {
       expect(intlStrings.homeLastMonthDividendsValue, 'Last Month Dividends');
     });
+    test(
+        'should return the correct value for the key "homeLastMonthDividendsValue"',
+        () {
+      expect(intlStrings.homeLastMonthDividendsValue, 'Last Month Dividends');
+    });
+    test(
+        'should return the correct value for the key "financialErrorUnknownMessage"',
+        () {
+      expect(intlStrings.financialErrorUnknownMessage,
+          'Unknown error, please try again.');
+    });
+    test(
+        'should return the correct value for the key "financialErrorDeleteTitle"',
+        () {
+      expect(intlStrings.financialErrorDeleteTitle, 'Error Deleting Data');
+    });
+    test(
+        'should return the correct value for the key "financialErrorUnknownTitle"',
+        () {
+      expect(intlStrings.financialErrorUnknownTitle, 'Unknown Error');
+    });
+    test(
+        'should return the correct value for the key "financialErrorDeleteMessage"',
+        () {
+      expect(intlStrings.financialErrorDeleteMessage,
+          'An error occurred while deleting the data, please try again.');
+    });
   }); //
 }

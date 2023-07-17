@@ -54,6 +54,15 @@ void main() {
         expect(copy, isA<FinancialUserAssetModel>());
         expect(copy.currentPrice, 2.0);
       });
+      test('should return a copy of the model changing only the category', () {
+        //act
+        final FinancialUserAssetModel copy = userAssetModel.copyWith(
+            category: const FinancialAssetCategoryModel(
+                category: FinancialAssetCategory.usaStock, segment: 'segment'));
+        //assert
+        expect(copy, isA<FinancialUserAssetModel>());
+        expect(copy.category.category, FinancialAssetCategory.usaStock);
+      });
     });
     group('[fromJson]', () {
       final XpmlUserAssetModelMock xpmlUserAssetModelMock =

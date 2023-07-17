@@ -108,6 +108,23 @@ void main() {
         //assert
         expect(result, json);
       });
+      test('should return a JSON map containing the proper data', () {
+        //act
+        final result = FinancialAssetTransaction(
+          id: 1,
+          currency: currency,
+          type: TransactionType.sell,
+          transactionDate: date,
+          assetId: 1,
+          quantity: 10.0,
+          price: 145.75,
+          brokerage: 5.0,
+          total: 1457.5,
+          totalWithBrokerage: 1462.5,
+        ).toJson();
+        //assert
+        expect(result, sellTransactionJson);
+      });
     });
   });
 }
@@ -156,6 +173,19 @@ final invalidTypeJson = {
   'assetId': 1,
   'type': '2321312',
   'date': '2023-06-20',
+  'quantity': 10.0,
+  'price': 145.75,
+  'brokerage': 5.0,
+  'total': 1457.5,
+  'totalWithBrokerage': 1462.5,
+  'currency': 'brl'
+};
+
+final sellTransactionJson = {
+  'id': 1,
+  'assetId': 1,
+  'type': 'sell',
+  'date': '2023-06-20T00:00:00.000',
   'quantity': 10.0,
   'price': 145.75,
   'brokerage': 5.0,

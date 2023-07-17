@@ -24,7 +24,7 @@ void main() {
     test('Should call httpClientAdapter.delete', () async {
       //arrange
       when(() => dioAdapterMock.delete(
-            path: '${UrlsPaths.baseUrl}/1',
+            path: '${UrlsPaths.baseUserAssetsUrl}/1',
             headers: {
               'userid': 1,
               'authtoken': 'authToken',
@@ -38,7 +38,7 @@ void main() {
           userId: 1, authToken: 'authToken', assetId: 1);
       //assert
       verify(() => dioAdapterMock.delete(
-            path: '${UrlsPaths.baseUrl}/1',
+            path: '${UrlsPaths.baseUserAssetsUrl}/1',
             headers: {
               'userid': 1,
               'authtoken': 'authToken',
@@ -51,7 +51,7 @@ void main() {
     test('Should call httpClientAdapter.delete', () async {
       //arrange
       when(() => dioAdapterMock.delete(
-            path: UrlsPaths.baseUrl,
+            path: UrlsPaths.baseUserAssetsUrl,
             headers: {
               'userid': 1,
               'authtoken': 'authToken',
@@ -65,7 +65,7 @@ void main() {
           userId: 1, authToken: 'authToken');
       //assert
       verify(() => dioAdapterMock.delete(
-            path: UrlsPaths.baseUrl,
+            path: UrlsPaths.baseUserAssetsUrl,
             headers: {
               'userid': 1,
               'authtoken': 'authToken',
@@ -78,7 +78,7 @@ void main() {
     test('should return a list of Userassets', () async {
       //Arrange
       when(() => dioAdapterMock.get(
-            path: UrlsPaths.baseUrl,
+            path: UrlsPaths.baseUserAssetsUrl,
             headers: {
               'userid': 1,
               'authtoken': 'authToken',

@@ -43,7 +43,7 @@ void main() {
       //Arrange
 
       when(() => dioAdapterMock.get(
-                path: '${UrlsPaths.baseUrl}/1',
+                path: '${UrlsPaths.baseFinancialAssetUrl}/1',
                 headers: any(named: 'headers'),
               ))
           .thenAnswer((_) async => (data: jsonSpecificAsset, statusCode: 200));
