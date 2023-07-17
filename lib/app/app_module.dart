@@ -6,6 +6,8 @@ import 'package:up_invest_front/app/core/adapter/cache_adapter/cache_adapter.dar
 import 'package:up_invest_front/app/core/adapter/http/http_client_adapter.dart';
 import 'package:up_invest_front/app/core/adapter/local_storage_adapter/local_storage_adapter_interface.dart';
 import 'package:up_invest_front/app/core/adapter/remote_storage/remote_storage_adapter.dart';
+import 'package:up_invest_front/app/modules/financial_assets/financial_assets_module.dart';
+import 'package:up_invest_front/app/modules/goals/goals_module.dart';
 import 'package:up_invest_front/app/modules/home/home_module.dart';
 import 'package:up_invest_front/app/modules/auth/auth_module.dart';
 import 'package:up_invest_front/app/modules/get_started/get_started_module.dart';
@@ -47,5 +49,7 @@ class AppModule extends Module {
   final List<Module> imports = [
     AuthModule(),
     SettingsModule(),
+    GoalsModule(),
+    FinancialAssetsModule()
   ];
 }

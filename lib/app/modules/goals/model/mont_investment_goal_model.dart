@@ -10,8 +10,8 @@ class MonthInvestmentGoalModel extends GoalModel {
     required String description,
     required goalValue,
     required currentValue,
-    achievementDate,
-    isCompleted,
+    DateTime? achievementDate,
+    bool isCompleted = false,
   }) : super(
             goalValue: goalValue,
             currentValue: currentValue,
@@ -38,6 +38,7 @@ class MonthInvestmentGoalModel extends GoalModel {
           'startDate': String startDate,
           'deadLine': String deadLine,
           'isMissed': bool isMissed,
+          'goalType': 'MonthInvestmentGoalModel'
         }:
         return MonthInvestmentGoalModel(
           id: id,
@@ -59,6 +60,7 @@ class MonthInvestmentGoalModel extends GoalModel {
     }
   }
 
+  @override
   toJson() {
     return {
       'id': id,
@@ -71,6 +73,7 @@ class MonthInvestmentGoalModel extends GoalModel {
       'startDate': startDate.toIso8601String(),
       'deadLine': deadLine.toIso8601String(),
       'isMissed': isMissed,
+      'goalType': 'MonthInvestmentGoalModel'
     };
   }
 

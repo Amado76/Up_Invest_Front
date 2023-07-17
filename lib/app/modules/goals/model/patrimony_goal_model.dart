@@ -5,10 +5,10 @@ class PatrimonyGoalModel extends GoalModel {
     required int id,
     required String title,
     required String description,
-    required goalValue,
-    required currentValue,
-    achievementDate,
-    isCompleted,
+    required double goalValue,
+    required double currentValue,
+    DateTime? achievementDate,
+    bool isCompleted = false,
   }) : super(
             goalValue: goalValue,
             currentValue: currentValue,
@@ -28,6 +28,7 @@ class PatrimonyGoalModel extends GoalModel {
           'currentValue': double currentValue,
           'achievementDate': String? achievementDate,
           'isCompleted': bool isCompleted,
+          'goalType': 'PatrimonyGoalModel'
         }:
         return PatrimonyGoalModel(
           id: id,
@@ -46,6 +47,7 @@ class PatrimonyGoalModel extends GoalModel {
     }
   }
 
+  @override
   toJson() {
     return {
       'id': id,
@@ -55,6 +57,7 @@ class PatrimonyGoalModel extends GoalModel {
       'currentValue': currentValue,
       'achievementDate': achievementDate?.toIso8601String(),
       'isCompleted': isCompleted,
+      'goalType': 'PatrimonyGoalModel'
     };
   }
 

@@ -97,6 +97,7 @@ final json = {
   'currentValue': 100.00,
   'isCompleted': true,
   'achievementDate': '2021-01-01T00:00:00.000',
+  'goalType': 'PassiveIncomeGoalModel'
 };
 final invalidJson = {
   'id': '1',
@@ -106,4 +107,5 @@ final invalidJson = {
   'currentValue': 100,
   'isCompleted': false,
   'achievementDate': null,
+  'goalType': 'PassiveIncomeGoalModel'
 };

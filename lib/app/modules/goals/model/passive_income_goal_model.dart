@@ -7,8 +7,8 @@ class PassiveIncomeGoalModel extends GoalModel {
     required String description,
     required goalValue,
     required currentValue,
-    achievementDate,
-    isCompleted,
+    DateTime? achievementDate,
+    bool isCompleted = false,
   }) : super(
             goalValue: goalValue,
             currentValue: currentValue,
@@ -28,6 +28,7 @@ class PassiveIncomeGoalModel extends GoalModel {
           'currentValue': double currentValue,
           'achievementDate': String? achievementDate,
           'isCompleted': bool isCompleted,
+          'goalType': 'PassiveIncomeGoalModel'
         }:
         return PassiveIncomeGoalModel(
           id: id,
@@ -46,6 +47,7 @@ class PassiveIncomeGoalModel extends GoalModel {
     }
   }
 
+  @override
   toJson() {
     return {
       'id': id,
@@ -55,6 +57,7 @@ class PassiveIncomeGoalModel extends GoalModel {
       'currentValue': currentValue,
       'achievementDate': achievementDate?.toIso8601String(),
       'isCompleted': isCompleted,
+      'goalType': 'PassiveIncomeGoalModel'
     };
   }
 

@@ -149,7 +149,8 @@ final goalMissedJson = {
   'achievementDate': null,
   'startDate': '2023-03-01T00:00:00.000',
   'deadLine': '2023-03-31T00:00:00.000',
-  'isMissed': true
+  'isMissed': true,
+  'goalType': 'MonthInvestmentGoalModel'
 };
 final goalCompletedJson = {
   'id': 1,
@@ -161,7 +162,8 @@ final goalCompletedJson = {
   'achievementDate': '2023-03-31T00:00:00.000',
   'startDate': '2023-03-01T00:00:00.000',
   'deadLine': '2023-03-31T00:00:00.000',
-  'isMissed': false
+  'isMissed': false,
+  'goalType': 'MonthInvestmentGoalModel'
 };
 final invalidJson = {
   'id': '1',
@@ -173,5 +175,6 @@ final invalidJson = {
   'achievementDate': null,
   'startDate': '2023-03-01T00:00:00.000',
   'deadLine': '2023-03-31T00:00:00.000',
-  'isMissed': true
+  'isMissed': true,
+  'goalType': 'MonthInvestmentGoalModel'
 };

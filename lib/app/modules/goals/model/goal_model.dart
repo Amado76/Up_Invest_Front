@@ -19,4 +19,6 @@ sealed class GoalModel extends Equatable {
   final double currentValue;
   final bool isCompleted;
   final DateTime? achievementDate;
+
+  Map<String, dynamic> toJson();
 }
