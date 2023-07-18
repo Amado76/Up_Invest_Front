@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:up_invest_front/app/core/util/validator/email_validator.dart';
 import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/custom_snack_bar.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/recovery_password/recover_password_bloc.dart';
 
-import 'package:up_invest_front/app/core/util/validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_auth_scaffold.dart';
 import 'package:up_invest_front/app/core/widgets/custom_elevated_button.dart';
 
@@ -24,7 +24,7 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
   final _formKey = GlobalKey<FormState>();
   final _recoverPasswordBloc = Modular.get<RecoverPasswordBloc>();
   final _customBar = CustomSnackBar();
-  final _validator = Validator();
+  final _emailValidator = EmailValidator();
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,7 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                   keyBoardType: TextInputType.emailAddress,
                                   hintText: intlString.emailHintText,
                                   validator: (email) {
-                                    return _validator.emailValidator(email);
+                                    return _emailValidator.validate(email);
                                   }),
                               const SizedBox(height: 15),
                               CustomElevatedButton(

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:up_invest_front/app/core/util/validator/email_validator.dart';
+import 'package:up_invest_front/app/core/util/validator/password_sign_in_validator.dart';
 import 'package:up_invest_front/app/core/widgets/custom_password_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
-import 'package:up_invest_front/app/core/util/validator.dart';
 import 'package:up_invest_front/app/core/widgets/custom_elevated_button.dart';
 
 import 'package:up_invest_front/app/modules/settings/bloc/settings_bloc.dart';
@@ -171,7 +172,16 @@ class SignInFormState extends State<_SignInForm> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _validator = Validator();
+  final _emailValidator = EmailValidator();
+  final _passwordValidator = PasswordSignInValidator();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +197,7 @@ class SignInFormState extends State<_SignInForm> {
                 icon: const Icon(Icons.email_outlined),
                 controller: _emailController,
                 validator: (email) {
-                  return _validator.emailValidator(email);
+                  return _emailValidator.validate(email);
                 }),
             const SizedBox(
               height: 11,
@@ -196,7 +206,7 @@ class SignInFormState extends State<_SignInForm> {
               hintText: intlString.passwordHintText,
               controller: _passwordController,
               validator: (password) {
-                return _validator.signInPasswordValidator(password);
+                return _passwordValidator.validate(password);
               },
             ),
             const Row(

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
-import 'package:up_invest_front/app/core/util/validator.dart';
+import 'package:up_invest_front/app/core/util/validator/email_validator.dart';
+import 'package:up_invest_front/app/core/util/validator/password_sign_in_validator.dart';
 import 'package:up_invest_front/app/core/widgets/custom_alert_dialog.dart';
 import 'package:up_invest_front/app/core/widgets/custom_password_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
@@ -19,16 +20,26 @@ class EditEmailWidget extends StatefulWidget {
 }
 
 class _EditEmailWidgetState extends State<EditEmailWidget> {
+  final _emailValidator = EmailValidator();
+  final _passwordValidator = PasswordSignInValidator();
+  final TextEditingController _currentEmailController = TextEditingController();
+  final TextEditingController _newEmailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  @override
+  void dispose() {
+    _currentEmailController.dispose();
+    _passwordController.dispose();
+    _newEmailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final editDetailsBloc = Modular.get<EditDetailsBloc>();
     final IntlStrings intlStrings = IntlStrings.current;
-    final TextEditingController currentEmailController =
-        TextEditingController();
-    final TextEditingController newEmailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    final Validator validator = Validator();
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
     return EditDetailsPageRow(
       icon: Icons.email_outlined,
       title: intlStrings.emailHintText.toUpperCase(),
@@ -50,25 +61,25 @@ class _EditEmailWidgetState extends State<EditEmailWidget> {
                           hintText: intlStrings.emailHintText,
                           keyBoardType: TextInputType.emailAddress,
                           validator: (email) {
-                            return validator.emailValidator(email);
+                            return _emailValidator.validate(email);
                           },
-                          controller: currentEmailController),
+                          controller: _currentEmailController),
                       const SizedBox(height: 10),
                       CustomTextFormField(
                           icon: const Icon(Icons.email_outlined),
                           hintText: intlStrings.editDetailsNewEmailHintText,
                           keyBoardType: TextInputType.emailAddress,
                           validator: (email) {
-                            return validator.emailValidator(email);
+                            return _emailValidator.validate(email);
                           },
-                          controller: newEmailController),
+                          controller: _newEmailController),
                       const SizedBox(height: 10),
                       CustomPasswordFormField(
                           hintText: intlStrings.passwordHintText,
                           validator: (password) {
-                            return validator.signInPasswordValidator(password);
+                            return _passwordValidator.validate(password);
                           },
-                          controller: passwordController)
+                          controller: _passwordController)
                     ]),
               ),
             ),
@@ -78,9 +89,9 @@ class _EditEmailWidgetState extends State<EditEmailWidget> {
             }, onSave: () {
               if (formKey.currentState!.validate()) {
                 editDetailsBloc.add(EditDetailsUpdateEmail(
-                    newEmail: newEmailController.text,
-                    email: currentEmailController.text,
-                    password: passwordController.text));
+                    newEmail: _newEmailController.text,
+                    email: _currentEmailController.text,
+                    password: _passwordController.text));
                 Navigator.of(context).pop();
               }
             }));

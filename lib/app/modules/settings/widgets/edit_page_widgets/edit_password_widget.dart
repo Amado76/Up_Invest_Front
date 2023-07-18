@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
-import 'package:up_invest_front/app/core/util/validator.dart';
+import 'package:up_invest_front/app/core/util/validator/confirm_password_validator.dart';
+import 'package:up_invest_front/app/core/util/validator/email_validator.dart';
+import 'package:up_invest_front/app/core/util/validator/password_sign_in_validator.dart';
+import 'package:up_invest_front/app/core/util/validator/password_sign_up_validator.dart';
 import 'package:up_invest_front/app/core/widgets/custom_alert_dialog.dart';
 import 'package:up_invest_front/app/core/widgets/custom_password_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
@@ -18,18 +21,22 @@ class EditPasswordWidget extends StatefulWidget {
 }
 
 class _EditPasswordWidgetState extends State<EditPasswordWidget> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmNewPasswordController =
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmNewPasswordController =
       TextEditingController();
+  final _emailValidator = EmailValidator();
+  final _passwordValidator = PasswordSignInValidator();
+  final _newPasswordValidator = PasswordSignUpValidator();
+  final _confirmNewPasswordValidator = ConfirmPasswordValidator();
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    newPasswordController.dispose();
-    confirmNewPasswordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _newPasswordController.dispose();
+    _confirmNewPasswordController.dispose();
     super.dispose();
   }
 
@@ -37,8 +44,6 @@ class _EditPasswordWidgetState extends State<EditPasswordWidget> {
   Widget build(BuildContext context) {
     final editDetailsBloc = Modular.get<EditDetailsBloc>();
     final IntlStrings intlStrings = IntlStrings.current;
-
-    final Validator validator = Validator();
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return EditDetailsPageRow(
       icon: Icons.lock_outline,
@@ -61,51 +66,52 @@ class _EditPasswordWidgetState extends State<EditPasswordWidget> {
                           hintText: intlStrings.emailHintText,
                           keyBoardType: TextInputType.emailAddress,
                           validator: (email) {
-                            return validator.emailValidator(email);
+                            return _emailValidator.validate(email);
                           },
-                          controller: emailController),
+                          controller: _emailController),
                       const SizedBox(height: 10),
                       CustomPasswordFormField(
                           hintText: intlStrings.passwordHintText,
                           validator: (password) {
-                            return validator.signInPasswordValidator(password);
+                            return _passwordValidator.validate(password);
                           },
-                          controller: passwordController),
+                          controller: _passwordController),
                       const SizedBox(height: 10),
                       CustomPasswordFormField(
                           hintText: intlStrings.editDetailsNewPasswordHintText,
                           validator: (password) {
-                            return validator.signUpPasswordValidator(password);
+                            return _newPasswordValidator.validate(password);
                           },
-                          controller: newPasswordController),
+                          controller: _newPasswordController),
                       const SizedBox(height: 10),
                       CustomPasswordFormField(
                           hintText:
                               intlStrings.editDetailsConfirmNewPasswordHintText,
                           validator: (password) {
-                            return validator.confirmPasswordValidator(
-                                newPasswordController.text, password);
+                            return _confirmNewPasswordValidator.validate(
+                                input: _newPasswordController.text,
+                                stringToCompare: password);
                           },
-                          controller: confirmNewPasswordController)
+                          controller: _confirmNewPasswordController)
                     ]),
               ),
             ),
             barrierDismissible: true,
             actions: CustomDialogActions(onCancel: () {
-              emailController.clear();
-              passwordController.clear();
-              newPasswordController.clear();
-              confirmNewPasswordController.clear();
+              _emailController.clear();
+              _passwordController.clear();
+              _newPasswordController.clear();
+              _confirmNewPasswordController.clear();
               Navigator.of(context).pop();
             }, onSave: () {
               if (formKey.currentState!.validate()) {
                 editDetailsBloc.add(EditDetailsUpdatePassword(
-                    email: emailController.text,
-                    newPassword: newPasswordController.text,
-                    password: passwordController.text));
-                emailController.clear();
-                passwordController.clear();
-                newPasswordController.clear();
+                    email: _emailController.text,
+                    newPassword: _newPasswordController.text,
+                    password: _passwordController.text));
+                _emailController.clear();
+                _passwordController.clear();
+                _newPasswordController.clear();
                 Navigator.of(context).pop();
               }
             }));

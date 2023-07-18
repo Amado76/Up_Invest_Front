@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
-import 'package:up_invest_front/app/core/util/validator.dart';
+import 'package:up_invest_front/app/core/util/validator/name_validator.dart';
 import 'package:up_invest_front/app/core/widgets/custom_alert_dialog.dart';
 import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
 import 'package:up_invest_front/app/modules/settings/bloc/settings/edit_details_bloc.dart';
@@ -17,12 +17,19 @@ class EditNameWidget extends StatefulWidget {
 }
 
 class _EditNameWidgetState extends State<EditNameWidget> {
+  final TextEditingController _nameController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final NameValidator _nameValidator = NameValidator();
+  @override
+  void dispose() {
+    _nameController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final IntlStrings intlStrings = IntlStrings.current;
-    final TextEditingController nameController = TextEditingController();
-    final Validator validator = Validator();
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final editDetailsBloc = Modular.get<EditDetailsBloc>();
     return EditDetailsPageRow(
       icon: Icons.person_2_outlined,
@@ -36,16 +43,16 @@ class _EditNameWidgetState extends State<EditNameWidget> {
               height: 110,
               width: 300,
               child: Form(
-                key: formKey,
+                key: _formKey,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomTextFormField(
                           hintText: intlStrings.nameHintText,
                           validator: (name) {
-                            return validator.minNameLengthValidator(name);
+                            return _nameValidator.validate(name);
                           },
-                          controller: nameController)
+                          controller: _nameController)
                     ]),
               ),
             ),
@@ -53,9 +60,9 @@ class _EditNameWidgetState extends State<EditNameWidget> {
             actions: CustomDialogActions(onCancel: () {
               Navigator.of(context).pop();
             }, onSave: () {
-              if (formKey.currentState!.validate()) {
-                editDetailsBloc.add(
-                    EditDetailsUpdateDisplayName(newName: nameController.text));
+              if (_formKey.currentState!.validate()) {
+                editDetailsBloc.add(EditDetailsUpdateDisplayName(
+                    newName: _nameController.text));
                 Navigator.of(context).pop();
               }
             }));

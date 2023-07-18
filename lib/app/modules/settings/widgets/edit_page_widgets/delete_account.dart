@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
-import 'package:up_invest_front/app/core/util/validator.dart';
+import 'package:up_invest_front/app/core/util/validator/email_validator.dart';
+import 'package:up_invest_front/app/core/util/validator/password_sign_in_validator.dart';
 import 'package:up_invest_front/app/core/widgets/custom_alert_dialog.dart';
 import 'package:up_invest_front/app/core/widgets/custom_password_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
@@ -17,16 +18,25 @@ class DeleteAccount extends StatefulWidget {
 }
 
 class __DeleteAccountState extends State<DeleteAccount> {
+  final _emailValidator = EmailValidator();
+  final _passwordValidator = PasswordSignInValidator();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final editDetailsBloc = Modular.get<EditDetailsBloc>();
     final IntlStrings intlStrings = IntlStrings.current;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    final Validator validator = Validator();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
 
     return Row(
       children: [
@@ -60,7 +70,7 @@ class __DeleteAccountState extends State<DeleteAccount> {
                       ),
                       const SizedBox(height: 15),
                       Form(
-                        key: formKey,
+                        key: _formKey,
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -69,17 +79,17 @@ class __DeleteAccountState extends State<DeleteAccount> {
                                   hintText: intlStrings.emailHintText,
                                   keyBoardType: TextInputType.emailAddress,
                                   validator: (email) {
-                                    return validator.emailValidator(email);
+                                    return _emailValidator.validate(email);
                                   },
-                                  controller: emailController),
+                                  controller: _emailController),
                               const SizedBox(height: 10),
                               CustomPasswordFormField(
                                   hintText: intlStrings.passwordHintText,
                                   validator: (password) {
-                                    return validator
-                                        .signInPasswordValidator(password);
+                                    return _passwordValidator
+                                        .validate(password);
                                   },
-                                  controller: passwordController)
+                                  controller: _passwordController)
                             ]),
                       ),
                       const SizedBox(height: 30),
@@ -107,10 +117,10 @@ class __DeleteAccountState extends State<DeleteAccount> {
                       Navigator.of(context).pop();
                     },
                     onSave: () {
-                      if (formKey.currentState!.validate()) {
+                      if (_formKey.currentState!.validate()) {
                         editDetailsBloc.add(EditDetailsDeleteAccount(
-                            email: emailController.text,
-                            password: passwordController.text));
+                            email: _emailController.text,
+                            password: _passwordController.text));
                       }
                       Navigator.of(context).pop();
                     }));

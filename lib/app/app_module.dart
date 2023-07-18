@@ -6,6 +6,7 @@ import 'package:up_invest_front/app/core/adapter/cache_adapter/cache_adapter.dar
 import 'package:up_invest_front/app/core/adapter/http/http_client_adapter.dart';
 import 'package:up_invest_front/app/core/adapter/local_storage_adapter/local_storage_adapter_interface.dart';
 import 'package:up_invest_front/app/core/adapter/remote_storage/remote_storage_adapter.dart';
+import 'package:up_invest_front/app/modules/achievement/achivement_module.dart';
 import 'package:up_invest_front/app/modules/financial_assets/financial_assets_module.dart';
 import 'package:up_invest_front/app/modules/goals/goals_module.dart';
 import 'package:up_invest_front/app/modules/home/home_module.dart';
@@ -23,6 +24,9 @@ class AppModule extends Module {
     ),
     Bind.singleton<IHttpClientAdapter>(
       (i) => DioAdapter(dio: i.get<Dio>()),
+    ),
+    Bind.singleton<Dio>(
+      (i) => Dio(),
     ),
     Bind.lazySingleton<IRemoteStorageAdapter>(
         (i) => FirebaseStorageAdapter(storage: i.get<FirebaseStorage>())),
@@ -50,6 +54,7 @@ class AppModule extends Module {
     AuthModule(),
     SettingsModule(),
     GoalsModule(),
-    FinancialAssetsModule()
+    FinancialAssetsModule(),
+    AchivementModule()
   ];
 }

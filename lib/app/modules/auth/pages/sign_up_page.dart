@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:up_invest_front/app/core/util/validator/confirm_password_validator.dart';
+import 'package:up_invest_front/app/core/util/validator/email_validator.dart';
+import 'package:up_invest_front/app/core/util/validator/name_validator.dart';
+import 'package:up_invest_front/app/core/util/validator/password_sign_up_validator.dart';
 import 'package:up_invest_front/app/core/widgets/custom_password_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/custom_text_form_field.dart';
 import 'package:up_invest_front/app/core/widgets/loading/loading_screen.dart';
@@ -12,7 +16,6 @@ import 'package:up_invest_front/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/bloc/sign_up/sign_up_bloc.dart';
 import 'package:up_invest_front/app/modules/auth/model/avatar_model.dart';
 
-import 'package:up_invest_front/app/core/util/validator.dart';
 import 'package:up_invest_front/app/modules/auth/widgets/custom_auth_scaffold.dart';
 import 'package:up_invest_front/app/core/widgets/custom_elevated_button.dart';
 import 'package:up_invest_front/app/core/util/l10n/generated/l10n.dart';
@@ -232,7 +235,20 @@ class _SingUpFormState extends State<_SingUpForm> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _signUpBloc = Modular.get<SignUpBloc>();
-  final _validator = Validator();
+  final _emailValidator = EmailValidator();
+  final _passwordValidator = PasswordSignUpValidator();
+  final _confirmPasswordValidator = ConfirmPasswordValidator();
+  final _nameValidator = NameValidator();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _nameController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -246,7 +262,7 @@ class _SingUpFormState extends State<_SingUpForm> {
               hintText: intlStrings.nameHintText,
               icon: const Icon(Icons.person_2_outlined),
               validator: (name) {
-                return _validator.minNameLengthValidator(name);
+                return _nameValidator.validate(name);
               }),
           const SizedBox(height: 11),
           CustomTextFormField(
@@ -255,14 +271,14 @@ class _SingUpFormState extends State<_SingUpForm> {
               hintText: intlStrings.emailHintText,
               icon: const Icon(Icons.email_outlined),
               validator: (email) {
-                return _validator.emailValidator(email);
+                return _emailValidator.validate(email);
               }),
           const SizedBox(height: 11),
           CustomPasswordFormField(
             controller: _passwordController,
             hintText: intlStrings.passwordHintText,
             validator: (password) {
-              return _validator.signUpPasswordValidator(password);
+              return _passwordValidator.validate(password);
             },
           ),
           const SizedBox(height: 11),
@@ -270,8 +286,9 @@ class _SingUpFormState extends State<_SingUpForm> {
             controller: _confirmPasswordController,
             hintText: intlStrings.confirmYourPasswordHintText,
             validator: (confirmPassword) {
-              return _validator.confirmPasswordValidator(
-                  _passwordController.text, confirmPassword);
+              return _confirmPasswordValidator.validate(
+                  input: _passwordController.text,
+                  stringToCompare: confirmPassword);
             },
           ),
           const SizedBox(height: 11),
