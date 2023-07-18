@@ -58,11 +58,15 @@ class _EditNameWidgetState extends State<EditNameWidget> {
             ),
             barrierDismissible: true,
             actions: CustomDialogActions(onCancel: () {
+              _nameController.clear();
+
               Navigator.of(context).pop();
             }, onSave: () {
               if (_formKey.currentState!.validate()) {
                 editDetailsBloc.add(EditDetailsUpdateDisplayName(
                     newName: _nameController.text));
+                _nameController.clear();
+
                 Navigator.of(context).pop();
               }
             }));

@@ -85,6 +85,9 @@ class _EditEmailWidgetState extends State<EditEmailWidget> {
             ),
             barrierDismissible: true,
             actions: CustomDialogActions(onCancel: () {
+              _currentEmailController.clear();
+              _passwordController.clear();
+              _newEmailController.clear();
               Navigator.of(context).pop();
             }, onSave: () {
               if (formKey.currentState!.validate()) {
@@ -92,6 +95,10 @@ class _EditEmailWidgetState extends State<EditEmailWidget> {
                     newEmail: _newEmailController.text,
                     email: _currentEmailController.text,
                     password: _passwordController.text));
+                _currentEmailController.clear();
+                _passwordController.clear();
+                _newEmailController.clear();
+
                 Navigator.of(context).pop();
               }
             }));

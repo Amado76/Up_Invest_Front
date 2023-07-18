@@ -59,48 +59,51 @@ class __DeleteAccountState extends State<DeleteAccount> {
                 content: SizedBox(
                   width: 300,
                   height: 300,
-                  child: Column(
-                    children: [
-                      Text(
-                        intlStrings.editDetailsDeleteAccoutnWarningPersonalData,
-                        style: TextStyle(
-                          color: colorScheme.outline,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Text(
+                          intlStrings
+                              .editDetailsDeleteAccoutnWarningPersonalData,
+                          style: TextStyle(
+                            color: colorScheme.outline,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 15),
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomTextFormField(
-                                  icon: const Icon(Icons.email_outlined),
-                                  hintText: intlStrings.emailHintText,
-                                  keyBoardType: TextInputType.emailAddress,
-                                  validator: (email) {
-                                    return _emailValidator.validate(email);
-                                  },
-                                  controller: _emailController),
-                              const SizedBox(height: 10),
-                              CustomPasswordFormField(
-                                  hintText: intlStrings.passwordHintText,
-                                  validator: (password) {
-                                    return _passwordValidator
-                                        .validate(password);
-                                  },
-                                  controller: _passwordController)
-                            ]),
-                      ),
-                      const SizedBox(height: 30),
-                      Text(
-                        intlStrings.editDetailsDeleteAccountWarning,
-                        style: TextStyle(
-                          color: colorScheme.outline,
+                        const SizedBox(height: 15),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomTextFormField(
+                                    icon: const Icon(Icons.email_outlined),
+                                    hintText: intlStrings.emailHintText,
+                                    keyBoardType: TextInputType.emailAddress,
+                                    validator: (email) {
+                                      return _emailValidator.validate(email);
+                                    },
+                                    controller: _emailController),
+                                const SizedBox(height: 10),
+                                CustomPasswordFormField(
+                                    hintText: intlStrings.passwordHintText,
+                                    validator: (password) {
+                                      return _passwordValidator
+                                          .validate(password);
+                                    },
+                                    controller: _passwordController)
+                              ]),
                         ),
-                        textAlign: TextAlign.center,
-                      )
-                    ],
+                        const SizedBox(height: 30),
+                        Text(
+                          intlStrings.editDetailsDeleteAccountWarning,
+                          style: TextStyle(
+                            color: colorScheme.outline,
+                          ),
+                          textAlign: TextAlign.center,
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 actions: CustomDialogActions(
@@ -114,6 +117,9 @@ class __DeleteAccountState extends State<DeleteAccount> {
                         Icon(Icons.delete_forever, color: colorScheme.error),
                     onCancelIcon: Icon(Icons.check, color: colorScheme.primary),
                     onCancel: () {
+                      _emailController.clear();
+                      _passwordController.clear();
+
                       Navigator.of(context).pop();
                     },
                     onSave: () {
@@ -122,6 +128,9 @@ class __DeleteAccountState extends State<DeleteAccount> {
                             email: _emailController.text,
                             password: _passwordController.text));
                       }
+                      _emailController.clear();
+                      _passwordController.clear();
+
                       Navigator.of(context).pop();
                     }));
           },
