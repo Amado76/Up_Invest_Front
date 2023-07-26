@@ -53,6 +53,7 @@ dependencies:
   flutter_cache_manager: ^3.3.0
   path_provider: ^2.0.15
   dio: ^5.2.1+1
+  lottie: ^2.5.0
 
   
 
@@ -98,6 +99,7 @@ flutter:
     - assets/images/
     - assets/avatars/
     - assets/icons/
+    - assets/animation/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

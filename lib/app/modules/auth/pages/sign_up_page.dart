@@ -41,7 +41,6 @@ class _SingUpPageState extends State<SingUpPage> {
     final intlString = IntlStrings.of(context);
     final customBar = CustomSnackBar();
     AvatarModel avatar = signUpBloc.state.avatar;
-    final hideLoading = LoadingScreen.instance().hide();
 
     return BlocListener<AuthBloc, AuthState>(
       bloc: authBloc,
@@ -55,12 +54,15 @@ class _SingUpPageState extends State<SingUpPage> {
         bloc: signUpBloc,
         listener: (context, state) {
           return switch (state) {
-            SignUpIdle(avatar: final avatar) => {hideLoading, avatar.path},
+            SignUpIdle(avatar: final avatar) => {
+                LoadingScreen.instance().hide(),
+                avatar.path
+              },
             SignUpError(avatar: final avatar, authError: final authError) => {
-                hideLoading,
+                LoadingScreen.instance().hide(),
                 avatar.path,
                 customBar.showBottomErrorSnackBar(
-                    authError.dialogTitle, authError.dialogText, context)
+                    authError.dialogTitle, authError.dialogText, context),
               },
             SignUpLoading() => LoadingScreen.instance()
                 .show(context: context, text: intlString.loading),
